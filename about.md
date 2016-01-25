@@ -4,27 +4,32 @@ title: About
 ---
 
 <p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
+Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. (Bryan Tracey)
+</p>
+<p class="message">
+If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want (Zig Ziglar)
 </p>
 
-In the novel, *The Strange Case of Dr. Jekyll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+## My experience
 
-There are currently two themes built on Poole:
+![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png)
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
 
-Learn more and contribute on [GitHub](https://github.com/poole).
+I studied business but discovered early that I am really passionate about software development. I obtained certifications in Python, Java and Android programming (O'Reilly School of Technology). I share my learning on software development, coding and web technologies at http://bobbelderbos.com/. I am currently learning more about Algorithms, Big Data (Hadoop) and leading (agile) teams.
 
-## Setup
+I characterize myself as organized, analytical, proactive, integer, goal-oriented, a good team player, and an effective communicator. One of my most important traits is that I am continuously working on becoming better in my field. 
 
-Some fun facts about the setup of this project include:
+Apart from delivering high quality solutions with eye for detail, I am innovative and strategic in my thinking and a natural connector. People I work with say I am personable and empathic. That's why I aim to be a mentor/inspiration for other developers. 
 
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
+Languages: fluent in Spanish / English / Dutch, conversation skills in French. I enjoy learning languages and working in multicultural teams.
 
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
+## Where to follow me
+
+* [Twitter](http://twitter.com/bbelderbos)
+* [LinkedIN](https://www.linkedin.com/in/bbelderbos)
+* [Github](http://github.com/bbelderbos)
+
+Have questions or suggestions? Feel free to contact me, I am happy to help.
 
 Thanks for reading!
