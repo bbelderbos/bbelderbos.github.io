@@ -28,3 +28,9 @@ author:
 version:             2.0.0
 github:
   repo:              https://github.com/bbelderbos/bbelderbos.github.io
+
+# navigation bar 
+pages_list:       
+  About: '/about'
+  Archive: '/archive'
+  Feed: '/atom.xml'
