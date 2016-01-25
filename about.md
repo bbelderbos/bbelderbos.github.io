@@ -12,13 +12,13 @@ If you can dream it, then you can achieve it. You will get all you want in life 
 
 ## My experience
 
-![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png){: .callout}
-
 Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
 
 I studied business but discovered early that I am really passionate about software development. I obtained certifications in Python, Java and Android programming (O'Reilly School of Technology). I share my learning on software development, coding and web technologies at http://bobbelderbos.com/. I am currently learning more about Algorithms, Big Data (Hadoop) and leading (agile) teams.
 
 I characterize myself as organized, analytical, proactive, integer, goal-oriented, a good team player, and an effective communicator. One of my most important traits is that I am continuously working on becoming better in my field. 
+
+![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png){: .callout}
 
 Apart from delivering high quality solutions with eye for detail, I am innovative and strategic in my thinking and a natural connector. People I work with say I am personable and empathic. That's why I aim to be a mentor/inspiration for other developers. 
 
