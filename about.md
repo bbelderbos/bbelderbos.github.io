@@ -12,7 +12,7 @@ If you can dream it, then you can achieve it. You will get all you want in life 
 
 ## My experience
 
-![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png)
+![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png){.callout}
 
 Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
 
