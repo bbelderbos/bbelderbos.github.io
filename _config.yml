@@ -7,7 +7,7 @@ relative_permalinks: true
 # Setup
 title:               Bob Belderbos | Software Developer
 tagline:             My learning on software development, coding and web technologies
-url:                 http://bobbelderbos.com
+url:                 http://bbelderbos.github.io
 paginate:            1
 baseurl:             ""
 
