@@ -5,9 +5,9 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               Poole
-tagline:             The Jekyll Butler
-url:                 http://getpoole.com
+title:               Bob Belderbos | Software Developer
+tagline:             My learning on software development, coding and web technologies
+url:                 http://bobbelderbos.com
 paginate:            1
 baseurl:             ""
 
@@ -20,11 +20,11 @@ sass:
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name:              Bob Belderbos
+  url:               https://twitter.com/bbelderbos
+  email:             info@bobbelderbos.com
 
 # Custom vars
 version:             2.0.0
 github:
-  repo:              https://github.com/poole/poole
+  repo:              https://github.com/bbelderbos/bbelderbos.github.io
