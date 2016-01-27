@@ -1,0 +1,56 @@
+---
+layout: post
+title: 'Example Facebook PHP SDK: Post to Friend''s wall'
+date: 2011-08-21 02:46:29.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- facebook
+- php
+- sdk
+- stream_publish
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1155'
+  dsq_thread_id: '391737682'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I got a question from one of my readers how to automatically post to the Wall of a friend. I started to code a quick example, but I realized it might be valuable to more people, so here is the code and a short howto.</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/wall_post.png" alt="featured image" style="float:right; margin: 20px;" width="100" /></p>
+<p>This example is in PHP. You first create an app at the <a href="https://developers.facebook.com/apps" target="_blank">Facebook developer page</a>, then you get the <a href="http://developers.facebook.com/blog/post/503" target="_blank">Facebook PHP SDK 3.0</a> and download it to the defined folder (localhost/whatever/). The complete code example is <a href="https://github.com/bbelderbos/Codesnippets/blob/master/apis/facebook/post_wall.zip" target="_blank">here</a></p>
+<p>Here you can see how this looks :</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_1a.create_app.png" alt="Creating an app" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/fb_1b.app_codes.png" alt="Copy in the app codes" style="float:none; margin: 20px;" width="571" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>The SDK comes with an example php page, copy it over to the root of your project</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_2.project_folder.png" alt="Project structure" style="float:none; margin: 20px;" width="162" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/fb_3a.login_link.png" alt="Login link" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/fb_3b.loginwrapper.png" alt="Login wrapper" style="float:none; margin: 20px;" width="469" /></p>
+<p>For this exercise you need the <a href="https://developers.facebook.com/docs/reference/api/permissions/" target="_blank">extended permission</a> publish_stream, which you append here:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_4a.ext_permissions.png" alt="Extended permission" style="float:none; margin: 20px;" width="350" /></p>
+<p>Now when you login to the App you are asked for the normal and this extended permission:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_4b.login_permissions.png" alt="Permission request" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>Now that your user is logged in you can get the friends with this bit of code:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_5a.get_friends.png" alt="Get friends" style="float:none; margin: 20px;" width="411" /></p>
+<p>I embedded this in a form to choose the friend I want to message:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_5b.design_form.png" alt="Design Form" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/fb_6.form_post.png" alt="Complete Form" style="float:none; margin: 20px;" width="570" /></p>
+<p>The user selects his/her friend, writes a message / and/or puts in a link, and clicks submit. Index.php receives these 3 post variables and embeds them in the $facebook->api 'post' call.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_7.post_to_wall.png" alt="Post to wall code" style="float:none; margin: 20px;" width="580" /></p>
+<p>And that's it. It seems much work, but by adding the SDK you can make it a much more powerful application. Needless to say, you need to validate the ouputs obtained through this form. This is beyond the scope of this example. I <a href="https://github.com/bbelderbos/Codesnippets/blob/master/apis/facebook/post_wall.zip" target="_blank">zipped the code here</a> to play with it yourself. Don't forget to first create your own App and put the App ID and Secret in the index.php page!</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Demo</h3>
+<p>Here you see the form in action and the result on Roberto's wall:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fb_8_demo1.png" alt="Post to wall demo 1" style="float:none; margin: 20px;" width="530" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/fb_8_demo2.png" alt="Post to wall demo 2" style="float:none; margin: 20px;" width="350" /></p>

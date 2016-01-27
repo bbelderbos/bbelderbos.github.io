@@ -1,0 +1,81 @@
+---
+layout: post
+title: How to create a customized Google+ Share button
+date: 2011-11-14 00:37:54.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- google
+- widget
+meta:
+  _thumbnail_id: '1387'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '496927408'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> A quick post about something I was looking for some time, a way to share links to Google+ from outside their service. There are two interesting options available now.</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/googleplusbutton.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>Since I did <a href="http://bobbelderbos.com/2010/09/new-website-design/" target="_blank">a complete remake</a> of my site, I like all components to fit in as I want. I went with <a href="http://bobbelderbos.com/2011/08/7-cool-wordpress-plugins-sequel/" target="_blank">different share buttons</a> solutions in the past but I found them too cluttered. Hence the small black buttons for Twitter and Facebook at the top and bottom. I also wanted Google+ to join the game, but the +1 button did not present you with options for sharing (message box, your circles). Most important was that the +1 button did not fit my web design. It seemed that there was not an easy way to share URLs from outside Google+.</p>
+<p>I did a new search today and I was pleasantly surprised that solutions are available now:</p>
+<ul>
+<li><a href="http://www.stateofsearch.com/share-on-google-plus-any-website/" target="_blank">This first solution from Alex Moss</a> uses the URL from the Google+ mobile site to present a popup with the current URLs content. It is pretty neat stuff.</li>
+<li> I went on reading some of the comments of that solution and I found a <a href="http://ajbatac.com/gplus-bookmarklet.php" target="_blank">Simple Google+ Bookmarklet</a> by AJ Batac. Clicking the first link I was surprised to see a popup with the same look and feel as Google+. I was slightly confused with the "..You publicly +1..as .." message (which does not mean you +1-ed or posted anything yet). However, when I clicked in the textfield below this message, I saw the rich URL info with the circles to share with, just as if I was inside Google+ : </li>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-11-14-at-12.10.36-AM.png" alt="view of popup" style="float:none; margin: 20px;" width="475" />
+</ul>
+<p>So big thanks to Alex Moss and AJ Batac for developing this!</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Implementation</h3>
+<p> I choose the 2nd solution for now and as you see I have my own small Plus button above and below this article :)</p>
+<p> JS will dynamically grab the active URL and title, and Google+ finds the metainfo (similar to <a href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">Facebook Like</a> which does this somewhat better to my taste)</p>
+<p>I added spaces for clarity :</p>
+<pre>
+&lt;div class=&quot;bookmarklet&quot;&gt;
+&lt;a href=&quot;
+	javascript:(
+	  function(){
+		var w=480;var h=380;
+		var x=Number((window.screen.width-w)/2);
+		var y=Number((window.screen.height-h)/2);
+		window.open(&#39;https://plusone.google.com/_/+1/confirm?hl=en&amp;url=&#39;+encodeURIComponent(location.href)+&#39;
+			&amp;title=&#39;+encodeURIComponent(document.title),&#39;&#39;,&#39;width=&#39;+w+&#39;,height=&#39;+h+&#39;,left=&#39;+x+&#39;,top=&#39;+y+&#39;,
+			scrollbars=no&#39;);
+  	  })();&quot;&gt;
+	Share to Google+&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+<p> By the way, this is an <a href="http://www.mattcutts.com/blog/javascript-bookmarklet-basics/" target="_blank">interesting article about bookmarklets</a></p>
+<h4>Update 28.09.2012</h4>
+<p> The above code doesn't seem to work anymore so I tweaked it based on <a href="http://stackoverflow.com/questions/6585722/use-custom-image-for-google1-button" target="_blank">this entry</a> on Stackoverflow, see code below. There is a share link now that works well, plus a bit of JS to have it in a popup. If you want to test it, you can click the black plus button (after the Facebook one) at the top and bottom of this article.</p>
+<pre>
+
+# HTML
+
+&lt;!-- on homepage --&gt;
+&lt;a title=&quot;share on google+&quot; href=&quot;#&quot; onclick=&quot;return googleplusbtn(&#39;http://bobbelderbos.com&#39;)&quot;&gt;&lt;img src=&quot;http://bobbelderbos.com/wp-content/themes/bamboo/i/plus-icon.png&quot; alt=&quot;Share on Google+&quot; /&gt;&lt;/a&gt; 
+
+&lt;!-- per article --&gt;
+..
+$postmeta .= &#39;&lt;a title=&quot;share on google+&quot; href=&quot;#&quot; onclick=&quot;return googleplusbtn(&#39;&#39;.$permalink.&#39;&#39;)&quot;&gt;&lt;img src=&quot;http://bobbelderbos.com/wp-content/themes/bamboo/i/plus-icon.png&quot; alt=&quot;Share on Google+&quot; /&gt;&lt;/a&gt;&#39;;  
+..
+
+# JS
+&lt;script&gt;
+function googleplusbtn(url) {
+  sharelink = &quot;https://plus.google.com/share?url=&quot;+url;
+  newwindow=window.open(sharelink,&#39;name&#39;,&#39;height=400,width=600&#39;);
+  if (window.focus) {newwindow.focus()}                                                                                                                                
+  return false;
+}   
+&lt;/script&gt;
+</pre>

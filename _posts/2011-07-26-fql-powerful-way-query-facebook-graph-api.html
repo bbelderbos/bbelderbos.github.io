@@ -1,0 +1,94 @@
+---
+layout: post
+title: 'FQL: a powerful way to query Facebook''s Graph API'
+date: 2011-07-26 20:54:08.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- facebook api
+- fql
+- friends jukebox
+- graph api
+- my reading list
+- sql
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1059'
+  dsq_thread_id: '369244914'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today a post on <a title="facebook fql reference" href="https://developers.facebook.com/docs/reference/fql/" target="_blank">FQL</a> (Facebook Query Language). I will give you some examples that hopefully show the power of this SQL-like querying interface of the <a title="facebook api homepage" href="http://developers.facebook.com/" target="_blank">Facebook API</a>.</p>
+<p><!--more--><br />
+So in short: FQL lets you query Facebook's Graph API (<a title="facebook graph api reference" href="https://developers.facebook.com/docs/reference/api/" target="_blank">what is the Graph API?</a>).</p>
+<h3>Some use cases:</h3>
+<p><span class="Apple-style-span" style="font-weight: bold;">1. get all comments for a specific URL</span></p>
+<p>For example to see the comments on this book that was added to <a title="my reading list app" href="http://www.bobbelderbos.com/books/" target="_blank">My Reading List</a>: <a title="book title on my reading list" href="http://www.bobbelderbos.com/books/?googleID=UgrUeIwsS60C " target="_blank">http://www.bobbelderbos.com/books/?googleID=UgrUeIwsS60C </a></p>
+<p><span style="text-decoration: underline;">Query:</span></p>
+<pre>SELECT post_fbid, fromid, object_id, text, time FROM comment</pre>
+<pre>WHERE object_id IN (SELECT comments_fbid FROM link_stat WHERE url =</pre>
+<pre>'http://www.bobbelderbos.com/books/?googleID=UgrUeIwsS60C')</pre>
+<p>This returns:</p>
+<pre>[
+   {"post_fbid": "10150238413182479",
+      "fromid": 628517118,
+      "object_id": 10150208342007479,
+      "text": "worth every penny, one of the best css titles I have read.",
+      "time": 1310773947
+   }
+]</pre>
+<p>(<a title="comment queries" href="http://developers.facebook.com/docs/reference/fql/comment/" target="_blank">more info</a> on comments and replies per comment)</p>
+<h4>2. get all members of my BobsBlog Facebook Group</h4>
+<p><span style="text-decoration: underline;">Query:</span></p>
+<pre>SELECT uid, name, pic_square FROM user WHERE uid = me()</pre>
+<pre>OR uid IN (select uid from group_member where gid = 118232854902671)</pre>
+<pre>order by name</pre>
+<h4>3. get all the music your friends like - I used this one in <a title="facebook app friends jukebox" href="http://friendsjukebox.com" target="_blank">friendsjukebox.com</a></h4>
+<p><span class="Apple-style-span" style="font-weight: normal;">(requires <a title="facebook extended permissions" href="https://developers.facebook.com/docs/reference/api/permissions/ " target="_blank">extended permission</a>: friends_likes)</span></p>
+<p><span style="text-decoration: underline;">Query:</span></p>
+<pre>SELECT uid, name, pic_square,music FROM user WHERE uid = me()</pre>
+<pre>OR uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) order by name</pre>
+<p>!! Note the batching of multiple queries into a single call !!</p>
+<p>Snippet output:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/musicPrefs.png"><img class="size-full wp-image-1066 alignnone" title="musicPrefs" src="{{ site.baseurl }}/assets/musicPrefs.png" alt="" width="466" height="122" /></a><br />
+... you can do the same for movies - <span style="text-decoration: underline;">query</span>:</p>
+<pre>SELECT uid,name,pic_small,movies FROM user WHERE uid = me()</pre>
+<pre>OR uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) order by name</pre>
+<h4>4. get all birthdays of my friends of this month</h4>
+<p><span class="Apple-style-span" style="font-weight: normal;">(requires <a title="facebook extended permissions" href="https://developers.facebook.com/docs/reference/api/permissions/ " target="_blank">extended permission</a>: friends_birthday)</span></p>
+<p><span style="text-decoration: underline;">Query:</span></p>
+<pre>SELECT uid, name,pic_square, birthday_date FROM user</pre>
+<pre>WHERE (substr(birthday_date, 0, 2) = "07") AND uid IN</pre>
+<pre>(SELECT uid2 FROM friend WHERE uid1 = me()) order by name</pre>
+<p>!! Note the use of <strong>substr</strong> in this query !!<br />
+Other functions that are available are now(), strlen(), substr() and strpos().</p>
+<h3>Fetch URL to execute the query</h3>
+<p>XML and JSON are supported formats. I am using JSON for this example.<br />
+$oauth_token is obtained by the <a title="facebook app authentication flow" href="https://developers.facebook.com/docs/authentication/ " target="_blank">Facebook's Authentication</a>: you need to create a Facebook App first and get the user to login and grant permission to your app (I will do a followup post ...)</p>
+<pre>$query = "https://api.facebook.com/method/fql.query?query=";
+$query .= urlencode("&lt;above query&gt;"); 
+
+$query .= "&amp;access_token=".$oauth_token."&amp;format=json";
+$out = file_get_contents($query);
+$response = json_decode($out, true);
+
+echo '&lt;pre&gt;';print_r($response);echo '&lt;/pre&gt;';</pre>
+<h3>FQL Test Console</h3>
+<p><img class="alignright size-full wp-image-1059" style="margin: 20px;" title="1311619715" src="{{ site.baseurl }}/assets/1311619715.png" alt="" width="160" height="160" /></p>
+<p>There is a great <a title="fql test console" href="http://developers.facebook.com/docs/reference/rest/fql.query/" target="_blank">test console</a> where you can play with the queries. With another user account FQL console gave me "Something went wrong. We're working on getting it fixed as soon as we can."  It seems you need to have an Application setup and the test user might need to have granted the <a title="extended permissions explained" href="https://developers.facebook.com/docs/reference/api/permissions/" target="_blank">extra permissions</a> him/herself.</p>
+<p>A handy trick is to click on the URL in the FQL console, it will open a new tab with the URL to fetch. For example 1 that would be:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/fql_url.png"><img class="alignnone size-medium wp-image-1065" title="fql_url" src="{{ site.baseurl }}/assets/fql_url-300x156.png" alt="" width="300" height="156" /></a></p>
+<h3>FQL Tables</h3>
+<p>Of course a lot more is possible, <a title="all tables you can query with FQL" href="https://developers.facebook.com/docs/reference/fql/" target="_blank">see all Tables</a>. The only limitation is that you can only query indexable properties (columns)</p>
+<h3>What's next?</h3>
+<p>In the next post I will iterate over example 4. (birthday calendar) to show you how to use FQL as a workhorse for the input of your Facebook app. I will also cover some more aspects of the Facebook API like authorization and dialogs ...</p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covers, just drop me a message, I am open to anything web-related.</p>

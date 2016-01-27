@@ -1,0 +1,56 @@
+---
+layout: post
+title: How to make a rich movie search interface with instant trailers
+date: 2011-12-12 23:59:42.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- design
+- movies
+- search
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1611'
+  dsq_thread_id: '502425132'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today a quick post to show you a new feature I rolled out last week on <a href="http://sharemovi.es" target="_blank">sharemovi.es</a>: #nw or Now Watching. Go check it out <a href="http://sharemovi.es/nw/" target="_blank">here</a>. In this post some printscreens and a what technologies I used</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.45.47-PM.png" alt="rich autocomplete" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> More on the technology behind it</h3>
+<p class="newhere">New here? You might want to subscribe to my blog by <a href="http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos" onclick="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos', 'popupwindow', 'scrollbars=yes,width=550,height=520'); return false;">email</a> or <a href="http://bobbelderbos.com/rss" target="_blank">RSS</a>.</p>
+<p>When you start to type a movie name it queries <a href="http://api.themoviedb.org/2.1/" target="_blank">themoviedb.org API</a> for movie info. The API seems quite complete and the response it fast. I thought name, poster, year, rating and short summary extract would be most relevant ... and ... the trailer. You see the red youtube button? Well ... when you hover with your mouse over the whole row, the trailer loads in the white box. All thanks to some jQuery - see the <a href="http://sharemovi.es/nw/base.js" target="_blank">JS code</a>; in order to not make too many calls to themoviedb.org API, I use <a href="bobbelderbos.com/2011/12/select-from-internet-examples-yql-api/" target="_blank">YQL</a> to dynamically look up the trailer. You can also use <a href="http://bobbelderbos.com/2011/01/build-movie-trailer-api-using-gdata/" target="_blank">Gdata/ Youtube</a>.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/newSharemovi.es_.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>I use an autocomplete box from the <a href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js" target="_blank">jQuery UI</a>, it comes with some nice styles incorporated. I <a href="http://www.ajaxload.info/" target="_blank">rolled my own loader gif</a>, but the real workhorses are PHP and jQuery, a powerful duo.</p>
+<p>The 'autocomplete' function polls the API via search.php upon detected key strokes. I had to play a bit with 'renderItem' to show a rich result (poster, etc). Upon 'select' of a title, comment.php is called to generate a customized form with message and share buttons. The field is readonly (not editable), but clicking on the pencil, jQuery takes the readonly attribute off (removeAttr) so you can edit it.</p>
+<p>I didn't include Twitter / Facebook APIs, just a link to the corresponding page with the right URL parameters. With FB dialogs you can give quite some options and it does not require authorization because the user has to submit the info anyway. The links get created in the .submit .. 'click' function (note the encodeURIComponent). A richer experience is using one of the APIs. As sharemovi.es has the FB API setup already, I will definitely build this in. I will also integrate this richer experience into sharemovi.es as a whole. I'd like movies to be added to sharemovi.es this way, manual or automagically.</p>
+<p>Note the live function in the <a href="http://sharemovi.es/nw/base.js" target="_blank">jQuery code</a>: when you add new content without page refresh (Ajax), your JS needs to be made aware that that content is there, this is what 'live' is for.</p>
+<p>Now the trailer bit: 'mouseenter' and 'mouseleave' are the functions responsible for loading/ hiding the trailer for each title. You see another $.post, but now to youtube.php which as said uses YQL to find the corresponding movie trailer. And it returns an iframe that fits nicely in the white mini-canvas.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>So step-by-step:</h3>
+<p>1. Go to <a href="sharemovi.es/nw/" target="_blank">sharemovi.es/nw/</a> (or at the homepage click on "Now Watching" to use the embedded version).</p>
+<p>2. Start to type a movie, you should see titles approximating what you type:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.45.47-PM.png" alt="trailer autocomplete" style="float:none; margin: 20px;" width="580" /></p>
+<p>3. When you hover over the row, you should see a trailer starting to play:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.45.54-PM1.png" alt="trailer playing" style="float:none; margin: 20px;" width="580" /></p>
+<p>4. When you click on one of the movies, a share box slides down with a proposed text.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.46.45-PM.png" alt="share box" style="float:none; margin: 20px;" width="580" /><br />
+<a href=""><img class="alignnone" title="Screen shot 2011-12-12 at 10.46.45 PM" src="{{ site.baseurl }}/assets/" alt="" width="600" /></a></p>
+<p>5. Example of clicking Facebook button (I put the text "want to see this one" in as addition)<br />
+<img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.47.02-PM.png" alt="fb button" style="float:none; margin: 20px;" width="580" /></p>
+<p>6. Same for twitter, however I clicked the pencil which made the field editable:<br />
+<img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.47.25-PM.png" alt="edit button clicked" style="float:none; margin: 20px;" width="580" /></p>
+<p>7. And the result shown on Twitter before posting. Again with APIs this can all be slicker but I wanted an easy standalone example:<br />
+<img class="size-full" src="{{ site.baseurl }}/assets/Screen-shot-2011-12-12-at-10.47.34-PM.png" alt="share on twitter" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h4>Update 18.01.2012</h4>
+<p>The complete source code is posted <a href="https://github.com/bbelderbos/Codesnippets/blob/master/apis/themoviedb/movies_now_watching.zip" target="_blank">here</a>. Enjoy ... and please leave me a comment if you use it somewhere ...</p>

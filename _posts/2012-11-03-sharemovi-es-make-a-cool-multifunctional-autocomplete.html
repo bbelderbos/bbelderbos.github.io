@@ -1,0 +1,296 @@
+---
+layout: post
+title: Sharemovi.es / make a cool multifunctional autocomplete
+date: 2012-11-03 12:13:09.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- autocomplete
+- javascript
+- movies
+- php
+- sharemovi.es
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2232'
+  dsq_thread_id: '912236538'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> Today two posts about enhancements in <a href="http://www.sharemovi.es/" target="_blank">Sharemovi.es</a>. In this post I will show you how to make a multifunctional autocomplete box. In the next article I show you how to dynamically load in IMDB vote results for a particular movie.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>Autocompletes are around for a long time, but I still love them for my apps. It makes the app flow faster and navigation can be much shorter not cluttering the page.</p>
+<p>I implemented a multi-use autocomplete <a href="http://bobbelderbos.com/2012/05/my-reading-list-improved-tour-new-features/" target="_blank">some time ago</a> for <a href="http://fbreadinglist.com" target="_blank">FB Reading List</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fbreadinglist_autocomplete.png" alt="fbreadinglist autocomplete" style="float:none; margin: 20px;" width="551" /></p>
+<p>I will show you a similar approach I took for sharemovi.es.</p>
+<h3>How it works</h3>
+<p>When you search for "be" it finds movies for that string:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/be_search_movie.png" alt="searching for be" style="float:none; margin: 20px;" width="580" /></p>
+<p>But if you prepend the search term with the "@" sign, for example "@be" it starts to find persons (actors/directors) and sharemovi.es users in the same search:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/be_search_person.png" alt="searching for person be" style="float:none; margin: 20px;" width="580" /></p>
+<h3>Implementation</h3>
+<p>This is an extension to the movie search interface with instant trailers I blogged about <a href="http://bobbelderbos.com/2011/12/sharemovies-new-feature-search-interface-instant-trailers/" target="_blank">last year</a>.</p>
+<p>Autocomplete plugins work with AJAX: javascript calls a serverside script (PHP in this case) which returns its result in a certain format (JSON in this instance). Javascript digests this result and sticks it into the DOM.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>The backend script (search.php) looks like:</p>
+<pre>
+&lt;?php
+if (!isset($_GET[&quot;term&quot;])) {
+	return;
+}
+
+include &#39;libs/functions.php&#39;;
+
+$term = $_GET[&quot;term&quot;];
+$orgTerm = $term;
+$lang = &#39;en&#39;; # for now
+$return_arr = array();
+
+# limit size of autocomplete window
+$maxNumItems = array();
+$maxNumItems[&#39;movies&#39;] = 5; # 5 items for movies because the content is big
+$maxNumItems[&#39;persons&#39;] = 4; # persons can add up to 7, 4 for api, 3 for users
+$maxNumItems[&#39;users&#39;] = 3; 
+$counter[&#39;movies&#39;] = 0; 
+$counter[&#39;persons&#39;] = 0; 
+$counter[&#39;users&#39;] = 0; 
+
+# formatting in JS: http://stackoverflow.com/questions/6070142/jquery-ui-formatting-the-autocomplete-results-add-image-possible
+
+# searches starting with @ search for persons (actors / directors from the API) or sharemovies users 
+if(preg_match(&#39;/^@/i&#39;, $term)){
+  $term = preg_replace(&#39;/^@s*/i&#39;,&#39;&#39;,$term);
+  $term = urlencode($term);
+
+  # 1. persons
+  $results = queryApi3(&#39;&#39;,&#39;&#39;,&#39;search/person&#39;, $term, &#39;&#39;, $lang);
+
+  if(! empty($results-&gt;results)) {
+    foreach($results-&gt;results as $person) {
+      if ($person-&gt;adult == true || $person-&gt;profile_path == &#39;&#39;) continue; 
+      $counter[&#39;persons&#39;]++; 
+      $row_array[&#39;type&#39;] = &quot;person&quot;;
+      $row_array[&#39;id&#39;] = $person-&gt;id;
+      $row_array[&#39;value&#39;] = $person-&gt;name;
+      $row_array[&#39;img&#39;] = $POSTER_SMALL . $person-&gt;profile_path;
+      $row_array[&#39;slug&#39;] = createSlug(&#39;person&#39;,$person-&gt;id,$person-&gt;name);
+
+      array_push($return_arr,$row_array);
+      if($counter[&#39;persons&#39;] == $maxNumItems[&#39;persons&#39;]) {
+        break;
+      }
+    }
+  }
+    
+  # 2. users in db
+  include &quot;libs/db_connect.php&quot;;
+  $term = $mysqli-&gt;real_escape_string($term);
+
+  $search_term = str_replace(array(&quot;+&quot;), &quot; &quot;, $term);
+  $q = &quot;SELECT shmov_users_movies.id,shmov_users.name,shmov_users.ins as joined,count(shmov_users_movies.id) as total &quot;; 
+  $q .= &quot;FROM `shmov_users_movies` join shmov_users on shmov_users_movies.id=shmov_users.id &quot;;
+  $q .= &quot;WHERE LCASE(shmov_users.name) like &#39;%$search_term%&#39; &quot;;
+  $q .= &quot;group by shmov_users_movies.id order by total desc&quot;;
+
+  $r = $mysqli-&gt;query($q);
+  if($r-&gt;num_rows) { 
+    while($row = $r-&gt;fetch_object()){
+      $counter[&#39;users&#39;]++;
+      $row_array[&#39;type&#39;] = &quot;user&quot;;
+      $row_array[&#39;id&#39;] = $row-&gt;id;
+      $row_array[&#39;value&#39;] = $row-&gt;name . &quot; (user)&quot;;
+
+      $row_array[&#39;total&#39;] = &quot;&lt;small&gt;&quot; . $row-&gt;total . &quot; movie&quot; ;
+      $row_array[&#39;total&#39;] .= ($row-&gt;total != 1)? &quot;s&quot;: &quot;&quot; ; 
+      $row_array[&#39;total&#39;] .= &quot; on watchlists&quot;;
+      
+      $row_array[&#39;joined&#39;] = &quot; / Joined &quot; . timeAgo($row-&gt;joined) . &quot;&lt;/small&gt;&quot;;
+
+      $row_array[&#39;img&#39;] = &quot;https://graph.facebook.com/&quot;.$row-&gt;id.&quot;/picture?width=40&amp;height=40&quot;;
+      $row_array[&#39;slug&#39;] = &quot;user/&quot;.$row-&gt;id;
+
+      array_push($return_arr,$row_array);
+      if($counter[&#39;users&#39;] == $maxNumItems[&#39;users&#39;]) {
+        break;
+      }
+
+    }   
+  } 
+
+  # if nobody found return error message (see JS: it expects a message to start with Oops)
+  if(empty($return_arr)){
+    array_push($return_arr, &quot;Oops ... nobody found for $orgTerm&quot;); 
+  }
+
+
+} else {
+
+  # else = movie title search
+  $term = urlencode($term);
+  $results = queryApi3(&#39;&#39;,&#39;&#39;,&#39;search/movie&#39;, $term, &#39;&#39;, $lang);
+
+  if(empty($results-&gt;results)) {
+    # if nobody found return error message (see JS: it expects a message to start with Oops)
+    array_push($return_arr, &quot;Oops ... no movies found for $orgTerm&quot;); 
+  } else {
+    foreach($results-&gt;results as $movie) {
+        $counter[&#39;movies&#39;]++; 
+        $row_array[&#39;type&#39;] = &quot;movie&quot;;
+        $row_array[&#39;id&#39;] = $movie-&gt;id;
+        $row_array[&#39;value&#39;] = ucwords($movie-&gt;title); 
+        if($movie-&gt;original_title &amp;&amp; ($movie-&gt;title != $movie-&gt;original_title)) {
+          $row_array[&#39;org&#39;] = ucwords($movie-&gt;original_title); 
+        } else {
+          $row_array[&#39;org&#39;] = &#39;&#39;;
+        }
+        $row_array[&#39;pop&#39;] = $movie-&gt;popularity;
+        $row_array[&#39;rating&#39;] = $movie-&gt;vote_average . &quot; (&quot;. $movie-&gt;vote_count.&quot; votes)&quot;;
+        $row_array[&#39;plot&#39;] = get_n_words($movie-&gt;overview, 15) . &quot; ...&quot; ;
+        $row_array[&#39;year&#39;] = substr($movie-&gt;release_date, 0, 4);
+        $row_array[&#39;img&#39;] = $POSTER_SMALL . $movie-&gt;poster_path;
+        $row_array[&#39;slug&#39;] = createSlug(&#39;movie&#39;,$movie-&gt;id,$movie-&gt;title);
+
+        array_push($return_arr,$row_array);
+        
+        if($counter[&#39;movies&#39;] == $maxNumItems[&#39;movies&#39;]) {
+          break;
+        }
+    }
+  }
+}
+
+echo json_encode($return_arr);
+?&gt;
+</pre>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sharemovies_autocomplete.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<ul>
+<li> The search term is sent from JS, if it starts with @ it performs a search against <a href="http://themoviedb.org" target="_blank">themoviedb</a> and against the users in the sharemovies database. If no @ is prepended to the search, it does a regular movie search, again against themoviedb API. I could cache the results but for now the search box use seems within the themoviedb limits (I do cache movie and person pages though which reduces the amount of calls to the API significantly).</li>
+<li> The $maxNumItems array restricts the number of items in the returned result so that the autocomplete result box fits reasonably well within the page. </li>
+<li> The json_encode is run on the array of row arrays for JS consumption.</li>
+<li> queryApi3 is a routine to query themoviedb API, I omitted it for brevity, interesting in more details, just drop me a line ...</li>
+</ul>
+<p>The Javascript code to digest the result (after including the jQuery library):</p>
+<pre>
+$(document).ready(function() {
+
+  ..
+  ..
+
+  // prevent autocomplete field from being submitted on enter
+  // actually ace&#39;s solution worked here: http://stackoverflow.com/questions/7237407/stop-enter-key-submitting-form-when-using-jquery-ui-autocomplete-widget
+  $(&quot;input#autocomplete&quot;).keypress(function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == &#39;13&#39;) {
+      event.preventDefault();
+      event.stopPropagation();    
+    }
+  });
+
+
+  $(&quot;input#autocomplete&quot;).autocomplete({	
+    search: function(event, ui) { 
+      $(&#39;.spinner&#39;).show();
+    },
+    open: function(event, ui) {
+      $(&#39;.spinner&#39;).hide();
+    },	
+    source: &quot;search.php&quot;,
+    minLength: 2,
+    select: function(event, ui) { 
+      $(&#39;.spinner&#39;).show();
+
+      var currentUrl = document.URL;
+      var baseUrl; 
+
+      if( currentUrl.match(/sharemovi.es/) ){
+        baseUrl = &quot;http://sharemovi.es/&quot;;
+      } else {
+        baseUrl = &quot;http://127.0.0.1/sharemovies/&quot;;
+      }
+      var redirectTo = baseUrl + ui.item.slug;
+
+      location.href=redirectTo; 
+
+    }
+  }).data( &quot;autocomplete&quot; )._renderItem = function( ul, item ) {
+    if(item.value.match(/^Oops/)) {
+      return $( &quot;&lt;h2 class=&#39;notfound&#39;&gt;&lt;/h2&gt;&quot; )
+      .data( &quot;item.autocomplete&quot;, item )
+      .append( &quot;&lt;p&gt;&quot;+item.value+&quot;&lt;/p&gt;&quot; )
+      .appendTo( ul );
+
+    } else {
+      var movieInfo = &#39;&#39;;
+
+      movieInfo += &quot;&lt;a id=&quot;+item.id+&quot;&gt;&quot;;
+      movieInfo += &quot;&lt;img src=&#39;&quot; + item.img + &quot;&#39; /&gt;&quot;;
+      movieInfo += &quot;&lt;span&gt;&lt;h4&gt;&quot; + item.value+ &quot;&lt;/h4&gt;&quot;;
+      if(item.type == &quot;user&quot;){
+        movieInfo += item.total;
+        movieInfo += item.joined;
+      }
+
+      if(item.type == &quot;movie&quot;){
+        movieInfo += &quot;&lt;small&gt;&lt;p&gt;&quot;;
+        if(item.org) movieInfo += &quot;Original Title: &quot;+item.org+&quot;&lt;br&gt;&quot;;
+        movieInfo += &quot;Release Year: &quot;+item.year;
+        movieInfo += &quot;&lt;br&gt;TMDB Rating: &quot;+item.rating;
+        movieInfo += &quot;&lt;br&gt;&lt;small&gt;Popularity: &quot;+item.pop;
+        movieInfo += &quot;&lt;/small&gt;&lt;/p&gt;&quot;;
+        movieInfo += &quot;&lt;div id=&#39;&quot;+item.value+&#39; &#39;+item.year;
+        movieInfo += &quot;&#39; class=&#39;trailer&#39;&gt;&quot;;
+        movieInfo += &quot;&lt;img src=&#39;i/youtube.png&#39;&gt;&quot;;
+        movieInfo += &quot;&lt;/div&gt;&lt;/small&gt;&quot;;
+      } 
+
+      movieInfo += &quot;&lt;/span&gt;&lt;/a&gt;&quot;;
+
+      $( &quot;&lt;li&gt;&lt;/li&gt;&quot; )
+        .data( &quot;item.autocomplete&quot;, item )
+        .append(  movieInfo )
+        .appendTo( ul );
+
+      // if search is for person or user, the autocomplete box needs to be smaller
+      if(item.type == &quot;user&quot; || item.type == &quot;person&quot;) {
+        $(&quot;.ui-autocomplete li&quot;).css(&quot;height&quot;, &quot;50px&quot;);
+        $(&quot;.ui-autocomplete li a&quot;).css(&quot;height&quot;, &quot;50px&quot;);
+        $(&quot;.ui-autocomplete li a img&quot;).css({&quot;height&quot;: &quot;40px&quot;, &quot;width&quot;: &quot;40px&quot;});
+        $(&quot;.ui-autocomplete li a span&quot;).css(&quot;left&quot;, &quot;50px&quot;);
+      } 
+
+      return false; 
+    }
+  };
+
+  ..
+  ..
+  // more sharemovies JS code ..
+  ..
+  ..
+
+});
+</pre>
+<ul>
+<li> source: "search.php" => here you see the backend PHP script being called.</li>
+<li> .data( "autocomplete" )._renderItem => this consumes the elements returned by the PHP backend script. It wraps it in convenient HTML I styled with CSS (which exact styling is beyond the scope of this tutorial). </li>
+<li> Note in the last part I overwrote some of the CSS rules of the autocomplete jQuery plugin to present smaller entries for person vs. movie results (see printscreens at the start of this post). The movie results give back more verbose data. So now each result takes up just the necessary space.</li>
+<li> Some things are hardcoded like the sharemovi.es domain name and the handling of no results ("item.value.match(/^Oops/)") but that is fine for now.</li>
+</ul>
+<p>At last the form html that has the DOM element Javascript acts upon:</p>
+<pre>
+&lt;form action=&quot;#&quot;  id= &quot;searchForm&quot; method=&quot;post&quot;&gt;
+  &lt;p class=&quot;ui-widget&quot;&gt;
+  &lt;input type=&quot;text&quot; id=&quot;autocomplete&quot;  name=&quot;autocomplete&quot; class=&quot;defaultText&quot; 
+    title=&quot;Search movie ... [ use &#39;@&#39; for actors/directors/sharemovies users ] &quot;/&gt; 
+  &lt;/p&gt;
+&lt;/form&gt;
+</pre>
+<p>This tutorial gives you a 90% jumpstart how to implement a rich multi-functional autocomplete. I hope it inspires you to build something similar. Also let me know if you have implemented a similar feature in any other language.</p>

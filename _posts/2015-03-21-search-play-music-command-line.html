@@ -1,0 +1,99 @@
+---
+layout: post
+title: Fast way to search and play music from the command line
+date: 2015-03-21 23:43:19.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Technology
+tags:
+- bash
+- command line
+- mpc
+- mpd
+- music
+- unix
+- vim
+meta:
+  _edit_last: '1'
+  _snap_forceSURL: '2'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: 's:258:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";s:1:" ";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";}}";'
+  featured_posts_widget_flag: 'false'
+  _nxs_snap_sh_DL0_1426977807: a:11:{s:7:"dlUName";s:10:"bbelderbos";s:5:"nName";s:4:"Debb";s:6:"dlPass";s:21:"n5g9af4x5n4i4l5b4f444";s:8:"catSelEd";s:0:"";s:11:"dlMsgFormat";s:6:"%TEXT%";s:12:"dlMsgTFormat";s:7:"%TITLE%";s:4:"doDL";i:1;s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:2:"ii";i:0;s:9:"timeToRun";i:1426977807;}
+  snap_isAutoPosted: '1'
+  _thumbnail_id: '2653'
+  _nxs_snap_sh_FB0_1426977806: 'a:23:{s:4:"doFB";i:1;s:5:"nName";s:4:"FBbb";s:7:"fbAppID";s:15:"154002097960796";s:8:"fbAppSec";s:32:"2eadd32d7e5682c3efabd1436db76795";s:8:"catSelEd";s:0:"";s:10:"fbPostType";s:1:"A";s:7:"fbAttch";s:1:"1";s:12:"fbAttchAsVid";i:0;s:6:"imgUpl";s:1:"1";s:11:"fbMsgFormat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:10:"fbMsgAFrmt";s:0:"";s:5:"fbURL";s:37:"https://www.facebook.com/bobbelderbos";s:6:"fbPgID";s:12:"bobbelderbos";s:6:"catSel";s:1:"0";s:14:"fbAppAuthToken";s:112:"AAACMEGhX91wBAICJn6YySGUZBMEc6bHMVTSCnrRTwpMBaxQZBPmuPZBrxZCLwV5hgTIj7iBAuODQuZC7IohurUJ3FGPk2MuVLSnuTzj56sAZDZD";s:18:"fbAppPageAuthToken";s:117:"AAACMEGhX91wBAK1osOX6OnH9UDLln8tShukA5BMgy7SWuWJdn3XFzwOZBZCCDwLebZBGj03x7f4h8PoxgXNGm3npp2W5asdUyW71d7F8hYrUZAHS4D9H";s:13:"fbAppAuthUser";s:9:"628517118";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:8:"postType";s:1:"A";s:2:"ii";i:0;s:9:"timeToRun";i:1426977806;}'
+  _nxs_snap_sh_LI0_1426977808: 'a:39:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:4:"Libb";s:8:"liAPIKey";s:64:"PX9Dn1I7gB2M9_dU4D_Kf7LligwH-HgmytaGe0J748tzPyJZF5MCvqaxjMCVLE0a";s:8:"liAPISec";s:64:"nT-wEBZO-kz3x26gYx6n4B7IE66x3gzTHmw1iiff2WTjySOLPH0TLnsSwZSh_FDQ";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:12:"liOAuthToken";s:36:"04f540a2-8004-495c-9403-cefd945be7b1";s:18:"liOAuthTokenSecret";s:36:"d0a21db3-bf29-4224-b140-96e3fd140b3f";s:15:"liOAuthVerifier";s:5:"76012";s:13:"liAccessToken";s:36:"5a837918-e625-4c2b-a47b-03b79e312b8c";s:19:"liAccessTokenSecret";s:36:"5ee4af01-5cbd-4c80-8dcb-f763fdf0be04";s:10:"liUserInfo";s:26:"Q2JWqfUn5G
+    - Bob Belderbos";s:6:"catSel";s:1:"0";s:12:"liMsgFormatT";s:1:" ";s:10:"liMsgAFrmt";s:0:"";s:8:"rpstDays";s:1:"0";s:7:"rpstHrs";s:1:"2";s:8:"rpstMins";s:1:"0";s:6:"rpstOn";i:0;s:11:"rpstRndMins";s:2:"15";s:12:"rpstPostIncl";s:1:"0";s:10:"rpstNxTime";d:1388713005;s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:11:"rpstOnlyPUP";i:0;s:7:"tagsSel";s:0:"";s:8:"tagsSelX";s:0:"";s:11:"rpstBtwDays";a:0:{}s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:9:"timeToRun";i:1426977808;}'
+  _nxs_snap_sh_TW0_1426977809: 'a:16:{s:4:"doTW";i:1;s:5:"nName";s:4:"Twbb";s:5:"twURL";s:30:"https://twitter.com/bbelderbos";s:9:"twConsKey";s:22:"yTTWJQa7h0W3ciff6ZQyzg";s:9:"twConsSec";s:40:"MFJXzS2jzvsuZrZPdI0vtueOKBOzur1yZb76N7iE";s:10:"twAccToken";s:50:"177360544-kfNWE0vEciJe3C6F4ZC2kU0nKHXGl8tLr1mMj9cO";s:8:"catSelEd";s:0:"";s:13:"twAccTokenSec";s:40:"Yrr0EWAO0fOJj9ZDU0es4UoQ0371X6D6OTCuvxdw";s:11:"twMsgFormat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";i:0;s:4:"twOK";i:1;s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:2:"ii";i:0;s:9:"timeToRun";i:1426977809;}'
+  snapFB: 's:367:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_933048443395951";s:5:"pDate";s:19:"2015-03-21
+    22:43:34";}}";'
+  _wp_old_slug: search-play-mp3-mpc
+  snapDL: s:239:"a:1:{i:0;a:7:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"f2993294387cb86cc1ecb7a8c8920d94";s:5:"pDate";s:19:"2015-03-21
+    22:43:34";}}";
+  snapTW: 's:288:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"579413093828026368";s:5:"pDate";s:19:"2015-03-21
+    22:43:41";}}";'
+  dsq_thread_id: '3615621380'
+  _post_restored_from: a:3:{s:20:"restored_revision_id";i:2656;s:16:"restored_by_user";i:1;s:13:"restored_time";i:1426981862;}
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>fI am reading <a href="http://www.amazon.com/The-VimL-Primer-Plugins-Scripts/dp/1680500406" target="_blank">a book on VimL</a> (Vimscript) and it introduced me to <a href="http://manpages.ubuntu.com/manpages/lucid/man1/mpc.1.html" target="_blank">mpc</a>, a client for <a href="http://www.musicpd.org" target="_blank">Music Player Daemon (MPD)</a> . In this post I show you how  to set up mpc and how to quickly select and play music from the command line.</p>
+<p>After getting the two with <a href="http://brew.sh" target="_blank">brew</a> install mpc / mpd, you define where your music lives:</p>
+<pre>$ cat ~/.mpdconf
+  bind_to_address  "127.0.0.1"
+  music_directory  "/Users/bbelderb/Music/"
+  db_file  "/Users/bbelderb/Music/mpd.db"
+  audio_output {
+    name  "audio"
+    type  "osx"
+}</pre>
+<p>And you create the DB file:</p>
+<pre>$ touch ~/Music/mpd.db</pre>
+<p>Then you can start playing music with:</p>
+<pre>$ mpc update
+$ mpc ls | mpc add 
+$ mpc play</pre>
+<p>(use "listall" instead of "ls" if you have subdirectories in your defined music_directory)</p>
+<p>Now I wondered how to quickly search for songs and play the search result.</p>
+<p>I ended up adding this to my .bashrc:</p>
+<pre>alias mp="mpc toggle" # handy to quickly stop / resume music
+alias mn="mpc next"
+function ms() { mpc search any $1; }
+function mss() { mpc clear 2&gt;&amp;1 &gt;/dev/null &amp;&amp; mpc search any $1|mpc add &amp;&amp; mpc play; }</pre>
+<p>Note the difference between ms and mss: former just lists search results, the latter plays them as a new playlist. Thanks to this <a href="http://unix.stackexchange.com/questions/87743/how-to-play-the-result-of-mpc-search" target="_blank">StackExchange thread</a>.</p>
+<p>So now if I want to play something specific I can do so pretty quickly (of course my options are limited to the music in the defined music_directory):</p>
+<pre>$ mpc stats
+Artists:     66
+Albums:       6
+Songs:      120
+..</pre>
+<pre># list search results
+$ ms tony
+ timferriss/timferrissshow-tonyrobbins-pt1.mp3
+ timferriss/timferrissshow-tonyrobbins-pt2.mp3
+
+# same, but play them  as well
+$ mss tony
+Tim Ferriss: Bestselling Author, Human Guinea Pig - Tony Robbins on Morning Routines, Peak Performance &amp; Mastering Money - Part 1 of 2
+ [playing] #1/2   0:00/68:20 (0%)
+
+# create new playlist on-the-fly, searching for "roni" (of Roni Size) 
+# result: a new playlist of 6 hits plays:</pre>
+<pre>$ mss roni
+ Roni Size - It's Jazzy (Nu:Tone Remix)
+ [playing] #1/6   0:00/6:06 (0%)</pre>
+<div>Now back to the book on VimL / vimscripting ...</div>

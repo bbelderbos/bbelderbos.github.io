@@ -1,0 +1,75 @@
+---
+layout: post
+title: Best practices of software development – II) Good Coding Methodologies
+date: 2012-07-06 20:35:44.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- best practices
+- coding
+- software development
+meta:
+  _thumbnail_id: '2098'
+  _edit_last: '1'
+  dsq_thread_id: '754171602'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> This is part II of the Best practices of Software Development series. If you want to know how to write quality code to become a better developer read on ... Today: Good Coding Methodologies.</p>
+<p><!--more--></p>
+<h3>Planning</h3>
+<ul>
+<li> <a href="http://bobbelderbos.com/2012/06/best-practices-software-development-programming-techniques/" target="_blank">I) Programming Techniques and Strategies</a></li>
+<li> <a href="http://bobbelderbos.com/2012/07/best-practices-software-development-good-coding-methodologies/" target="_blank">II) Good Coding Methodologies</a></li>
+<li> III) Maintaining Quality Code</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Good Coding Methodologies</h3>
+<p>This post will talk about writing better code, common issues with program structures and how to improve them, building good methods and a short note on exceptions.</p>
+<h3>Writing better code</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/swdev2.jpg" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p>One of the most important criteria is human-readable code. Code should be self documenting. Don't rely on comments, use coding standards instead. It makes the code more concise and predictable and thus easier to test, debug and modify. The <a href="http://www.python.org/dev/peps/pep-0008/#indentation" target="_blank">required code-indenting</a> is one of the reasons I like Python for example.</p>
+<p><a href="http://en.wikipedia.org/wiki/Control_flow" target="_blank">Control structures</a> should be wrapped in blocks even if not strictly required. I also try to make a habit of keeping lines under 70 or 80 characters wide. Whether you use <a href="http://en.wikipedia.org/wiki/CamelCase" target="_blank">camelCase</a> or underscore-based style for your variables, use a consistent scheme and stick to it. .</p>
+<p>Comments are better than external documentation because they stick with the code (modification). However don't overuse them: don't repeat the code, don't provide unnecessary explanations, watch out for code changes (forgetting to edit the comments as well!). Good comments summarize the code, describe its intent and provide info that the code cannot express.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Structure of programs</h3>
+<p>Examples of common issues: </p>
+<ul>
+<li> Improper use of pointers (<a href="http://en.wikipedia.org/wiki/Dangling_pointer" target="_blank">wild or dangling pointers</a>).</li>
+<li> The use of <a href="http://en.wikipedia.org/wiki/Global_variable" target="_blank">global variables</a> making the program harder to maintain.</li>
+<li> Using literals instead of <a href="http://en.wikipedia.org/wiki/Constant_%28programming%29" target="_blank">constants</a> (e.g. 86400 instead of SECONDS_IN_DAY).</li>
+<li> Confusing comparison "==" with assignment "=" operators.</li>
+<li> Wrong use of loop initial and end-condition values. </li>
+<li> <a href="http://en.wikipedia.org/wiki/Short-circuit_evaluation" target="_blank">Short-circuit operators</a> ("&&" and "||") - understanding that they might not execute in some circumstances.</li>
+<li> Comparing objects ("equals" and not "==").</li>
+<li> Fall-through: forget to "break" each "case" in a switch statement.</li>
+<li> Lack or improper use of error handling (see further down).</li>
+</ul>
+<h4>Expressions</h4>
+<p>To generally improve your writing of proper expressions you should use parentheses in complex expressions. It is clearer to express Boolean expressions positively unless the outcome is likely to be negative - so use: "if(bookInStore)" instead of  "if(!bookInStore)". Also avoid "(a>b) == TRUE", just say "(a>b)". You should work with TRUE and FALSE booleans instead of 1 and 0, if your language does not support them you can define them as constants.</p>
+<h4>Sequence</h4>
+<p>It is important to sequence code properly so that dependencies are visible reading the method names. This implies that one method executes only one task (more on Methods further down).</p>
+<h4>Variables and types</h4>
+<p>The advantage of <a href="http://en.wikipedia.org/wiki/Strong_typing" target="_blank">strong typing</a> is that a variable can hold only one type of value. This encourages input validation and errors that are detected early on at compilation time. You should limit the lifetime of a variable, so declare it as close as where you are going to use it. Named constants and enumerations make code more readable and thus maintainable.</p>
+<h4>Structured flow-control</h4>
+<p>As mentioned: use the most likely outcome in the if statement (not in the "else"). Enforce blocks for better readability. Other best practices for loops: separate loop control code from loop work code, keep nesting down to two or three levels at most, be careful (document) break and continue statements.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Methods (functions)</h3>
+<h4>Building good methods </h4>
+<p>The purpose of a method should be clear from its name. I stress it again: one method equals one task. This alone makes code much more readable and reliable. It makes bugs easier to solve or prevents some of them at all. It also favors code re-use.</p>
+<p>Variables should be localized to the method to prevent unexpected modifications from outside the method. In OOP you'd hide the data used by a method within a object only making it accessible through the object's public interfaces.</p>
+<p>Bottom line is to think well what the goal of the method is, what should it accomplish? Then write it.</p>
+<h4>Handling arguments and return values</h4>
+<p>A method should not have more than 7 or 8 parameters. Optional arguments should be avoided because they lure you in 1 method > 1 task (use other methods to handle them). Distinguishing between input/working/output variables (an example: input (passed to the method) = grossSalary; working = incomeTax ; output = netSalary (to be calculated and returned) ). This prevents the wrong variables to be modified with undesired results.</p>
+<p> It is important to validate arguments, otherwise bad data will creep in leading to failures further into the program (which are harder to debug). Return empty arrays rather than null values.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Exceptions</h3>
+<p>Unexpected events / errors should be handled by exceptions. If not, the user is presented with errors that usually don't make any sense. So make sure that the catch/except block actually handles the event. Depending the problem you'd control what happens as a result, for example: disable a module, only show a message, show debug info under the hood, etc. etc. See <a href="http://en.wikipedia.org/wiki/Exception_handling" target="_blank">Wikipedia</a> for more info.</p>

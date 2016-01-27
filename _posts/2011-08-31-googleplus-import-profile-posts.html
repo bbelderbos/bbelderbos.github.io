@@ -1,0 +1,140 @@
+---
+layout: post
+title: Google+ API still due? You can already do stuff ...
+date: 2011-08-31 21:19:14.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- APIs
+- google
+meta:
+  _syntaxhighlighter_encoded: '1'
+  _thumbnail_id: '1246'
+  _edit_last: '1'
+  dsq_thread_id: '497923246'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> After playing with some APIs, especially the Facebook one, I cannot wait till Google+ releases its API. However there are ways you can already import your profile and posts!</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/google_export_profile.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p> In this post I will show you how this is done with <a href="http://point7.wordpress.com/2011/07/10/rudimentary-googleplus-api/" target="_blank">Rudimentary GooglePlus API</a>, a very cool Python script that returns the dataset based on the "type" variable you give it (profile or posts). Then I will show you how you can process the obtained output with PHP. I will do the profile data, as it is a bit trickier to find the pieces as it not an associative array.</p>
+<p>After experimenting a bit with it, the data seems to be at fixed positions which I tested with some Google+ IDs (by the way, click on your avatar in Google+ : your Google+ ID appears in the URL)</p>
+<h3> Getting profile</h3>
+<p> Here are two examples. See <a href="http://point7.wordpress.com/2011/07/10/rudimentary-googleplus-api/" target="_blank">Rudimentary GooglePlus API</a> for more details. For both examples, replace the id= number for your own or somebody else.</p>
+<ul>
+<li>Get all posts: <a href="http://my.syyn.cc/gpapi?id=106057741186141812269&type=posts" target="_blank">http://my.syyn.cc/gpapi?id=106057741186141812269&type=posts</a> (prettyposts gives you a better structured output)</li>
+<li>Get profile data: <a href="http://my.syyn.cc/gpapi?id=106057741186141812269&type=profile" target="_blank">http://my.syyn.cc/gpapi?id=106057741186141812269&type=profile</a></li>
+</ul>
+<h3> Process data</h3>
+<p> Here is my script that filters most of the profile information. I did not play much with the posts, but the "prettyposts" array is better structured, so with below code it should be fairly easy to get.</p>
+<p>As said, the challenge was to find where the bits were. You can see from the array offsets, that some pieces are quite deep down in this multidimensional array that is obtained with json_decode (one of my favorite functions when dealing with API data processing!).</p>
+<p> Funny enough the structure seems persistent testing 10 to 20 Google+ profile IDs. So this is something useful we can do already today. However I guess the Google+ API will blow us away ;)</p>
+<pre>
+   &lt;html&gt;
+   &lt;head&gt;
+   	&lt;title&gt;Google+ importer&lt;/title&gt;
+   	&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+   	&lt;meta name=&quot;description&quot; content=&quot;This page imports your google+ profile&quot; /&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+   &lt;?php
+   // thanks!! to: 
+   // http://point7.wordpress.com/2011/07/10/rudimentary-googleplus-api/ &lt;--
+   // more php https://github.com/jmstriegel/php.googleplusapi
+   
+   $user = $_GET['u'];
+   
+   $query = &quot;http://my.syyn.cc/gpapi?id={$user}&amp;type=profile&quot;;
+   
+   $out = file_get_contents($query);
+   $response = json_decode($out, true);
+   
+   $g = array();
+   $g['usr'] = ($response[2])? $response[2]: '';
+   $g['avatar'] = ($response[3])? $response[3].'?sz=90': '';
+   $g['name'] = ($response[4][3])? $response[4][3]: '';
+   $g['title'] = ($response[6][1])? $response[6][1]: '';
+   $g['location'] = ($response[9][1])? $response[9][1]: '';
+   
+   echo '&lt;h1&gt;&lt;a href=&quot;'.$g['usr'].'&quot;&gt;'.$g['name'].'&lt;/a&gt;&lt;/h1&gt;';
+   
+   echo '&lt;h2&gt;Personal Data&lt;/h2&gt;
+   	&lt;ul&gt;
+   		&lt;li&gt;Avatar: &lt;img src=&quot;'.$g['avatar'].'&quot;&gt;&lt;/li&gt;
+   		&lt;li&gt;Title: ' .$g['title'] . '&lt;/li&gt;
+   		&lt;li&gt;Location: ' .$g['location'] . '&lt;/li&gt;		
+    	&lt;/ul&gt;';
+   
+   
+   if(!empty($response[14][1])) {
+   	echo '&lt;h2&gt;About me&lt;/h2&gt;
+   			&lt;p&gt;'.$response[14][1].'&lt;/p&gt;';
+   }
+   
+   if(!empty($response[7][1])) {
+   	echo '&lt;h2&gt;Work&lt;/h2&gt;
+   	&lt;table&gt;&lt;th&gt;Company&lt;/th&gt;&lt;th&gt;Function&lt;/th&gt;';
+   	foreach($response[7][1] as $r) {
+   		echo '&lt;tr&gt;';
+   		echo '&lt;td&gt;'.$r[0].'&lt;/td&gt;';
+   		echo '&lt;td&gt;'.$r[1].'&lt;/td&gt;';
+   		echo '&lt;/tr&gt;';
+   	}
+   	echo '&lt;/table&gt;';	
+   }
+   
+   if(!empty($response[8][1])) {
+   	echo '&lt;h2&gt;Education&lt;/h2&gt;
+   	&lt;table&gt;&lt;th&gt;Institute&lt;/th&gt;&lt;th&gt;Studies&lt;/th&gt;';
+   	foreach($response[8][1] as $r) {
+   		echo '&lt;tr&gt;';
+   		echo '&lt;td&gt;'.$r[0].'&lt;/td&gt;';
+   		echo '&lt;td&gt;'.$r[1].'&lt;/td&gt;';
+   		echo '&lt;/tr&gt;';
+   	}
+   	echo '&lt;/table&gt;';	
+   }
+   
+   
+   if(!empty($response[11][0])) {
+   	echo '&lt;h2&gt;Links&lt;/h2&gt;
+   	&lt;table&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;URL&lt;/th&gt;';
+   	foreach($response[11][0] as $r) {
+   		echo '&lt;tr&gt;';
+   		echo '&lt;td&gt;'.$r[3].'&lt;/td&gt;';
+   		echo '&lt;td&gt;&lt;a href=&quot;'.$r[1].'&quot; target=&quot;_blank&quot; 
+   			style=&quot;padding-left: 20px; background:url('http:'.$r[2].'') top left
+   			no-repeat&quot;&gt;'.$r[1].'&lt;/a&gt;&lt;/td&gt;';
+   		echo '&lt;/tr&gt;';
+   	}
+   	echo '&lt;/table&gt;';	
+   }
+   ?&gt;
+   &lt;/body&gt;
+   &lt;/html&gt;
+</pre>
+<h3> Two remarks</h3>
+<p> You can resize the avatar appending ?sz=size to it:</p>
+<pre>
+   $g['avatar'] = ($response[3])? $response[3].'?sz=90': '';
+</pre>
+<p> You can even put the corresponding social media icons for the link:</p>
+<pre>
+   	foreach($response[11][0] as $r) {
+.. ..
+   			style=&quot;padding-left: 20px; background:url('http:'.$r[2].'') top left
+</pre>
+<h3> Result</h3>
+<p> My Google+ profile imported (no CSS applied):</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/google_profile_imported.png" alt="google+ profile exported" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Share</h3>
+<p>You can <a href="https://plus.google.com/106057741186141812269/posts/FLgWHkQ26td" target="_blank">comment</a> on this post and/or follow <a href="http://twitter.com/#!/bbelderbos" target="_blank">me</a></p>

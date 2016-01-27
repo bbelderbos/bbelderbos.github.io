@@ -1,0 +1,66 @@
+---
+layout: post
+title: 'Sneak preview: sharemovies'
+date: 2010-11-02 18:21:11.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- APIs
+- facebook
+- movies
+- plugins
+- sharemovies
+- socialmedia
+- workinprogress
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '547'
+  socialize: '1,2'
+  dsq_thread_id: '165899002'
+  _sexybookmarks_shortUrl: http://b2l.me/a3m6xt
+  _sexybookmarks_permaHash: 0dace776fe3c5965dbf37967407c04c5
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I am quite excited to announce a personal application I am working on. It's called sharemovies. It allows you to <span style="text-decoration: underline;">review, comment and rate movies</span>. I think we all like certain kinds of movies and often we get movies recommended from others. Hence "share movies"!<!--more--></p>
+<p><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like font="lucida grande"></fb:like></p>
+<p>I have always been a big fan of movies. And as you know I am passionate about web design and programming, so the idea to combine the two came up early. About a year ago I made a complete design for a movie sharing site, but it wasn't ready for serious implementation.</p>
+<p>Here is how it looked:</p>
+<p>[caption id="attachment_549" align="alignnone" width="600" caption="&quot;my movies&quot; was born back in 2009 already"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/11/my_movies_homepage.jpg"><img class="size-full wp-image-549" title="my movies idea was born back in 2009" src="{{ site.baseurl }}/assets/my_movies_homepage.jpg" alt="my movies idea was born back in 2009" width="600" height="394" /></a>[/caption]</p>
+<p>This looked quite ok, but there were two issues (apart from a lack of time) that didn't get me to publish it earlier:</p>
+<p>- How to get some basic movie info without doing it manually? An aesthetic point, but hey.. a movie site needs at least movie poster thumbs or is that just me?<a href="http://bobbelderbos.com/wp-content/uploads/2010/11/sharemovi.es_.soon_.jpg"><img class="alignright size-full wp-image-547" style="margin: 15px 10px;" title="sharemovi.es.soon" src="{{ site.baseurl }}/assets/sharemovi.es_.soon_.jpg" alt="" width="200" height="200" /></a></p>
+<p>- How to make it social? As you can see the intention was to put my movies in there and allow people to comment and rate. But wait.. often friends tell me how awesome a particular movie is and "you really need to go see it". So why not a multi-user app?</p>
+<p>... then there was facebook, its social plugins and, not less important, some nice ways get movie info.</p>
+<h3>Movie info</h3>
+<p>I found a cool script that gets movie data: <a href="http://davidwalsh.name/php-imdb-information-grabber" target="_blank">imdb grabber</a>. Another nifty way to get movie info is via the <a href="http://graph.facebook.com/" target="_blank">facebook graph</a>. For example if we put in IMDB's URL of <a href="http://www.imdb.com/title/tt1375666/" target="_blank">Inception</a> into graph.facebook..., like this: <a href="https://graph.facebook.com/?ids=http://www.imdb.com/title/tt1375666/" target="_blank">https://graph.facebook.com/?ids=http://www.imdb.com/title/tt1375666/</a>, we get an array in return:</p>
+<pre><span style="color: #808080;">{
+   "http://www.imdb.com/title/tt1375666/": {
+      "id": "110935752279118",
+      "name": "Inception (2010)",
+      "picture": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/hs867.snc4/71156_110935752279118_1973266_s.jpg",
+      "link": "http://www.imdb.com/title/tt1375666/",
+      "category": "Movie",
+      "website": "http://www.imdb.com/title/tt1375666/",
+      "description": "Directed by Christopher Nolan. With Leonardo DiCaprio,
+Joseph Gordon-Levitt, Ellen Page, Ken Watanabe.",
+      "fan_count": 38985
+   }
+}
+</span></pre>
+<p><span style="color: #808080;"><span style="color: #000000;">.. which you can process with </span></span><em>file_get_contents()</em>.  <span style="color: #808080;"> </span> or curl</p>
+<h3>Facebook</h3>
+<p>Some time ago Facebook introduced the <a href="http://developers.facebook.com/docs/reference/plugins/like" target="_blank">Like button</a>. It gives facebook registered users the opportunity to vote for certain content. This is becoming as relevant today as Google's page rank it seems. We see the buttons all over the web and you better have them on your site as well!</p>
+<p>There are however <a href="http://developers.facebook.com/plugins" target="_blank">more plugins</a> available. For sharemovies, I use the facebook login and the comment plugin. Facebook login is a secure login (SSL) and permits both you as the Programmer and mr./mrs. User to fully control access to the app and personal data. It's transparent for both parties, it's really a nice piece of work. The facebook API takes a bit of practice at the start, but once you are set it's really cool and I didn't even scratch the surface here. The comments plugin is a second time-saver: logged-in user comments are listed with the user's avatar and can be shared to one's wall.</p>
+<h3>Result</h3>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2010/11/sharemovies.jpg"><img class="alignnone size-full wp-image-550" title="sharemovies homepage" src="{{ site.baseurl }}/assets/sharemovies.jpg" alt="sharemovies homepage" width="650" height="397" /></a></p>
+<p>.. and logged in:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2010/11/sharemovies2.jpg"><img class="alignnone size-full wp-image-554" title="sharemovies2" src="{{ site.baseurl }}/assets/sharemovies2.jpg" alt="" width="650" height="409" /></a></p>
+<h3>From here on ..</h3>
+<p>The app is currently being tested. Hopefully I have a beta version by the end of the month. If you are interested to give it a try, leave me a comment or email me at <em>info at sharemovi dot es</em></p>

@@ -1,0 +1,71 @@
+---
+layout: post
+title: Adding some progressive enhancement
+date: 2010-05-02 15:58:14.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- demo
+- javascript
+- jquery
+- mobile devices
+- progressive enhancement
+meta:
+  _edit_last: '1'
+  bfa_ata_body_title: Adding some progressive enhancement
+  bfa_ata_display_body_title: ''
+  bfa_ata_body_title_multi: Adding some progressive enhancement
+  bfa_ata_meta_title: ''
+  bfa_ata_meta_keywords: ''
+  bfa_ata_meta_description: ''
+  _sexybookmarks_shortUrl: http://b2l.me/atxqk7
+  _sexybookmarks_permaHash: d6bf18818c3da4771baa69e5436e112f
+  dsq_thread_id: '200180393'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Playing around I disabled CSS and Javascript on my site:</p>
+<p style="text-align: center;"><a href="http://bobbelderbos.com/wp-content/uploads/2010/05/with_css_and_js_off.png"><img class="size-medium wp-image-85 aligncenter" title="with_css_and_js_off" src="{{ site.baseurl }}/assets/with_css_and_js_off-300x180.png" alt="browsing my site with css and js off" width="300" height="180" /></a></p>
+<p>Hm.. what's the problem? Well .. it is presentational stuff that shouldn't show up in a html-only view. A mobile device user will have to scroll through these image. An iphone would be served better with only text and maybe some small images.</p>
+<p>Cause? - I naively put images (img tags) into my html, this way mixing content with presentation. First I got the images out so that html-only view would not show them:</p>
+<p style="text-align: center;"><a href="http://www.bobbelderbos.com/wp-content/uploads/2010/05/html_after-300x116.png"><img class="size-medium wp-image-82 aligncenter" title="html_after" src="{{ site.baseurl }}/assets/html_after-300x116.png" alt="" width="300" height="116" /></a></p>
+<pre><span style="color: #000000;">.. far more compact for a mobile device. Under the phrase, the text starts,
+saving mobile device users a lot of scrolling.</span></pre>
+<p>Then I used CSS to put one image when only CSS was on:</p>
+<pre>.slideshow { position: relative; float: right; height: 150px; width: 425px;
+background:url("../images/bambu/bambu4.jpg") no-repeat top left; }</pre>
+<p>This way, when there is CSS one image is shown occupying the class the slideshow div in the html document.<br />
+Then the full solution, bonus for the people (still the majority of course) that has Javascript turned on. The key is to let Javascript do all the work:</p>
+<p><span style="text-decoration: underline;">1. add the images with JS storing them in a variable</span></p>
+<pre>var imagePresentation = '
+&lt;img src="images/bambu/bambu1.jpg" alt="banner with photo slideshow of bambu trees"/&gt;
+&lt;img src="images/bambu/bambu2.jpg" alt="banner with photo slideshow of bambu trees"/&gt;
+&lt;img src="images/bambu/bambu3.jpg" alt="banner with photo slideshow of bambu trees"/&gt;
+&lt;img src="images/bambu/bambu4.jpg" alt="banner with photo slideshow of bambu trees"/&gt;
+&lt;img src="images/bambu/bambu5.jpg" alt="banner with photo slideshow of bambu trees"/&gt;';</pre>
+<p><span style="text-decoration: underline;">2. add them to the document object model (DOM)</span></p>
+<pre>$('#slideshowImages').append(imagePresentation);</pre>
+<pre>(#slideshowImages = the container division reserved for the images.)</pre>
+<p>Now we have a good result for <strong>all three layers of the progressive enhancement model</strong>:<br />
+1. mobile devices or text-only browsers see only text. There is an empty #slideshowImages div block, that you could take out as well, but I use that for my CSS<br />
+2. browsers that have CSS turned on but not JS have a single background image in the banner:</p>
+<p style="text-align: center;"><a href="http://www.bobbelderbos.com/wp-content/uploads/2010/05/only_css-300x114.png"><img class="aligncenter size-medium wp-image-83" title="only_css" src="{{ site.baseurl }}/assets/only_css-300x114.png" alt="" width="300" height="114" /></a><br />
+3. browsers that support CSS and Javascript see all 5 images rotating - see my site. By the way, the rotation of images is thanks to the <a title="jquery cycle lite plugin" href="http://jquery.malsup.com/cycle/lite/" target="_blank">jQuery Cycle Lite Plugin</a></p>
+<p><strong><br />
+Conclusion</strong>: temptation is to put presentational stuff in too early. But knowing that at the end of the day, you have to go back to make hacks for wider compatibility, why not start at the very basic: the document structure (html). Then add a presentational layer with CSS decorating the content. At last put some interactive functionality adding Javascript. This way, you can at least be sure that all will work in a wide range of browsers even if Javascript or CSS is not there.</p>
+<p>I need to check my site for more of these drawbacks. Probably I will add a stylesheet in the future to optimize for mobile devices. You can easily target these devices doing something like this:</p>
+<pre>&lt;link rel="stylesheet" type="text/css" href="iphone.css"
+media="only screen and (max-width: 480px)" /&gt;</pre>
+<pre>&lt;link rel="stylesheet" type="text/css" href="desktop.css"
+media="screen and (min-width: 481px)" /&gt;</pre>
+<pre>(from <a title="building iphone apps with html, css and js" href="http://building-iphone-apps.labs.oreilly.com/" target="_blank">Building iPhone Apps with HTML, CSS, and JavaScript</a> ..
+from Jonathan Stark)</pre>
+<p>If you want to know more about progressive enhancement there is a good article at Sitepoint: <a title="where javascript fits in" href="http://articles.sitepoint.com/article/where-javascript-fits-in" target="_blank">where javascript fits in</a><br />
+Next post on IE6 quirks. IE6 might be dead, there are still visitors of my site with this browser and I need to make some adjustments to give them the same experience as the IE7+ users.</p>

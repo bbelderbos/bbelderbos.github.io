@@ -1,0 +1,82 @@
+---
+layout: post
+title: How to build a movie trailer API using gData
+date: 2011-01-10 23:59:14.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- feed
+- gdata
+- movies
+- php
+- programming
+- sharemovies
+- trailer
+- XML
+- youtube
+meta:
+  _edit_last: '1'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  _sexybookmarks_shortUrl: http://bit.ly/ifaAv8
+  _wp_old_slug: movie-trailer-plugin-in-3-steps
+  _sexybookmarks_permaHash: 28d0e90f42fb7416ebc1b6013bd53533
+  dsq_thread_id: '206652665'
+  _thumbnail_id: '705'
+  featured_posts_widget_flag: 'false'
+  _at_widget: '1'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>An important feature of each movie site is trailers, so it is for <a href="http://sharemovi.es/">sharemovi.es</a>! And where should we look for trailers? YouTube! But how can we program to get the corresponding trailer video when inputting the movie title? Use gData! <!--more--></p>
+<p>&nbsp;</p>
+<p>First of all there is a complete <a href="http://code.google.com/apis/youtube/overview.html" target="_blank">YouTube API</a> available, but my solution doesn't require much if any of it. It really comes down to getting the right feed details and parse the XML:<a href="http://bobbelderbos.com/wp-content/uploads/2011/01/youtube1.jpg"><img class="alignright size-full wp-image-705" style="margin: 20px;" title="youtube" src="{{ site.baseurl }}/assets/youtube1.jpg" alt="" width="200" height="200" /></a></p>
+<p>1. First make a query to the <a href="http://en.wikipedia.org/wiki/GData" target="_blank">gData</a> API (a REST-inspired technology for reading, writing, and modifying information on the web - see also this <a href="http://www.youtube.com/watch?v=qF5fbkURJ98" target="_blank">video</a>: it has been around for quite some time!)</p>
+<pre>$feedURL = 'http://gdata.youtube.com/feeds/api/videos?q='
+  .$q.'&amp;start-index=1&amp;max-results=1';</pre>
+<p>$q is the movie string to query. <strong>the+movie+name+'trailer'</strong> works best for me. And we want just the first hit to appear in the feed.</p>
+<p>2. Read the feed into a SimpleXML object</p>
+<pre>$sxml = simplexml_load_file($feedURL);</pre>
+<pre>// and iterate over entries in feed</pre>
+<pre>foreach ($sxml-&gt;entry as $entry) {</pre>
+<pre>   // get nodes in media: namespace for media information</pre>
+<pre>   $media = $entry-&gt;children('http://search.yahoo.com/mrss/');</pre>
+<pre>   // get video player URL</pre>
+<pre>   $attrs = $media-&gt;group-&gt;player-&gt;attributes();</pre>
+<pre>   $trailer = $attrs['url'];</pre>
+<pre>}</pre>
+<p>(I found a much more detailed example on the <a href="http://www.ibm.com/developerworks/xml/library/x-youtubeapi/" target="_blank">IBM site</a>, but this bit will do for what I want to show ..)</p>
+<p>3. Some final tweaking: to embed the gathered URL in a html &lt;object&gt; we need to swap 'watch?v=' with 'v/'. Luckily I played with YouTube URLs before because this is not very obvious.</p>
+<pre>$trailer = str_replace('watch?v=','v/',$trailer);</pre>
+<p>.. and we embed the result in the standard embed code YouTube provides to us</p>
+<pre>&lt;object width="640" height="385"&gt;&lt;param name="movie"
+<strong>value="&lt;?php echo $trailer ;?&gt;</strong>?fs=1&amp;amp;hl=en_US"&gt;&lt;/param&gt;
+&lt;param name="allowFullScreen" value="true"&gt;&lt;/param&gt;
+&lt;param name="allowscriptaccess" value="always"&gt;&lt;/param&gt;
+&lt;embed <strong>src="&lt;?php echo $trailer ;?&gt;</strong>?fs=1&amp;amp;hl=en_US" type="application/x-shockwave-flash"
+allowscriptaccess="always" allowfullscreen="true" width="640" height="385"&gt;&lt;/embed&gt;
+&lt;/object&gt;</pre>
+<p>You can see the result on <a href="http://sharemovi.es/">sharemovi.es</a>.</p>
+<p>&nbsp;</p>
+<p>I use the <a href="http://onehackoranother.com/projects/jquery/boxy/" target="_blank">jQuery Boxy plugin</a> to present the output as a nice Facebook-like overlay:</p>
+<p><span style="text-decoration: underline;">A. Click on "View trailer"</span></p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/Screen-shot-2011-01-10-at-11.36.45-PM.png"><img class="alignnone size-full wp-image-699" title="Screen shot 2011-01-10 at 11.36.45 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-01-10-at-11.36.45-PM.png" alt="" width="363" height="205" /></a></p>
+<p><span style="text-decoration: underline;">B. Overlay with the result of the trailer script that found "The Ghost Writer"'s trailer on YouTube: </span></p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/Screen-shot-2011-01-10-at-11.26.32-PM.png"><img class="alignnone size-full wp-image-698" title="Screen shot 2011-01-10 at 11.26.32 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-01-10-at-11.26.32-PM.png" alt="" width="618" height="531" /></a></p>
+<h3>Update (09.08.2011)</h3>
+<p>Some readers requested the source. I put it on <a title="trailer script attached" href="https://github.com/bbelderbos/Codesnippets/blob/master/apis/youtube/gdata_get_trailer.php" target="_blank">Github</a>. Let me know where you roll it out :)</p>
+<hr />
+<p>&nbsp;</p>
+<h4>Update 20/11/2015:</h4>
+<p>Gdata is gone, I fixed it by using themoviedb API, see <a href="http://bobbelderbos.com/2015/11/how-to-programatically-get-a-youtube-movie-trailer/">here</a>.</p>

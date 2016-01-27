@@ -1,0 +1,70 @@
+---
+layout: post
+title: 'Facebook API: post with PHP'
+date: 2011-01-04 17:20:28.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- automization
+- code snippets
+- facebook
+- movies
+- permissions
+- programming
+- sharemovies
+- web design
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '667'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  _sexybookmarks_shortUrl: http://bit.ly/fvg77f
+  _sexybookmarks_permaHash: 1cbe18269204ee6cc69cdf2e120f82e8
+  dsq_thread_id: '202642070'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>A few weeks ago I wrote a blog post on how to <a href="http://bobbelderbos.com/2010/12/twitter-api-tweet-with-php/" target="_blank">tweet with PHP</a>. The post was quite successful so today part II: Facebook API: post with PHP. The principle is the same: you need to register an app on Facebook and with the API key you can get started.</p>
+<p><!--more-->First you go to <a href="http://developers.facebook.com/" target="_blank">Facebook's developer page</a> and add an app. You can name it anything you want but make sure you put the right URL of the site (if you develop on your localhost you might consider register two apps because one api key is linked to one URL)<a href="http://bobbelderbos.com/wp-content/uploads/2011/01/fb_post_wall.jpg"><img class="size-full wp-image-667 alignright" style="margin-top: 15px;" title="fb_post_wall" src="{{ site.baseurl }}/assets/fb_post_wall.jpg" alt="" width="200" height="200" /></a></p>
+<p>Then you download the <a href="https://github.com/facebook/php-sdk/" target="_blank">facebook php client library</a> and put in the application key and secret. Then you can use the <a href="http://developers.facebook.com/docs/reference/plugins/login" target="_blank">Facebook login button</a> to have people login to your app.</p>
+<p>I am flying over this here because the main thing I wanted to show you today is how to automatically post to your Facebook wall. I will show you an example how I implemented this on <a href="http://sharemovi.es/" target="_blank">sharemovi.es</a>, a site I built to bring together movie fans.</p>
+<p>The post that really helped me doing this was on <a href="http://stackoverflow.com/questions/691425/how-do-you-post-to-the-wall-on-a-facebook-page-not-profile" target="_blank">stackoverflow</a> which is one of those resources that always show up in Google, but also provides you with good answers!</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>Once you have initiated the facebook instance with the php client library, posting to facebook is quite easy:</p>
+<pre>$attachment = array('message' =&gt; 'Check out this movie ..',
+ 'name' =&gt; $title,
+ 'link' =&gt; 'http://sharemovi.es/' . $urlTitle,
+ 'description' =&gt; 'Review: ' . $review,
+ 'picture' =&gt; $picLocal
+ );
+  if(!($sendMessage = $facebook-&gt;api('/me/feed/','post',$attachment))){
+  $errors= error_get_last();
+  echo "Facebook publish error: ".$errors['type'];
+  echo "&lt;br /&gt;\n".$errors['message'];
+ }</pre>
+<p>Unfortunately <a href="http://www.syndicatedmethods.com/SyndicatedBlogs/post/2010/06/22/FBCDN-image-is-not-allowed-in-stream-How-can-this-be.aspx" target="_blank">Facebook does not allow you to select a FBCDN image</a> (FBCDN standing for "Facebook content delivery network"), so you have to use another one or copy one from the FBCDN over to your server (hence $picLocal)</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>The beauty of the Facebook API lays in the fact it is highly customizable. As you can see, you can exactly specify what the wall post should look like, in my case a link to the new movie title, the review submitted by the user, etc.</p>
+<p>Now to understand how this works for the user, let's see a practical example: a user logs into sharemovi.es via the Facebook login button. The first time the user is asked by Facebook to confirm if the Facebook app/ sharemovi.es may access his/her personal info, email and since last week the <a href="http://developers.facebook.com/docs/authentication/permissions" target="_blank">extended permission</a> to post to his/her wall. Below you see only the latter permission, because the basic permissions I accepted already.</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/post1.png"><img class="alignnone size-full wp-image-668" title="post1" src="{{ site.baseurl }}/assets/post1.png" alt="" width="601" height="201" /></a></p>
+<p>This allows the app to post to the user's wall, but that is only possible when a valid Facebook session has been established (user has logged in).</p>
+<p>Implementing this technique, I made the design choice to explicitly ask the user to use this feature. This way there shouldn't be any misunderstanding when sharemovi.es posts to your wall.</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/post2.png"><img class="alignnone size-full wp-image-669" title="post2" src="{{ site.baseurl }}/assets/post2.png" alt="" width="349" height="93" /></a></p>
+<p>Finally here you can see the outcome: a nice customized wall post!</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/post3.png"><img class="alignnone size-full wp-image-670" title="post3" src="{{ site.baseurl }}/assets/post3.png" alt="" width="509" height="199" /></a></p>
+<p>You will recognize the fields of the code snippet. Friends can like and comment on your post, just as any link you share with the existing Facebook buttons. Below the post you see the source, which is the application, Sharemovi.es in this case.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>One final thing, you can easily delete the post and even, in the same menu, revoke all access the Facebook application has been given. Facebook thought this out well: your granted access is never permanent and as easy as you give it, as easy it can be taken away:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/post4.png"><img class="alignnone size-full wp-image-672" title="post4" src="{{ site.baseurl }}/assets/post4.png" alt="" width="526" height="186" /></a></p>
+<p>I hope you liked this post. If so, please use the social media buttons at the top and the bottom of this post to spread the word. You can also subscribe to this blog (see sidebar) to receive a periodic newsletter with my latest blog posts.</p>

@@ -1,0 +1,54 @@
+---
+layout: post
+title: 'Reading: FB App Development with Graph API Cookbook'
+date: 2011-12-23 18:30:32.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Books
+tags:
+- api
+- facebook
+- graph
+- packt
+meta:
+  _thumbnail_id: '1637'
+  _edit_last: '1'
+  dsq_thread_id: '514077584'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<h4>Disclaimer: I received a copy of this book from Packt to review</h4>
+<p> I just finished reading <a href="http://www.packtpub.com/facebook-application-development-with-graph-api-cookbook/book" target="_blank">Facebook Application Development with Graph API Cookbook</a>. It provides over 90 recipes to create web apps with the <a href="https://developers.facebook.com/" target="_blank">Facebook API</a>. The variety of topics and the amount of practical code examples makes it a useful reference for the FB API developer.</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fbapi1.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p> The book is structured as follows:</p>
+<ul>
+<li> The first 3 chapters are a basic introduction how the API works: get the PHP SDK, set up your first (canvas) app, interacting with the social graph and how to query Facebook.</li>
+<li> Chapters 4-6 focus on Javascript: chapter 4 introduces the JS SDK, chapter 5 is about Facebook Dialogs, and chapter 6 deals with the various social plugins from Facebook that you integrate on your site (like button, activity feed, etc). </li>
+<li> Chapters 7-9 show a bit more advanced topics: integrating web pages (chapter 7), virtual Facebook currency to actually earn money through Facebook (chapter 8) and advertising / metrics data (chapter 9).</li>
+<li> Chapter 10 is the most fun: it shows some complete Facebook apps you can build with the API</li>
+<li> Chapter 11 is bonus and important moving forward: it shows the <a href="https://developers.facebook.com/docs/beta/" target="_blank">Open Graph Beta</a> that was presented several months ago at Facebook's G8.</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Code samples</h3>
+<p>I didn't have time to play with all the code samples yet, but they form a great resource for both new developers wanting to get to know the framework, as well as the intermediate/advanced developer that wants to enhance his/her skills.</p>
+<p>Writing a FB API book is more than challenging knowing that the platform is updated very often. I found my FB apps broken this week because I didn't anticipated the <a href="https://developers.facebook.com/blog/post/614/" target="_blank">oauth2 change</a> that went live (announced on the Facebook developers blog). This might be an issue with the code samples, because I didn't see the "oauth: true" in the FB.init calls, which was the change I had to put into my apps last weeks to make them work again (more info about the fix <a href="https://developers.facebook.com/blog/post/534/" target="_blank">here</a>). Another example is the depricated $facebook->getSession() on page 15 of the book (now: $facebook->getUser() in PHP SDK 3.1) which I spotted on the <a href="http://www.botskool.com/geeks/facebook-application-development-graph-api-cookbook" target="_blank">author's blog post comments</a>.</p>
+<p>This seems inevitable, and it means you need to be prepared to have the API documentation at hand and tweak (but hey ... isn't this the best way to learn anyway?). As the book is from November this year, there won't be many of these issues, but in 1 or 2 years time there might be, so probably it would be a good idea to release an updated version of the book by then.</p>
+<p>Kudos to the author for the amount of samples. I also think he did a good job of explaining them, and adding other technologies like PHP GD (image creation) and jQuery to pretty up the examples.</p>
+<h3> Writing style and structure</h3>
+<p>The book is easy to read/follow. It goes through the concepts in a logical order, building new examples upon previous ones. It is not necessary to read it sequentially though. There are backreferences to prerequisites, so with some experience you can easily jump in anywhere. As with most of Packt's cookbooks the structure for each recipe is: "get ready -> how to do it -> how it works -> references", as with <a href="http://bobbelderbos.com/2011/11/yii-1-1-application-development-cookbook/" target="_blank">Yii's cookbook</a>, this worked pretty well for me. It allows for both quick scanning of code (after all a cookbook really is a reference work) as well as detailed study of the examples. </p>
+<h3> Open graph</h3>
+<p>I liked the fact that the author paid some attention to the Open Graph Beta. I still have to develop my first App in it, and from what I've seen (Spotify, reading apps), it seems the way forward! Trivia: I actually contacted the author several weeks ago that I was going to read/review his title, asking him if he had seen the G8 conf and thus if he could do a chapter on the OG Beta. I got a prompt response and I am glad he put it in :)</p>
+<h3> Learning by doing</h3>
+<p>From a personal view, learning the FB API is about practicing, writing code, play with the PHP / JS SDKs and many methods the FB API has. The many examples suits this purpose well. Again, things change fast at Facebook, and usually announcing it on their blog, so if you are developing FB apps, follow the developers blog and use this book as reference making sure you also check the latest API docs. </p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Conclusion</h3>
+<p>I found the content and the way it is presented very useful. Although the book is brand new, there are already some recent changes in both PHP and JS SDKs that might affect the code. So make sure you check the FB API documentation.</p>
+<p>The advantage of this book over the API docs, is the structured format to learn the subject and clear explanations. It covers a wide range of topics in a reasonable size of 340 pages, including interesting advanced topics like virtual currency, advertising and metrics. The book's samples show a strong integration with the social graph (the real API's strength!), and a chapter on the way forward: the Open Graph Beta.</p>
+<p>So I can recommend this title to every developer that works with the Facebook API.</p>

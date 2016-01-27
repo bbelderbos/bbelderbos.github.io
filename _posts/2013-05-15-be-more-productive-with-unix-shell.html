@@ -1,0 +1,87 @@
+---
+layout: post
+title: Some shell tricks for more efficient command line use
+date: 2013-05-15 22:34:23.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- bash
+- command line
+- git
+- perl
+- process
+- productivity
+- script
+- shell
+- unix
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2389'
+  snapEdIT: '1'
+  snapDL: s:208:"a:1:{i:0;a:7:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:2:"DL";s:5:"pDate";s:19:"2013-05-15
+    20:34:50";}}";
+  snapLI: 's:463:"a:1:{i:0;a:12:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";s:6:"&nbsp;";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:123:"http://www.linkedin.com/updates?discuss=&amp;scope=17946624&amp;stype=M&amp;topic=5740534511976869888&amp;type=U&amp;a=U70Y";s:5:"pDate";s:19:"2013-05-15
+    20:34:41";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapTW: 's:285:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"334768831169974272";s:5:"pDate";s:19:"2013-05-15
+    20:34:43";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;}}";'
+  snap_isAutoPosted: '1'
+  _wp_old_slug: be
+  snapFB: 's:361:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_576582662375866";s:5:"pDate";s:19:"2013-05-15
+    20:34:40";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  dsq_thread_id: '1290986518'
+  featured_posts_widget_flag: 'true'
+  snap_MYURL: ''
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In this post some Shell / Unix techniques I use over and over again to be more efficient at the command line.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<ul>
+<li> Aliases (.bashrc) save time. When I type "lt", shell runs "ls -lrth", "ht" lets me go to "/Applications/XAMPP/htdocs". All those seconds add up over time. </li>
+<li> Stay in the same terminal, putting programs in the background. I use this often in Vim: ctrl-z to suspend Vim, do stuff at the command line, go back to Vim with "fg" (when suspending > 1 process, use "jobs" and fg #number to toggle between them)</li>
+<li> Diff two command outputs without creating files. For example, taking out the "title" of one of my pages I could do a diff between the local version and the remote site: </li>
+<pre>
+$ diff &lt;(cat header.php) &lt;(ssh bob &#39;cat ~/public_html/fbreadinglist/header.php&#39;)
+42a43
+&gt;   &lt;title&gt;&lt;?php  echo $title; ?&gt;&lt;/title&gt;
+</pre>
+<p>In  the parenthesis (subshell) can go any command, quite a powerful technique.</p>
+<li> I use sed daily to search and replace patterns from the command line, but its regex engine is archaic: you have to escape capturing parenthesis (), you don't have +, {}, non-greediness (*?). You can achieve a richer regex engine by using a perl oneliner with: perl -pe 's/pattern/replace/g'. So same syntax but replacing "sed" with "perl -pe". This is a great alternative to have when text parsing from the command line gets more complicated.</li>
+<li> Search history: press Ctrl-R and you get (reverse-i-search)`': -> here you can type a string to search through your shell history. This saves a lot of time compared to hitting many times the up-key.</li>
+<li> Navigation: use "cd -" to go to the previous directory (like a back button). If I need to sidetrack, I type bash to do work in a new shell, when exiting this new shell, I can continue where I left.</li>
+<li> "set -e" in a shell script will cause it to die inmediately when any command does not return 0 (= ok status). This is useful to spot errors soon and not continue with bad assumptions.</li>
+<li> Execute in combination with find: change permission on all 664 files to 664: $ find . -perm 644 -exec chmod 664 {} ; </li>
+<p>Another example is to recursively search project files for "todo" actions: $ find . -name '*.py' -exec grep -inH "todo" {} ;</p>
+<p>A variant on this is the use of xargs which reads items from pipes / stdin: $ find *py |xargs grep -l todo 2>/dev/null</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<li> Command substitution: same as last example but with a for loop and using this technique: $ for i in $(find . -perm 644); do chmod 664 $i; done</li>
+<p>In the () can go any command, I use this often to loop over a the output of a command or script.</p>
+<li> Brace expansion allows you to quickly copy files: $ cp file{,.org}</li>
+<li> Sometimes the "ls" command is too verbose, to see only subdirectories use the -d switch: $ ls -d */</li>
+<li> Use shortcuts to move around on the command line. You can set bash in emacs or vi mode, see <a href="http://www.hypexr.org/bash_tutorial.php" target="_blank">here</a>. I use ctrl+a/e/u/l the most to respectively go to start/end line, delete all before cursor, and to clear the screen. </li>
+<li> Change you prompt. Mine: PS1='[u@h W$(__git_ps1 " (%s)")]$ ' == [bbelderbos@Bob-Belderboss-MacBook-Pro posts (master)]$</li>
+<p> Note that I use <a href="https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh" target="_blank">git-prompt.sh</a> to show the current git branch in my prompt.</p>
+<li> Useful to know about mkdir: the -m lets you specify the permissions of the dir: $ mkdir -m 777 dir_with_777_perms ; the -p option lets you create directory trees: $ mkdir -p /deep/file/tree/level4/level5/level6</li>
+<li> No cat is needed for grep:</li>
+<pre>
+# extra process
+$ cat tmp/a/longfile.txt | grep string 
+#&Acirc;&nbsp;this is better / faster
+$ grep string tmp/a/longfile.txt
+</pre>
+<li> Redirect stderr to stdout is easy: add 2>&1 to your command: $ find / -name foo 2>&1</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>What are your favourite Shell / Unix tricks?</h3>
+<p>Of course the tips above are just a fraction of what is possible. Please share your time-savers in the comments below ...</p>

@@ -1,0 +1,66 @@
+---
+layout: post
+title: Rails 3 is out
+date: 2010-08-30 20:31:57.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- learn ruby
+- new
+- rails
+- rails3
+- ror
+- ruby
+- screencasts
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  _sexybookmarks_shortUrl: http://b2l.me/atwu5w
+  _sexybookmarks_permaHash: 368bc833ba88066127ae74af702ac6c8
+  dsq_thread_id: '144089846'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>An important day for the ruby on rails community!</p>
+<h3>Intro video</h3>
+<p><object id="viddler" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="437" height="347" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><param name="flashvars" value="fake=1" /><param name="src" value="http://www.viddler.com/simple_on_site/5b36b887" /><param name="name" value="viddler" /><param name="allowfullscreen" value="true" /><embed id="viddler" type="application/x-shockwave-flash" width="437" height="347" src="http://www.viddler.com/simple_on_site/5b36b887" name="viddler" flashvars="fake=1" allowfullscreen="true" allowscriptaccess="always"></embed></object></p>
+<h3>New features</h3>
+<p>Viewing the <a href="http://rubyonrails.org/screencasts/rails3" target="_blank">screencasts</a> we see some nice features built into rails 3:</p>
+<ul>
+<li>Refactored Internals: a minimal functional core vs. extended functionality.<br />
+Rails3 has a microkernel architecture with additional libraries.</li>
+<li>New/cleaner routing structure which is rack compatible. Rack basically entails a simple interface for handling HTTP requests in Ruby. Rails Metal, one of the results of the move to Rack, provides a way to bypass some of the normal overhead of the Rails stack,  allowing a developer to specify certain routes and code to execute when  those routes are hit (see <a href="http://www.viget.com/extend/rack-support-in-rails-why-it-matters/" target="_blank">Rack support in Rails: Why It Matters</a>)</li>
+<li>ActiveRelation: new syntax for queries, for example the much shorter <em>Post.where(:published =&gt; true)</em> is a clean example of querying your data source.</li>
+<li>Rails 3 ships with <a href="http://gembundler.com/" target="_blank">Bundler</a>, a Ruby library that makes Dependency Management less painless because dependencies are better dealt with than Gems (see nice graphical illustration in the screencasts)</li>
+<li><a href="http://edgeguides.rubyonrails.org/action_mailer_basics.html" target="_blank">ActionMailer</a> has its own <em>app/mailers</em> folder and has (among a lot of other cool stuff) automatic mime-type detection</li>
+<li><a href="http://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) protection is offered by automatic string escaping / <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank">cross-site request forgery</a> is prevented by <em>protect_from_forgery<br />
+</em></li>
+<li>Unobtrusive javascript (UJS)
+<ul>
+<li>HTML5 custom data attributes (data-* tags) are integrated saving a lot of markup (instead of a crap-load of html, just one data-..=".." tag).</li>
+</ul>
+<ul>
+<li>Support for more JS frameworks. You can easily integrate jQuery by getting the <a href="http://github.com/rails/jquery-ujs" target="_blank">jquery ujs driver</a></li>
+</ul>
+</li>
+</ul>
+<h3>More info</h3>
+<ul>
+<li>New features: <a href="http://weblog.rubyonrails.org/" target="_blank">http://weblog.rubyonrails.org/</a></li>
+<li>Release notes rails3 can be found <a href="http://edgeguides.rubyonrails.org/3_0_release_notes.html" target="_blank">here</a></li>
+<li>To begin with: <a href="http://edgeguides.rubyonrails.org/getting_started.html" target="_blank">get started guide</a></li>
+<li>Some amazing <a href=" http://rubyonrails.org/screencasts/rails3" target="_blank">screencasts</a></li>
+<li><a href="http://weblog.rubyonrails.org/2010/8/28/rails-has-great-documentation" target="_blank">Even more documentation</a></li>
+</ul>
+<h3>Ah by the way ..</h3>
+<p>As I posted <a href="http://www.bobbelderbos.com/blog/2010/08/ruby-on-rails-first-steps/" target="_blank">here</a>, I started to learn Ruby on Rails. Important is to gain a profound Ruby knowledge! Reading the rails source will become fundamental in becoming a good rails developer.<br />
+I want to share <a href="http://www.fakingfantastic.com/2010/08/15/getting-comfortable-working-with-rails-core/" target="_blank">this post</a> with you for anyone learning Ruby on Rails: what are great sources to really get going with Ruby ..</p>
+<h3>From here on ..</h3>
+<p>Tell me about your ruby on rails experience and how rails3 will improve it..</p>

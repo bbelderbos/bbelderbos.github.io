@@ -1,0 +1,88 @@
+---
+layout: post
+title: Python script to clone itunes autofill feature for USB device
+date: 2013-01-27 19:25:43.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- itunes
+- music
+- programming
+- python
+- scripting
+- usb
+meta:
+  _edit_last: '1'
+  snapEdIT: '1'
+  snapTW: 's:267:"a:1:{i:0;a:8:{s:13:"SNAPincludeTW";i:0;s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"295598636908285952";s:5:"pDate";s:19:"2013-01-27
+    18:26:21";s:4:"doTW";s:1:"0";}}";'
+  snap_isAutoPosted: '1'
+  dsq_thread_id: '1049848864'
+  _wp_old_slug: python-eyed3-script-to-autofill-usb-with-mp
+  snapDL: s:233:"a:1:{i:0;a:8:{s:13:"SNAPincludeDL";i:0;s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:2:"DL";s:5:"pDate";s:19:"2013-01-27
+    18:26:15";s:4:"doDL";s:1:"0";}}";
+  snapFB: 's:299:"a:1:{i:0;a:9:{s:13:"SNAPincludeFB";i:0;s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_527170857317047";s:5:"pDate";s:19:"2013-01-27
+    18:26:20";s:4:"doFB";s:1:"0";}}";'
+  _thumbnail_id: '2344'
+  snapLI: 's:271:"a:1:{i:0;a:8:{s:13:"SNAPincludeLI";i:0;s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:26:"Q2JWqfUn5G
+    - Bob Belderbos";s:5:"pDate";s:19:"2013-01-27 18:26:21";s:4:"doLI";s:1:"0";}}";'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I never thought I would autofill my iphone with music, but I recently tried it and I actually like it. You start to appreciate more types of music. In this post a python script to do the same thing for USB devices to listen to new music in my car.</p>
+<p><!--more--></p>
+<p>It is funny how you limit yourself to a few albums/playlists over time, autofill breaks this habit. Now my daily music digest is much more variated. The autofill script is on <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/music_autofill.py" target="_blank">github</a>. It has become a bit longer than expected because I added more features.</p>
+<p>With the required options (music lib path, destination dir path, max size of autofill), it just takes random songs. With the optional switches you can filter on genre and limit the song length. I use <a href="http://eyed3.nicfit.net" target="_blank">eyed3</a> to read the mp3 metadata. As it is expensive to run it against a lot of mp3 files, I dump its output to a file in json format. When using the -c option you can retrieve the metadata of your songs from this file. This makes it much faster and has the benefit (over a simple copy/paste script) that you can specify genres, etc.</p>
+<p>Some useful things in Python:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/2186525/use-a-glob-to-find-files-recursively-in-python" target="_blank">recursively find files</a>,</li>
+<li><a href="http://stackoverflow.com/questions/7100125/storing-python-dictionaries" target="_blank">loading and storing json</a> (note you can also use <a href="http://docs.python.org/2/library/pickle.html" target="_blank">pickle</a>),</li>
+<li>optparse is a great module to deal with command line parsing (see switches below),</li>
+<li>random dict key selection with random.choice,</li>
+<li>become trained in catching every exception (here for example the AttributeError when eyed3 couldn't find genre.name etc.), otherwise the program will end unexpectedly!</li>
+<li>rfe: it generally suits my purpose, but there are many options that could be added like filtering artist, album, and other criteria, delete previously selected songs, etc. Any ideas, feel free to post them in the comments.</li>
+<li>code: split functionality over more / smaller methods and classes (length of 'path_exists_check' and 'select_genres' is convenient), build automated testing against each method.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Script use:</h3>
+<pre>$ python music_autofill.py
+Mandatory option is missing: [path]
+
+Usage: music_autofill.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -p PATH, --path=PATH  path to music lib
+  -u USB, --usb=USB     path to usb stick
+  -s SIZE, --size=SIZE  max size autofill in MB
+  -g, --genres          filter on genres
+  -l LENGTH, --length=LENGTH
+                        max length of song in minutes
+  -v, --verbose         verbose switch
+  -c, --caching         dump music lib to json for fast retrieval</pre>
+<h3>Example output</h3>
+<p>Without genres, using cache file:</p>
+<pre>$ python music_autofill.py -p "music_dir" -u ~/Desktop/tmp  -s 1000 -c 
+1048576000 bytes reached, we're done!
+Successfully copied: 103 / failures upon copying: 0
+Cache file music_dir/my_music_library.json was used
+- to run without caching, don't use the -c option
+- to refresh the cache, delete the mentioned file</pre>
+<p>&nbsp;</p>
+<p>With -g to specify genres:</p>
+<pre>$ python music_autofill.py -p "music_dir" -u /Volumes/USB\ DISK/ -g  -s 200  -c 
+provide genres to filter on, seperated by commas: brazilian beats, breaks, da bass, blues
+209715200 bytes reached, we're done!
+Successfully copied: 36 / failures upon copying: 0
+Cache file music_dir/my_music_library.json was used
+..</pre>

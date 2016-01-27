@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'My Reading List: load Google book preview in overlay'
+date: 2011-09-16 21:13:00.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- google books API
+- my reading list
+meta:
+  posterous_6b63f8d297c73139dd329498419cf441_post_id: '70677174'
+  posterous_6b63f8d297c73139dd329498419cf441_permalink: http://exploringtheweb.net/my-reading-list-how-to-get-a-google-book-prev
+  _thumbnail_id: '1357'
+  _edit_last: '1'
+  _wp_old_slug: my-reading-list-how-to-get-a-google-book-preview-loaded-in-an-overlay
+  dsq_thread_id: '497988003'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p><a href="http://code.google.com/apis/books/" target="_blank">Google books API</a> is cool, it gets you quite some info and it is easy to use. I used it in <a href="http://fbreadinglist.com/" target="_blank">My Reading List</a> ( you can read more <a href="http://bobbelderbos.com/2011/03/new-facebook-app-my-reading-list/" target="_blank">here</a> ) .</p>
+<p><!--more--></p>
+<h3>Book preview</h3>
+<p>Last week, apart from creating a <a href="http://bobbelderbos.com/2011/09/my-reading-list-widget/" target="_blank">widget</a>, I tried to improve the code a bit for the book preview button. I programmed the book preview button to open an iframe overlay (<a href="http://fancybox.net/" target="_blank">fancybox</a>) and tries to load the book's preview. If not found, it redirects to google's book page.&nbsp;</p>
+<h4>Update</h4>
+<p>{{ It seems majority of books don't load the preview. For now I accept this as a condition. If the book preview is not loaded the user is still redirected to the book's Google Books Page }}</p>
+<h3>How does it work? </h3>
+<p>Below the script. After loading Google's jsapi library, google.setOnLoadCallback(previewTitle), is called. previewTitle is a function that tries to create a view of the book (googleID) you pass in (php get variable in this case). If it can't find it, alertNotFound is called which puts a message and redirects to google's book page. A wrapper div "viewerCanvas" is defined to load in the content. All this happens in the preview.php page that gets loaded in an overlay iframe upon clicking the google preview button (first printscreen)</p>
+<h3>Result: </h3>
+<p><img src="{{ site.baseurl }}/assets/Screen_shot_2011-09-14_at_3.12.13_AM.png.scaled530.png" /><br />
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-09-14_at_3.12.04_AM.png.scaled1000-277x300.png" /><br />
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-09-17_at_12.28.44_AM.png.scaled1000-300x31.png" /></p>
+<h3>More info </h3>
+<p>At the <a href="http://code.google.com/apis/books/docs/viewer/developers_guide.html" target="_blank">developers guide</a>. Check this script out <a href="http://www.bobbelderbos.com/src/google_preview" target="_blank">here</a></p>

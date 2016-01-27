@@ -1,0 +1,59 @@
+---
+layout: post
+title: Becoming a good debugger
+date: 2011-07-07 20:05:47.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- cs
+- debug
+- mit
+- story
+- tricks
+- web development
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '987'
+  dsq_thread_id: '352395882'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,24'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Coincidence is a fascinating concept: I just finished lecture 11 "testing and debugging" of <a title="mit cs course" href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00-introduction-to-computer-science-and-programming-fall-2008/ " target="_blank">MIT's interesting CS course</a> yesterday and had an amazing example in practice today.<!--more-->The coincidence was a bug that was identified in an app I wrote. It did not make any sense at first: some data was written that had nothing to do with the expected data. I could not guess where it had come from. I started to look at the function responsible for writing that piece of output. As the mentioned course states: "reading" your code is very important, but you can easily get into the habit of just take things for granted.</p>
+<p><img class="size-full wp-image-987 alignleft" style="margin: 20px 20px 0 0;" title="debugging" src="{{ site.baseurl }}/assets/1310068460.png" alt="" width="160" height="160" /></p>
+<p>Trying to understand the function I quickly saw the specific output got written to a temporary file first. You see, as code grows and apps age, you often forget the inner working of each and every function.</p>
+<p>The thing to remember when debugging is that you need to be <strong>SYSTEMATIC</strong>. In the course a great example is shown of the <a title="binary search explained" href="http://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank">binary search</a> approach (the "Silly" program): start in the middle to rule out half of the code. Of the half left, start again in the middle, etc.</p>
+<p>I started to look for a pattern to see when this bug might had slipped in. Having complete statistics (thankful now), and starting somewhere in the middle of last weeks uses, I was quickly able to pinpoint the exact time and date when the issue started.</p>
+<h3>The important question, always</h3>
+<p>Then I asked: "what changed around that date?". I started to think and talk to people involved: there was a permission change of the temporary file that got written to! A quick test script confirmed I could not overwrite the temp file anymore! Bingo!</p>
+<h3>The course and the real-life example thought me some things:</h3>
+<ol>
+<li><em>read along till the end</em><br />
+The directory the temp file was in had enough permissions to write to, so that alone was not the issue. Until I went further down in the code I saw the file was not getting cleaned up. This fact I discovered later. So, although the binary search example as described above, is good to do anyways, I might had saved a bit of time. It is obvious but reading rewards!</li>
+<li><em>reproduce the issue</em><br />
+When you got a basic understanding of the issue, try to reproduce the problem as soon as possible in the process and with the minimum number of inputs (saves time). As the course says: once reproduced, you are more than halfway there. I often use a test.php to play around calling functions to isolate their working and really understand them.</li>
+<li><em>search algorithm</em><br />
+The binary approach into action: see above: you can quickly narrow down where the issue might be.</li>
+<li><strong><em><span class="Apple-style-span" style="font-weight: normal;">print, </span></em><strong><em><span class="Apple-style-span" style="font-weight: normal;">print, print</span></em><br />
+</strong></strong>As explained in the CS course ... print variables in your code. Actually do as much logging as you can. Bugs will show up, even best programmers are "bugged" (and if you would foresee those mistakes you wouldn't allow them to crawl in!) Although outputting extra stuff to console, tables/ files, might cost time to set up the first time, it will save time later and might decrease the damage done. I actually think a good approach is to design a test suite and toggle a global variable to switch it on/off. Be ready when you receive the call ;)</li>
+</ol>
+<h3>Defensive programming</h3>
+<div>As John Guttag says in the course: "defensive programming is all about facilitating validation and debugging!" And with that you prevent future head aches :)</div>
+<h3>At last</h3>
+<p>... be patient, analyzing a bug can take hours, sometimes even days if you (wisely) walk out from time to time. However I found the process much satisfying, intriguing even. I mean applying a systematic approach to narrow down an issue step by step, I think it is in the programmer's nature to just love that :)</p>
+<p>&nbsp;</p>
+<h3>Share the word or join..</h3>
+<p>Did you like this post? Tell your friends via the social media buttons on this site...</p>
+<p>You can also <a href="https://www.facebook.com/home.php?sk=group_118232854902671&amp;ap=1" target="_blank">join my Facebook group</a> or get a weekly <a href="http://www.mailchimp.com/" target="_blank">Mailchimp</a> newsletter to keep up with my new blog posts. You can subscribe in the sidebar of this site ...</p>
+<p>Ah.. and I am also at twitter: <a href="http://twitter.com/#%21/bbelderbos" target="_blank">@bbelderbos</a></p>

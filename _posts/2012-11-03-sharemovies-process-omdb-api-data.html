@@ -1,0 +1,125 @@
+---
+layout: post
+title: Sharemovi.es / how to dynamically load IMDB ratings for movies
+date: 2012-11-03 13:40:04.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- imdv
+- javascript
+- movies
+- omdb
+- php
+- sharemovi.es
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2233'
+  _wp_old_slug: sharemovies-display-omdb-api-data-on-page
+  dsq_thread_id: '912254423'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In this post I will show how you can dynamically load <a href="http://omdbapi.com" target="_blank">omdbapi</a> data into your page. This example only uses the rating info because all other movie data I get already from <a href="http://docs.themoviedb.apiary.io" target="_blank">themoviedb API</a>. I use this feature on <a href="http://sharemovi.es" target="_blank">sharemovi.es</a>.</p>
+<p><!--more--></p>
+<h3>How it works</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sharemovies_imdbScores.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p>I was clicking a lot on the IMDB link on movie pages (example <a href="http://sharemovi.es/movie/238-the-godfather" target="_blank">movie page</a>). Mostly because the vote count is much higher than TMDB's so it is a good extra reference to see if a movie is worth watching. The code in this post shows you how to load in this type of data, if you use PHP for your own movie site project, you can easily re-use these examples.</p>
+<p>The strategy is very similar to <a href="http://bobbelderbos.com/2012/11/sharemovi-es-make-a-cool-multifunctional-autocomplete/" target="_blank">the autocomplete in the last article</a>. We ask Javascript (jQuery in this case) to watch for a click on an anchor with class "imdbRating". Upon a click on this element, we replace the parent "span" element with a loader gif image, while calling the omdbapi in the background. When this query comes back with the result, we replace the loader image with it.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>The actual coding</h3>
+<ul>
+<li> The html that sets up a span and anchor within it with a class and a unique id. The imdb movie is hardcoded for this example, but in the <a href="http://sharemovi.es" target="_blank">real app</a> it is dynamically generated from the database (cached movie) or themoviedb API (new movie):</li>
+<pre>
+..
+&lt;span&gt;&lt;a class=&quot;imdbRating&quot; href=&quot;#&quot; id=&quot;tt0068646&quot;&gt;IMDB&lt;/a&gt;&lt;/span&gt;
+..
+</pre>
+<li> The Javascript that handles the click on the link (include the jQuery library first):</li>
+<pre>
+$(document).ready(function() {                                                                                                                                                 
+  ..
+  ..
+
+  $(&quot;.imdbRating&quot;).click(function(){                                                                                                                                           
+    var ratingLink = $(this);
+    var ratingDiv = $(this).parent();
+    var imdbTitle = ratingLink.attr(&quot;id&quot;);
+
+    ratingDiv.html(&quot;&lt;img src=&#39;i/mini-loader.gif&#39;&gt;&quot;); 
+
+    $.post(&quot;get_imdb_voting.php&quot;, { title: imdbTitle }, function(data){
+      ratingDiv.html(data, 
+        function(){ 
+          $(this).fadeIn(); 
+        }
+      )
+    });
+    return false; 
+  });
+
+  ..
+  ..
+});
+</pre>
+<p>This watches for the imdbRating class to be clicked and before finishing it returns false to not actually follow the link. It defines the ratingDiv as the parent of the anchor, in this case the wrapped "span" I showed in the html code. It populates this DOM element with the gif loader to show the user we are making progress. It then does a post (ajax) request to the PHP that is going to query the omdbapi. When it does the defined readingDiv (span) will be populated with the result of this, loading it in with a fadeIn jQuery animation.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<li> The get_imdb_voting.php script: </li>
+<pre>
+&lt;?php                                                                                                                                                                          
+if(!isset($_POST[&#39;title&#39;])) return -1; 
+$title = $_POST[&#39;title&#39;]; 
+
+$imdbVoting = getImdbVotes($title);
+if($imdbVoting &amp;&amp; $imdbVoting[&#39;rating&#39;] != &#39;&#39; &amp;&amp; $imdbVoting[&#39;votes&#39;] != &#39;&#39;) {
+  echo $imdbVoting[&#39;rating&#39;] . &#39; (&#39; . $imdbVoting[&#39;votes&#39;] ; 
+  echo &#39; &lt;a href=&quot;http://imdb.com/title/&#39;.$title.&#39;&quot; target=&quot;_blank&quot;&gt;IMDB&lt;/a&gt; votes)&#39;;
+}
+
+function getImdbVotes($title){                                                                                                                                                 
+  $imdbApiUrl = &quot;http://www.omdbapi.com/?i=$title&quot;; # title like tt0103759
+
+  $results = useCurl($imdbApiUrl);
+  $results = json_decode($results);
+
+  $imdbVoting = array();
+  $imdbVoting[&#39;rating&#39;] = $results-&gt;imdbRating; 
+  $imdbVoting[&#39;votes&#39;] = $results-&gt;imdbVotes; 
+  return $imdbVoting;
+}
+
+function useCurl($url) {                                                                                                                                                       
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+
+  $results = curl_exec($ch);
+  $headers = curl_getinfo($ch);
+
+  $error_number = curl_errno($ch);
+  $error_message = curl_error($ch);
+
+  curl_close($ch);
+
+  return $results;
+}
+?&gt;
+</pre>
+<p>This is pretty straight-forward, it uses curl to query <a href="http://www.omdbapi.com/" target="_blank">omdbapi.com</a> for the title it receives. It uses json_decode to parse the results. At this time I am only interested in the rating and voting which I print out if present. I could do some error handling, but for now I just return no html if nothing comes back. Also omdbapi returns "N/A" if it doesn't find a result which is ok for me.</p>
+</ul>
+<p>And that's all that is needed to show omdbapi data dynamically on your page. If you want to use more data of the return result just study the structure of the data, for example: <a href="http://www.omdbapi.com/?i=tt0103759" target="_blank">http://www.omdbapi.com/?i=tt0103759</a> and/or use a "print_r($results);" after the "$results = json_decode($results);" statement to see in Firebug what the post call comes back with.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>See this in action</h3>
+<p>See the process in the featured image of this post or in the following sequence:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/matrix_imdb_link.png" alt="matrix movie page" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/matrix_loader.png" alt="loader when clicking the imdb link" style="float:none; margin: 20px;" width="353" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/matrix_imdb_scores.png" alt="with the results from imdbapi" style="float:none; margin: 20px;" width="377" /></p>

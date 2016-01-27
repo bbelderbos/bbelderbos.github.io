@@ -1,0 +1,109 @@
+---
+layout: post
+title: 'Shell scripting golf: one-liner to download a podcast feed'
+date: 2013-12-27 00:58:11.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- command line
+- feed
+- golf
+- perl
+- podcast
+- scripting
+- sed
+- unix
+- wget
+- XML
+meta:
+  _edit_last: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapDL: s:208:"a:1:{i:0;a:7:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:2:"DL";s:5:"pDate";s:19:"2013-12-26
+    23:58:40";}}";
+  snapFB: 's:361:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_690993857601412";s:5:"pDate";s:19:"2013-12-26
+    23:58:37";}}";'
+  nxs_snap_sh_FB0_1388102297: 'a:22:{s:4:"doFB";i:1;s:5:"nName";s:4:"FBbb";s:7:"fbAppID";s:15:"154002097960796";s:8:"fbAppSec";s:32:"2eadd32d7e5682c3efabd1436db76795";s:8:"catSelEd";s:0:"";s:10:"fbPostType";s:1:"A";s:7:"fbAttch";s:1:"1";s:12:"fbAttchAsVid";i:0;s:6:"imgUpl";s:1:"1";s:11:"fbMsgFormat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:10:"fbMsgAFrmt";s:0:"";s:5:"fbURL";s:37:"https://www.facebook.com/bobbelderbos";s:6:"fbPgID";s:12:"bobbelderbos";s:6:"catSel";s:1:"0";s:14:"fbAppAuthToken";s:112:"AAACMEGhX91wBAICJn6YySGUZBMEc6bHMVTSCnrRTwpMBaxQZBPmuPZBrxZCLwV5hgTIj7iBAuODQuZC7IohurUJ3FGPk2MuVLSnuTzj56sAZDZD";s:18:"fbAppPageAuthToken";s:117:"AAACMEGhX91wBAK1osOX6OnH9UDLln8tShukA5BMgy7SWuWJdn3XFzwOZBZCCDwLebZBGj03x7f4h8PoxgXNGm3npp2W5asdUyW71d7F8hYrUZAHS4D9H";s:13:"fbAppAuthUser";s:9:"628517118";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:2:"ii";i:0;s:9:"timeToRun";i:1388102297;}'
+  snapTW: 's:285:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"416357418658832384";s:5:"pDate";s:19:"2013-12-26
+    23:58:38";}}";'
+  featured_posts_widget_flag: 'false'
+  snap_isAutoPosted: '1'
+  nxs_snap_sh_DL0_1388102301: a:11:{s:7:"dlUName";s:10:"bbelderbos";s:5:"nName";s:4:"Debb";s:6:"dlPass";s:21:"n5g9af4x5n4i4l5b4f444";s:8:"catSelEd";s:0:"";s:11:"dlMsgFormat";s:6:"%TEXT%";s:12:"dlMsgTFormat";s:7:"%TITLE%";s:4:"doDL";i:1;s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:2:"ii";i:0;s:9:"timeToRun";i:1388102301;}
+  nxs_snap_sh_LI0_1388102293: 'a:21:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:4:"Libb";s:8:"liAPIKey";s:64:"PX9Dn1I7gB2M9_dU4D_Kf7LligwH-HgmytaGe0J748tzPyJZF5MCvqaxjMCVLE0a";s:8:"liAPISec";s:64:"nT-wEBZO-kz3x26gYx6n4B7IE66x3gzTHmw1iiff2WTjySOLPH0TLnsSwZSh_FDQ";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:12:"liOAuthToken";s:36:"04f540a2-8004-495c-9403-cefd945be7b1";s:18:"liOAuthTokenSecret";s:36:"d0a21db3-bf29-4224-b140-96e3fd140b3f";s:15:"liOAuthVerifier";s:5:"76012";s:13:"liAccessToken";s:36:"5a837918-e625-4c2b-a47b-03b79e312b8c";s:19:"liAccessTokenSecret";s:36:"5ee4af01-5cbd-4c80-8dcb-f763fdf0be04";s:10:"liUserInfo";s:26:"Q2JWqfUn5G
+    - Bob Belderbos";s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:12:"liMsgFormatT";s:1:"
+    ";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:9:"timeToRun";i:1388102293;}'
+  nxs_snap_sh_TW0_1388102299: 'a:16:{s:4:"doTW";i:1;s:5:"nName";s:4:"Twbb";s:5:"twURL";s:30:"https://twitter.com/bbelderbos";s:9:"twConsKey";s:22:"yTTWJQa7h0W3ciff6ZQyzg";s:9:"twConsSec";s:40:"MFJXzS2jzvsuZrZPdI0vtueOKBOzur1yZb76N7iE";s:10:"twAccToken";s:50:"177360544-kfNWE0vEciJe3C6F4ZC2kU0nKHXGl8tLr1mMj9cO";s:8:"catSelEd";s:0:"";s:13:"twAccTokenSec";s:40:"Yrr0EWAO0fOJj9ZDU0es4UoQ0371X6D6OTCuvxdw";s:11:"twMsgFormat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";i:0;s:4:"twOK";i:1;s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:2:"ii";i:0;s:9:"timeToRun";i:1388102299;}'
+  enclosure: "http://feedproxy.google.com/~r/se-radio/~5/rcNWFPGdwrk/SE-RadioEpisode198-WilVanDerAalst.mp3\r\n0\r\naudio/mpeg\r\n"
+  dsq_thread_id: '2075160103'
+  snapLI: 's:252:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";s:1:" ";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;s:11:"isPrePosted";s:1:"1";}}";'
+  _thumbnail_id: '2512'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>A little programming exercise to keep the coder alive ... Problem: DJ Marky's podcast gone in iTunes. Suggested fix: batch-download podcast feed. Requirement: 140 characters ("<a href="http://en.wikipedia.org/wiki/Code_golf" target="_blank">golf</a>") solution to tweet it around ... no seriously: I wanted to see how to solve this in a nice one-liner (so no fancy input options for this script ... google on: 'script download podcast feed &lt;your preferred coding tool&gt;' for more advanced stuff already out there).</p>
+<p>This is what I have come up with so far:</p>
+<pre>wget $(wget -q -O - feed_url | sed -n 's/.*enclosure.*url="\([^"]*\)" .*//p')</pre>
+<p>Read this from the inside-out: get the feed and dump to standard output (-O) and without other noise (-q), filter the enclosure tags and get the URL out of it (the enclosure tag is what the feeds have in common. See the <a href="http://cyber.law.harvard.edu/rss/rss.html" target="_blank">RSS spec</a>). This is wrapped in a subprocess ( $(...) ) and provides a list of mp3 files which is fed to the outer wget which starts to download them one by one.</p>
+<p>Although I tend to use perl -pe in one-liners for its powerful regex engine, I learned the useful <a href="http://www.grymoire.com/unix/Sed.html#uh-15b" target="_blank">-n / p combo of sed</a> to combine grep and replacing strings in one go (suggestions in perl are welcome in the comments ...)</p>
+<p>Extending it to a small script to receive a feed as input as first command line argument ($1):<br />
+podcast_feed.sh</p>
+<pre>#!/bin/bash
+wget $(wget -q -O - $1 | sed -n 's/.*enclosure.*url="\([^"]*\)" .*//p')</pre>
+<p>Testing a 'dry run' (don't download / print-only) version with various feeds (just take the outer wget off)</p>
+<p>podcast_feed_print.sh</p>
+<pre>#!/bin/bash
+wget -q -O - $1 | sed -n 's/.*enclosure.*url="\([^"]*\)" .*/# /p'</pre>
+<p>Test it with <a href="https://github.com/bbelderbos/Codesnippets/blob/master/bash/podcast_feed_test.txt" target="_blank">5 feeds</a>:</p>
+<p>$ for pc in $(cat podcast_feed_test.txt);<br />
+&gt; do echo "testing "$pc &amp;&amp; ./podcast_feed_print.sh $pc | head -2 &amp;&amp; echo<br />
+&gt; done</p>
+<pre>testing http://djmarky.com.br/podcast/podcast.xml
+# http://p.audio.uol.com.br/djmarky/podcast/markys_podcast_august_2013.mp3
+# http://p.audio.uol.com.br/djmarky/podcast/marky_july_2013.mp3
+
+testing http://feeds.feedburner.com/spipodcast
+# http://traffic.libsyn.com/patflynn/SPI092-Psychology_of_Selling_How_to_Price.mp3
+# http://traffic.libsyn.com/patflynn/SPI091-Mixing_Online_Business_with_Offline_Marketing_Strategies.mp3
+
+testing http://www.fatburningman.com/feed/podcast/
+# http://traffic.libsyn.com/fatburningman/99DrDavidPerlmutter.mp3
+# http://traffic.libsyn.com/fatburningman/98ChrisKresser.mp3
+
+testing http://lewishowes.com/feed/podcast/
+# http://media.blubrry.com/the_school_of_greatness/www.podtrac.com/pts/redirect.mp3/feeds.soundcloud.com/stream/126379015-lewishowes-sean-stephenson-how-to-leave.mp3
+# http://media.blubrry.com/the_school_of_greatness/www.podtrac.com/pts/redirect.mp3/feeds.soundcloud.com/stream/124890483-lewishowes-daniel-negreanu.mp3
+
+testing http://feeds.feedburner.com/se-radio
+# http://feedproxy.google.com/~r/se-radio/~5/mqwgeoTD1sc/SE-RadioEpisode199-MichaelStonebraker.mp3
+# http://feedproxy.google.com/~r/se-radio/~5/rcNWFPGdwrk/SE-RadioEpisode198-WilVanDerAalst.mp3</pre>
+<p>Works, and with 86 characters quite small!</p>
+<p>Downloading podcasts now  ...</p>
+<pre>$ podcast_feed.sh http://djmarky.com.br/podcast/podcast.xml
+
+--2013-12-27 00:46:35--  http://p.audio.uol.com.br/djmarky/podcast/markys_podcast_august_2013.mp3
+
+Resolving p.audio.uol.com.br... 200.147.98.177, 200.147.1.156, 200.147.1.157, ...
+
+Connecting to p.audio.uol.com.br|200.147.98.177|:80... connected.
+
+HTTP request sent, awaiting response... 200 OK
+
+Length: 89803694 (86M) [audio/mpeg]
+
+Saving to: ‘markys_podcast_august_2013.mp3’
+..
+..</pre>
+<p>The code used in this post can be found <a href="https://github.com/bbelderbos/Codesnippets/tree/master/bash" target="_blank">here</a>.</p>

@@ -1,0 +1,66 @@
+---
+layout: post
+title: 'Web design shift: read "Responsive Web Design"'
+date: 2012-01-24 23:18:54.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Books
+tags: []
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1693'
+  dsq_thread_id: '551422557'
+  _wp_old_slug: interesting-read-responsive-web-design
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapDL: s:99:"a:1:{i:0;a:3:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";}}";
+  snapFB: 's:221:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapLI: 's:217:"a:1:{i:0;a:8:{s:4:"doLI";i:0;s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";b:0;s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapTW: 's:159:"a:1:{i:0;a:5:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;}}";'
+  featured_posts_widget_flag: 'false'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>With an increasing amount of web devices (mobile, tablets, higher resolution screens), web designers are faced with a challenge: how to respond well to all? Ethan Marcotte's book "Responsive Web Design" provides a potential shift in how we design for the web!</p>
+<p><!--more--></p>
+<p><img class="size-full" style="float: right; margin: 20px;" alt="featured image" src="{{ site.baseurl }}/assets/responsive_web_design.png" width="150" /></p>
+<p>When I started to design for the web some years ago, I loved fixed width designs. But most fixed width pages aren't easily readable on a mobile device. New devices are invented every year and the number of pages accessed through mobile browsers keeps increasing rapidly! So I think this book is a must read for each web designer. The book is well written, with clear examples, and you can probably digest the 141 pages in one or two days.</p>
+<h3>Ingredients for a responsive design</h3>
+<p>Print and web are inherently different media, yet up until recently a lot of sites were build as if they were for the print medium. I like the approach Marcotte introduces: one responsive web design instead of different designs for different devices. According to Marcotte the following 3 elements make up for responsive web designs:</p>
+<ul>
+<li>A flexible, grid-based layout,</li>
+<li>Flexible images and media,</li>
+<li>Media queries (CSS3)</li>
+</ul>
+<p>Chapters 2,3 and 4 deal with these. The last chapter provides additional info on the responsive design cycle and progressive enhancement.</p>
+<p>&nbsp;</p>
+<h4>1. The flexible grid (and fonts)</h4>
+<p>Before touching the grid design, we should set up the font-size to 100% as a base and use "ems" to size text up or down. What the grid is concerned Marcotte explains how to go from pixels to percentages based on the width values. You can start with pixels and calculate the percentages with the formula "target / context = result", so if a .blog div is 900px (target) and lives in a body of 960px (context), the .blog div should be 900/ 960 = 0.9375 = 93.75%. Then for the divs that live in .blog, .blog is the context so a left column would be 530/900, etc. The same applies for flexible margins (gutters between blocks).</p>
+<h4>2. Flexible images</h4>
+<p>A neat trick is to give the img a max-width of 100% to never cross the width of the div it lives in. There are some issues (distorted images) with IE &lt; 7, so you can use AlphaImageLoader to correct this. The author further explains interesting techniques with "overflow: hidden".</p>
+<h4>3. Media queries</h4>
+<p>As of CSS2 you could define media types: all, screen, print, handheld, etc. As this was very generic ("handheld" for iphone and older phones), W3C came up with something better in the CSS3 spec: media queries.</p>
+<p>Apart from the media type, media queries also detect the physical characteristics of the devices or browsers that render our content. A typical media query is "@media screen and (min-width: 1024px) { .. css rules .. }": this not only requires the screen medium type, but also a viewport of at least 1024px wide, for the CSS rules to be applied.</p>
+<p>This is awesome, because now we can target very specific conditions. You can use the min-width and max-width conditions on a variety of features, for example: width, height, aspect-ratio, resolution, grid and more (see page 76-78). And they can be chained together! For example: "@media screen and (min-device-width: 480px) and (orientation: landscape) { ... }"</p>
+<p>The most important point is that media queries are useful if you have the groundwork set up well: a liquid layout, flexible fonts and images. The best way is to follow the book step-by-step applying the examples on your own "responsive web design".</p>
+<p>&nbsp;</p>
+<h3>Some examples of responsive design</h3>
+<p>Four sites worth studying (just resize your browser window to see the amazing effect - wow) :</p>
+<ul>
+<li><a href="http://ethanmarcotte.com" target="_blank">Ethan Marcotte</a> (book author)</li>
+<li><a href="http://robot-or-not.com/" target="_blank">The book's example site</a></li>
+<li><a href="http://simplebits.com" target="_blank">Dan Cederholm</a></li>
+<li><a href="http://cognition.happycog.com" target="_blank">Happy Cog</a></li>
+</ul>
+<h3>Mobile first</h3>
+<p>A good approach these days is to start designing for the smaller mobile canvas and progressively enhance with media queries targeting higher resolutions with "min-width" ("resolution breakpoints"). I probably will experiment with this approach designing future sites (Ethan convinced me!).</p>
+<p>What about you? Let me know what experiences you have designing "responsive web designs" ...</p>

@@ -1,0 +1,80 @@
+---
+layout: post
+title: New release of Sharemovies - overview of new design and features
+date: 2012-07-24 20:10:54.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- design
+- movies
+- sharemovi.es
+meta:
+  _thumbnail_id: '2116'
+  _edit_last: '1'
+  dsq_thread_id: '778434269'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> The anticipated new release of <a href="http://sharemovi.es/" target="_blank">Sharemovies</a> is up. It provides an easier way to browse movies and provides a lot more info. I redesigned it from the ground up, keeping the most valuable elements of the initial version. In this post an overview of the new design and features.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>V1</h3>
+<p>I started <a href="http://sharemovi.es/" target="_blank">Sharemovies</a> back <a href="http://bobbelderbos.com/2010/11/sneak-preview-sharemovies/" target="_blank">in 2010</a>. Since then I did some tweaking and the site looked like this:<br />
+<img class="size-full" src="{{ site.baseurl }}/assets/sm_sharemovies_v1.png" alt="initial release" style="float:none; margin: 20px;" width="620" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/sm_sharemovies_v1-2.png" alt="initial release" style="float:none; margin: 20px;" width="620" /></p>
+<h3>V2</h3>
+<p>The new version is taking a whole new approach. I started using <a href="http://help.themoviedb.org/kb/api/about-3" target="_blank">themoviedb API v3</a>. It is a rich API with reasonable <a href="http://help.themoviedb.org/kb/general/api-request-limits" target="_blank">request limits</a>. You should still use caching though.</p>
+<p>The new release consists of 4 parts: the homepage, movie pages, person (cast / crew member) pages, and user pages.</p>
+<h4>Homepage</h4>
+<p> The homepage shows the upcoming, top-rated and "now in theatres" movies. This data gets refreshed every 24 hours.  </p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_homepage.png" alt="the new homepage" style="float:none; margin: 20px;" width="620" /></p>
+<h4>Seach is important</h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sharemovies_v2.jpg" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p>Central in the <a href="http://bobbelderbos.com/2012/03/how-to-make-a-fixed-sidebar-or-header-with-css/" target="_blank">fixed positioned header</a> is the search box, it uses autocomplete to provide a rich search result including trailers ( I did this with v2 of themoviedb API <a href="http://bobbelderbos.com/2011/12/sharemovies-new-feature-search-interface-instant-trailers/" target="_blank">some time ago</a> ). I think it is one of the most important / most useful things of the site: movie info can be found quickly and easily! Before clicking on the result ( = going to the movie page), you can watch the trailer to decide if you want to know more about that movie. Appending a year makes the search more accurate and it understands other languages (at least in the cases I tried: "Caza al terrorista" gives me "The Assignment" and "Ciudade de Deus" gives me "City of God").</p>
+<h4>Autocomplete in action</h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_autocomplete.png" alt="sm_autocomplete.png" style="float:none; margin: 20px;" width="620" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h4>With trailer when hovering over the dedicated area:</h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_autocomplete_trailer.png" alt="sm_autocomplete_trailer.png" style="float:none; margin: 20px;" width="620" /></p>
+<h3>Movie page</h3>
+<p> When selecting the search result or clicking on a poster anywhere on the site, you are taken to the movie page:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_moviepage_loggedout.png" alt="moviepage logged out view" style="float:none; margin: 20px;" width="620" /></p>
+<p> When you log in with Facebook you can comment, like and add the movie to your watchlist and/or favorites.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_moviepage_loggedin.png" alt="moviepage when logged in" style="float:none; margin: 20px;" width="620" /></p>
+<p> The "Share" button is linked to <a href="http://www.addthis.com/" target="_blank">addthis</a> which surprisingly lets you use a customizable button. This way the page can be shared to most social networks.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_sharethis.png" alt="addthis button" style="float:none; margin: 20px;" width="400" /></p>
+<p> Below the big version of the movie poster are links to Amazon, Netflix, IMDb and TMDb</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_infobuttons.png" alt="infolinks to other services" style="float:none; margin: 20px;" width="450" /></p>
+<h3>Trailers and similar movies</h3>
+<p> One of the things I really liked in v1 were the <a href="http://bobbelderbos.com/2011/01/build-movie-trailer-api-using-gdata/" target="_blank">Youtube trailers</a> in <a href="http://onehackoranother.com/projects/jquery/boxy/" target="_blank">boxy overlay</a> - this had to stay the same.</p>
+<p> When you click on the red play button alongside the movie title, an overlay is shown with the trailer. Warning: browsing movies and watching trailers this way can be pretty addictive ;)</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_trailer.png" alt="view youtube trailer on moviepage" style="float:none; margin: 20px;" width="620" /></p>
+<p> You can also search for similar movies by clicking "You might also like ..." under the Plot summary.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_similar_movies.png" alt="sm_similar_movies.png" style="float:none; margin: 20px;" width="620" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Actors</h3>
+<p> When you click the actor photos or the crew names you are taken to a page dedicated to that person. There you will see his/her details and movies. There is a filter box at the top that lets you easily find a particular movie.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_actor_page.png" alt="actor page" style="float:none; margin: 20px;" width="620" /></p>
+<h3>Last but not least: user profiles</h3>
+<p> When you login with Facebook you can start adding movies to your Watchlist and Favorites (see the blue buttons at the top of each movie page). When adding or deleting movies from your list the button text and icon change on the fly (Javascript).</p>
+<p> When you get more movies on your profile page ( the profile URL is http://sharemovi.es/user/facebookUserId , see mine <a href="http://sharemovi.es/user/628517118" target="_blank">here</a>), you can filter the results by string (like we saw with the person pages), by genre or by "month added". Again, some Javascript (jQuery) makes the user experience a lot better: things can be found quickly and it is visually more attractive. Clicking on the "Favorites" and "Watchlist" links at the top, scrolls you down to the particular list.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_user_profile.png" alt="user profile page" style="float:none; margin: 20px;" width="620" /></p>
+<p> Best thing to get familiar is to open <a href="http://sharemovi.es/user/628517118" target="_blank">my profile</a> and click around, then login with Facebook and start building your own movie profile by adding movies when browsing movie pages ...</p>
+<h4>Search and scroll </h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_filter.png" alt="filtering items" style="float:none; margin: 20px;" width="457" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/sm_scroll.png" alt="scroll to a list" style="float:none; margin: 20px;" width="620" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h4>Filter on genre</h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sm_userpage_filter1.png" alt="show all crime movies	" style="float:none; margin: 20px;" width="620" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/sm_userpage_filter2.png" alt="show all comedies" style="float:none; margin: 20px;" width="620" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h4>From here ...</h4>
+<p>Enjoy this app, and share the word. I think it is useful for the movie fans out there. I'm open for any issues or feedback ...</p>
+<p>As far as I tried it worked reasonably well on an ipad. I'd like to build an iphone app later this year ...</p>

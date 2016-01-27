@@ -1,0 +1,59 @@
+---
+layout: post
+title: 'Friends Jukebox: listen to Music in a Social context'
+date: 2011-06-22 00:37:21.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- api
+- facebook
+- lastfm
+- music
+- work in progress
+- youtube
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '961'
+  dsq_thread_id: '338708783'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>To become a programmer you need to practice a lot. To program you need data. To get inspired you need hobbies. After <a title="sharemovi.es" href="http://sharemovi.es/" target="_blank">Movies</a> and <a title="my reading list" href="http://www.bobbelderbos.com/books" target="_blank">Books</a>, I got to a passion of a lot of people: Music. I started a new Facebook App: <a title="Friends Jukebox" href="http://www.bobbelderbos.com/music" target="_blank">Friends Jukebox</a>. <!--more-->This blog post is just a quick overview what it does and some basics on the techniques used.</p>
+<h3>In a nutshell</h3>
+<p><a title="Friends Jukebox" href="http://www.bobbelderbos.com/music" target="_blank">Friends Jukebox</a> queries your friends' favorite music artists and links to information and music videos of those artists. Data is cached and the subject is versatile so functionality can be amplified. This also lays in a design principle I mentioned some time ago: <a title="design practices I use" href="http://bobbelderbos.com/2011/04/make-developer-life-easier/" target="_blank">stick to the bare minimum and expand from there</a></p>
+<h3>Technologies:</h3>
+<h4>APIs - 1a. Facebook login and FQL</h4>
+<p>First of all it uses the new <a title="new sdk released lately" href="https://developers.facebook.com/blog/post/503" target="_blank">Facebook PHP SDK 3.0</a>. See this <a title="great article explaining facebook php sdk 3.0" href="http://thinkdiff.net/facebook-connect/php-sdk-3-0-graph-api-base-facebook-connect-tutorial/" target="_blank">great article</a> with instructions how to use it.<a href="http://bobbelderbos.com/wp-content/uploads/2011/06/jukebox.jpg"><img class="size-full wp-image-961 alignright" title="jukebox" src="{{ site.baseurl }}/assets/jukebox.jpg" alt="" width="200" height="200" /></a></p>
+<p>When logging in with Facebook, the user needs to grant this App permissions (post wall and email are for future use). The <a title="facebook's permissions info" href="https://developers.facebook.com/docs/authentication/permissions/" target="_blank">advanced permissions</a> <span style="color: #008000;">user_likes</span> and <span style="color: #008000;">friends_likes </span>are needed to query the music taste of your friends and you.</p>
+<p>Then it makes a big <a title="what is fql" href="https://developers.facebook.com/docs/reference/fql/" target="_blank">FQL</a> query to get all the artists your friends like and presents it per friend, in alphabetical order. It also calculates the "likes" per artist and presents that in a cloud tag way: the artist with more likes has a bigger font-size. This way you visually see what artists are most popular.</p>
+<p>Note that not all friends are included, only the ones that "liked" one or more artists. I think I got a rate of 50% of my friends, with 1 up till 40 artists, so even with few friends, you might get some outputs, and with a lot of musical engaged friends, you might get a very large output :)</p>
+<h4>APIs - 2. Last.fm</h4>
+<p>Each artist then can be clicked. When doing so, an overlay (<a title="jquery overlay software" href="http://fancybox.net/" target="_blank">fancybox</a>) loads with more information about the artist (if found). I use the <a title="last fm api website" href="http://www.last.fm/api" target="_blank">last.fm api</a> for that. This is rather simple: parse the XML output you get when querying <a title="last fm api / web services" href="http://www.last.fm/api/show?service=267" target="_blank">this web service</a>.</p>
+<h4>APIs - 3. Youtube</h4>
+<p>There are also two links in the artist's info: one that goes of to last.fm, the first one, more interestingly, will show 6 youtube videos which I get from querying the gdata (youtube) API. <a title="how to make a movie trailer api using gdata (youtube)" href="http://bobbelderbos.com/2011/01/build-movie-trailer-api-using-gdata/" target="_blank">I didn't re-invent the wheel for this</a>.</p>
+<p>With a bit of CSS, I put a share link on top of each video. This button, when clicked will invoke a call to <a title="facebook's new send dialog" href="https://developers.facebook.com/blog/post/514/" target="_blank">Facebook's new Send Dialog</a>. This allows for easy sharing of music videos with your friends.</p>
+<h4>APIs - 1b. Facebook plugins</h4>
+<p>There are more Facebook widgets integrated like the comment box, the like button, the invite friends dialog. See <a title="facebook developer's documentation" href="https://developers.facebook.com/docs/" target="_blank">Facebook's developer documentation</a> for more info. Those plugins are awesome, because they are easy to implement, yet they provide you with a powerful way to involve your users.</p>
+<h3>Feel free to try !</h3>
+<p>So if you like the idea, and you are curious what music your friends like to listen to, give it a try:</p>
+<p><a title="for now hosted on my domain" href="http://www.bobbelderbos.com/music" target="_blank">http://www.bobbelderbos.com/music</a></p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/06/Screen-shot-2011-06-21-at-11.47.13-PM1.png"><img class="alignnone size-full wp-image-962" title="Screen shot 2011-06-21 at 11.47.13 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-06-21-at-11.47.13-PM1.png" alt="" width="706" height="573" /></a></p>
+<h3>Movies</h3>
+<p>By the way, a similar feature can be found at <a title="sharemovi.es facebook app" href="http://sharemovi.es/" target="_blank">sharemovi.es</a>: you can check out what movies your friends like. See <a title="graph api: what movies do your friends like?" href="http://bobbelderbos.com/2011/04/facebook-graph-api-movies-friends-liked/" target="_blank">this post</a> for more info (there JS is used, Friends Jukebox is mainly PHP).</p>
+<p>&nbsp;</p>
+<h3>Share the word or join..</h3>
+<p>Did you like this post? Tell your friends via the social media buttons on this site...</p>
+<p>You can also <a href="https://www.facebook.com/home.php?sk=group_118232854902671&amp;ap=1" target="_blank">join my Facebook group</a> or get a weekly <a href="http://www.mailchimp.com/" target="_blank">Mailchimp</a> newsletter to keep up with my new blog posts. You can subscribe in the sidebar of this site ...</p>
+<p>Ah.. and I am also at twitter: <a href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a></p>

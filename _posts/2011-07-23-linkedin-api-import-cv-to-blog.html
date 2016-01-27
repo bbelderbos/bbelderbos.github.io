@@ -1,0 +1,81 @@
+---
+layout: post
+title: Use the LinkedIn API to import your CV into your blog
+date: 2011-07-23 18:39:08.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- app
+- blog
+- clean url
+- curriculum
+- cv
+- javascript
+- linkedin
+- php
+- plugin
+- profile
+- wordpress
+meta:
+  _edit_last: '1'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,24,22'
+  _thumbnail_id: '1031'
+  dsq_thread_id: '366384079'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I wanted to use the <a title="member profile plugin by linkedin" href="https://developer.linkedin.com/plugins/member-profile-plugin" target="_blank">Member Profile plugin</a> of the updated LinkedIn Developer platform, but I wasn't getting all info. I found a way to import my profile to my blog, using LinkedIn's authorization layer. In this post I show you what I learned ...<!--more--></p>
+<p>Here is how the Member Profile would show my widget:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-23-at-3.43.39-PM.png"><img class="size-full wp-image-1041 alignnone" title="Screen shot 2011-07-23 at 3.43.39 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-23-at-3.43.39-PM.png" alt="" width="546" height="344" /></a></p>
+<p>While my public LinkedIn profile looks like:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-23-at-3.45.40-PM.png"><img class="alignnone size-full wp-image-1042" title="Screen shot 2011-07-23 at 3.45.40 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-23-at-3.45.40-PM.png" alt="" width="474" height="334" /></a></p>
+<p>So not really working as expected. But LinkedIn has a whole API you can use to get any data of your profile, connections, companies, and news feeds.</p>
+<h3>To start you need an App</h3>
+<p>Log in to the <a title="access linkedin api through this link" href="https://www.linkedin.com/secure/developer" target="_blank">LinkedIn Developer Network</a> and create an application:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/linkedinApp.png"><img class="size-full wp-image-1052 alignnone" title="linkedinApp" src="{{ site.baseurl }}/assets/linkedinApp.png" alt="" width="518" height="378" /></a></p>
+<p>Make sure the Integration URL and JS API Domain fields link to the URL of the directory you are going to host your app.</p>
+<p>Once you submitted the app, LinkedIn gives you an API and Secret Key. The first Key is needed to put in your pages that call the LinkedIn API.</p>
+<h3>Console to extract code</h3>
+<p>Then I used the  <a title="developer's console" href="http://developer.linkedinlabs.com/jsapi-console/" target="_blank">JavaScript API Developer Console</a> to get the code for the Full Plugin widget (by the way, I also tried the <a title="plugin for full profile as on the developer's page" href="https://developer.linkedin.com/documents/creating-member-profile-plugin" target="_blank">out-of-the-box plugin</a> for this, but it only gives the login button).</p>
+<p>Only thing missing was my LinkedIn ID. Usually you can see it in your public URL (after pub/) but not if (like I did) you changed it to a <a title="an article about clean urls" href="http://bobbelderbos.com/2011/01/clean-urls-must-use/" target="_blank">clean URL</a>: <a title="public linkedin profile" href="http://www.linkedin.com/in/bobbelderbos" target="_blank">http://www.linkedin.com/in/bobbelderbos</a>. I used <a title="simple linkedin, a php library for linkedin" href="http://simplelinkedin.fiftymission.net/" target="_blank">Simple-LinkedIn's test page</a> (PHP Library, see also at the end of this post) to obtain my ID.</p>
+<h3> The snippet</h3>
+<pre>&lt;script type="text/javascript" src="http://platform.linkedin.com/in.js"&gt;
+  api_key: YOUR_API_KEY
+&lt;/script&gt;
+
+&lt;p&gt;Full Member Profile&lt;/p&gt;
+
+&lt;script type="IN/FullMemberProfile" data-id="xxxxxxxxxx"</pre>
+<pre> data-firstName="Bob" data-lastName="Belderbos"&gt;&lt;/script&gt;</pre>
+<h3>Integrate in Wordpress</h3>
+<p>I set up a page in Wordpress and pasted in the snippet of above, you can check out the result at: <a title="cv page on my blog" href="http://bobbelderbos.com/cv/" target="_blank">http://bobbelderbos.com/cv/</a>. You can also see "CV" in the navigation of this site.</p>
+<h3>Gradual exposure</h3>
+<p>The nice thing is that this plugin includes the login plugin of LinkedIn. If you are not logged in to LinkedIn, you see only the public info with a button to login to LinkedIn to see more:</p>
+<p><img class="alignnone size-medium wp-image-1045" title="Screen shot 2011-07-23 at 5.36.17 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-23-at-5.36.17-PM-300x109.png" alt="" width="300" height="109" /></p>
+<p>.. still not showing as much as I wanted, but better than nothing. Also the full profile is only visible to LinkedIn users.</p>
+<p>I will update this post if/when I am able to show more in this "logged out" display. Anyways, people might already be logged into LinkedIn (cookie) and see your full CV directly as a default!</p>
+<p>So when already signed in or signing in with the button you get the full CV in a nice format.<br />
+Try it yourself, I kind of like this integration: the LinkedIn logo is at the top but it seems really like a part of my site!</p>
+<p>&nbsp;</p>
+<h3>PHP libraries ...</h3>
+<p><img class="alignright size-full wp-image-1031" title="linkedin_api" src="{{ site.baseurl }}/assets/linkedin_api.png" alt="" width="160" height="160" /></p>
+<p>I only used the JavaScript API in this post, I still have to write an article about accessing the LinkedIn API via PHP libraries.</p>
+<p>Using a PHP library seems more versatile to me, because you get the response (data) back in XML or JSON, so it is easier to work with it.</p>
+<p>Nevertheless I only touched the surface of what's possible with the LinkedIn JS API, I expect much more to be possible. You got any examples to share?</p>
+<p>I mentioned the <a title="a php library to access the linkedin api" href="http://developer.linkedin.com/thread/2355" target="_blank">Simple-LinkedIn Class</a> earlier. This library lets you do some pretty awesome stuff. Here is <a title="another php library to connect to linkedin api" href="http://thinkdiff.net/linkedin/integrate-linkedin-api-in-your-site/" target="_blank">another great resource</a> for using the LinkedIn API with PHP. I actually used this one in one of the apps I built ... it works great!</p>
+<p>&nbsp;</p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covers, just drop me a message, I am open to anything web-related.</p>

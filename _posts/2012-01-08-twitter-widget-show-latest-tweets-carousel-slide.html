@@ -1,0 +1,126 @@
+---
+layout: post
+title: Twitter widget to show your latest tweets in carousel slider
+date: 2012-01-08 19:27:42.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- carousel
+- tweets
+- twitter
+- widget
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1668'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '531668201'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today I show you a script to display the latest tweets on your website or blog. You can use two ways: make a call to Twitter's user_timeline or use YQL/ search.twitter. I will wrap the results in the Tiny Carousel jQuery plugin. Read on ...</p>
+<p><!--more--></p>
+<h3> Start & issues</h3>
+<p class="newhere">New here? You might want to subscribe to my blog by <a href="http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos" onclick="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos', 'popupwindow', 'scrollbars=yes,width=550,height=520'); return false;">email</a> or <a href="http://bobbelderbos.com/rss" target="_blank">RSS</a>.</p>
+<p>I started simple with a an import of Twitter user_timeline with file_get_contents (from URL: <a href="http://twitter.com/statuses/user_timeline/bbelderbos.json?count=5" target="_blank">http://twitter.com/statuses/user_timeline/bbelderbos.json?count=5</a>), based on <a href="http://blog.ninanet.com/2010/04/19/twitter-feed-with-php" target="_blank">this post</a>. However, although this worked perfectly on localhost, on my remote server it did not. Besides, I soon got a <a href="http://stackoverflow.com/questions/4390913/twitter-rate-limit-exceeded-clients-may-not-make-more-than-350-requests-per-hou" target="_blank">Rate limit exceeded</a> response from Twitter (which does not make sense because <a href="https://dev.twitter.com/docs/rate-limiting" target="_blank">at least I should have 150 requests per hour</a>) You can get the code <a href="http://bobbelderbos.com/src/lastTweets/timeline_php" target="_blank">here</a>.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Alternative solution: YQL</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/twitterwidget.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>Recently <a href="http://bobbelderbos.com/2011/12/select-from-internet-examples-yql-api/" target="_blank">I blogged about YQL</a>, a powerful way to crawl the internet. Twitter is well represented among its tables. So I applied what I learned to get my tweets via the search.twitter table in YQL. See the code below: yql.php does the heavy lifting. Instead of file_get_contents (which I would use normally), I use curl to get the URL content. That seemed to work better with my remote server. It returns JSON (you can also choose XML or RSS, but JSON is said to be fastest). Use json_decode to parse JSON into an array. You see some commented lines you can uncomment to print debug info in case you have any issue. I use the <a href="http://www.baijs.nl/tinycarousel/" target="_blank">Tiny Carousel jQuery plugin</a> to show the results in a nice slider.</p>
+<h3> Full code display</h3>
+<p> == yql.php ==</p>
+<pre>
+   &lt;?php
+   $q = &quot;select text,profile_image_url from twitter.search where q='from:@bbelderbos' limit 10&quot;;
+   $url = &quot;http://query.yahooapis.com/v1/public/yql?q=&quot;;
+   $url .= rawurlencode($q);
+   $url .= &quot;&amp;format=json&amp;env=store://datatables.org/alltableswithkeys&quot;;
+   
+   // using curl, as file_get_contents sometimes fails on remote server
+   // $json = file_get_contents($url, true);
+   $json = get_data($url);
+   
+   $info = json_decode($json, true) ;
+   // debug, if json_decode fails
+   // $error = json_last_error(); echo $error; exit;  
+   // debug, check structure result
+   // echo &quot;&lt;pre&gt;&quot;; print_r($info ); echo &quot;&lt;/pre&gt;&quot;; exit; 
+   
+   // function to get URL via cURL
+   // from: http://davidwalsh.name/download-urls-content-php-curl
+   function get_data($url) { 
+     $ch = curl_init();
+     $timeout = 5;
+     curl_setopt($ch,CURLOPT_URL,$url);
+     curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+     curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+     $data = curl_exec($ch);
+     curl_close($ch);
+     return $data;
+   }
+   ?&gt;
+</pre>
+<p>Roll your own YQL query at the <a href="http://developer.yahoo.com/yql/console/" target="_blank">YQL console</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/yql_query.png" alt="yql query" style="float:none; margin: 20px;" width="580" /></p>
+<p> == index.php ==</p>
+<pre>
+  &lt;?php include 'yql.php'; ?&gt;
+  &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+  &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; lang=&quot;en&quot; xml:lang=&quot;en&quot;&gt;
+   
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+    &lt;title&gt;Last Tweets @bbelderbos&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; type=&quot;text/css&quot; media=&quot;screen&quot;/&gt;
+   	
+    &lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery-1.4.2.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery.tinycarousel.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      $(document).ready(function(){
+        $('#slider1').tinycarousel({ pager: true, interval: true, intervaltime: 5000  });	
+      });
+    &lt;/script&gt;	
+   		
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;slider1&quot;&gt;
+   	&lt;div class=&quot;viewport&quot;&gt;
+   	  &lt;ul class=&quot;overview&quot;&gt;
+   	    &lt;?php 
+   	    foreach($info['query']['results']['results'] as $tweet) {
+   	      $tweetText = $tweet['text'];
+   	      $avatar = $tweet['profile_image_url'];
+   	      
+              // URLs (from http://www.phpro.org/examples/URL-to-Link.html)
+   	      $tweetText = preg_replace(&quot;/([w]+://[w-?&amp;;#~=./@]+[w/])/i&quot;,&quot;&lt;a target=&quot;_blank&quot; href=&quot;$1&quot; target=&quot;_blank&quot;&gt;$1&lt;/a&gt;&quot;,$tweetText);
+   
+   	      // twitter handles
+   	      $tweetText = preg_replace('/(@S+)/i',&quot;&lt;a target=&quot;_blank&quot; href=&quot;http://twitter.com/$1&quot; target=&quot;_blank&quot;&gt;$1&lt;/a&gt;&quot;,$tweetText);
+   
+             // hash tags map to search?q=#hash
+   	     $tweetText = preg_replace('/(#)(S+)/i',&quot;&lt;a target=&quot;_blank&quot; href=&quot;http://twitter.com/search?q=%23$2&quot; target=&quot;_blank&quot;&gt;$1$2&lt;/a&gt;&quot;,$tweetText);	
+   
+   	     echo '&lt;li&gt;&lt;a href=&quot;http://twitter.com/bbelderbos&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;'.$avatar.'&quot; alt=&quot;bob avatar&quot;&gt;&lt;/a&gt;&lt;p&gt;'.$tweetText . &quot;&lt;/p&gt;&lt;/li&gt;&quot;;
+   				}
+   	   ?&gt;
+   	 &lt;/ul&gt;
+       &lt;/div&gt;
+     &lt;/div&gt;
+   &lt;/body&gt;
+   &lt;/html&gt;
+</pre>
+<p>The preg_matches are to turn handles (@), hash tags (#) and links into URLs. I am not expanding on the CSS in this post, let me know if you have any questions.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>Check it out:</p>
+<ul>
+<li>See this in action <a href="http://bobbelderbos.com/src/lastTweets/" target="_blank">here</a>. </li>
+<li>You can download the code <a href="http://bobbelderbos.com/src/lastTweets/code.zip" target="_blank">here</a></li>
+<li>In an iframe on <a href="http://bobbelderbos.com" target="_blank">my homepage</a>: </li>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/example_widget.png" alt="widget example" style="float:none; margin: 20px;" width="580" />
+</ul>

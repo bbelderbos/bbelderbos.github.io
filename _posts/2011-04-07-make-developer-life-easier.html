@@ -1,0 +1,67 @@
+---
+layout: post
+title: Some tips to make a developer's life easier
+date: 2011-04-07 18:03:46.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- debugging
+- design
+- development
+- development cycle
+- experience
+- feedback
+- howto
+- programming
+- testing
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '896'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  dsq_thread_id: '273806475'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today I wanted to share some experience I gained building apps. It is not so much about writing code this time, more on best practices of development. I hope you enjoy it!<!--more--></p>
+<p>Developing is as nice and idyllic as long as it is on your localhost and you are the sole user. Once people start using it in the real world, complications start. And that is a good and enriching experience. You see, you aim for certain things, users might see it another way, they might have a totally different interpretation both of the message as well as the use (UX).</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p><img class="alignright" title="software3" src="{{ site.baseurl }}/assets/software31.gif" alt="" width="200" height="200" />In this post some things I learned, sometimes the hard way, usually just by being open-minded, communicating with your users from the beginning.</p>
+<p>I think the most you will learn by being open and honest towards your users and accept that they can see things in another perspective which sometimes is better, at other times you might better stick to your point. And dare to make mistakes, without mistakes you won't learn that much!</p>
+<h3>1. Design with the end-goal in mind</h3>
+<p>Nothing is so frustrating as wasting time implementing features that were never requested nor needed. The most important thing is to realize for who you are making your app, be it a complicated data mining app, a social app or just a simple inquiry form.</p>
+<p>Communicate often, very often. You tend to have the goal in mind at the start, but what happens down the road? Developers take hundreds even thousands of decisions during the development of an app, lots are easy, others are crucial to the success of an app. There is so much to do that wasting time will harm other areas of the development cycle, like testing and refactoring code.</p>
+<p>Accept changes, web development is a dynamic area and often requirements change as you go.</p>
+<h3>2. Stick to the bare minimum and expand from there</h3>
+<p>As many others I want it to look great, I incline towards a good design from the start. This is certainly an important aspect to attract users, give them a positive experience and keep myself motivated. However, the essential things go first. A form: does it work when a user enters x or z? Is the data I requested relevant to accomplish my goal? Redirection between URLs, authorization of users, etc. As nice as it looks, users want the app to work well!</p>
+<p>I still do the functional and appearance stuff in parallel but it is best to be absolutely clear about the functionality of something before investing a lot of time in making it beautiful.</p>
+<p>Closely related is focus. Coding, as writing, requires a lot of concentration. This is the first post I write outside of Wordpress, in a text editor, I love it! I am less distracted, writing goes faster! The layout for later! Work on the architecture of the house, then on the decoration.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>3. Get feedback and get it soon!</h3>
+<p>Your mind carries your experience, your intuitions, your (!) assumptions. I kind of trust them most of the times, but we are all influenced by beliefs and experience. Initially this is a good thing, but it can create blind spots at the same time. The art of making good apps, is to be able to think as the user. This can be hard, because often we haven't ever met the end user nor do we know his/her motivation. So it is critical to get feedback as soon as you have something slightly decent to show them. I am sometimes surprised by the difference in vision and experience users come up with.</p>
+<p>Typically I process feedback and go back again. Doing this over and over makes the product as close to the enduser as possible. It can be a patience battle but best is to take and process feedback early on, because if you wait too long it might take much more work to correct / improve things (if still possible). A diverse group of test users could be of essential value.</p>
+<p>Once the tool is in the air, some monitoring tools should be used, like google analytics or a simple usage counter. You can define success rates for yourself. I usually do a feedback round after some time.</p>
+<p>ACCEPT CHANGE, sometimes breaking with an existing plan is the best thing you could possibly do to improve your app. It might take some acceptance and effort though. ACCEPT PERMANENT CHANGE. Requirements and needs change. A website / web app is something dynamic, not static.</p>
+<h3>4. Test, test and test</h3>
+<p>One thing I'd like to learn is to build a test suite. This is also one of the reasons I want to learn more ruby on rails, the framework that has this deeply integrated. You can't test enough. Bugs will arise, it is natural to development.</p>
+<p>Software development takes place in our heads, we take hundreds or thousands of decisions during the course, it is inherent to a developer to solve bugs. If you like living in a 'perfect' world where things go well, don't become a developer. Part of the developer's job is to troubleshoot problems, debug 'weird things' you didn't (probably couldn't) foresee. In the real world new variables are added to the mix, so try to be sure you have tested as much you possibly could in the 'controlled' environment to be able to face the challenges of the 'live' environment.</p>
+<p>Again, I stress the value of test users. Don't be surprised you will make some important last-minute changes based on their experience.</p>
+<h3>5. Set expectations</h3>
+<p>It is easy for an enduser to think a new feature is just something you hack together in an afternoon. Sometimes this is true and it is a satisfying job for small apps. However, in a controlled environment, bringing changes into a live app with the risk of changing or injecting bad behavior in other variables, makes it not that simple.</p>
+<p>Best thing is to add all bugs and RFEs together and work on them in batches. Then roll them out in releases. I read somewhere that Facebook rolls out code changes once per week but it really depends the product and environment you are working in.</p>
+<h3>6. ... and above all, just have fun!</h3>
+<p>Developing apps is a very exciting business. Seeing something coming alive from the ground up has something magical to it. Remember that if you are solving issues, as hard as they seem sometimes, you are actually growing in your craft!</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Share the word or join..</h3>
+<p>Did you like this post? Tell your friends via the social media buttons on this site...</p>
+<p>You can also join my Facebook group or get a weekly Mailchimp newsletter to keep up with my new blog posts. You can subscribe in the sidebar of this site ...</p>

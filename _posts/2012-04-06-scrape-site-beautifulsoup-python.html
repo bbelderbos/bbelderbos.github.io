@@ -1,0 +1,111 @@
+---
+layout: post
+title: Need to scrape a website? BeautifulSoup is your friend!
+date: 2012-04-06 13:07:00.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- BeautifulSoup
+- python
+- website scraping
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1939'
+  dsq_thread_id: '638786766'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p><a href="http://www.crummy.com/software/BeautifulSoup/" target="_blank">Beautiful Soup</a> is a Python library to do screen scraping. I think it is a powerful tool which can be used in many situations. See <a href="http://www.crummy.com/software/BeautifulSoup/#HallOfFame" target="_blank">here</a> for examples where it is used. In this post I will show you two examples how to crawl websites using this library.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Get started</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/beautifulsoup.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>Best way to start is to download <a href="http://www.crummy.com/software/BeautifulSoup/bs4/download/4.0/" target="_blank">the latest source</a> and start playing with the many examples from the <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank">documentation page</a>. In this post I will scrape the paging of a Dutch tv program site. In the second example I scrape the data of top ranked artists. Another interesting one would be to replicate the Facebook sharer.php which shows you different thumbnails found on the page you want to share. Reddit <a href="https://github.com/reddit/reddit/blob/master/r2/r2/lib/scraper.py" target="_blank">uses BeautifulSoup</a> for this as well. Maybe a nice exercise for you?</p>
+<h3> 2 practical examples</h3>
+<p>As you can read and practice yourself with above links, without further ado the two examples:</p>
+<h4> 6 lines to get all RSS feeds of uitzendinggemist.nl</h4>
+<p>One of my future plans is to build an iphone app to see programs from Dutch television. I couldn't download the existing "uitzendinggemist" app because Apple only gives you access to one store per credit card, mine is Spain. I didn't actively look for a workaround, however this limitation is actually good to start building something myself. I will need to leave it for the future due to current work, but the below example gets me at least all RSS feeds which are hidden behind a paging navigation of 93 pages, see <a href="http://www.uitzendinggemist.nl/programmas/" target="_blank">http://www.uitzendinggemist.nl/programmas/</a></p>
+<pre>
+  #! /usr/bin/env python
+
+  import urllib
+  from bs4 import BeautifulSoup as Soup
+  base_url = "http://www.uitzendinggemist.nl"
+  program_url = base_url + "/programmas/?page="
+
+  for page in range(1, 93):
+    url =  "%s%d" % (program_url, page)
+    soup = Soup(urllib.urlopen(url))
+
+    for link in soup.find_all(attrs={'class': 'knav_link'}):
+      print link.get('title').encode("utf-8")," :: ",
+      print "%s%s.rss" % (base_url, link.get('href') )
+</pre>
+<p><a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/crawl_paging_uitzendinggemist.py" target="_blank">download</a></p>
+<p>Notes:</p>
+<ul>
+<li> For version 4 the import statement is : from bs4 import BeautifulSoup as Soup</li>
+<li> soup = Soup(urllib.urlopen(url)) -> holds the whole page</li>
+<li> the for loop retrieves all elements with the "knav_link" class (you should look at the HTML source while coding) and gets the title and href attributes.</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h4> Get details about top ranked artists</h4>
+<p>This example is a little bit more challenging because we have to do more parsing on the HTML. See <a href="http://www.musicrow.com/charts/top-ranking-country-artists/" target="_blank">http://www.musicrow.com/charts/top-ranking-country-artists/</a>: we want to get the name, twitter/facebook page, number of likes/followers of top ranked artists. Moreover, we want to save that data into a database table.</p>
+<pre>
+  #! /usr/bin/env python
+  import urllib
+  from bs4 import BeautifulSoup as Soup
+  from time import time
+  import MySQLdb
+
+  db = MySQLdb.connect("localhost","bob","cangetin","bobbelde_models" )
+  cursor = db.cursor()
+
+  url = "http://www.musicrow.com/charts/top-ranking-country-artists/"
+  soup = Soup(urllib.urlopen(url))
+
+  for row in soup.find_all(attrs={'class': 'row'}):
+    artist = [text for text in row.stripped_strings]
+  
+    name = artist[1]
+    followers = artist[5]
+    likes = artist[7]
+  
+    thumb = row.select("img")[0]['src']
+    twitter = row.select("a")[0]['href']
+    facebook = row.select("a")[1]['href']
+    tstamp = int(time())
+  
+    sql = """INSERT INTO top_ranking (id, name, followers, likes, thumb, 
+            twitter, facebook, audit_who, audit_ins, audit_upd) VALUES
+            (NULL, '%s', '%s', '%s', '%s', '%s', '%s', 'admin', '%d', NULL);
+            """ % (name, followers, likes, thumb, twitter, facebook, tstamp)
+  
+    try:
+      cursor.execute(sql)
+      db.commit()
+    except:
+      db.rollback()
+      db.close()
+  
+
+  db.close()
+</pre>
+<p><a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/crawl_dbsave_topartists.py" target="_blank">download</a></p>
+<p>Notes:</p>
+<ul>
+<li> We loop through all elements with class "row" which are the table rows in this case</li>
+<li> artist = [text for text in row.stripped_strings] -> strips away all html and leaves us with bare text only. This gets us almost everything except the thumb "img src" attribute and the Twitter and Facebook URLs. Hence the extra row.select("..")[0]['...'] statements. This does the job, but I expect that a BeautifulSoup ninja would use less code to get this :) </li>
+<li> We concat all together and execute the insert statement. See <a href="http://www.tutorialspoint.com/python/python_database_access.htm" target="_blank">this article</a> to get started with MySQLdb.</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3> More examples?</h3>
+<p>I hope you enjoyed this post. If you have interesting use cases yourself, I invite you to share them in the comments ...</p>

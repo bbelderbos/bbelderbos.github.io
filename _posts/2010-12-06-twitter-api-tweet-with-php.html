@@ -1,0 +1,88 @@
+---
+layout: post
+title: 'Twitter API: tweet with PHP'
+date: 2010-12-06 00:20:04.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- hacks
+- howto
+- programming
+- sharemovies
+- socialmedia
+- twitter
+meta:
+  _thumbnail_id: '621'
+  _edit_last: '1'
+  dsq_thread_id: '185378128'
+  _wp_old_slug: twitter-api-post-via-php
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  _sexybookmarks_shortUrl: http://b2l.me/a8m626
+  _sexybookmarks_permaHash: 65bc4eb9e64c7e983f8bd7ec17563229
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today's web is about sharing. My facebook API / movie experiment Sharemovi.es is up and running. It needs some tweaking but bit by bit..  What I did find important was a live stream. Of course you can go the old-school route of mail updates, but today updates are more efficient via facebook and twitter.<!--more--></p>
+<p>As I played already with the facebook API, today it was time to do some research on Twitter's API. Purpose: push new movie reviews to twitter! This way people can follow sharemovies and they get new movies automatically pushed into their stream. (Updates on the app are however posted to facebook <a href="http://sharemovi.es/index.php?news=true" target="_blank">via the activity stream</a>)</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>There are some tutorials that suggest this method:</p>
+<pre>&lt;?php
+include '../../twitter.php';
+$message = 'New movie ...';
+$url = 'http://twitter.com/statuses/update.xml';
+$curl_handle = curl_init();
+curl_setopt($curl_handle, CURLOPT_URL, "$url");
+curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl_handle, CURLOPT_POST, 1);
+curl_setopt($curl_handle, CURLOPT_POSTFIELDS, "status=$message");
+curl_setopt($curl_handle, CURLOPT_USERPWD, "$username:$password");
+$buffer = curl_exec($curl_handle);
+curl_close($curl_handle);
+if (empty($buffer)) {
+ echo "error!";
+} else {
+ echo 'success!';
+}
+</pre>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2010/12/twitterAPI.jpg"><img class="size-full wp-image-621 alignright" title="twitterAPI" src="{{ site.baseurl }}/assets/twitterAPI.jpg" alt="" width="200" height="200" /></a>.. but this method does not work anymore because twitter is now using <a href="http://en.wikipedia.org/wiki/OAuth" target="_blank">Oauth</a>.</p>
+<p>So I followed <a href="http://tips4php.net/2010/12/twitter-oauth-the-easy-way-simple-post-to-twitter-script" target="_blank">this helpful article</a>:</p>
+<p>1. Register an app: <a href="http://dev.twitter.com/apps/new" target="_blank">http://dev.twitter.com/apps/new</a>. This is quite common; Facebook asks the same.<br />
+You need the read &amp; write permissions to post to your twitter account</p>
+<p>2. You get 4 API keys. Download the <a href="https://github.com/abraham/twitteroauth/" target="_blank">Abraham Twitter OAuth</a> class to connect to twitter using OAuth and fill in the keys.</p>
+<p>3. including “OAuth.php”  and “twitteroauth.php” the rest is easy</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p><span style="text-decoration: underline;">File tweet.php</span></p>
+<pre>&lt;?php
+$consumerKey    = '&lt;insert your consumer key';
+$consumerSecret = '&lt;insert your consumer secret&gt;';
+$oAuthToken     = '&lt;insert your access token&gt;';
+$oAuthSecret    = '&lt;insert your token secret&gt;';
+require_once('twitteroauth.php');
+// twitteroauth.php points to OAuth.php
+// all files are in the same dir
+// create a new instance
+$tweet = new TwitterOAuth($consumerKey, $consumerSecret, $oAuthToken, $oAuthSecret);
+ ?&gt;
+This makes the twitter instance which you can use to post updates to your stream (the user account that registers the app, is used to post the updates to!) :
+// post to twitter
+include 'tweet.php';  // the file where the tweet instance is created
+$statusMessage = 'Movie added: '.$title. ' -&gt; ' . $message;
+$tweet-&gt;post('statuses/update', array('status' =&gt; $statusMessage));
+</pre>
+<p>So when adding this bit of code at the point where somebody adds a movie, it posts the new title + URL to the <a href="http://twitter.com/#!/sharemovies" target="_blank">@sharemovies</a> twitter account. Following this user and you get updated about new movies in your twitter stream :)</p>
+<p>[caption id="attachment_622" align="alignnone" width="480" caption="Create your Movie stream with twitter API"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/12/Screen-shot-2010-12-06-at-12.05.40-AM.png"><img class="size-full wp-image-622" title="Movie stream" src="{{ site.baseurl }}/assets/Screen-shot-2010-12-06-at-12.05.40-AM.png" alt="Movie stream" width="480" height="354" /></a>[/caption]</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>I probably deploy the same with Facebook over time, but it is always good to play with various technologies.</p>

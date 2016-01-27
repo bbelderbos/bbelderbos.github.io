@@ -1,0 +1,74 @@
+---
+layout: post
+title: A simple text-to-html parser written in Perl for Wordpress
+date: 2011-08-11 20:03:24.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- css
+- hack
+- html
+- markup
+- parser
+- perl
+- productivity
+- regex
+- script
+- text editor
+- wordpress
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1109'
+  dsq_thread_id: '383413248'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I just finished my first real-life timesaver script in Perl. I got a bit tired of the WYSIWYG Wordpress editor to markup my blog posts. It does an insufficient job aligning what I intend to display, which in itself is already a time-consuming activity (selecting/clicking). Moreover, I have to peak into the HTML to correct the editor. Time to automate this!</p>
+<p><!--more--></p>
+<h3>Purpose</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/1313027205.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p> Write my posts in a text editor with some simpler markup which I defined with some basic rules. The <a href="https://github.com/bbelderbos/Codesnippets/blob/master/perl/wordpress_parse_post.pl" target="_blank">Perl script</a> converts this to HTML that I can paste into the Wordpress editor (HTML tab)</p>
+<p> Update 03.07.2012 ) I use <a href="https://github.com/bbelderbos/Codesnippets/blob/master/perl/wordpress_parse_post.pl" target="_blank">the script</a> for every post now for almost a year and it has been a great time saver. The invented markup is really easy and covers about all I need. The HTML generation is then one command and I quickly paste it into the Wordpress HTML editor. Another advantage is that my posts have conistent HTML tags, so if I decide to change CSS rules, the changes should be reflected in all posts.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>The rules I use for quick text editor blogging</h3>
+<p> * headings<br />
+	>>> preceded by a line means a header 3 (my css is using this for headings in my post)<br />
+	>>>> same for h4 / headings</p>
+<p>	* intro text<br />
+	MORE delimits the intro text that you see on the frontage (teaser)</p>
+<p>	* links<br />
+	||Link name group||url<br />
+		for links in the post (I use only target='_blank')<br />
+   example: ||link to home||http://bobbelderbos.com</p>
+<p>	* paragraphs<br />
+	  lines preceded by :: are wrapped in paragraph tags with optional floating</p>
+<p> * images<br />
+	!!ALT text!!image link!!float!!width<br />
+		for images (manual upload but I can script that, less cumbersome than WP)<br />
+		(these are exclamation marks as opposed to pipe characters for anchors above)<br />
+   example: !!featured image!!http://example.com/wp-content/uploads/YYYY/MM/image.jpg!!right!!200</p>
+<p>	* code samples<br />
+	content between the CODE and /CODE tags will be wrapped in "pre" tags</p>
+<p>	* unordered list (ul / li)<br />
+	are formed by a * (ul), one or more dashes - (li elements) and two stars (closing ul)</p>
+<p>	* literal lines<br />
+	as perl I use the pound # sign. these lines are displayed "as is" so no risk of being mutilated by the script</p>
+<p> * comments<br />
+ lines preceded by #! are literal comments and will be ignored by the parser<br />
+ example in my blog template: http://bobbelderbos.com/src/blog_template.txt</p>
+<p>	* FB like button<br />
+	the word "LIKE" on a seperate line converts into fb:like button which you can spread around in your posts </p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>This is the basic stuff I use in blog posts. I can easily memorize this syntax and write my posts in my text editor (a place where I am more effective anyway). Then when the post is done and saved as a text file, for example, blogpost.txt, I can run the perl script like this: $ perl wordpress_parse_post.pl blogpost.txt > blogpost.html && mate blogpost.html</p>
+<h3>The parser </h3>
+<p>The parser is available at <a href="https://github.com/bbelderbos/Codesnippets/blob/master/perl/wordpress_parse_post.pl" target="_blank">Github</a>. I couldn't paste it in here because I would get HTML embedding issues. Just check it out at Github and let me know if you have any suggestions ...</p>
+<h3>Result</h3>
+<p>Again, the generated html is based on the html I defined in my WP theme and wrote CSS for. But if you understand the search and replace functions (REGEX) of the script, you can easily go in and customize it. You just need to have a system defined.</p>
+<p>If you want to use my defined markup, you can download the template <a href="http://bobbelderbos.com/src/blog_template.txt" target="_blank">here</a>.</p>

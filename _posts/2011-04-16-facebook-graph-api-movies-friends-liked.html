@@ -1,0 +1,78 @@
+---
+layout: post
+title: Use Facebook's graph API to know what movies your friends like
+date: 2011-04-16 21:38:18.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- facebook
+- features
+- friends
+- graph
+- howto
+- like
+- movies
+- sharemovi.es
+- sharing
+meta:
+  _edit_last: '1'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  _thumbnail_id: '926'
+  dsq_thread_id: '281140109'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Hi there, enjoying your weekend? Hopefully you do with lots of fun and ... movies! Or you are not sure what to watch anymore? What about having 100 favorite movies of your friends at one click away?<!--more--></p>
+<p>How?! The almighty <a href="http://graph.facebook.com/" target="_blank">Facebook Graph API</a>. All credits to <a href="https://developers.facebook.com/blog/post/481/" target="_blank">this interesting post</a> on the Facebook's developer blog about querying your friend's "Liked" movies. I saw it and thought "this should be ported to sharemovi.es" !</p>
+<h3>What is Sharemovi.es ?</h3>
+<p>November last year <a href="http://bobbelderbos.com/2010/11/sneak-preview-sharemovies/" target="_blank">I launched sharemovi.es</a>, my first Facebook app / site, defined as:</p>
+<p><em>Sharemovi.es is a social application that aims to bring together movie fans. Each user has his/her unique movie profile where he/she adds up reviewed, rated and favorite movies. Movie reviews can easily be shared to facebook, twitter and other platforms. Anyone with a facebook account can sign up and start to use this app. It is built using the Facebook API. Have fun and hopefully you will get to know movies you wouldn't have heard off otherwise.</em></p>
+<h3>Never done</h3>
+<p>Bit by bit I keep on improving it / adding new features like this one. Over time I added support for <a href="http://bobbelderbos.com/2011/03/new-facebook-comments-plugin/">facebook comments</a>, <a href="http://bobbelderbos.com/2011/01/build-movie-trailer-api-using-gdata/" target="_blank">(gData) movie trailers</a>, you can invite friends, post movie reviews to your wall and to twitter. You can rate and favorite movies. So quite a lot already but "movies" is a versatile never-ending subject, so expect more to be added in the future !</p>
+<h3>So, you were always wondering what movies your friends liked ?</h3>
+<p>Now you can!</p>
+<p><img class="size-full wp-image-926 alignright" title="sharemovi.es" src="{{ site.baseurl }}/assets/sharemovi.es_.jpg" alt="" width="112" height="112" /></p>
+<p>The flow is easy. Enter <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> and grant the necessary permissions to the app (existing sharemovi.es users: I am still searching an elegant way to let you accept incremental permissions if you go to a specific page. For now just log out and log in again from the sharemovi.es page, newly added permissions should be requested to you. )</p>
+<div>Required permissions for sharemovi.es, the last two are required for the "friend's taste" feature:</div>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/Screen-shot-2011-04-16-at-9.25.54-PM.png"><img class="alignnone size-full wp-image-927" title="Screen shot 2011-04-16 at 9.25.54 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-04-16-at-9.25.54-PM.png" alt="" width="492" height="359" /></a></p>
+<p>Once in, click on "Friend's taste" button on the homepage or in the nav bar that you'll see once inside sharemovi.es ..</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/friends_taste.png"><img class="alignnone size-full wp-image-919" title="friends_taste" src="{{ site.baseurl }}/assets/friends_taste.png" alt="" width="290" height="43" /></a></p>
+<p>or:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/Screen-shot-2011-04-16-at-9.27.33-PM.png"><img class="alignnone size-full wp-image-928" title="Screen shot 2011-04-16 at 9.27.33 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-04-16-at-9.27.33-PM.png" alt="" width="328" height="32" /></a></p>
+<p>... and you get a <a href="http://fancybox.net/" target="_blank">fancybox</a> overlay and the process is loading. What you'll see here is pure Javascript at work, very smooth stuff produced by the FB developers.</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/Screen-shot-2011-04-16-at-1.12.33-PM.png"><img class="alignnone size-full wp-image-918" title="Screen shot 2011-04-16 at 1.12.33 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-04-16-at-1.12.33-PM.png" alt="" width="183" height="77" /></a></p>
+<h3>Result : all friends' favorite movies:</h3>
+<p>When done you get a maximum result of 100 movies, the ones most "Liked" by friends, at the top. I added a link at the top of each movie to review it at sharemovi.es. The only thing you need to do manually after clicking this link, is to click the "Find!" button so that <a href="http://davidwalsh.name/php-imdb-information-grabber" target="_blank">imdbGrabber</a> finds the IMDB link which I use to pull basic info (director, actors, thumb) from, again, Facebook's graph API.</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/result.jpg"><img class="alignnone size-full wp-image-920" title="result" src="{{ site.baseurl }}/assets/result.jpg" alt="" width="451" height="312" /></a></p>
+<p><em>(You will see your friends' names and "Liked" movies here .. )</em></p>
+<p>Then when clicking one of the red links, for example "Usual Suspects" was a movie I was reminded off by two friends who "Liked" this movie:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/Screen-shot-2011-04-16-at-8.33.59-PM.png"><img class="alignnone size-full wp-image-921" title="Screen shot 2011-04-16 at 8.33.59 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-04-16-at-8.33.59-PM.png" alt="" width="421" height="85" /></a></p>
+<p>Click Find!</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/Screen-shot-2011-04-16-at-8.34.13-PM.png"><img class="alignnone size-full wp-image-922" title="Screen shot 2011-04-16 at 8.34.13 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-04-16-at-8.34.13-PM.png" alt="" width="554" height="300" /></a></p>
+<p>.. so some data mining stuff there (it is not perfect, but usually with the right keywords it will find the movie info), write some word, give a rating and decide where to share it.</p>
+<h3>Movie unique URL</h3>
+<p>After submitting your review, the movie gets an unique URL, e.g. <a href="http://sharemovi.es/theusualsuspects" target="_blank">http://sharemovi.es/theusualsuspects</a>, it's like you own the movie review ;)</p>
+<p>If the movie was submitted before, you are warned and you can go to the movie and comment via the FB comment box (v2, see a review of the new FB comment box <a href="http://bobbelderbos.com/2011/03/new-facebook-comments-plugin/" target="_blank">here</a>)</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/04/Screen-shot-2011-04-16-at-8.35.42-PM.png"><img class="alignnone size-full wp-image-923" title="Screen shot 2011-04-16 at 8.35.42 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-04-16-at-8.35.42-PM.png" alt="" width="521" height="255" /></a></p>
+<p>Not want to join sharemovi.es, but want to see the original FB developer's blog post example? Go <a href="http://myfbse.com/socialmovies/" target="_blank">here</a></p>
+<h3>Conclusion:</h3>
+<p>Apart from following what <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> users add (yesterday Megamind was added, I didn't know that movie and it looks awesome - cool!)</p>
+<p>This way you can see what movies your friends like and review them yourself at <a href="http://sharemovi.es" target="_blank">sharemovi.es</a>.</p>
+<p>If you share one that you saw one of your friends "Liked" expect some conversation to be initiated. Then I know <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> is what it was meant to be: bringing movie fans together using the potential of Facebook's graph API !</p>
+<p>Btw, you can follow <a href="http://twitter.com/#!/sharemovies" target="_blank">@sharemovies</a> at twitter and get all newly added movies in your stream automatically.</p>
+<h3>Share the word or join..</h3>
+<p>Did you like this post? Tell your friends via the social media buttons on this site...</p>
+<p>You can also <a href="https://www.facebook.com/home.php?sk=group_118232854902671&amp;ap=1" target="_blank">join my Facebook group</a> or get a weekly <a href="http://www.mailchimp.com/" target="_blank">Mailchimp</a> newsletter to keep up with my new blog posts. You can subscribe in the sidebar of this site ...</p>
+<p>Ah.. and I am also at twitter: <a href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a></p>

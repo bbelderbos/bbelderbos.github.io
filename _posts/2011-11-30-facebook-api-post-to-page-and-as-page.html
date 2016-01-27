@@ -1,0 +1,81 @@
+---
+layout: post
+title: 'Facebook API: how to post TO a page and AS the page'
+date: 2011-11-30 20:42:56.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- facebook
+- page
+- post
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1441'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '496847884'
+  snapEdIT: '1'
+  snapDL: s:99:"a:1:{i:0;a:3:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";}}";
+  snapFB: 's:135:"a:1:{i:0;a:4:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";}}";'
+  snapLI: 's:112:"a:1:{i:0;a:3:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";}}";'
+  snapTW: 's:116:"a:1:{i:0;a:3:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";}}";'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> Today I will show you how you can post to Facebook pages with the identity of those pages. One of <a href="http://facebook.com/sasocialfan" target="_blank">my readers</a> came up with this question and truth is it is useful if you have various pages to administer.</p>
+<p><!--more--></p>
+<h3> How does it work? </h3>
+<ul>
+<li> As usual you need to first install a copy of the <a href="https://github.com/facebook/php-sdk" target="_blank">Facebook PHP SDK</a> to authenticate user/app/permissions. </li>
+<li> Then you need to make sure you have the <a href="https://developers.facebook.com/docs/reference/api/permissions/" target="_blank">manage_pages permission</a></li>
+<pre>
+   // Login or logout url will be needed depending on current user state.
+   if ($user) {
+    $logoutUrl = $facebook-&gt;getLogoutUrl();
+   } else {
+    $loginUrl = $facebook-&gt;getLoginUrl(
+  			array('scope'=&gt;'manage_pages,publish_stream')
+    );
+   }
+</pre>
+<li> Note that once you have the manage_pages permission each page requires its own access code, which you can see below: </li>
+<pre>
+   ..
+   		&lt;select name=&quot;page_to&quot;&gt;
+   			&lt;?php
+   			$result = $facebook-&gt;api(&quot;/me/accounts&quot;);
+   			foreach($result[&quot;data&quot;] as $page) { 
+   				if($page[&quot;category&quot;] == &quot;Application&quot;) {
+   					continue; // app pages dont work for this exercise
+   				}
+   				echo '&lt;option value=&quot;'.$page[&quot;id&quot;].'&quot; ';
+   				if ($page[&quot;id&quot;] == $page_to) {
+   					echo ' selected=&quot;selected&quot;';
+   				}
+   				echo '&gt;'. $page[&quot;name&quot;] . '&lt;/option&gt;' ;
+   			}   
+   			?&gt;
+   		&lt;/select&gt;
+   ..
+</pre>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Try it yourself</h3>
+<p> Go to <a href="http://bobbelderbos.com/fbwall/page.php" target="_blank">this page</a> and log in with FB, you will be asked to grant the "manage_pages" permission. Then the page shows a list of all your Facebook pages with an option to post to each one of them.</p>
+<p> So this is a quick and easy way to administer all your pages. You can see this in action in the video demo below:</p>
+<div class="video">
+<iframe src="http://www.screenr.com/embed/1Vzs" width="650" height="396" frameborder="0"></iframe>
+</div>
+<h3> Code</h3>
+<p> The code can be downloaded <a href="http://bobbelderbos.com/src/post_page_php" target="_blank">here</a> - after putting it on your domain, you need to add your URL your FB App configuration page. Then you need to update "your app id" and "your app secret" with the App codes.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>

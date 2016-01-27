@@ -1,0 +1,91 @@
+---
+layout: post
+title: Let Facebook "Like" button pick the right image!
+date: 2011-03-12 20:25:20.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- child theme
+- facebook
+- hacks
+- like
+- meta
+- og:image
+- share
+- social media
+- tricks
+- wordpress
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '831'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  dsq_thread_id: '252295071'
+  _wp_old_slug: why-facebooks-like-shows-wrong-thum
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapDL: s:99:"a:1:{i:0;a:3:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";}}";
+  snapFB: 's:221:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapLI: 's:221:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";b:0;s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapTW: 's:159:"a:1:{i:0;a:5:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;}}";'
+  featured_posts_widget_flag: 'true'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>How common: you have 20 images on your site, you place a like button on your site. You see others start to "like" your content but with the wrong image. Actually, last year I heard the complaint more than once because Facebook started to add an image to a "liked" post. Luckily it is not hard to fix this ..<!--more--></p>
+<h3>Why is this an issue?</h3>
+<p>As said, some time ago the Facebook "Like" button would just show a phrase in your profile "you liked blabla..", but now it shows the thumb and some text, typically the first paragraph of the article. This is seen on your profile and in your friend's news stream.<br />
+<fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Example</h3>
+<p>I tested the like button on my site to see that it takes a random image, one of my social share buttons. Not quite what I want of course. Now it seems erroneously that the article is about digg :(</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/facebook_like.png"><img class="alignnone size-full wp-image-830" title="facebook_like" src="{{ site.baseurl }}/assets/facebook_like.png" alt="" width="508" height="183" /></a></p>
+<p>Compare this with "Facebook Share" where you can select the thumbnail you want to appear alongside the post:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/facebook_share.png"><img class="alignnone size-full wp-image-829" title="facebook_share" src="{{ site.baseurl }}/assets/facebook_share.png" alt="" width="547" height="293" /></a></p>
+<p>Or better, control which image is visible !</p>
+<h3>The solution</h3>
+<p>Check out <a title="found solution to the issue at this link" href="http://am22tech.com/s/22/Blogs/post/2010/06/03/Add-your-web-pages-best-image-in-meta-tag-for-thumbnail-by-facebook-share-links.aspx" target="_blank">this interesting post</a>.  Basically you can use the meta tag to tell which image to show on your post to your wall:</p>
+<pre><code>&lt;meta property="og:image" content="&lt;your image link&gt;"/&gt; </code><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/fbLike.png"><img class="size-full wp-image-831 alignright" title="fbLike blog post featured image" src="{{ site.baseurl }}/assets/fbLike.png" alt="" width="160" height="160" /></a></pre>
+<p>Facebook's <a title="facebook like plugin" href="http://developers.facebook.com/docs/reference/plugins/like/" target="_blank">Like Button page</a> explains the tag as:</p>
+<p><em><span style="color: #339966;"><code>og:image</code></span> - The URL to an image that represents the entity.  Images must be at least 50 pixels by 50 pixels. Square images work best,  but you are allowed to use images up to three times as wide as they are  tall.</em></p>
+<p>So this is easy to implement. Just control the meta html tags. But what if you have your Wordpress blog and you don't want to poke to much in the code (for example, you are not using a child theme). I did some research and it depends the plugin you use. Sadly enough I could not find one plugin that would be that flexible to let me choose the image that would show up..</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Wordpress<em> </em></h3>
+<p><del>Up until now I used <a title="fbLikeButton wp plugin" href="http://healyourchurchwebsite.com/2010/04/22/the-facebook-like-button-plugin-for-wordpress/" target="_blank">fbLikeButton</a>, but it does not add any og:.. meta properties.<br />
+</del><span style="color: #008000;"><em><strong>Update</strong>: Nustiu (comments) confirms <a href="http://healyourchurchwebsite.com/2010/04/22/the-facebook-like-button-plugin-for-wordpress/" target="_blank">FbLikeButton</a> has indeed everything you need. He says that if you want one default  picture or for every single post another picture, it does the  job. He also pointed me to<a href="http://www.youtube.com/watch?v=gsxA0Hai6kU&amp;feature=player_embedded#at=169"> this tutorial</a>. I am not sure if it is an improved version or I initially overlooked it. In latter case sorry, in both cases this might be interesting to try, so cheers <a href="http://nustiu.ro/" target="_blank">Nustiu</a> ! I personally</em></span><span style="color: #008000;"><em> stick with Michael Fields solution for now ( see later on in this post )<br />
+== end update ==</em></span></p>
+<p>I did some searching and I found a better "Like" plugin that does the work, but still not to my satisfaction. The <a title="like plugin" href="http://wordpress.org/extend/plugins/like/" target="_blank">Like plugin</a> has the exact same appearance and config settings (e.g. show the "like" button before and after the post), but it also adds the meta tags. The only problem is that you can only specify one image. So if you want all your articles to carry your logo, just specify the full URL to that image and you are done. For example:</p>
+<pre id="line46">&lt;meta property="og:image" content="http://bobbelderbos.com/.. ..badge_bb.png" /&gt;
+..</pre>
+<h3>A better solution</h3>
+<p>If you have a child theme, you can place hooks to existing WP functionality. I found <a title="the solution for the fb like issue!" href="http://wordpress.mfields.org/2010/add-a-facebook-like-button-to-your-wordpress-site/" target="_blank">a brilliant blog post from Michael Fields</a> where he explains how you can add the "Like button" to your posts and set the meta tags for each and every post. It sets the "featured image" as og:image, and it is that image that shows up in the Facebook post upon <em>liking</em> the URL.</p>
+<p>For me this is the ideal solution, because I always make an image that characterizes the post and that will show on my <a title="my homepage" href="http://www.bobbelderbos.com/" target="_blank">homepage</a> and in my blog's <a title="my blog's archive page" href="http://www.bobbelderbos.com/posts" target="_blank">archive page</a>.</p>
+<p>Testing two posts it works great:</p>
+<pre>&lt;meta property="og:image"
+  content="http://bobbelderbos.com/ .. .. readitlater.png"/&gt;
+
+&lt;meta property="og:image"
+  content="http://bobbelderbos.com/.. .. fb_comments.png"/&gt;</pre>
+<p>.. these are the featured images of the two posts.</p>
+<p>It seems to work great:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/liked_a_post_with_right_image.png"><img class="alignnone size-full wp-image-888" title="liked_a_post_with_right_image" src="{{ site.baseurl }}/assets/liked_a_post_with_right_image.png" alt="" width="499" height="190" /></a></p>
+<p>So thanks Michael Fields for sharing this solution! I think a lot of us are looking for this ..</p>
+<h3>Outside WP, another option</h3>
+<p>When you don't use Wordpress, and you want user's to send your content to their walls, you can use the Facebook API to control how such a post will look like. I <a title="how to post to fb wall with php " href="http://bobbelderbos.com/2011/01/facebook-api-wall-post/" target="_blank">covered this technique here</a> and use it for <a title="sharemovi.es app" href="http://sharemovi.es/" target="_blank">sharemovi.es</a> and <a title="my reading list app" href="http://www.bobbelderbos.com/books/" target="_blank">my reading list</a>.<a title="announcing my reading list" href="http://bobbelderbos.com/2011/03/new-facebook-app-my-reading-list/" target="_blank"></a></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Debugging</h3>
+<p>Facebook's <a title="facebook tools: lint" href="http://developers.facebook.com/tools/lint/" target="_blank">lint</a> is a great tool to debug issues with Facebook's share plugins. When you put in an URL it shows how Facebook reads it. Note the &lt;meta .. og: .. .. &gt; stuff in the example below:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/lint_data.png"><img class="alignnone size-full wp-image-889" title="lint_data" src="{{ site.baseurl }}/assets/lint_data.png" alt="" width="648" height="433" /></a></p>

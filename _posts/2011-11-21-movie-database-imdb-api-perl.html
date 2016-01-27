@@ -1,0 +1,57 @@
+---
+layout: post
+title: Your own movie database in 5 minutes with IMDb API and Perl
+date: 2011-11-21 19:00:28.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- databases
+- imdb
+- movies
+- perl
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1403'
+  dsq_thread_id: '496849216'
+  featured_posts_widget_flag: 'true'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapDL: s:99:"a:1:{i:0;a:3:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";}}";
+  snapFB: 's:221:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapLI: 's:221:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";b:0;s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";'
+  snapTW: 's:159:"a:1:{i:0;a:5:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;}}";'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In this post I will show you how you can easily import IMDb data for your movies and process the XML to get SQL for database import. From there you can start to build your movie site.</p>
+<p><!--more--></p>
+<h3> IMDb API</h3>
+<p> In this post I use a small DVD collection. The movie data (director, actors, year published, etc.) are from IMDb and thanks to <a href="http://www.imdbapi.com/" target="_blank">IMDb API</a> (Brian Fritz), you get the data easily via curl. At the end of this post you can see a 5 min video demo of the whole process.</p>
+<h3> How it works</h3>
+<ul>
+<li> First I create a database and insert the <a href="http://bobbelderbos.com/src/moviecollection/table.sql" target="_blank">movie collection table</a></li>
+<li> The script <a href="http://bobbelderbos.com/src/moviecollection/getMovieData" target="_blank">getMovieData.pl</a> serves to import the movie data from the API with curl and converts the XML to SQL. The escapeSingleQuote function allows the output to contain single quotes.</li>
+<li> The <a href="http://bobbelderbos.com/src/moviecollection/batch" target="_blank">batch.pl</a> script is a little wrapper to run the getMovieData.pl on each title of the movie list you provide as input file. So for the <a href="http://bobbelderbos.com/src/moviecollection/movielist.txt" target="_blank">example list</a> you get 41 INSERT statements.</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Conclusion</h3>
+<p> In 3 simple steps you get a complete set of data for each movie title, in a standardized format. Importing this data in a database allows for easy app development. You can quickly lookup what movies you have of your favorite actor or director, what movies were released in 2009, which movies were highest rated or had the most votes, etc. Having the data in a database, makes life easier :)</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> An example in PHP</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/example_movieCollection_site.png" alt="example_movieCollection_site" style="float:none; margin: 20px;" width="600" /><br />
+<a href="http://bobbelderbos.com/src/moviecollection/site_php" target="_blank">- code -</a></p>
+<h3> Video Demo</h3>
+<p>   <iframe src="http://www.screenr.com/embed/Wnqs" width="650" height="396" frameborder="0"></iframe></p>
+<h3>Feedback</h3>
+<h4>Update 22.11.2011</h4>
+<p>Comments and suggestions regarding this post on <a href="http://news.ycombinator.com/item?id=3262071" target="_blank">hacker news</a>. There are some improved versions of the perl script, for example <a href="http://pastebin.com/MNzD0NSE" target="_blank">here</a>. I appreciate your feedback to improve my Perl skills. What the IMDB TOS is concerned: this is for personal use only.</p>

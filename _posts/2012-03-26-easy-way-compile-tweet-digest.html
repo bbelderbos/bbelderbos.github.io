@@ -1,0 +1,83 @@
+---
+layout: post
+title: An easy way to compile a Twitter digest for your site or blog
+date: 2012-03-26 22:58:32.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- scripting
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1899'
+  _wp_old_slug: easy-way-compile-tweet-digest-script-for-weekly-tweet-digest
+  dsq_thread_id: '625099683'
+  _snap_forceSURL: '2'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapDL: s:99:"a:1:{i:0;a:3:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";}}";
+  snapFB: 's:227:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";'
+  snapLI: 's:230:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";s:0:"";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";'
+  snapTW: 's:162:"a:1:{i:0;a:5:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";}}";'
+  featured_posts_widget_flag: 'false'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Little over a week ago I released <a href="http://bobbelderbos.com/tweetdigest" target="_blank">Tweet Digest</a>. It lets you create your Twitter digest in 3 simple steps. I used it today to publish a digest. I saved me time and offered me an easy way to customize the digest. In this post a bit more about the creation process.</p>
+<p><!--more--></p>
+<h3>Earlier experience and idea</h3>
+<p><img class="size-full" style="float: right; margin: 20px;" src="{{ site.baseurl }}/assets/tweet_digest_about.jpg" alt="featured image" width="150" /></p>
+<p>I used a <a href="http://wordpress.org/extend/plugins/twitter-digest/" target="_blank">Wordpress plugin</a> in the past to automatically post tweet digests to my blog, then stopped it for some time. I think in retrospect I was bothered with the plugin to be too automatic, although it is true that you could save a digest as a Draft first.</p>
+<p>I thought it was a good idea to build something myself, to customize it how I wanted, and as a programming / design exercise of course. I hope other Twitter fans will find this useful as well.</p>
+<p>&nbsp;</p>
+<h3>Enriched HTML</h3>
+<p>The other day I saw that Twitter provides <a href="https://dev.twitter.com/docs/embedded-tweets" target="_blank">embedded HTML</a>. This inspired me to use this markup to leverage the enriched display and functionality that Twitter adds with some Javascript.</p>
+<p><img class="size-full" style="float: none; margin: 20px;" src="{{ site.baseurl }}/assets/twitter_digest_enrichedHtml.jpg" alt="tweet digest query" width="519" /></p>
+<h3>Interface</h3>
+<ul>
+<ul>
+<li>After entering <a href="http://bobbelderbos.com/tweetdigest" target="_blank">Tweet Digest</a> you start by inputting your Twitter handle and number of tweets you want to retrieve. Or you specify them in the URL directly, for example <a href="http://bobbelderbos.com/tweetdigest?user=bbelderbos&amp;numTweets=50" target="_blank">http://bobbelderbos.com/tweetdigest/?user=bbelderbos&amp;numTweets=50</a>.</li>
+<li>You can then choose the tweets you want to include. Some jQuery appends them automatically to the preview below:</li>
+</ul>
+</ul>
+<p><img class="size-full" style="float: none; margin: 20px;" src="{{ site.baseurl }}/assets/tweet_digest_query.png" alt="tweet digest query" width="580" /></p>
+<ul>
+<ul>
+<li>At the right side you can copy the generated HTML. This is all you need to show your tweets with links to hashes, URLs and @users. However if you include the JS, you get an enriched view, see screenshot above and <a href="http://bobbelderbos.com/2012/03/favorite-tweets-2012-week-12/" target="_blank">my last post</a> for example. It is progressive enhancement at work: want to exclude the JS one day to speed up your page load, the tweets are HTML so will still be there. Apart from that you can get all the hashtags from your selected tweets. I usually put those in the teaser paragraph of my Wordpress post.</li>
+</ul>
+</ul>
+<p><img class="size-full" style="float: none; margin: 20px;" src="{{ site.baseurl }}/assets/tweet_digest_moreOptions.png" alt="tweet digest more options" width="580" /></p>
+<ul>
+<ul>
+<li>At the bottom there is a Feedback link, when you click it a div block slides out with the possibility to feedback via Facebook or Twitter.</li>
+</ul>
+</ul>
+<p><img class="size-full" style="float: none; margin: 20px;" src="{{ site.baseurl }}/assets/tweet_digest_feedback.png" alt="tweet digest feedback" width="580" /></p>
+<p>&nbsp;</p>
+<h3>Source</h3>
+<p>You can see the source at <a href="https://github.com/bbelderbos/Tweet-Digest" target="_blank">github</a>.</p>
+<h3>Pending solution: Twitter Rate limit issue</h3>
+<p>The only bummer is that I get a "Rate limit exceeded" pretty quickly from twitter :(</p>
+<pre>  http code returned by Twitter: 400
+
+  Dump request: 
+  string(150) "{"error":"Rate limit exceeded. 
+    Clients may not make more than 150 requests per hour.",
+    "request":"/statuses/user_timeline/bbelderbos.json?count=50"}"
+</pre>
+<p>Maybe they see multiple requests from this domain (IP) and block me for a certain interval. It is pretty random and only temporarily. However I am sure that I am making far less than 150 requests per hour ! (I deactivated <a href="http://bobbelderbos.com/2012/01/twitter-widget-show-latest-tweets-carousel-slide/" target="_blank">another twitter</a> widget on my blog to make sure I was not making any additional calls)</p>
+<p>For the same reason I am not querying <a href="https://api.twitter.com/1/statuses/oembed.json" target="_blank">https://api.twitter.com/1/statuses/oembed.json?id=..</a> (<a href="https://dev.twitter.com/docs/api/1/get/statuses/oembed" target="_blank">more info</a> ), I generate the HTML myself (<a href="https://dev.twitter.com/discussions/5262" target="_blank">good suggestion here</a>).</p>
+<p>Example:</p>
+<p><img class="size-full" style="float: none; margin: 20px;" src="{{ site.baseurl }}/assets/html_code.png" alt="html code" width="580" /></p>
+<p>&nbsp;</p>
+<h3>Next: wrap this in a WP plugin</h3>
+<p>Building WP plugins is something I want to learn. I also hope this could be a workaround for the rate limit issue, because generally 1 user uses it per blog (instead of multiple users for a single IP). Anyone having this issue plus a solution please let me know ...</p>

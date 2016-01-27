@@ -1,0 +1,45 @@
+---
+layout: post
+title: Outputting system commands
+date: 2010-03-28 01:48:42.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- html
+- php
+- scripting
+meta:
+  _edit_last: '1'
+  bfa_ata_body_title: Outputting system commands
+  bfa_ata_display_body_title: ''
+  bfa_ata_body_title_multi: Outputting system commands
+  bfa_ata_meta_title: ''
+  bfa_ata_meta_keywords: ''
+  bfa_ata_meta_description: ''
+  _sexybookmarks_shortUrl: http://b2l.me/atwrK4
+  _sexybookmarks_permaHash: 33bc810f6e65e4199b16c6381ca7ca13
+  dsq_thread_id: '145751758'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I had some struggle to properly output/format server outputs. I've always been a fan of automating stuff with bash, awk, etc. but need the browser to present the results and let the user interact. With C's printf you can easily get a nice terminal output like this:<br />
+column        |        column        |        column        |        column</p>
+<p>But when echoing this to a browser with PHP you typically get:<br />
+column |column|column| column<br />
+column_different length |column|column| column</p>
+<p>- that doesn't line up well. So you try to wrap it up in a html table, but what if the columns need to be of a different length? This is not easy</p>
+<p>I found a very easy solution to this problem: wrap the whole output in &lt;pre&gt;&lt;/pre&gt; tags and it will retain the original (txt) command line output. Hours of structuring and styling.. how could I overlook this simple html tag?</p>
+<p style="text-align: left;">Second interesting thing I discovered is PHP's system() command that outputs to the browser in real-time. For example a dotted progress bar could be simulated with:</p>
+<address><span style="color: #993366;">while (TRUE) {</span></address>
+<address><span style="color: #993366;"> system('echo .');</span></address>
+<address><span style="color: #993366;"> sleep(1);</span></address>
+<address><span style="color: #993366;">}</span></address>
+<p style="text-align: left;">.. imagine the line-by-line output of a long script with data that is gathered over the net- that is a very verbose way to communicate with the user, just if he/she was using the command line. Much more informative then a simple (although elegant) ajax loader (<a title="for creating customized ajax loaders" href="http://www.ajaxload.info/" target="_blank">http://www.ajaxload.info/</a>)</p>
+<p>So just this quick post to share these tips if you're making apps based on backend unix power scripts.</p>

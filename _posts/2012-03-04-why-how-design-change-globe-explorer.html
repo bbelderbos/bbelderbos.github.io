@@ -1,0 +1,93 @@
+---
+layout: post
+title: The why and how of Globe Explorer's design change
+date: 2012-03-04 23:27:30.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags: []
+meta:
+  _thumbnail_id: '1809'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '598657055'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I was not 100% happy with the first design of <a href="http://www.bobbelderbos.com/globe/" target="_blank">Globe Explorer</a>, but now I am. In this post some screenshots and inside info of the new design. I hope you like and enjoy it ...</p>
+<p><!--more--></p>
+<h3> First design</h3>
+<p> This was the first design <a href="http://bobbelderbos.com/2012/02/new-facebook-app-travel-site-globe-explorer/" target="_blank">I presented two weeks ago</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/first_design.png" alt="first design" style="float:none; margin: 20px;" width="580" /></p>
+<p>There were some issues with this design. First of all the <a href="http://bobbelderbos.com/2012/02/how-to-start-building-your-own-countrytravel-api/" target="_blank">Tixik API</a> mapped photos to various countries. I addressed this to them, but I am waiting for an answer ... So not all photos were accurate. Secondly I loaded a lot of photos per country which might have slowed down the experience for users with a slower internet connection.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3> New design</h3>
+<p>I improved quite some things I think:</p>
+<ul>
+<li>I found a very easy alternative for the image issue. I saw that most photos were linked to <a href="http://www.panoramio.com/" target="_blank">Panoramio</a>, so I went out to see if I could talk to this source directly. Honestly, I didn't even use the Javascript API because I was pretty impressed with <a href="http://www.panoramio.com/api/widget/api.html" target="_blank">the widgets</a> they offer. I use the photo_list widget with the countryname as variable: </li>
+<pre>
+  	&lt;iframe id=&quot;panoramio&quot; src=&quot;http://www.panoramio.com/wapi/template/photo_list.html?tag=
+  		&lt;?php echo $countryAttributes[0]['country'];?&gt;
+  		&amp;amp;width=600&amp;amp;height=600&amp;amp;list_size=6&amp;amp;position=top&amp;amp;bgcolor=%23f2f2f2&quot; 
+  		frameborder=&quot;0&quot; width=&quot;600&quot; height=&quot;600&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot;&gt;
+  	&lt;/iframe&gt;
+</pre>
+<li>I made the design wider: 1050px</li>
+<li>Country info is at the top, alongside the country name, which makes much more sense</li>
+<li>I use gradients for the navbar at the top and the div that contains countyname and country specs. The color gets calculated based on the colors in the flag (average of these colors): </li>
+<pre>
+   $gradientColor = getFlagAverageColor($country); 
+   ..
+   function getFlagAverageColor($country){
+     // http://stackoverflow.com/questions/1746530/get-image-color
+     $filename = &quot;img/flags/&quot;.strtolower($country).&quot;.gif&quot;;
+     $image = imagecreatefromgif($filename);
+     $width = imagesx($image);
+     $height = imagesy($image);
+     $pixel = imagecreatetruecolor(1, 1);
+     imagecopyresampled($pixel, $image, 0, 0, 0, 0, 1, 1, $width, $height);
+     $rgb = imagecolorat($pixel, 0, 0);
+     $color = imagecolorsforindex($pixel, $rgb);
+     return rgb2html($color['red'], $color['green'], $color['blue']);
+   }
+  
+   function rgb2html($r, $g=-1, $b=-1) {
+      if (is_array($r) &amp;&amp; sizeof($r) == 3)
+         list($r, $g, $b) = $r;
+  
+      $r = intval($r); $g = intval($g);
+      $b = intval($b);
+  
+      $r = dechex($r&lt;0?0:($r&gt;255?255:$r));
+      $g = dechex($g&lt;0?0:($g&gt;255?255:$g));
+      $b = dechex($b&lt;0?0:($b&gt;255?255:$b));
+  
+      $color = (strlen($r) &lt; 2?'0':'').$r;
+      $color .= (strlen($g) &lt; 2?'0':'').$g;
+      $color .= (strlen($b) &lt; 2?'0':'').$b;
+     return '#'.$color;
+   }
+</pre>
+<p>I found a <a href="http://www.barelyfitz.com/projects/csscolor/" target="_blank">nice PHP class</a> to calculate a lighter tone of that color. It also matches the foreground color to <a href="http://www.w3.org/TR/AERT#color-contrast" target="_blank">W3C color visibility guidelines</a>. Quite neat! The calculated flag gradient also shows up in the autocomplete:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/auto_complete_color.png" alt="autocomplete" style="float:none; margin: 20px;" width="576" /></p>
+<li><img class="size-full" src="{{ site.baseurl }}/assets/globe_redesign.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></li>
+<p>I took the homepage out. It had all the flags which was nice, but it didn't result in a fast load of the homepage. I do load the flags in the footer carousel, that did not change, but the potential delay does not jump in the eye (and if it does effect user experience I might get it out after all). I thought it was more fun to select some preferred countries, put them in an array and randomly select one and load its page. So now, when you go to the <a href="http://www.bobbelderbos.com/globe/" target="_blank">homepage</a>, you get one of those preferred countries and you dive right in. Usually the specs show one or more neighbour countries so you can keep browsing countries. If not, I hope it is obvious you can use the search box at the top to lookup any country (or click on the flags in the footer).
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Feedback</h3>
+<p> Before showing off some examples, please let me know if you have any feedback. I am open to any comments. Thanks for the designers that had a critical look at the first version. Especially the feedback on gradients was very useful. Thanks guys!</p>
+<h3> Examples</h3>
+<p>Check out the site <a href="http://www.bobbelderbos.com/globe/" target="_blank">here</a>. I also made some printscreens:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/australia.png" alt="australia" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/myanmar.png" alt="myanmar" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/japan.png" alt="japan" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/italy.png" alt="italy" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/south_korea.png" alt="south korea" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/argentina.png" alt="argentina" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/bermuda.png" alt="bermuda" style="float:none; margin: 20px;" width="580" /></p>

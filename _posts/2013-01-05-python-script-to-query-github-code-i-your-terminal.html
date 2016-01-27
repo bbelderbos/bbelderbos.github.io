@@ -1,0 +1,354 @@
+---
+layout: post
+title: Python script to query github code in your terminal
+date: 2013-01-05 01:25:51.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- github
+- python
+- terminal
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2284'
+  dsq_thread_id: '1008727850'
+  _oembed_59475790b732dc6ccd07fc685e8708ec: '{{unknown}}'
+  _oembed_537322d1d99112be2fb7599d716cb543: '{{unknown}}'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p>I was using the Advanced Search in Github the other day and thought: what if I could use this in a terminal. So I started to try out some things in Python which led to the following script.</p>
+<p><!--more--></p>
+<h3>Some comments about the script</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/githubsearch.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<ul>
+<li> It is an interactive script that you run from a terminal, main options are (n) for new search and (s) for show script snippet. You first search for a keyword and optionally a programming language and number result pages to parse. See an example at the end of this post ...</li>
+<li> It takes these args and builds the right search URL (base url =https://github.com/search?q=) and uses html2text.theinfo.org to strip out the html (I tried the remote versionhere, for local use just download and import the html2text Python module, see <a href="http://bobbelderbos.com/2013/01/python-script-import-blog-sitemap-html2text/" target="_blank">my last post</a> for an example). </li>
+<li> It filters the relevant html with re.split(r"seconds)|## Breakdown", html) - this is based on what html2text makes of github's html markup.</li>
+<li> When choosing (s) and then a number of the search result the method "show_script_context" imports the raw script and shows the line that matches the search string with 8 lines before and after (like grep -A8 -B8 would do)</li>
+<li> You can use <a href="http://www.vim.org/scripts/script.php?script_id=2771" target="_blank">Conque</a> to run this in a split window in Vim which allows you to copy output to the script you are working on. </li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>The code</h3>
+<p> See below and on <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/github_search.py" target="_blank">github</a>:</p>
+<pre>
+#!/usr/bin/env python                                                                                                                                     
+# -*- coding: utf-8 -*-
+# Author: Bob Belderbos / written: Dec 2012
+# Purpose: have an interactive github cli search app
+#
+import re, sys, urllib, pprint
+# import html2text # -- to use local version
+
+class GithubSearch:
+  &quot;&quot;&quot; This is a command line wrapper around Github&#39;s Advanced Search
+      https://github.com/search &quot;&quot;&quot;
+
+  def __init__(self):
+    &quot;&quot;&quot; Setup variables &quot;&quot;&quot;
+    self.searchTerm = &quot;&quot;
+    self.scripts = []
+    self.show_menu()
+
+
+  def show_menu(self):
+    &quot;&quot;&quot; Show a menu to interactively use this program &quot;&quot;&quot;
+    prompt = &quot;&quot;&quot;
+      (N)ew search
+      (S)how more context (github script)
+      (Q)uit
+      Enter choice: &quot;&quot;&quot;
+    while True:
+      chosen = False 
+      while not chosen:
+        try:
+          choice = raw_input(prompt).strip().lower()
+        except (EOFError, KeyboardInterrupt):
+          choice = &#39;q&#39;
+        except:
+          sys.exit(&quot;Not a valid option&quot;)
+        print &#39;nYou picked: [%s]&#39; % choice 
+        if choice not in &#39;nsq&#39;:
+          print &quot;This is an invalid option, try again&quot;
+        else:
+          chosen = True
+      if choice == &#39;q&#39;: sys.exit(&quot;Goodbye!&quot;)
+      if choice == &#39;n&#39;: self.new_search() 
+      if choice == &#39;s&#39;: self.show_script_context()
+
+  
+  def new_search(self):
+    &quot;&quot;&quot; Take the input field info for the advanced git search &quot;&quot;&quot;
+    #&Acirc;&nbsp;reset script url tracking list and counter
+    self.scripts = [] 
+    self.counter = 0
+    #&Acirc;&nbsp;take user input to define the search
+    try:
+      self.searchTerm = raw_input(&quot;Enter search term: &quot;).strip().lower().replace(&quot; &quot;, &quot;+&quot;)
+    except:
+      sys.exit(&quot;Error handling this search term, exiting ...&quot;)
+    lang = raw_input(&quot;Filter on programming language (press Enter to include all): &quot;).strip().lower()
+    try:
+      prompt = &quot;Number of search pages to process (default = 3): &quot;
+      numSearchPages = int(raw_input(prompt).strip()[0])
+    except:
+      numSearchPages = 3
+    # get the search results
+    for page in range(1,numSearchPages+1):
+      results = self.get_search_results(page, lang)
+      for result in results[1].split(&quot;##&quot;): # each search result is divided by ##
+        self.parse_search_result(result)
+
+
+  def get_search_results(self, page, lang):
+    &quot;&quot;&quot; Query github&#39;s advanced search and re.split for the relevant piece of info 
+        RFE: have a branch to use html2text local copy if present, vs. remote if not &quot;&quot;&quot;
+    githubSearchUrl = &quot;https://github.com/search?q=&quot;
+    searchUrl = urllib.quote_plus(&quot;%s%s&amp;p=%s&amp;ref=searchbar&amp;type=Code&amp;l=%s&quot; % 
+      (githubSearchUrl, self.searchTerm, page, lang))
+    html2textUrl = &quot;http://html2text.theinfo.org/?url=&quot;
+    queryUrl = html2textUrl+searchUrl
+    html = urllib.urlopen(queryUrl).read()
+    return re.split(r&quot;seconds)|## Breakdown&quot;, html)
+
+
+  def parse_search_result(self, result):
+    &quot;&quot;&quot; Process the search results, also store each script URL in a list for reference &quot;&quot;&quot;
+    lines = result.split(&quot;n&quot;)
+    source = &quot;&quot;.join(lines[0:2])
+    pattern = re.compile(r&quot;.*((.*?))s+((.*?)).*&quot;)
+    m = pattern.match(source)
+    if m != None:
+      self.counter += 1 
+      url = &quot;https://raw.github.com%s&quot; % m.group(1).replace(&quot;tree/&quot;, &quot;&quot;)
+      lang = m.group(2)
+      self.print_banner(lang, url)
+      self.scripts.append(url) # keep track of script links 
+      for line in lines[2:]:
+        # ignore pagination markup
+        if &quot;github.com&quot; in line or &quot;https://git&quot; in line or &quot;[Next&quot; in line: continue 
+        if line.strip() == &quot;&quot;: continue
+        print line
+
+
+  def print_banner(self, lang, url):
+    &quot;&quot;&quot; Print the script, lang, etc. in a clearly formatted way &quot;&quot;&quot;
+    print &quot;n&quot; + &quot;+&quot; * 125
+    print &quot;(%i) %s / src: %s&quot; % (self.counter, lang, url)
+
+
+  def show_script_context(self, script_num=&quot;&quot;):
+    &quot;&quot;&quot; Another menu option to show more context from the github script 
+        surrounding or leading up to the search term &quot;&quot;&quot;
+    if len(self.scripts) == 0:
+      print &quot;There are no search results yet, so cannot show any scripts yet.&quot;
+      return False
+    script_num = int(raw_input(&quot;Enter search result number: &quot;).strip())
+    script = self.scripts[script_num-1] # list starts with index 0 = 1 less than counter
+    a = urllib.urlopen(script)
+    if a.getcode() != 200:
+      print &quot;The requested script did not give a 200 return code&quot;
+      return False
+    lines = a.readlines() 
+    a.close()
+    if len(lines) == 0:
+      print &quot;Did not get content back from script, maybe it is gone?&quot;
+      return False
+    num_context_lines = 8
+    print &quot;nExtracting more context for search term &lt;%s&gt; ...&quot; % self.searchTerm
+    print &quot;Showing %i lines before and after the match in the original script hosted here:n%sn&quot; % 
+      (num_context_lines, script)
+    for i, line in enumerate(lines):
+      if self.searchTerm.lower() in line.lower():
+        print &quot;n... %s found at line %i ...&quot; % (self.searchTerm, i)
+        j = i - num_context_lines
+        for x in lines[i-num_context_lines : i+num_context_lines]:
+          if self.searchTerm.lower() in x.lower():
+            print &quot;%i ---&gt; %s&quot; % (j, x), # makes the match stand out
+          else:
+            print &quot;%i      %s&quot; % (j, x),        
+          j += 1
+
+
+###&Acirc;&nbsp;instant
+github = GithubSearch()
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>See it in action</h3>
+<pre>
+$ vi github_search.py 
+
+
+      (N)ew search
+      (S)how more context (github script)
+      (Q)uit
+      Enter choice: N
+
+You picked: [n]
+Enter search term: os.system
+Filter on programming language (press Enter to include all): python
+Number of search pages to process (default = 3): 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(1) Python / src: https://raw.github.com/fhopecc/stxt/1a14c802362047af4c9f6d5ec2312a57cbc9bca6/task/setup_win.py
+    import os
+    _os.system_(
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(2) Python / src: https://raw.github.com/fhopecc/stxt/325dc6e2cbfecc9d071264f71aee7b156a8a6970/task/shutdown.py
+    import os
+    _os.system_(&#39;shutdown -s -f&#39;)
+
+..
+..
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(9) Python / src: https://raw.github.com/rob0r/snmpnetif/b6228f3ba6c55a7f8119af3a1bd4c014f5533b9b/snmpnetif.py
+    (True):
+                try:
+                    # clear the screen
+                    if os.name == &#39;nt&#39;: clearscreen = _os.system_
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(10) Python / src: https://raw.github.com/trey0/geocamShare/98029ffb1d26784346f7a2e5984048e8764df116/djangoWsgi.py
+    .mkstemp(&#39;djangoWsgiSourceMe.txt&#39;)
+        os.close(fd)
+        _os.system_(&#39;bash -c &quot;(source %s/sourceme.sh &amp;&amp; printenv &gt; %s
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(11) Python / src: https://raw.github.com/jphcoi/MLMTC/48029dd647dc17173ed94693deccbb8d7bb42ed6/map_builder/CFpipe.py
+    _sys
+        try:
+          _os.system_(command_sys)
+        except:
+          &#39;----------------------------------detection de communaut
+
+      (N)ew search
+      (S)how more context (github script)
+      (Q)uit
+      Enter choice: s
+
+You picked: [s]
+Enter search result number: 9
+
+Extracting more context for search term &lt;os.system&gt; ...
+Showing 8 lines before and after the match in the original script hosted here:
+https://raw.github.com/rob0r/snmpnetif/b6228f3ba6c55a7f8119af3a1bd4c014f5533b9b/snmpnetif.py
+
+
+... os.system found at line 250 ...
+242              ifidx = self.ifactive()
+243              
+244              # get active interface names
+245              ifnames = self.ifnames(ifidx)
+246              
+247              while(True):
+248                  try:
+249                      # clear the screen
+250 ---&gt;                 if os.name == &#39;nt&#39;: clearscreen = os.system(&#39;cls&#39;)
+251 ---&gt;                 if os.name == &#39;posix&#39;: clearscreen = os.system(&#39;clear&#39;)
+252                      
+253                      # print the device name and uptime
+254                      print(devicename)
+255                      print(&#39;Device uptime: {0}n&#39;).format(self.devuptime())
+256                      
+257                      # print stats if the first loop has run
+..
+
+      (N)ew search
+      (S)how more context (github script)
+      (Q)uit
+      Enter choice: n
+
+You picked: [n]
+Enter search term: grep
+Filter on programming language (press Enter to include all): perl
+Number of search pages to process (default = 3): 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(1) Perl / src: https://raw.github.com/xPapers/xPapers/1fe2bf177e3d37f2024d00601340627a8ded85ad/lib/xPapers/Cat.pm
+    -&gt;catCount($me-&gt;catCount-1);
+        $me-&gt;save;
+        $me-&gt;clear_cache;
+        # detach
+        $me-&gt;cat_memberships([_grep_
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(2) Perl / src: https://raw.github.com/roethigj/Lx-Office-Anpassungen/e06afb2fc94573bc4a305a41e95a8b7a812e2db0/SL/IS.pm
+    -&gt;{TEMPLATE_ARRAYS}-&gt;{$_} }, &quot;&quot;) } _grep_({ $_ ne &quot;description&quot; } @arrays));
+        }
+        $form
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+(3) Perl / src: https://raw.github.com/roethigj/Lx-Office-Anpassungen/e06afb2fc94573bc4a305a41e95a8b7a812e2db0/SL/OE.pm
+    -&gt;{sort} &amp;&amp; _grep_($form-&gt;{sort}, keys(%allowed_sort_columns))) {
+        $sortorder = $allowed
+
+      (N)ew search
+      (S)how more context (github script)
+      (Q)uit
+      Enter choice: s
+
+You picked: [s]
+Enter search result number: 3
+
+Extracting more context for search term &lt;grep&gt; ...
+Showing 8 lines before and after the match in the original script hosted here:
+https://raw.github.com/roethigj/Lx-Office-Anpassungen/e06afb2fc94573bc4a305a41e95a8b7a812e2db0/SL/OE.pm
+
+
+... grep found at line 210 ...
+202          &quot;ordnumber&quot;               =&gt; &quot;o.ordnumber&quot;,
+203          &quot;quonumber&quot;               =&gt; &quot;o.quonumber&quot;,
+204          &quot;name&quot;                    =&gt; &quot;ct.name&quot;,
+205          &quot;employee&quot;                =&gt; &quot;e.name&quot;,
+206          &quot;salesman&quot;                =&gt; &quot;e.name&quot;,
+207          &quot;shipvia&quot;                 =&gt; &quot;o.shipvia&quot;,
+208          &quot;transaction_description&quot; =&gt; &quot;o.transaction_description&quot;
+209        );
+210 ---&gt;   if ($form-&gt;{sort} &amp;&amp; grep($form-&gt;{sort}, keys(%allowed_sort_columns))) {
+211          $sortorder = $allowed_sort_columns{$form-&gt;{sort}} . &quot; ${sortdir}&quot;;
+212        }
+213        $query .= qq| ORDER by | . $sortorder;
+214      
+215        my $sth = $dbh-&gt;prepare($query);
+216        $sth-&gt;execute(@values) ||
+217          $form-&gt;dberror($query . &quot; (&quot; . join(&quot;, &quot;, @values) . &quot;)&quot;);
+
+... grep found at line 1135 ...
+1127        my $sameitem = &quot;&quot;;
+1128        foreach $item (sort { $a-&gt;[1] cmp $b-&gt;[1] } @partsgroup) {
+1129          $i = $item-&gt;[0];
+1130      
+1131          if ($item-&gt;[1] ne $sameitem) {
+1132            push(@{ $form-&gt;{TEMPLATE_ARRAYS}-&gt;{description} }, qq|$item-&gt;[1]|);
+1133            $sameitem = $item-&gt;[1];
+1134      
+1135 ---&gt;       map({ push(@{ $form-&gt;{TEMPLATE_ARRAYS}-&gt;{$_} }, &quot;&quot;) } grep({ $_ ne &quot;description&quot; } @arrays));
+1136          }
+1137      
+1138          $form-&gt;{&quot;qty_$i&quot;} = $form-&gt;parse_amount($myconfig, $form-&gt;{&quot;qty_$i&quot;});
+1139      
+1140          if ($form-&gt;{&quot;id_$i&quot;} != 0) {
+1141      
+1142            # add number, description and qty to $form-&gt;{number}, ....
+..
+
+      (N)ew search
+      (S)how more context (github script)
+      (Q)uit
+      Enter choice: q
+
+You picked: [q]
+Goodbye!
+
+shell returned 1
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>

@@ -1,0 +1,98 @@
+---
+layout: post
+title: 'Facebook API: how to detect canvas and a page tab''s Facebook page'
+date: 2012-08-15 21:41:20.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- APIs
+- canvas
+- facebook
+- page tab
+- php
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2133'
+  dsq_thread_id: '806686683'
+  _wp_old_slug: facebook-api-how-to-detect-canvas-page-tab-mode
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> Facebook Apps can live inside or outside Facebook. Inside Facebook they can live in <a href="https://developers.facebook.com/docs/guides/canvas/" target="_blank">the Canvas</a> or in a <a href="https://developers.facebook.com/docs/appsonfacebook/pagetabs/" target="_blank">Page Tab</a>. It is important to be able to detect these modes to provide a customized experience. Although the documentation is pretty clear, I feel it is useful to make some notes here how this works. </p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/signed_request.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p> According to the <a href="https://developers.facebook.com/docs/authentication/canvas/" target="_blank">Canvas documentation</a> "whenever your application is loaded within a Canvas page, Facebook will make an HTTP POST to your Canvas URL. This request will include a POST variable called signed_request.".  For <a href="https://developers.facebook.com/docs/appsonfacebook/pagetabs/" target="_blank">Page Tabs</a> this works similarly: "When a user selects your Page Tab, you will receive the signed_request parameter with one additional parameter, page. This parameter contains a JSON object with an id (the page id of the current page) ..."</p>
+<p> It is the signed_request parameter I will focus on in this post. I will show you how to get the necessary information out of it and show examples how to use it to determine the flow of your app.</p>
+<h3>Why is this useful?</h3>
+<p> In this post I will give you two examples how this can be useful:</p>
+<ul>
+<li> 1. get rid of the vertical scrollbar in ONLY the Canvas version of My Reading List</li>
+<li> 2. identify within a page tab application what Facebook page id it runs in to deliver specific content based on that page id.</li>
+</ul>
+<h3>How to parse the signed request?</h3>
+<p> You can do it manually with <a href="https://developers.facebook.com/docs/authentication/signed_request/" target="_blank">this PHP code example</a> or use Facebook's <a href="https://github.com/facebook/facebook-php-sdk" target="_blank">PHP SDK</a>. Facebook requires your app's Secret to ensure the request was sent by Facebook and not by a third party. The response will yield a JSON object, something like:</p>
+<p>In the canvas:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/canvas.png" alt="signed request response inside the canvas" style="float:none; margin: 20px;" width="205" /></p>
+<p>And in a page tab:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/page_tab.png" alt="signed request response inside a page tab" style="float:none; margin: 20px;" width="219" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Practical examples: </h3>
+<h4>1. My Reading List</h4>
+<p> For <a href="http://fbreadinglist.com" target="_blank">My Reading List</a> (and any app for that matter) I typically want to get rid of the vertical scroll bar in the canvas. One way to do this is with Facebook's Javascript SDK's method: <a href="https://developers.facebook.com/docs/reference/javascript/FB.Canvas.setAutoGrow/" target="_blank">FB.Canvas.setAutoGrow()</a> (another method is <a href="https://developers.facebook.com/docs/reference/javascript/FB.Canvas.setSize/" target="_blank">FB.Canvas.setSize</a>). Additionally you set the CSS property "overflow" to "hidden" on the body tag.</p>
+<p>However doing this makes the "standalone" (outside Facebook) non-scrollable which presents a problem.</p>
+<p> So a solution is to ask the App if it is in the Canvas, example in PHP:</p>
+<pre>
+&lt;?php
+if (canvasMode($fb_secret)) {
+  echo &quot;&lt;body style=&#39;overflow:hidden;&#39;&gt;&quot;;
+} else {
+  echo &quot;&lt;body&gt;&quot;;
+}
+..
+..
+function canvasMode($secret){
+  $canvas = false; 
+
+  if( isset($_REQUEST[&#39;signed_request&#39;]) ) {
+    $data = parse_signed_request($_REQUEST[&quot;signed_request&quot;], $secret);
+    if( $data ) {
+      $canvas = true; 
+    } 
+  } 
+
+  return $canvas;
+}
+?&gt;
+</pre>
+<p> ... and the result is I have the best of both worlds:</p>
+<p> 1. inside the Facebook Canvas: no scrollbar</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/inside_no_scrollbar.png" alt="inside Facebook = no scrollbar" style="float:none; margin: 20px;" width="620" /></p>
+<p> 2. outside of Facebook, overflow is not set to "hidden" on the body, hence the content is scrollable (default html rendering):</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/outside_scrollbar.png" alt="outside Facebook = scrollbar" style="float:none; margin: 20px;" width="620" /></p>
+<h4>2. Dynamic content in page tabs</h4>
+<p> Page tabs is a cool feature I recently learned about. It allows you to attach a Facebook app to a Facebook Page. Facebook makes this really easy as you can read <a href="https://developers.facebook.com/docs/appsonfacebook/pagetabs/" target="_blank">here</a>.</p>
+<p> Again, you can leverage the signed request response to tell your app on which Facebook page it is running. This way you can load different content on different pages that have the Page Tab app installed.</p>
+<p> To illustrate this, we can use the same code as above, however we are looking for the page id bit in the JSON object:</p>
+<pre>
+&lt;?php
+..
+$signed_request = parse_signed_request($_REQUEST[&#39;signed_request&#39;], $secret);
+$pageId = $signed_request[&#39;page&#39;][&#39;id&#39;];
+..
+?&gt;
+</pre>
+<p>Now you can match this page id against for example a database which holds different content for every Facebook page (id).</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Conclusion</h3>
+<p> Standalone (outside Facebook) apps, Canvas and Page Tab apps are different in nature so it is important to identify when you are operating in one or the other.</p>
+<p> The Facebook SDK or the raw code example Facebook provided, suit this purpose quite well. Once you parse the signed request you can influence the way the App works in every instance (environment).</p>
+<p>If you have interesting use cases, other than the two examples shown in this post, feel free to share them in the comments.</p>

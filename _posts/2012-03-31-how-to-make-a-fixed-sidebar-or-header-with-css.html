@@ -1,0 +1,158 @@
+---
+layout: post
+title: How to make a fixed sidebar or header with CSS
+date: 2012-03-31 20:20:56.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- css
+- fixed
+- header
+- sidebar
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1913'
+  dsq_thread_id: '631498757'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p>In this post some simple CSS to get you started with a fixed sidebar or header design. I think it is a nice design option. I used the fixed header for my <a href="http://exploringtheweb.net" target="_blank">portfolio site</a>. I found a fixed sidebar example at <a href="http://fooljs.com/" target="_blank">fooljs.com</a>.</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/css_fixed_design.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>I like how Facebook and Twitter have a header with small height and how it always stays on top and in place when you are scrolling the content. In this post I will give you an example of this and of a fixed sidebar. The code can be downloaded <a href="https://github.com/bbelderbos/Codesnippets/tree/master/css/fixedCss" target="_blank">from github</a> or, as it is HTML/CSS, you can browse the files <a href="http://bobbelderbos.com/codesnippets/css/fixedHeaderSidebar/" target="_blank">here</a></p>
+<p>** I will use <a href="https://github.com/bbelderbos/Codesnippets" target="_blank">the Codesnippets repository</a> on Github from now on to share blog and other code examples. I will migrate some of the code I have at <a href="http://bobbelderbos.com/src" target="_blank">http://bobbelderbos.com/src</a> (previous posts) to have everything stored in one place.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3> Start clean</h3>
+<p> I first include a <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank">reset.css</a> to wipe out any browser default styles. I think this is one of the best things you can do when starting to write CSS, to not find any surprises ("huh? it looks different even between modern browsers!") later on.</p>
+<p> Next, you can get a simple HTML5 template from <a href="http://www.sitepoint.com/a-basic-html5-template/" target="_blank">this Sitepoint post</a>. For bigger projects I tend to use the <a href="http://html5boilerplate.com/" target="_blank">HTML5 boilerplate</a> which includes a lot of best practices. So we are going to use some very simple markup, to provide the CSS necessary to get to these two layouts.</p>
+<h3> The markup </h3>
+<p> See <a href="https://github.com/bbelderbos/Codesnippets/blob/master/css/fixedCss/fixedHeader.html" target="_blank">here</a>. We have a "nav" item that is the fixed content, a "content" div that holds "main" and "footer".</p>
+<pre>
+	&lt;nav&gt;
+	&lt;h1&gt;Fixed header&lt;/h1&gt;
+	&lt;h2&gt;Subheader&lt;/h2&gt;
+	&lt;ul&gt;
+	..
+	&lt;/ul&gt;
+	&lt;/nav&gt;
+
+	&lt;div id="content"&gt;
+		&lt;div id="main"&gt;
+			..
+		&lt;/div&gt;
+	
+		&lt;footer&gt;
+			..
+		&lt;/footer&gt;
+
+	&lt;/div&gt;
+</pre>
+<h3> Where are my content blocks? </h3>
+<p>A simple trick I use regularly is to put temporary borders around the building blocks of my sites:</p>
+<pre>
+  /* markers for design */
+	nav {
+		border: 1px solid #999;
+	}
+	#content {
+		border: 1px solid red;
+	}
+	footer {
+		border: 1px solid blue;
+	}
+</pre>
+<h3> CSS fixed sidebar</h3>
+<p>See <a href="https://github.com/bbelderbos/Codesnippets/blob/master/css/fixedCss/fixedSidebar.html" target="_blank">here</a>
+<pre>
+  nav {
+  	position: fixed;
+  	left: 0;
+  	top: 0;
+  	bottom: 0;
+  	background: #f2f2f2;
+  	width: 180px;
+  	padding: 10px;
+  }
+  ..
+  #content {
+  	margin: 0 0 30px 210px;
+  	background-color: #eee;
+  }
+  #main {
+  	padding: 10px;
+  	line-height: 20; /* to fake lot of content / scrolling */
+  }
+  footer {
+  	width: 100%; 
+  	background-color: #ddd;
+  	position: fixed;
+  	bottom: 0;
+  	left: 200;
+  }
+</pre>
+<ul>
+<li> The position: fixed; in nav is responsible for taking the element out of the document flow and stick it to the position that you specify by left/top/bottom.</li>
+<li> You have to give a left margin to the #content that comes right of the fixed sidebar, in this case : the width of nav = 180px + its left and right padding = 2x 10px + and extra 10px = 210px total.</li>
+<li> The footer spans the whole width: 100%. Same here: position: fixed; + bottom: 0; make it stick to the bottom. I gave it a background-color so that you cannot see the content underneath it. A half-transparent background for the footer like <a href="http://fooljs.com/" target="_blank">http://fooljs.com/</a> is a nice option as well.</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> CSS fixed header</h3>
+<p>See <a href="https://github.com/bbelderbos/Codesnippets/blob/master/css/fixedCss/fixedHeader.html" target="_blank">here</a>
+<pre>
+  nav {
+  	position: fixed;
+  	left: 0;
+  	top: 0;
+  	background: #f2f2f2;
+  	width: 100%;
+  	heigth: 20px;
+  	padding: 10px;
+  	z-index: 20;
+  }
+  ..
+  #content {
+  	position: relative; 
+  	top: 40px;
+  	background-color: #eee;
+  	z-index: 10;
+  }
+  #main {
+  	padding: 10px;
+  	line-height: 20; /* to fake content with a huge height without much clutter content */
+  }
+  footer {
+  	width: 100%; 
+  	background-color: #ddd;
+  	position: fixed;
+  	bottom: 0;
+  	left: 200;
+  }
+</pre>
+<ul>
+<li> Same comment on nav as previous example, but I got rid of bottom: 0; and put a height (20px + 10px all-round padding = 40px) and width (100%) in so it is a small header bar across the whole width of the site, like Facebook</li>
+<li> I positioned the #content under the header with position: relative; top: 40px;</li>
+<li> Very important is the stacking of elements. Out of the box the #content would overlap the header when scrolling down: </li>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/overlap.png" alt="overlapping content" style="float:none; margin: 20px;" width="580" /></p>
+<p>After setting the stacking order with <a href="http://www.w3schools.com/cssref/pr_pos_z-index.asp" target="_blank">z-index</a> it is better. As w3schools explains: "An element with greater stack order is always in front of an element with a lower stack order."</p>
+<p>So by giving "nav" a bigger z-index it stacks on top of #content. Interestingly I found out last week that, if you use plugins like <a href="http://fancyapps.com/fancybox/" target="_blank">Fancybox</a> you should be conservative with this value. They use 100 for z-index, so when using the max. of 9999 for a block, that block will always sit on top, be careful there!</p>
+<pre>
+nav {
+	z-index: 20;
+}
+#content {
+	z-index: 10;
+}
+</pre>
+<p> After this CSS it is much better:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/no_overlap.png" alt="not overlapping after z-index" style="float:none; margin: 20px;" width="569" /></p>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<p> And that is it: two simple templates to start a web design with a fixed vertical or horizontal navigation.</p>

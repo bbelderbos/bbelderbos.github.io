@@ -1,0 +1,127 @@
+---
+layout: post
+title: My 5 favorite jQuery snippets
+date: 2011-01-30 23:28:48.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags: []
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '759'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  _sexybookmarks_shortUrl: http://bit.ly/hWQKMV
+  _wp_old_slug: ''
+  _sexybookmarks_permaHash: e511e06fc8a7d3efd9d4782a0e3d95a9
+  dsq_thread_id: '219207900'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>jQuery is a standard library I use to add user-rich experience to the websites I make. It is quite easy to learn and animations, Ajax and DOM manipulation are often quick and painless. There is also a lot of documentation + forum wisdom available. In this post you will see some nice effects at work. <!--more-->Before we start ..</p>
+<h3>Download the latest jQuery version</h3>
+<p>First off you need to load the base file before any of the following will work. At this time of writing you can get v1.4.4 from the <a href="http://jquery.com" target="_blank">jQuery website</a>. This post will show the effects and globally explain how they work. For in-depth understanding of jQuery try one of these titles: <a href="http://www.amazon.com/jQuery-Action-Second-Bear-Bibeault/dp/1935182323/ref=sr_1_1?ie=UTF8&amp;qid=1296427596&amp;sr=8-1" target="_blank">jQuery in Action, 2nd Ed</a> and <a href="http://www.amazon.com/jQuery-Novice-Ninja-Earle-Castledine/dp/0980576857/ref=sr_1_4?ie=UTF8&amp;qid=1296427596&amp;sr=8-4" target="_blank">jQuery, Novice to Ninja</a>.</p>
+<h3>Examples<a href="http://bobbelderbos.com/wp-content/uploads/2011/01/jquery.png"><img class="alignright size-full wp-image-759" title="jquery" src="{{ site.baseurl }}/assets/jquery.png" alt="" width="200" height="200" /></a></h3>
+<p>The features I am about to discuss are some experiments I have recently implemented at my movie sharing project <a href="http://sharemovi.es/" target="_blank">sharemovi.es</a>. As JS and CSS code files are nothing secret, you can always go to that site and do a ctrl/cmd+U from you browser to check out how I use this stuff.</p>
+<h3>1. Autocomplete</h3>
+<p>I think it was Google that introduced auto-complete: when you start to type a search string you get a list of hits. This is old news (Google went one step further with "Instant search results"), but it is still nice to have on your site. You can get the plugin and see examples at <a href="http://jquery.bassistance.de/autocomplete/demo/" target="_blank">this site</a>. It is easy to implement: a. add the plugin file and css file, b. make a search.php file that queries the database and call it:</p>
+<pre>$("#search").autocomplete( "search.php", {</pre>
+<pre>  width: 410,</pre>
+<pre>  .. other optional settings ..</pre>
+<pre> });</pre>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/Screen-shot-2011-01-30-at-10.38.04-PM.png"><img class="alignnone size-full wp-image-760" title="Screen shot 2011-01-30 at 10.38.04 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-01-30-at-10.38.04-PM.png" alt="" width="333" height="87" /></a></p>
+<p>#search is the (DOM) id of the searchbox. When you start typing a search string you will see the results of what search.php produced when querying the database. <a href="http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/" target="_blank">See the plugin's website for more info</a>.</p>
+<h3>2. Autocomplete -&gt; automatic form submission</h3>
+<p>As you see in the picture above, I didn't use a submit button. Only a loop but that is a background-image provided by the CSS rule I attached to the input box. Hm.. you select "Goodfellas" and the form doesn't do anything (unless you know you can submit it pressing Enter)</p>
+<p>I decided to enhance this with some jQuery. You can use the <a href="http://api.jquery.com/event.result/" target="_blank">event.result</a> function to take value of the selected item of the auto-complete list. Then</p>
+<pre>$('#search').<strong>result</strong>(function (event, data, formatted) {
+..
+   var searchVal = $("#search").val();
+   $.post("getCleanUrl.php",  
+..
+     location.href= data;
+..
+</pre>
+<p>.. in this case: convert the string to the right URL and send the user to it with the location.href function. <strong>data</strong> is what the ajax ($.post) call returns.</p>
+<h3>3. Sliding effect between two sets of valaues</h3>
+<p>On <a href="http://sharemovi.es/bbelderbos" target="_blank">any movie profile page</a> of a user we see nice tabs, these are jQuery (see 4.). I have two sets of values in the first tab: 1. reviewed and 2. rated movies. I distinguish between them with CSS: the reviewed movies have a white background, the rated ones, a gray background. But I wanted the user to filter. Instead of doing various database queries, I decided to let jQuery help me traversing the DOM. First we need to make the two legenda items clickable, so we convert them in anchors, each of them with a unique id:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/Screen-shot-2011-01-30-at-10.51.13-PM.png"><img class="alignnone size-full wp-image-761" title="Screen shot 2011-01-30 at 10.51.13 PM" src="{{ site.baseurl }}/assets/Screen-shot-2011-01-30-at-10.51.13-PM.png" alt="" width="319" height="34" /></a></p>
+<pre>&lt;div id="legendaWrapper"&gt;
+   &lt;a id="<strong>reviewedTitles</strong>" href="#"&gt;You Reviewed this title&lt;/a&gt;
+   &lt;a id="<strong>ratedTitles</strong>" href="#"&gt;You Rated this title&lt;/a&gt;
+ &lt;/div&gt;</pre>
+<p>Then we need to give each movie row some html classes to distinguish:</p>
+<pre>&lt;?php $secondClassValue = ($review)? ' <strong>movieRowReviewed</strong>' : ' <strong>movieRowRated</strong>' ; ?&gt;
+&lt;div class="firstClassValue&lt;?php echo $secondClassValue; ?&gt;"&gt;
+.. the html of the movie row blabla ..</pre>
+<p>Now we can hook events to these ids when clicked. It is simple, yet the effect is amazing for this little code:</p>
+<pre> $("#reviewedTitles").click(function(){</pre>
+<pre>   $(".<strong>movieRowRated</strong>").slideUp('slow',<strong> function(){</strong></pre>
+<pre>     $(".<strong>movieRowReviewed</strong>").slideDown('slow');</pre>
+<pre>   });</pre>
+<pre> });</pre>
+<pre> $("#ratedTitles").click(function(){</pre>
+<pre>   $(".<strong>movieRowReviewed</strong>").slideUp('slow',<strong> function(){</strong></pre>
+<pre>     $(".<strong>movieRowRated</strong>").slideDown('slow');</pre>
+<pre>   });</pre>
+<pre> });</pre>
+<p>So when we click one of the two categories,  the other will slide up and the selected one will slide down. Of course this could be further enhanced adding a loader.gif during the action to feedback to the user there is something in progress:</p>
+<pre>$("#reviewedTitles").prepend('&lt;img src="i/loader.gif" id="loading" /&gt;');</pre>
+<p>.. but the sliding in this case is immediate so it is not really necessary. Btw, I love these little progress gifs, <a href="http://ajaxload.info/" target="_blank">you can create them here</a>.</p>
+<p>Another important thing to keep in mind is the order of actions. the</p>
+<pre>... , <strong>function(){</strong> .. next action</pre>
+<p>.. makes that that action is executed after the first one has completed.This is what I want, because it gives some sort of curtain effect. The following snippet would execute both actions at once, and often this gives not the desired result:</p>
+<pre>$("#reviewedTitles").click(function(){
+  <strong> $(".movieRowRated").slideUp('slow');
+   $(".movieRowReviewed").slideDown('slow');</strong>
+ });
+
+ $("#ratedTitles").click(function(){
+<strong>   $(".movieRowReviewed").slideUp('slow');
+   $(".movieRowRated").slideDown('slow');</strong>
+ });</pre>
+<p>See for more information about callbacks,etc., <a href="http://docs.jquery.com/How_jQuery_Works" target="_blank">the jQuery tutorial</a>.</p>
+<h3>4. Simple Tabs w/ CSS &amp; jQuery</h3>
+<p>I simply love them. <a href="http://sharemovi.es/bbelderbos" target="_blank">See this example</a>. Only inconvenience is that if you have a lot of content, the tabs are inactive until all the content has been loaded. When the page is loaded, the effect is nice. And the codebase is quite small. See <a href="http://www.sohtanaka.com/web-design/examples/tabs/" target="_blank">the plugin's website</a>, you can have this up and running in 10 min. :)</p>
+<h3>5. Toggles</h3>
+<p>How often you want to hide certain content behind a "more .." button and when clicked, change it to a "less .." button / action. I needed it early on. For example in <a href="http://www.margreetholtkamp.com/en/exhibitions.php" target="_blank">one of my first designs</a> I wanted to hide a address list behind a "more .." button. I tend to use the plus icon to indicate something more is there. When clicked the plus icon changes to a minus icon and the text changes to "less..". I have to check the source again but you will be amazed how easy jQuery makes it again with the built-in function <strong>toggle</strong>:</p>
+<pre>$('.showMore').hide(); 
+
+ $('span.more').<strong>toggle</strong>(
+   function( ) {
+     $('.showMore').slideDown();
+     $(this).addClass('less');      // **
+     $('span.more').text("Hide ..");
+   },
+   function() {
+     $('.showMore').slideUp();
+     $(this).removeClass('less');
+     $('span.more').text("More ..");
+   }
+ ); //end toggle</pre>
+<pre>// ** less is a class defined in css which overwrites
+//    the plus by a minus background image :
+// span.less{... background:url('../i/icons/minus.gif') no-repeat center left}
+</pre>
+<p>A toggle effect I recently implemented at sharemovi.es: when clicking the plus icon, you see of what individual votes the average is composed. When clicking 'minus', you go back to the average view. This is a good example of hiding this extra bit of information with jQuery and let the user decide if he/she wants to see it.</p>
+<pre><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/toggle.png"><img class="alignnone size-full wp-image-766" title="toggle" src="{{ site.baseurl }}/assets/toggle.png" alt="" width="284" height="142" /></a></pre>
+<h3>I could go on but ..</h3>
+<p>.. this post has doubled its planned size so I am going to wrap it up. I hope you got to see the power and beauty of jQuery!</p>
+<p>I have more favorite jQuery plugins / effects I will share in a second post later this year. There are a lot of nice plugins available which, when used properly (= + right CSS styling), can make your site look fantastic.</p>
+<p>I sat down a week back in 09 to try and play with some of jQuery's plugins. It resulted in <a href="http://galexmoda.com" target="_blank">Galexmoda</a>. Another site I made, which heavily uses jQuery, is <a href="http://www.waterdrinkerarchitects.com/" target="_blank">Waterdrinker Architects</a>.</p>
+<h3>What about you?</h3>
+<p>- Do you use jQuery?<br />
+- If so, for what?<br />
+- If not, do you use other Javascript libraries / frameworks?</p>
+<p>- What plugins/effects do you like?</p>
+<p>- Any example sites?</p>
+<p>Please let me know ..</p>

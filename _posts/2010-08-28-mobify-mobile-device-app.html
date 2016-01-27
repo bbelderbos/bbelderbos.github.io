@@ -1,0 +1,62 @@
+---
+layout: post
+title: Mobify – your site goes mobile
+date: 2010-08-28 23:09:17.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- Apps
+- iphone
+- mobify
+- mobile
+meta:
+  _edit_last: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/atwu6k
+  _sexybookmarks_permaHash: e1636bf0c4676f110b62883255e2f5df
+  dsq_thread_id: '141855846'
+  socialize: '1,2'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p><a href="http://mobify.me/" target="_blank">Mobify</a> lets you make a mobile version of your website. I've yet to discover other tools as <a href="http://www.mofuse.com/" target="_blank">mofuse</a> and <a href="http://developer.apple.com/iphone/index.action" target="_blank">apple's sdk</a>,   but my first touch with Mobify was quite positive. What I like is the  flex html/css editing with direct preview in a mobile screen simulating pane.</p>
+<p>In  this post I'll give a short  impression what I could build in a  relatively short amount of time. I probably will dedicate a second post  to wrap up the more advanced stuff and/or more advanced mobile development with the tools mentioned above or pure HTML/CSS/JS</p>
+<h3>Quick how-to</h3>
+<p>So how simple is it? (screenshots below ..)</p>
+<ol>
+<li>Get a (free) Mobify account</li>
+<li>Choose a site and pick the areas you want to appear in the mobile version</li>
+<li>Go  to Design and waken up the CSS ninja in you ;) .. you can customize the  areas you choose pixel-precisely. You can also add new (HTML) ID  elements.</li>
+<li>Then under Manage you can define you mobile URL, be it on your domain (requires some DNS tweaking) or via Mobify. I choose <a href="http://bbbb.mobify.me/" target="_blank">bbbb.mobify.me</a> (bb had already been taken).</li>
+<li>A  cool feature is a redirection you can set up on your site. Mobile  devices get detected and are redirected to your mobile page. Put the following snippet just above the &lt;/head&gt; tag on your site:
+<pre>&lt;script type="text/javascript"
+ src="http://mob-view-name.mobify.me/mobify/redirect.js"&gt;
+&lt;/script&gt;</pre>
+<pre>&lt;script type="text/javascript"&gt;
+ try{_mobify("http://mob-view-name.mobify.me/");} catch(err) {};
+&lt;/script&gt;</pre>
+</li>
+<li>You're done. Optionally you can integrate google stats.</li>
+</ol>
+<h3>Tutorials</h3>
+<p><a href="http://community.mobify.me/guides/tutorial-getting-started-with-mobify/" target="_blank">Online starter tutorial</a> .. and more tutorials <a href="http://community.mobify.me/guides/" target="_blank">here </a></p>
+<h3>Some sidenotes ..</h3>
+<p>Ah yeah.. up until here the service is free. I read you need to upgrade to a (paid) PRO account to insert Javascript to your mobile page. I don't know if I would take a mobile site to that level.</p>
+<p>On first sight I thought the html events were just statically copied, but this is not true. I changed something on my homepage and the mobile page changed with it. So the html blocks you select under 2. are dynamically linked back to the site. This is quite nice!</p>
+<h3>An alternative is loading a separate stylesheet</h3>
+<p>An alternative is load the same page but with a separate stylesheet. You can then benefit from mobile browsers native JS support (= not upgrading to a Mobify PRO account)<br />
+See at the end of <a href="../2010/05/adding-some-progressive-enhancement/" target="_blank">this post</a> how this could be done. The book mentioned there is defintely on my reading list :D</p>
+<p>(to be continued ..)</p>
+<h3>Sounds fun, but could you give me some images?</h3>
+<p>Some printscreens below:</p>
+<p>[caption id="attachment_162" align="aligncenter" width="227" caption="pick the areas from your site you want to appear in your mobile version"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/08/picking_content.jpg"><img class="size-full wp-image-162 " title="picking_content" src="{{ site.baseurl }}/assets/picking_content.jpg" alt="selecting content" width="227" height="280" /></a>[/caption]</p>
+<p>[caption id="attachment_161" align="aligncenter" width="516" caption="after selecting content, you can edit css and add more IDs"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/08/css.jpg"><img class="size-full wp-image-161 " title="css" src="{{ site.baseurl }}/assets/css.jpg" alt="css editing" width="516" height="293" /></a>[/caption]</p>
+<h3>Result:</h3>
+<address><a href="http://bbbb.mobify.me/" target="_blank">http://bbbb.mobify.me/</a></address>
+<p>[caption id="attachment_163" align="aligncenter" width="243" caption="result a perfectly (iphone) aligned web site with just the essential stuff (yep.. KISS)"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/08/result.jpg"><img class="size-full wp-image-163 " title="result" src="{{ site.baseurl }}/assets/result.jpg" alt="mobile web site" width="243" height="365" /></a>[/caption]</p>

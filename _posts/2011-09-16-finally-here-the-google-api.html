@@ -1,0 +1,43 @@
+---
+layout: post
+title: 'Finally here: The google+ API'
+date: 2011-09-16 22:53:00.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- google
+meta:
+  posterous_6b63f8d297c73139dd329498419cf441_post_id: '70684742'
+  posterous_6b63f8d297c73139dd329498419cf441_permalink: http://exploringtheweb.net/finally-here-the-google-api
+  _thumbnail_id: '1361'
+  _edit_last: '1'
+  dsq_thread_id: '497003683'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>We had to wait a bit but the <a href="http://googleplusplatform.blogspot.com/2011/09/getting-started-on-google-api.html" target="_blank">google+ API</a> was officially launched yesterday. Only public data and posts can be accessed, but it is a start to get familiar with the API.</p>
+<p><!--more--></p>
+<h3>Simple Facebook API like start</h3>
+<p>Building an app is similar to the Facebook API. You start <a href="https://code.google.com/apis/console/?api=plus" target="_blank">registering an app</a>. When you put the obtained keys/secret in your code, you can use <a href="http://oauth.net/2/" target="_blank">oauth2</a> to authorize and obtain a token. Then you can access the data (JSON response)</p>
+<h3>Examples</h3>
+<p>A. You can load your profile data in an array referring to me:</p>
+<p><em>$me = $plus-&gt;people-&gt;get('me');</em></p>
+<p>* note the similarity to Facebook:<em> $me = $facebook-&gt;api('/me');</em></p>
+<p>Response:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/09/googleplus.png"><img src="{{ site.baseurl }}/assets/googleplus.png" title="googleplus" width="530" height="540" /></a><br />
+<a href="http://bobbelderbos.com/wp-content/uploads/2011/09/Screen-shot-2011-11-13-at-8.58.57-PM.png"><img src="{{ site.baseurl }}/assets/Screen-shot-2011-11-13-at-8.58.57-PM.png" alt="" title="Screen shot 2011-11-13 at 8.58.57 PM" width="202" height="196" class="alignright size-full wp-image-1361" /></a></p>
+<p>B. Your public activities:</p>
+<p><em>&nbsp; $optParams = array('maxResults' =&gt; 100);</em><br /><em>&nbsp; $activities = $plus-&gt;activities-&gt;listActivities('me', 'public', $optParams);</em></p>
+<p>There are a bunch of more advanced examples in the <a href="https://developers.google.com/+/downloads" target="_blank">API libraries</a></p>
+<h3>Links</h3>
+<p>See the <a href="https://developers.google.com/+/" target="_blank">API reference</a>. Some <a href="https://groups.google.com/forum/#!forum/google-api-php-client" target="_blank">issues</a> you might run into (for example, <span style="font-family: mceinline;">I had a missing </span>.crt file, see <a href="https://groups.google.com/forum/#!topic/google-api-php-client/S1GBH6-2KOg" target="_blank">this post</a>)</p>
+<h3>Progress</h3>
+<p>As said, only <em>public</em>&nbsp;data can be gathered. However the fact that you can authorize with Oauth2&nbsp; is much better then <a href="http://bobbelderbos.com/2011/08/googleplus-import-profile-posts/" target="_blank">another method</a> I tried some weeks ago. I am eager to learn what other functionalities will be available next ...</p>

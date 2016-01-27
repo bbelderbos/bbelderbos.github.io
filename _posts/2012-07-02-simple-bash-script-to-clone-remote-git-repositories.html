@@ -1,0 +1,115 @@
+---
+layout: post
+title: Simple bash script to clone remote git repositories
+date: 2012-07-02 00:11:01.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- bash
+- git
+- git clone
+- repository
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2069'
+  dsq_thread_id: '747534857'
+  _wp_old_slug: simple-bash-script-to-clone-multiple-git-repositories-2
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> From time to time I install a Linux variant on one of my boxes and start fresh, good performance, lean install. I use git for all my projects now so I am building up repositories on remote hosts fast. Wouldn't it be nice to be able to clone them all to the newly installed host? Quite useful for quick migrations, so I wrote a quick bash script that achieves this ...</p>
+<p><!--more--></p>
+<h3>Assumptions</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/git-clone.png" alt="import all remote repos" style="float:right; margin: 20px;" width="200" /></p>
+<ul>
+<li> 1. You have a REMOTE host that holds all repositories in a central place, ~/repositories in this example.</li>
+<li> 2. I use <a href="http://bobbelderbos.com/2012/02/git-in-a-nutshell/" target="_blank">Git</a> as version control software (I didn't look further yet as it is amazing software!).</li>
+<li> 3. You can ssh to the remote host. You can set up a key based login in <a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/" target="_blank">3 simple steps</a> (on local host: ssh-keygen && ssh-copy-id -i ~/.ssh/id_rsa.pub your-remote-host).</li>
+<li> 4. You remote repositories are "bare", see <a href="http://bobbelderbos.com/2012/03/push-code-remote-web-server-git/" target="_blank">how to push code to a remote web server with Git</a> as a reference. I use this technique for each new coding project now, it is highly efficient.</li>
+<li> 5. My naming convention for remote repositories is project_name.git, located at ~/repositories/project_name.git.</li>
+<li> 6. I have a CODE directory in my home directory ($HOME) on my LOCAL host. You should change lines 5-9 of the script below with your own settings ...</li>
+<li> 7. You might want to refine the script if you are going to use it in a more professional (enterprise) environment. For me it fits the purpose for now though.</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Code (also available <a href="https://github.com/bbelderbos/Codesnippets/blob/master/bash/git_clone_all.sh" target="_blank">here</a>)</h3>
+<pre>
+#!/bin/bash
+# import multiple remote git repositories to local CODE dir
+
+# settings / change this to your config
+remoteHost=example.com
+remoteUser=username
+remoteDir="~/repositories/"
+remoteRepos=$(ssh -l $remoteUser $remoteHost "ls $remoteDir")
+localCodeDir="${HOME}/CODE/"
+
+# if no output from the remote ssh cmd, bail out
+if [ -z "$remoteRepos" ]; then
+    echo "No results from remote repo listing (via SSH)"
+    exit
+fi
+
+# for each repo found remotely, check if it exists locally
+# assumption: name repo = repo.git, to be saved to repo (w/o .git)
+# if dir exists, skip, if not, clone the remote git repo into it
+for gitRepo in $remoteRepos
+do
+  localRepoDir=$(echo ${localCodeDir}${gitRepo}|cut -d'.' -f1)
+  if [ -d $localRepoDir ]; then 	
+		echo -e "Directory $localRepoDir already exits, skipping ...\n"
+	else
+		cloneCmd="git clone ssh://$remoteUser@$remoteHost/$remoteDir"
+		cloneCmd=$cloneCmd"$gitRepo $localRepoDir"
+		
+		cloneCmdRun=$($cloneCmd 2>&1)
+
+		echo -e "Running: \n$ $cloneCmd"
+		echo -e "${cloneCmdRun}\n\n"
+	fi
+done
+</pre>
+<h3>Explanation what some concepts mean ...</h3>
+<ul>
+<li> ssh -l user host "remote command" => allows you to run remote commands from your local machine, quite nice for automating tasks over the network.</li>
+<li> remoteRepos=$(.. command ..) => $() executes the command and returns the output to a new variable called remoteRepos (remoteRepos for assigning values, $remoteRepos to access them).</li>
+<li> -z "$remoteRepos" => checks for an empty string.</li>
+<li> cut -d'.' -f1 => takes the .git off (-d'.' = set delimiter to dot (.) , -f1 = field #1).</li>
+<li> echo -e => the -e flag allows "echo" to handle the new line character (\n).</li>
+<li> cloneCmd=$cloneCmd"..string.." => concatenation technique to keep lines shorter (I ideally strive to not put more than 80 chars per line).</li>
+<li> 2>&1 at the end of an Unix command sends the stderr output to stdout, basically I want to send all info to the same output stream. In bigger scripts I usually send it to a stderr directory with "2>stderr/file_unix_timestamp.err" (I got this tip from a more senior programmer; it has saved me time because I get crucial data for debugging!).</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Example running this from cli</h3>
+<pre>
+$ git_clone_all.sh 
+Directory /home/bob/CODE/bamboo already exits, skipping ...
+
+Directory /home/bob/CODE/codesnippets already exits, skipping ...
+
+Directory /home/bob/CODE/myreadinglist already exits, skipping ...
+
+Running: 
+$ git clone ssh://username@example.com/~/repositories/myreadinglist_v2.git /home/bob/CODE/myreadinglist_v2
+Cloning into '/home/bob/CODE/myreadinglist_v2'...
+
+
+Running: 
+$ git clone ssh://username@example.com/~/repositories/portfolio.git /home/bob/CODE/portfolio
+Cloning into '/home/bob/CODE/portfolio'...
+
+
+Running: 
+$ git clone ssh://username@example.com/~/repositories/stock.git /home/bob/CODE/stock
+Cloning into '/home/bob/CODE/stock'...
+
+
+Directory /home/bob/CODE/tweetdigest already exits, skipping ...
+</pre>

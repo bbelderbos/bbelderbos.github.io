@@ -1,0 +1,98 @@
+---
+layout: post
+title: 'SELECT * FROM Internet: examples of YQL, a powerful API crawler'
+date: 2011-12-05 18:05:37.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- APIs
+- sql
+- yql
+meta:
+  _thumbnail_id: '1458'
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '496839670'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p><a href="http://developer.yahoo.com/yql/" target="_blank">YQL (Yahoo! Query Language)</a> is not new, however the concept of a Web Service that accesses Internet data with SQL-like commands, is really cool so should be mentioned on this blog!</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/yql.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>The <a href="http://developer.yahoo.com/yql/" target="_blank">Yahoo! Query Language</a> is an expressive SQL-like language that lets you query, filter, and join data across Web services. YQL hides the complexity of Web service APIs by presenting data as simple tables, rows, and columns.</p>
+<p>In this post I work out some examples using YQL to find data of different sources. A good intro article is: <a href="http://www.ibm.com/developerworks/opensource/library/x-yqlphp1/index.html" target="_blank">Building web applications with YQL and PHP, Part 1</a>, another very useful resource is <a href="http://www.slideshare.net/cheilmann/using-yql-sensibly-yuiconf-2010" target="_blank">Using YQL Sensibly - YUIConf 2010</a> (Christian Heilmann)</p>
+<p>The <a href="http://developer.yahoo.com/yql/console" target="_blank">YQL console</a> lets you quickly test commands. Note if you click the blue button (table name) at the right you can get help building your queries, or use DESC to describe the table structure:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/help_query_building.png" alt="help query building" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>From here on some examples, some easy, others a bit more advanced. Of course a lot more is possible, I still need to experiment more ...</p>
+<h3> All tweets with my domain in it (or handle)</h3>
+<p><a href="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20twitter.search%20where%20q%3D'bobbelderbos.com'&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys" target="_blank">select * from twitter.search where q='bobbelderbos.com'</a></p>
+<p> Note that I use a standard php script to parse the results. You can get it from <a href="http://bobbelderbos.com/src/yql/yql_php" target="_blank">here</a>. Alternatively you can use <a href="http://developer.yahoo.com/yql/guide/yql-code-examples.html#yql_php" target="_blank">curl</a></p>
+<pre>
+   &lt;?php
+   $yql = &quot;select * from twitter.search where q='bobbelderbos.com'&quot;;  
+   // or handle bbelderbos
+   $query = &quot;http://query.yahooapis.com/v1/public/yql?q=&quot;;
+   $query .= urlencode($yql);
+   $query .= &quot;&amp;format=json&amp;env=store://datatables.org/alltableswithkeys&quot;;
+   $info = file_get_contents($query, true);
+   $info = json_decode($info); // echo &quot;&lt;pre&gt;&quot;; print_r($info ); 
+   	echo &quot;&lt;/pre&gt;&quot;; exit; 
+   
+   foreach($info-&gt;query-&gt;results-&gt;results as $item) { 
+  		// query-&gt;results-&gt;results might differ
+   	//process results
+   }
+   ?&gt;
+</pre>
+<h3> Get the latest posts from my blog feed</h3>
+<p><a href="https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%20from%20rss%20where%20url%3D%22http%3A%2F%2Fbobbelderbos.com%2Ffeed%2Frss%2F%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkey" target="_blank">select title, link from rss where url="http://bobbelderbos.com/feed/rss/"</a></p>
+<h3>  Grabbing html from a page</h3>
+<p>See <a href="http://freshclickmedia.co.uk/2010/03/web-scraping-with-yql-jquery-and-jsonp/" target="_blank">an example here</a> how this is done. It shows you how you can get the XPath from firebug, see the screenshot below (corresponding to the 3rd example below):</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/xpath.png" alt="copy xpath from firebug" style="float:none; margin: 20px;" width="580" /></p>
+<p>Examples of web scraping:</p>
+<ul>
+<li> select headlines of elpais dot com: <a href="https://query.yahooapis.com/v1/public/yql?q=select%20content%20from%20html%20where%20url%3D%22http%3A%2F%2Felpais.com%22%20and%20xpath%3D%22%2F%2Fh2%2Fa%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys" target="_blank">select content from html where url="http://elpais.com" and xpath="//h2/a"</a></li>
+<li> same for NRC (Dutch newspaper): <a href="http://query.yahooapis.com/v1/public/yql?q=%20SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fwww.nrc.nl%2F%22%20and%20xpath%3D%22%2F%2Fh1%2Fa%22&diagnostics=true" target="_blank">SELECT * FROM html WHERE url="http://www.nrc.nl/" and xpath="//h1/a"</a></li>
+<li> mashup of <a href="http://www.mtv.com/news/latest/movies.jhtml" target="_blank">MTV movie news</a> (could be interesting to add to <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> in the future?): <a href="https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fwww.mtv.com%2Fnews%2Flatest%2Fmovies.jhtml%22%20and%20xpath%3D%22%2F%2Fol%2Fli%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys" target="_blank">SELECT * FROM html WHERE url="http://www.mtv.com/news/latest/movies.jhtml" and xpath="//ol/li"</a> (SELECT * FROM html WHERE url="http://www.imdb.com/news/" and xpath="//h1" -- from IMDb I got a permission denied)</li>
+</ul>
+<p>Original MTV movie site: </p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/movie_mashup_mtv.png" alt="movie mashup mtv" style="float:none; margin: 20px;" width="580" /></p>
+<p>After getting data with YQL, and styling a bit:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/movie_mashup_result.png" alt="movie mashup result" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Open data tables</h3>
+<p>With the addition of <a href="http://developer.yahoo.com/yql/guide/yql-opentables-import.html" target="_blank">Open Data Tables</a>, developers from anywhere can contribute YQL Tables to describe any data source on the Web, making YQL easily extensible. Today, there are more than thousand community contributed tables! You can easily <a href="http://developer.yahoo.com/yql/guide/yql-opentables-import.html" target="_blank">build your own data tables</a> - the source code of already committed tables is on <a href="https://github.com/yql/yql-tables" target="_blank">github</a></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/tables.png" alt="yql tables" style="float:none; margin: 20px;" width="220" /></p>
+<h3> Get youtube videos for instant trailers</h3>
+<p><a href="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20youtube.search%20where%20query%3D'scarface%20trailer'%20limit%205&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys" target="_blank">select * from youtube.search where query='scarface trailer' limit 5</a></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/youtube_response.png" alt="youtube response" style="float:none; margin: 20px;" width="580" /></p>
+<h3> Get movie reviews from NY times movie API </h3>
+<p>SELECT * FROM nyt.movies.reviews WHERE apikey="---" and query="inception" (again, could be interesting to add to to <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> ...)</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/ny.times_.png" alt="ny times movie reviews" style="float:none; margin: 20px;" width="580" /></p>
+<h3> Get book info from google books API </h3>
+<p>This example poors the YQL parsed results in a <a href="http://bobbelderbos.com/2011/01/my-5-favorite-jquery-snippets/" target="_blank">juery/php autocomplete</a></p>
+<p><a href="https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20google.books%20WHERE%20q%3D'javascript'%20AND%20maxResults%3D10%20AND%20startIndex%3D2&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys" target="_blank">SELECT * FROM google.books WHERE q='javascript' AND maxResults=10 AND startIndex=2</a></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/google_books.png" alt="google books autocomplete" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>Links and resources</h3>
+<p>Again, you can go much further, YQL is very powerful: embedded queries, create/import your own tables, a lot more APIs (some require keys like Amazon, Facebook, Twitter and Lastfm). Below some extra resources:</p>
+<ul>
+<li> <a href="http://developer.yahoo.com/yql/guide/" target="_blank">YQL Manual</a></li>
+<li> <a href="http://developer.yahoo.com/yql/console" target="_blank">YQL console</a></li>
+<li> <a href="http://developer.yahoo.com/yql/guide/yql-screencasts.html" target="_blank">YQL screencasts</a></li>
+<li> <a href="http://www.slideshare.net/cheilmann/using-yql-sensibly-yuiconf-2010" target="_blank">Using YQL Sensibly - YUIConf 2010 (by Christian Heilmann)</a> </li>
+<li> <a href="http://www.ibm.com/developerworks/opensource/library/x-yqlphp1/index.html" target="_blank">IMB developerWorks - intro YQL</a></li>
+<li> <a href="http://net.tutsplus.com/tutorials/other/an-api-for-the-web-learning-yql/" target="_blank">Nettuts guide to YQL</a></li>
+<li> <a href="http://developer.yahoo.com/blogs/ydn/posts/2010/10/yql-query-builder-and-explorer/" target="_blank">Help building queries</a></li>
+<li> <a href="http://python-yql.org/" target="_blank">Python YQL</a></li>
+</ul>
+<h3>Are you using YQL?</h3>
+<p>I hope you enjoyed this post. Feel free to comment below what your experience is with YQL and/or what you would get out of this service ...</p>

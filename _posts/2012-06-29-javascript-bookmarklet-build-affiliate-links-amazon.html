@@ -1,0 +1,101 @@
+---
+layout: post
+title: Javascript Bookmarklet to build Affiliate Links to Amazon
+date: 2012-06-29 00:15:03.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- amazon
+- bookmarklets
+- javascript
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2015'
+  dsq_thread_id: '744133720'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> You have a blog and want to get a few bucks from linking to Amazon anytime you discuss a book. Fair enough, you sign up for the <a href="https://affiliate-program.amazon.com" target="_blank">affiliate program</a>. However if you link to various books in a post, it becomes tedious to generate the links. I made a Javascript Bookmarklet to fix this.</p>
+<p><!--more--></p>
+<h3> The concept</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/amazon_bookmarklet.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p> <a href="http://en.wikipedia.org/wiki/Bookmarklet" target="_blank">Bookmarklets</a> provide one-click functionality to a browser or web page. This is an affiliate link from Amazon: http://www.amazon.com/dp/0596527241/?tag=bobbelderbos-20 ; you see you only need two variables:</p>
+<ul>
+<li> The <a href="http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number" target="_blank">Amazon Standard Identification Number (ASIN)</a>, 0596527241 in this example.</li>
+<li> Your <a href="https://affiliate-program.amazon.com/gp/associates/help/t10" target="_blank">Tracking ID</a>, bobbelderbos-20 in this case.</li>
+</ul>
+<p> The first value is something you need to query, so that is why I leverage the power of <a href="http://fbreadinglist.com" target="_blank">My Reading List</a>, which has an autocomplete field at the top that can locate the most common books. There is some scripting behind it - which I will detail in an upcoming post - how I find the ASIN from the ISBN (which Google Books API returns to me). In the majority of cases it should find it.</p>
+<h4> Update after Googling:</h4>
+<p> After writing this post, I found a <a href="http://www.phpied.com/short-amazon-affiliate-links-a-bookmarklet/" target="_blank">nice post</a> which offers a bookmarklet to be used on Amazon's site itself. This probably is a better approach. It finds the ASIN with "document.getElementById('ASIN')".</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Try it</h3>
+<h4>A. add the bookmarklet:</h4>
+<ul>
+<li> In Firefox right-click on the Bookmark toolbar and click "New Bookmark"</li>
+<li> Give it a name, for example : amazonAffiliateLink</li>
+<li> Paste the following Javascript in the "Location Field" (a copy is also available at <a href="https://github.com/bbelderbos/Codesnippets/blob/master/javascript/amazon_affiliate_link.js" target="_blank">github</a>). </li>
+<pre>
+
+javascript:(
+  function(){
+    var tag = null;  
+    var urlElement = findElementId('amazonLink'); 
+        
+    if(urlElement == null) {
+      alert('No results for #amazonLink - does the ID element exist on this page?');
+      return;      
+    }
+    
+    url = getUrl(urlElement); 
+    
+    if(tag == null) {
+      tag = prompt("Enter your Amazon tag for the URL: ", "Enter Tracking ID here");
+    } 
+    
+    url = url.split("=");
+    copyToClipboard(url[0]+'='+tag); 
+    
+    
+    
+    function findElementId(idElement) {
+      var urlElement = document.getElementById(idElement);
+      return urlElement; 
+    }
+    
+    function getUrl(urlElement) {
+      var urlHref = urlElement.href; 
+      return urlHref;
+    }
+    
+    function copyToClipboard (text) {
+      window.prompt ("Copy to clipboard: Ctrl+C, Enter", text);
+    }
+    
+  }
+)()
+</pre>
+<p> Note that you can edit "var tag = null;" to define your tracking ID if you want to use the same for all links. If not provided (null) it will ask you.</p>
+<li> Hit "Save".</li>
+</ul>
+<h4> Update 2 after Googling:</h4>
+<p> You can also store the script somewhere and append it to the body, see <a href="http://coding.smashingmagazine.com/2010/05/23/make-your-own-bookmarklets-with-jquery/" target="_blank">this nice article about bookmarklets on Smashing magazine</a>. It also explains how you can use jQuery to make bookmarklets.</p>
+<h4>B. use the bookmarklet:</h4>
+<ul>
+<li> Go to <a href="http://fbreadinglist.com" target="_blank">My Reading List</a></li>
+<li> In the search box at the top search your book and select it, it will go to a page with more details of the book.</li>
+<li> If the ISBN-ASIN conversion worked you see a "Buy at Amazon" link which is the affiliate link I use for that site. It is a hyperlink marked with an unique ID element called "amazonLink". That id is consumed by Javascript's document.getElementById which then manipulates the URL to replace my tracking id with the one  you provided (see the code above).</li>
+<li> Click the bookmarklet, the Javascript will be executed.</li>
+<li> If you defined the tag (aka tracking id) it will use that, otherwise you are requested to put it in (see printscreen below ...)</li>
+<li> Finally you are presented with another input box with the link selected. Copy+C and you have it in on your clipboard. This is a nice trick I found at <a href="http://stackoverflow.com/questions/400212/how-to-copy-to-the-clipboard-in-javascript" target="_blank">Stackoverflow (2nd answer)</a>.  </li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Printscreen process flow</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/bookmarklet-howto.jpg" alt="bookmarklet howto" style="float:none; margin: 20px;" width="620" /></p>

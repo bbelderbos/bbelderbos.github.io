@@ -1,0 +1,76 @@
+---
+layout: post
+title: Ruby Version Manager (RVM)
+date: 2010-09-06 18:55:00.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- rails
+- ruby
+- ruby version manager
+- rvm
+- tools
+meta:
+  _edit_last: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/atwuwy
+  _wp_old_slug: ''
+  _sexybookmarks_permaHash: 638cfba376672dcd5042d6e65eee1c79
+  dsq_thread_id: '141705867'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p><a href="http://www.bobbelderbos.com/blog/2010/08/rails-3-is-out/" target="_blank">Rails 3 is out</a>, but version 2 is still widespread.<br />
+I have &gt; 1 computers but I prefer to develop on one.<br />
+Inevitably the question arises: how can I develop in rails 2 and 3 on 1 machine?</p>
+<h3><a href="http://rvm.beginrescueend.com/" target="_blank"> </a><a href="http://rvm.beginrescueend.com/" target="_blank"><br />
+Ruby Version Manager</a> (RVM) becomes your friend</h3>
+<p>RVM is a command line tool which allows us to easily install, manage and work with multiple ruby environments from interpreters to sets of gems.<br />
+So not only is it convenient for rails 2 vs 3, but any new update that comes out can easily be tested this way.</p>
+<p>Most of the following procedure comes from <a href="http://railstutorial.org/book" target="_blank">Michael Hartl's Learn Rails by Example</a> that now covers rails 3 and is an excellent tutorial!<br />
+<span style="text-decoration: underline;">Quick procedure how to set it up and use it: </span></p>
+<p>1. install RVM:</p>
+<pre>∴ bash &lt; &lt;( curl http://rvm.beginrescueend.com/releases/rvm-install-head )</pre>
+<p>.. and put this in your profile:</p>
+<pre>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"
+# This loads RVM into a shell session.</pre>
+<p>2. install the Ruby instances you want:</p>
+<pre>$ rvm update --head
+$ rvm reload
+$ rvm install 1.8.7
+$ rvm install 1.9.2</pre>
+<p>3. define two <a href="http://rvm.beginrescueend.com/gemsets/basics/" target="_blank">gemsets</a>, basically self-contained workspaces between which you can toggle</p>
+<pre>$ rvm --create 1.8.7-p174@rails2tutorial
+$ rvm --create use 1.9.2@rails3tutorial</pre>
+<p>4.  make sure you have gem (Ruby's package manager) installed. It should come with RVM already.<br />
+I had some strange issues when installing gems. I think I used somehow the global gem's binary, so you might want to put the RVM's gem binary earlier in your PATH (adding ~/.rvm/rubies/ruby-1.9.2-p0/bin/gem to $PATH in for example .bashrc)<br />
+5. now you can easy toggle between the two environments</p>
+<p>$ rvm 1.9.2   <span style="color: #808000;">// toggle to rails 3 environment</span></p>
+<p>$ gem list<br />
+..<br />
+rails (3.0.0)<br />
+..</p>
+<p>$ rvm 1.8.7   <span style="color: #808000;">// toggle to rails 2 environment</span></p>
+<p>$ gem list<br />
+..<br />
+rails (2.3.8)<br />
+..</p>
+<p>etc.<br />
+You can even run both versions at the same time if you specify a different port</p>
+<h3>rails 2</h3>
+<pre>$ ruby script/server</pre>
+<pre>=&gt; Booting WEBrick
+=&gt; Rails 2.3.8 application starting on <a href="http://0.0.0.0:3000/"><span style="color: #000000;">http://0.0.0.0:3000</span></a></pre>
+<h3>rails 3</h3>
+<pre>$ script/rails  server  -p 3001</pre>
+<pre>=&gt; Booting WEBrick
+=&gt; Rails 3.0.0 application starting in development on http://0.0.0.0:3001</pre>
+<h3>Rails 2/ 3 happily running on the same host</h3>
+<p><a href="http://www.bobbelderbos.com/wp-content/uploads/2010/09/Screen-shot-2010-09-05-at-8.15.10-PM.png"><img class="alignnone size-medium wp-image-209" style="margin: 10px;" title="Screen shot 2010-09-05 at 8.15.10 PM" src="{{ site.baseurl }}/assets/Screen-shot-2010-09-05-at-8.15.10-PM-300x194.png" alt="" width="300" height="194" /></a><a href="http://localhost:8888/wp/blog/wp-content/uploads/2010/09/Screen-shot-2010-09-05-at-8.15.27-PM.png"><img class="alignnone size-medium wp-image-210" style="margin: 10px;" title="Screen shot 2010-09-05 at 8.15.27 PM" src="{{ site.baseurl }}/assets/Screen-shot-2010-09-05-at-8.15.27-PM-300x216.png" alt="" width="300" height="216" /></a><br />
+OK, this Wednesday a new edition of my <a title="Web spotlights – 2010-35" href="http://www.bobbelderbos.com/blog/2010/09/web-spotlights-2010-35/">Web spotlights</a> ... Apture, itunes ping and more stuff ..</p>

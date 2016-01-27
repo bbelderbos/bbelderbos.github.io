@@ -1,0 +1,67 @@
+---
+layout: post
+title: 'Better alternative for PHP sleep: use a dotted progress bar with Javascript'
+date: 2015-11-19 22:47:59.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+- Web development
+tags:
+- html
+- javascript
+- php
+- progressbar
+- sharemovies
+- sleep
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2750'
+  featured_posts_widget_flag: 'false'
+  _at_widget: '1'
+  dsq_thread_id: '4334171987'
+  _wp_old_slug: how-to-have-a-dotted-progress-bar-alternative-for-php-sleep-function
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Last week I developed a <a href="http://bobbelderbos.com/2015/11/project-weekly-movie-email-with-tmdbsimple-python/" target="_blank">playing/upcoming movie HTML newsletter</a>. I just added a feature to add the movies to your watch list on <a href="http://sharemovi.es" target="_blank">sharemovi.es</a>. You have to be authenticated to FB. If not I am redirecting from the adder script to the main page:</p>
+<p style="text-align: justify;"><a href="http://bobbelderbos.com/wp-content/uploads/2015/11/Screen-Shot-2015-11-19-at-22.33.35.png"><img class="size-medium wp-image-2749" src="{{ site.baseurl }}/assets/Screen-Shot-2015-11-19-at-22.33.35-300x106.png" alt="Screen Shot 2015-11-19 at 22.33.35" width="300" height="106" /></a></p>
+<h4>The problem with PHP sleep</h4>
+<p>This taught me a cool trick: you need to pause a bit so the user can read the message before being redirected. My first approach was PHP's sleep function, but that would show the initial echo only after the sleep, rendering it useless.</p>
+<p><img class="alignleft size-full wp-image-2750" src="{{ site.baseurl }}/assets/javascript_dotted_progress_bar.png" alt="javascript_dotted_progress_bar" width="200" height="200" />Then I <a href="http://stackoverflow.com/questions/3078867/php-output-text-before-sleep" target="_blank">read about</a> ob_start() and ob_flush(). This did not work either, <a href="http://stackoverflow.com/questions/3685760/php-output-data-before-and-after-sleep" target="_blank">reason</a>: browsers also contain their own buffers. I realized that apart from sleeping I wanted to show some sort of progress bar.</p>
+<p>Here we enter JavaScript which is great for this kind of asynchronous stuff. I used <a href="http://stackoverflow.com/questions/3049553/simple-jquery-second-counter" target="_blank">this solution</a>. As explained at <a href="http://www.w3schools.com/jsref/met_win_setinterval.asp" target="_blank">w3schools</a>: "the setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds). The setInterval() method will continue calling the function until <a href="http://www.w3schools.com/jsref/met_win_clearinterval.asp">clearInterval()</a> is called".</p>
+<h4>
+Code:</h4>
+<pre id="line1"><span id="line13"></span>    &lt;<span class="start-tag">script</span>&gt;
+<span id="line14"></span>    var div = document.getElementById('wait');
+<span id="line15"></span>    var counter = 0;
+<span id="line16"></span>    var waitSecs = 8;
+<span id="line17"></span>    var refreshId = setInterval(function () {
+<span id="line18"></span>      ++counter;
+<span id="line19"></span>      div.innerHTML = div.innerHTML + '&amp;#x25cf;'
+<span id="line20"></span>      if(counter == waitSecs){
+<span id="line21"></span>        clearInterval(refreshId);
+<span id="line22"></span>        top.location.href='http://sharemovi.es'
+<span id="line23"></span>      }
+<span id="line24"></span>    }, 1000);
+<span id="line25"></span>    &lt;/<span class="end-tag">script</span>&gt;</pre>
+<pre><!--?php   exit; }--></pre>
+<hr />
+<h4>Notes:</h4>
+<ul>
+<li>See a demo of this script <a href="http://sharemovi.es/js_progress_dots.html" target="_blank">here</a>.</li>
+<li>I put an empty #wait div in the html and get it with document.getElementById, this element is used to append progress elements to.</li>
+<li>I choose dots for progress, but I probably redo it with a count down which is more cooler, I choose a bigger dot = html encoding: &amp;#x25cf;</li>
+<li>setInterval does something for every interval (here 1 sec = 1000 ms), until waitSecs = 8 seconds, then it stops the loop by calling clearInterval and redirects to the sharemovi.es homepage (top.location.href).</li>
+<li>An enhancement could be to redirect to FB login page directly but it could surprise users, hence the feedback loop.</li>
+</ul>
+<p style="text-align: justify;"><img class="size-medium wp-image-2748" src="{{ site.baseurl }}/assets/Screen-Shot-2015-11-19-at-22.33.39-300x146.png" alt="Screen Shot 2015-11-19 at 22.33.39" width="300" height="146" /></p>
+<hr />
+<h4>Two more comments:</h4>
+<p>1. to learn to code: practice, fail, get better by doing, it takes time and effort. This is a small feature, but it taught me a few valuable things about PHP and Javascript. Follow <a href="https://www.youtube.com/watch?v=v9XW6P0tiVc" target="_blank">Alec Baldwin's ABC</a>: always be closing and replace <del>closing</del> by coding :)</p>
+<p>2. the featured image for this and last 2 posts were made with a new webtool I built: <a href="http://bobbelderbos.com/featured_image/" target="_blank">CSS Featured Image Creator</a>. I will write a blog post about it soon, it is still work in progress ...</p>

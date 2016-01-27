@@ -1,0 +1,104 @@
+---
+layout: post
+title: Ruby script to get Facebook Like stats for your blog
+date: 2012-01-04 18:36:08.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- facebook
+- likes
+- ruby
+- scripting
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1659'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '526679765'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In spite of my proposed Scala, HTML5, and Mobile learning, I will start this New Year learning Ruby :) - I am about to read <a href="http://www.amazon.es/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104" target="_blank">Eloquent Ruby</a>, but before that I wanted to wet my apetite with a practical case ...</p>
+<p><!--more--></p>
+<h3> The challenge</h3>
+<p> Browsing <a href="http://facebook.stackoverflow.com/" target="_blank">http://facebook.stackoverflow.com/</a>, I saw a nice one to work on: <a href="http://stackoverflow.com/questions/4645500/getting-all-likes-on-my-domain-facebook/8720314#8720314" target="_blank">Getting all likes on my domain (facebook)</a>. So how to get stats on likes for each of your blog posts? Read on ...</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> How to do it</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/ruby_likes.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p class="newhere">New here? You might want to subscribe to my blog by <a href="http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos" onclick="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos', 'popupwindow', 'scrollbars=yes,width=550,height=520'); return false;">email</a> or <a href="http://bobbelderbos.com/rss" target="_blank">RSS</a>.</p>
+<p> It is nice to get a feel of a language by first playing with it, <a href="http://bobbelderbos.com/2011/08/simple-text-to-html-parser-perl-wordpress/" target="_blank">I took the same approach learning Perl</a>. Of course I had to use Google a lot for even basic things (Ruby hashes, loops, the very useful Perl Dumper variant "pp", etc.), but I soon became convinced that Ruby is fun to learn and a powerful language to have in your toolkit.</p>
+<p> First step is to make a sitemap XML file of your site. It turned out I had to do that anyways for SEO purposes. For Wordpress there is <a href="http://wordpress.org/extend/plugins/google-sitemap-generator/" target="_blank">an excellent plugin</a>. You can see my sitemap <a href="http://bobbelderbos.com/sitemap.xml" target="_blank">here</a>.</p>
+<p> So we start scripting. First we need to load that file from the web with a call to "Net::HTTP.get_response" (requires 'net/https')</p>
+<p> Next you want to parse the XML to get all the URLs. REXML makes that simple with "REXML::Document.new(xml_data)" and then you use "doc.elements.each('urlset/url/loc')" to loop over the URLs</p>
+<p> Then the real data crunching: you reach out to <a href="https://graph.facebook.com/?ids=" target="_blank">https://graph.facebook.com/?ids=</a> which (I just discovered) does except a comma-seperated list of URLs. Keep in mind the https so require 'net/https' and use "http.use_ssl = true". Obviously this is the desired way to do it: clustering all URLs together to make one big query instead of hundreds of small ones. You do need to shave the last comma off, otherwise the query will fail (url[0..-2])</p>
+<p> Facebook Graph returns JSON so this needs to be parsed with JSON.parse (requires 'json'). I put all the results in the "likes" hash (keys are URLs, values are the number of likes). You could sort it numerically descending in Ruby, but I was comfortable doing it from the cli with "ruby getBlogLikeStats.rb | sort -n -k2"</p>
+<p> And that is all there is to it. Building this in Ruby turned out to be a painless and fun process. And that for somebody that still has to learn the language basics, nice!</p>
+<h3> Source</h3>
+<p> Source is printed below and you can download it <a href="http://bobbelderbos.com/src/getBlogLikeStats.rb" target="_blank">here</a>.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<pre>
+   #!/usr/bin/env ruby
+   require 'net/https'
+   require 'rexml/document'
+   require 'json'; 
+   
+   urlXml = 'http://bobbelderbos.com/sitemap.xml'
+   url = 'https://graph.facebook.com/?ids='
+   likes = Hash.new;
+   
+   xml_data = Net::HTTP.get_response(URI.parse(urlXml)).body
+   doc = REXML::Document.new(xml_data)
+   
+   doc.elements.each('urlset/url/loc')  { |element| url += element.text + &quot;,&quot; }
+   
+   uri = URI.parse(url[0..-2])
+   http = Net::HTTP.new(uri.host, uri.port)
+   http.use_ssl = true
+   request = Net::HTTP::Get.new(uri.path + &quot;?&quot; + uri.query)
+   response = http.request(request)
+   data = response.body
+   result = JSON.parse(data)
+   
+   result.each { |url| likes[url[1]['id']] = url[1]['shares'] }
+   
+   likes.each do|url,numLikes|
+     puts &quot;#{url}: #{numLikes}&quot;
+   end
+</pre>
+<p> Have fun!</p>
+<h3> Update 08.01.2012: What about Twitter? </h3>
+<p>With the <a href="http://help.tweetmeme.com/2009/10/12/core-api/" target="_blank">Tweetmeme API</a> you can easily query the amount of tweets. Only incovenience is that http://api.tweetmeme.com/url_info.json?url accepts only 1 URL at the time it seems, so you need to make a call for each URL (as opposed to the earlier mentioned Facebook Graph API that does handle multiple URLs in one call)</p>
+<p>Ruby code to get your <a href="http://bobbelderbos.com/src/getBlogTweetStats.rb" target="_blank">tweet stats</a>:</p>
+<p>Executing the script from CLI:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/cli_tweet_stats.png" alt="cli tweet stats" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<pre>
+   #!/usr/bin/env ruby
+   # copyright (c) 2012 Bob Belderbos
+   # created: January 2012 
+   require 'net/http'
+   require 'uri'
+   require 'rexml/document'
+   require 'json' 
+   require 'pp'
+   
+   urlXml = 'http://bobbelderbos.com/sitemap.xml'
+   url = 'http://api.tweetmeme.com/url_info.json?url='
+   
+   xml_data = Net::HTTP.get_response(URI.parse(urlXml)).body
+   doc = REXML::Document.new(xml_data)
+   
+   doc.elements.each('urlset/url/loc')  do |element| 
+     url += element.text
+     resp = Net::HTTP.get_response(URI.parse(url))
+     data = resp.body
+     result = JSON.parse(data)
+     print &quot;#{result['story']['url']} =&gt; #{result['story']['url_count']}n&quot;
+   end
+</pre>

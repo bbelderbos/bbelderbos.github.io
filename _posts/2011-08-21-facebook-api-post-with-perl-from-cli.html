@@ -1,0 +1,134 @@
+---
+layout: post
+title: 'Facebook API: post with Perl from CLI'
+date: 2011-08-21 21:08:40.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- command line
+- facebook
+- howto
+- perl
+- post wall
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1163'
+  dsq_thread_id: '392312721'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p>In the <a href="http://bobbelderbos.com/2011/08/example-facebook-php-sdk-post-to-friends-wall/" target="_blank">last post</a> I explained how to post to a FB wall (yours or a friend) via a simple FB App, and with the FB PHP SDK 3. In this post I like to show the same but from the Command Line (CLI) and with Perl.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/matar-procesos-terminal.png" alt="featured image" style="float:right; margin: 20px;" width="100" /></p>
+<p>Purpose: find within your friends and liked pages, the fbID. This ID can then be entered to wallpost a URL and/or message. The webinterface makes this easy but from command line you can script (cron) it and easily extend it to send multiple updates at once. A first script (draft) is <a href="http://bobbelderbos.com/src/post_wall_perl" target="_blank">here</a></p>
+<h3> Requirements</h3>
+<p>As in the <a href="http://bobbelderbos.com/2011/08/example-facebook-php-sdk-post-to-friends-wall/" target="_blank">last post</a> you need to have a valid FB APP. See next section where to go to get all preconfigured (= get a valid $access_token to input in your script)</p>
+<p>Secondly your App needs to have the following <a href="https://developers.facebook.com/docs/reference/api/permissions/" target="_blank">extended permissions</a></p>
+<ul>
+<li>publish_stream -> this allows the app to post to walls on your behalf</li>
+<li>user_likes -> this allows the app to access your liked pages</li>
+<li>offline_access -> I am still testing this but I believe this prevents the access token to expire in the standard 2 hours (FB permissions page: "Enables your app to perform authorized requests on behalf of the user at any time. By default, most access tokens expire after a short time period to ensure applications only make requests on behalf of the user when the are actively using the application. This permission makes the access token returned by our OAuth endpoint long-lived.")</li>
+</ul>
+<h3> Thanks to...</h3>
+<p>The harness for the script I made, comes from <a href="http://qscripts.blogspot.com/2011/02/post-to-your-own-facebook-account-from.html" target="_blank">qscript.blogspot.com</a> - this great post explains how Perl can talk with the Facebook API. Very cool and credits to this article! Of course there is more <a href="http://search.cpan.org/~unobe/WWW-Facebook-API-0.4.18/lib/WWW/Facebook/API.pm" target="_blank">advanced stuff</a> for accesing the API, but this article is a quick and easy way to get the job done.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Get access token</h3>
+<p>The only manual preparation is to get the access token in your script, then you are good to go. The only inconvenience is that the token expires if you use the normal permissions. It seems though that the offline_access permission prevents the timeout (and thus saves you from amending the script!)</p>
+<h3> Script logic</h3>
+<p>The script follows these steps:</p>
+<ul>
+<li>you want to get the fbID of a 'friend' or a 'liked' page? If you know this info you can put in 'skip' to break out the first loop;</li>
+<li>as you can have multiple results per query, you should still enter the fbID after breaking out of the first loop (alternatively make the script to get the fbID from the command line = shift @ARGV ; that was my initial approach but I wanted to have this lookup feature);</li>
+<li>from this point we know where to post, but what? -> next you are asked to provide an URL and/or message to post to the wall of the fbID</li>
+<li>Perl calls <a href="http://graph.facebook.com" target="_blank">graph.facebook.com</a> with method 'post' </li>
+</ul>
+<h3> Full code example</h3>
+<p>Again, you can download the code <a href="http://bobbelderbos.com/src/post_wall_perl" target="_blank">here</a> . It is merely a draft, validation should be build in etc. Another RFE is to do the oauth process automatically.</p>
+<pre>
+   #!/usr/bin/perl -w
+   #copyright (c) 2011 bob belderbos
+   #created: August 2011 
+   #site: http://bobbelderbos.com/2011/08/facebook-api-post-with-perl-from-cli/
+   #special thanks: http://qscripts.blogspot.com/2011/02/post-to-your-own-facebook-account-from.html
+   
+   use strict;
+   use URI;
+   use LWP::Simple;
+   use JSON; # imports encode_json, decode_json, to_json and from_json.
+   
+   my $access_token = '-----'; 
+   # see http://qscripts.blogspot.com/2011/02/post-to-your-own-facebook-account-from.html
+   
+   sub build_query {
+     my $uri = URI->new(shift);
+     $uri->query_form(@_);
+     return $uri->as_string;
+   }
+   
+   while(1) { # infinite loop until you get the right fbID to post your link/message to
+   	print "Enter 'friends' to find his/her ID, 'likes' to find the page ID, 
+  		or enter 'skip' if you know this info: ";
+   	chomp(my $cat = <stdin>);
+   	next unless $cat eq 'friends' || $cat eq 'likes' || $cat eq 'skip';
+   	last if ($cat =~ /skip/i );
+   	
+   	print "Enter part of your friend's name or title of the liked page: ";
+   	chomp(my $friend = <stdin>);
+   
+   	my $response = get(build_query('https://graph.facebook.com/me/' .$cat,
+   	  access_token => $access_token
+   	));
+   	my $deserialized = from_json( $response );
+   
+   	foreach my $e(@{$deserialized->{data}}){
+   		print $e->{id} . ' - ' . $e->{name} . "\n" if $e->{name} =~ /$friend/i;
+   	}
+   	
+   	print "Found ID of friend/ page you want to post to? ";
+   	chomp(my $answer = <stdin>);
+   
+   	last if ($answer =~ /y(es)?/i );	
+   }
+   
+   
+   # here you broke the 'lookup' loop so you know which ID to pick.
+   # as there might be various candidates, you still have to enter the exact fbID
+   print "Enter the ID of the page / friend you want to post to: ";
+   chomp(my $fbID = <stdin>);
+   
+   print "Enter the URL you want to send (if only a message, press Enter): ";
+   chomp(my $link = <stdin>);
+   
+   print "Enter a message (if you defined an URL, you can leave this blank by pressing Enter: ";
+   chomp(my $message = <stdin>);
+   
+   my $response = get(build_query('https://graph.facebook.com/'.$fbID.'/feed',
+     access_token => $access_token,
+     message      => $message,
+     link         => $link,
+     method       => 'post'
+   ));
+   
+   print "Feedback post method: $response\n == END == \n";
+   
+   exit 0;
+</stdin></stdin></stdin></stdin></stdin></stdin></pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Demo</h3>
+<p>Here you can see the script in action -> 1. command line / 2. result on Facebook :</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/fbwall_perl_demo1.png" alt="demo printscreen 1" style="float:none; margin: 20px;" width="580" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/fbwall_perl_demo2.png" alt="demo printscreen 2" style="float:none; margin: 20px;" width="510" /></p>
+<h3> Also thanks</h3>
+<p> ... to PRAEDO for changing the /me/friends into /me/likes to post to pages instead of friends, and his mention of <a href="http://fbcmd.dtompkins.com/" target="_blank">fbcmd</a> which is a command line interface (CLI) for facebook.</p>
+<h3>From here on ...</h3>
+<p>You can subscribe at the top of this page to receive each post in your Inbox. You can also keep up with my blog and discuss Web technology and programming at <a href="http://www.facebook.com/groups/bobsblog." target="_blank">BobsBlog Facebook group</a> And you can find me on Twitter <a href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a></p>

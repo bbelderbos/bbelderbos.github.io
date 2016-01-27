@@ -1,0 +1,52 @@
+---
+layout: post
+title: Script to email a weekly digest of upcoming and playing movies
+date: 2013-01-24 18:00:38.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- digest
+- email
+- movies
+- python
+- scripting
+- sharemovi.es
+meta:
+  _edit_last: '1'
+  dsq_thread_id: '1043310662'
+  snapDL: s:208:"a:1:{i:0;a:7:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:2:"DL";s:5:"pDate";s:19:"2013-01-24
+    19:50:50";s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";}}";
+  snapFB: 's:274:"a:1:{i:0;a:8:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_525854560782010";s:5:"pDate";s:19:"2013-01-24
+    19:50:59";s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";}}";'
+  snapTW: 's:242:"a:1:{i:0;a:7:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"294544723056668672";s:5:"pDate";s:19:"2013-01-24
+    20:38:29";s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged: %TITLE% - %SURL%
+    %CATS%";s:8:"attchImg";s:1:"0";}}";'
+  snapLI: 's:246:"a:1:{i:0;a:7:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:26:"Q2JWqfUn5G
+    - Bob Belderbos";s:5:"pDate";s:19:"2013-01-24 19:53:22";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";}}";'
+  snapEdIT: '1'
+  _thumbnail_id: '2346'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>To keep up2date with new and upcoming movies, I wrote a Python script to send me an weekly movie digest. It queries <a href="http://www.themoviedb.org" target="_blank">themoviedb.org</a> and parses the "now-playing" and "upcoming pages", it creates the proper html and sends it. Putting it in a cronjob this happens weekly.</p>
+<p><!--more--></p>
+<p>See the code <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/themoviedb_crawler.py" target="_blank">here</a> (previously I copied the code in the post, but what happens if I update it? I would push to github but would forget to update it in the post, hence a link to github only is best, with the exception of highlighting snippets in the post). This is the initial version and I might create a page to signup and let users select genres (which filter is already in), like <a href="http://anynewbooks.com" target="_blank">any new books</a> does for books. They actually inspired me to build this, their weekly new books mail is a nice service.</p>
+<p>Note that the css styles are inside the html elements, which is not recommended for a website, but html email does not support linking to an external stylesheet, so here I didn't have a better option. Images count, so I use the bigger version, thanks to themoviedb.org's consistent url naming (replacing w92 by w185 in the poster url).</p>
+<p>The mail code is a nice snippet I found on <a href="http://stackoverflow.com/questions/882712/sending-html-email-in-python" target="_blank">stackoverflow</a>.</p>
+<p>For DOM parsing, I highly recommend you get familiar with <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank">Beautiful Soup</a> which makes parsing html easy and powerful.</p>
+<p>The weekly digests are saved to sharemovies as well, see <a href="http://sharemovi.es/moviedigest/sharemovi.es_digest_2013_w4.html" target="_blank">this</a> example. See also some images below from two different mail clients.</p>
+<p>Also note the encode/decodes that were needed, <a href="http://blog.codekills.net/2008/05/01/encoding-and-decoding-text-in-python-%28or---i-didn%27t-ask-you-to-use-the-%27ascii%27-codec!-%29/" target="_blank">this article</a> explains pretty well what to do when you are confronted with these annoying UnicodeDecodeError exceptions. Basically what worked for me is encoding obtained text from any websource to utf-8 when writing to a file or printing to stdout, and decoding to utf-8 when assigning it to variables.</p>
+<p>Not much else, the rest is pretty basic Python. If you want to receive the weekly update, go to <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> and email via the Email button at the top. This homepage actually shows a subset of the upcoming and now-playing results I query with this script, however there it uses themoviedb API.</p>
+<p>&nbsp;</p>
+<p><img class="size-full" style="float: none; margin: 20px;" alt="widget example" src="{{ site.baseurl }}/assets/sharemovies_html_email2.png" width="558" /><br />
+<img class="size-full" style="float: none; margin: 20px;" alt="widget example" src="{{ site.baseurl }}/assets/sharemovies_html_email3.png" width="558" /><br />
+<img class="size-full" style="float: none; margin: 20px;" alt="widget example" src="{{ site.baseurl }}/assets/sharemovies_html_email4.png" width="558" /></p>

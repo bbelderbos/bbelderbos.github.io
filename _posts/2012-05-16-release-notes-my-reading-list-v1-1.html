@@ -1,0 +1,46 @@
+---
+layout: post
+title: New release My Reading List - fbreadinglist.com
+date: 2012-05-16 00:58:48.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- books
+- design
+- my reading list
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '783'
+  dsq_thread_id: '691009297'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I picked up development again for one of my favorite projects: <a href="http://fbreadinglist.com" target="_blank">My Reading List</a>. In this post the new features for current release 1.1</p>
+<p><!--more--></p>
+<h3>New features / improvements</h3>
+<p><img class="size-full" style="float: right; margin: 20px;" src="{{ site.baseurl }}/assets/whatareyoureading.jpg" alt="featured image" width="150" /></p>
+<ul>
+<li>My Reading List is now hosted on its own domain: <a href="http://fbreadinglist.com" target="_blank">fbreadinglist.com</a> . All bobbelderbos.com/books... links should be redirected (301) to the new domain</li>
+<li>User data: no email storage in the My Reading List database, I only use the email once (from the Facebook session) to send a welcome email with links and as an option for the user to provide input (early user feedback is really valuable)</li>
+<li><del>Post to FB wall is opt-in instead of opt-out. Although it was always clearly visible in the "add book" form, I think it is better to let users actively toggle the select box when they want to post</del>. - It is opt-out in the end, because I think one of the purposes of this app is to <span style="text-decoration: underline;">share</span>what you read, so the FB wall post is something to encourage. However, it is clearly visible when adding books (see below), you are in control!<img class="size-medium wp-image-1969 alignnone" style="margin-top: 10px;" title="you can easily opt out of posting to FB" src="{{ site.baseurl }}/assets/Screen-shot-2012-05-27-at-2.20.12-AM-300x216.png" alt="" width="300" height="216" />
+<p style="clear: both;">Moreover FB built in some granularity it didn't have before: now you accept a FB app, and you have to explicitly accept the "post to wall" permission as a 2nd step.</p>
+</li>
+<li>Slight changes in the querying of the Google Books API: putting a % instead of a + between the words yielded me books I couldn't find earlier, even putting % before and after the keywords helped, I also cropped duplicate titles, because the first hit is usually the book (googleID) with the most reviews/data, so that is the one you want users to grab from the autocomplete.</li>
+<li>URL txt-to-html conversion in the book comments (<a href="http://fbreadinglist.com/?googleID=FvJePgAACAAJ" target="_blank">for example</a> )</li>
+<li>See same URL for improved share buttons, like my blog they take you outside of the page to sharer URLs where you have more options to customize your sharing.</li>
+<li>Better og: properties to share books with their appropriate thumbnail.</li>
+<li>The <a href="https://apps.facebook.com/fbreadinglist/" target="_blank">Facebook Canvas App</a> is back.</li>
+<li>Some small cleanups in the design, but overall I left it the same, because I think it is simple and clean. It also fits perfectly in the smaller width of the FB Canvas.</li>
+</ul>
+<h3>Next</h3>
+<ul>
+<li>I'd love this to be available on an iphone and/or ipad!</li>
+<li>Provide / link more info for each book. It would be great to fetch Amazon reviews. Personally I use those a lot deciding whether to read and/or buy a new book.</li>
+</ul>

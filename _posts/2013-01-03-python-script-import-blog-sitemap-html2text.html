@@ -1,0 +1,227 @@
+---
+layout: post
+title: A Python script to import a complete blog to plain text
+date: 2013-01-03 18:19:20.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- blog
+- html2text
+- python
+meta:
+  _thumbnail_id: '2277'
+  _edit_last: '1'
+  dsq_thread_id: '1005253265'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In today's post I'll show you a script I wrote yesterday to import an entire blog based on a (XML) sitemap. It also converts the posts from html to plain text. Allthough it was merely Python practice, it could actually be useful to export/backup blogs to a single text file for easy consumption in a text editor or offline.</p>
+<p><!--more--></p>
+<h3>How it works / some comments:</h3>
+<ul>
+<li> The class gets instantiated with a couple of arguments: </li>
+<pre>
+# create instant
+blog = ImportBlogPosts(&quot;http://bobbelderbos.com&quot;, &#039;&lt;div class=&quot;entry-content&quot;&gt;&#039;, &#039;&lt;div&gt;&lt;br /&gt;&lt;h4&gt;&lt;strong&gt;You might also like:&#039;)
+# get all URLs with /20 in them (this means real post URLs in my blog&#039;s case, so ignoring the about-, the archive- and homepage)
+blog.import_post_urls(&quot;/20&quot;)
+# ... or just a single URL: 
+blog.import_post_urls(&#039;http://bobbelderbos.com/2012/09/how-to-grow-craft-programming/&#039;)
+</pre>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/import_blog_posts.png" alt="featured image" style="float:right;margin: 20px" width="200" /></p>
+<p> The first arg is clear: the blog URL. The 2nd and 3rd args are the html start- and endsnippets to grab the actual post (and not all the fluff around it). The sitemap has to be present at URL/sitemap.xml, or it could be a file on the FS. I did see quite some blogs without the sitemap, so an RFE would be to let the class generate the sitemap if not present ...</p>
+<li> Importing web content: this is easy in Python: urllib.urlopen, but in this case I had some issues with body content not being imported so I used "wget -q .." with subprocess.call</li>
+<li> I find native module "xml.dom.minidom" pretty convenient for parsing XML</li>
+<li> I use a <a href="http://www.aaronsw.com/2002/html2text/" target="_blank">nice module</a> for html-to-text conversion: html2text - it delivers markdown format. One tricky thing with encodings (a subject I need to study on its own one day): to get the script working to stdout as well as redirecting its output to a file (with '&gt;' on Unix) I had to use this magic:</li>
+<pre>
+..
+  postContent = postContent.decode(&#039;utf-8&#039;)
+  print html2text.html2text(postContent).encode(&#039;ascii&#039;, &#039;ignore&#039;) 
+..
+</pre>
+<p> Yes that is right: decode to utf-8, and encode to ascii. Anybody having a better way or explanation, please comment.</p>
+</ul>
+<h3>The code</h3>
+<p> Here a copy of the code, see also <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/import_blog_posts.py" target="_blank">here</a> on Github.</p>
+<pre>
+#!/usr/bin/env python                                                                                                                                     
+# -*- coding: utf-8 -*-
+# Author: Bob Belderbos / written: Dec 2012
+# Purpose: import all blog posts to one file, converting them in (markdown) text
+# Thanks to html2text for doing the actual conversion ( http://www.aaronsw.com/2002/html2text/ ) 
+# 
+import os, sys, pprint, xml.dom.minidom, urllib, html2text, subprocess
+
+class ImportBlogPosts(object):
+  &quot;&quot;&quot; Import all blog posts and create one big text file (pdf would increase size too much,
+      and I like searching text files with Vim).  It uses the blog&#039;s sitemap to get all URLs. &quot;&quot;&quot;
+
+  def __init__(self, url, poststart, postend, sitemap=&quot;sitemap.xml&quot;):
+    &quot;&quot;&quot; Specify blog url, where post html starts/ stops, what urls in sitemap are valid, and sitemap &quot;&quot;&quot;
+    self.sitemap = sitemap
+    self.sitemapUrl = &quot;%s/%s&quot; % (url, self.sitemap)
+    self.postStartMark = poststart # where does post content html start?
+    self.postEndMark = postend # where does post content html stop?
+    if not os.path.isfile(self.sitemap):
+      cmd = &quot;wget -q %s&quot; % self.sitemapUrl
+      if subprocess.call(cmd.split()) != 0:
+        sys.exit(&quot;No 0 returned from %s, exiting ...&quot; % cmd)
+    self.blogUrls = self.parse_sitemap(self.sitemap)
+
+      
+  def parse_sitemap(self, sitemap):
+    &quot;&quot;&quot; Parse blog&#039;s specified xml sitemap &quot;&quot;&quot;
+    posts = {}
+    dom = xml.dom.minidom.parse(sitemap)
+    for element in dom.getElementsByTagName(&#039;url&#039;):
+      url = self.getText(element.getElementsByTagName(&quot;loc&quot;)[0].childNodes)
+      mod = self.getText(element.getElementsByTagName(&quot;lastmod&quot;)[0].childNodes)
+      posts[url] = mod # there can be identical mods, but urls are unique
+    urls = []
+    # return urls ordered desc on last mod. date
+    for key, value in sorted(posts.iteritems(), reverse=True, key=lambda (k,v): (v,k)):
+      urls.append(key)
+    return urls
+
+
+  def getText(self, nodelist):
+    &quot;&quot;&quot; Helper method for parsing XML childnodes (see parse_sitemap) &quot;&quot;&quot;
+    rc = &quot;&quot;
+    for node in nodelist:
+      if node.nodeType == node.TEXT_NODE:
+        rc = rc + node.data
+    return rc
+
+  
+  def import_post_urls(self, urlCriteria=&quot;http&quot;):
+    &quot;&quot;&quot; Loop over blog URL getting each one&#039;s content, default &#039;http&#039; practically results in importing all links &quot;&quot;&quot;
+    for i, url in enumerate(self.blogUrls):
+      if urlCriteria in url: 
+        html = self.get_url(url)
+        if html != None:
+          self.print_banner(i, url)
+          self.print_content(url)
+  
+
+  def get_url(self, url):
+    &quot;&quot;&quot; Import html from specified url &quot;&quot;&quot;
+    try:
+      f = urllib.urlopen(url)
+      html = f.read()
+      f.close()
+      return html
+    except: 
+      print &quot;Problem getting url %s&quot; % url
+      return None
+
+
+  def print_banner(self, i, url):
+    &quot;&quot;&quot; print a banner for a specified URL (to seperate from content) &quot;&quot;&quot;
+    divider = &quot;+&quot;*120
+    print &quot;\n\n&quot;
+    print divider
+    print &quot;%i) %s&quot; % (i, url)
+    print divider
+    print &quot;\n&quot;
+
+
+  def print_content(self, url): 
+    &quot;&quot;&quot; Get blog post&#039;s content, get relevant html, then convert to plain text &quot;&quot;&quot;
+    try:
+      # I know, I probably should have used urllib.urlopen but somehow it 
+      # it doesn&#039;t import the body html, so using good &#039;ol wget as workaround
+      cmd = &quot;wget -q -O - %s&quot; % url
+      html = subprocess.check_output(cmd.split())
+    except subprocess.CalledProcessError as e:
+      print &quot;Something went wrong importing %s, error: %s&quot; % (url, e)
+      return False
+    postContent = self.filter_post_content(html)
+    if postContent == None:
+      print &quot;postContent == None, something went wrong in filter_post_content?&quot;
+    else:
+      try:
+        # to print in terminal decode to utf-8 needed, to print and redirect
+        # script&#039;s output to file with &gt;, that only works with ascii encode
+        postContent = postContent.decode(&#039;utf-8&#039;)
+        print html2text.html2text(postContent).encode(&#039;ascii&#039;, &#039;ignore&#039;) 
+      except:
+        print &quot;Cannot convert this post&#039;s html to plain text&quot;
+
+
+  def filter_post_content(self, textdata):
+    &quot;&quot;&quot; Takes the post page html and return the post html body &quot;&quot;&quot;
+    try:
+      post = textdata.split(self.postStartMark)
+      post = &quot;&quot;.join(post[1:]).split(self.postEndMark)
+      return post[0]
+    except:
+      print &quot;Cannot split post content based on specified start- and endmarks&quot;
+      return None
+
+# end class
+
+
+### run this program from cli
+import optparse
+parser = optparse.OptionParser()
+parser.add_option(&#039;-u&#039;, &#039;--url&#039;, help=&#039;specify a blog url&#039;, dest=&#039;url&#039;)
+parser.add_option(&#039;-b&#039;, &#039;--beginhtml&#039;, help=&#039;first html (div) tag of a blog post&#039;, dest=&#039;beginhtml&#039;)
+parser.add_option(&#039;-e&#039;, &#039;--endhtml&#039;, help=&#039;first html after the post content&#039;, dest=&#039;endhtml&#039;)
+parser.add_option(&#039;-s&#039;, &#039;--sitemap&#039;, help=&#039;sitemap name, default = sitemap.xml&#039;, dest=&#039;sitemap&#039;, default=&quot;sitemap.xml&quot;)
+parser.add_option(&#039;-p&#039;, &#039;--posts&#039;, help=&#039;url string to filter on, e.g. &quot;/2012&quot; for all 2012 posts&#039;, dest=&#039;posts&#039;, default=&quot;http&quot;)
+(opts, args) = parser.parse_args()
+
+# Making sure all mandatory options appeared.
+mandatories = [&#039;url&#039;, &#039;beginhtml&#039;, &#039;endhtml&#039;]
+for m in mandatories:
+  if not opts.__dict__[m]:
+    print &quot;Mandatory option is missing\n&quot;
+    parser.print_help()
+    exit(-1)
+
+# Execute program with given cli options: 
+blog = ImportBlogPosts(opts.url, opts.beginhtml, opts.endhtml, opts.sitemap)
+blog.import_post_urls(opts.posts)
+
+
+
+### example class instant. syntax, and using it for other blogs
+# + instant class
+# blog = ImportBlogPosts(&quot;http://bobbelderbos.com&quot;, &#039;&lt;div class=&quot;entry-content&quot;&gt;&#039;, &#039;&lt;div&gt;&lt;br /&gt;&lt;h4&gt;&lt;strong&gt;You might also like:&#039;)
+# + all posts my blog:
+# blog.import_post_urls(&quot;/20&quot;)
+# + only one post my blog:
+# blog.import_post_urls(&#039;http://bobbelderbos.com/2012/09/how-to-grow-craft-programming/&#039;)
+# + another single post on my blog:
+# blog.import_post_urls(&#039;http://bobbelderbos.com/2012/10/php-mysql-novice-to-ninja/&#039;)
+# 
+# + other blogs:
+# blog = ImportBlogPosts(&quot;http://zenhabits.net&quot;, &#039;&lt;div class=&quot;entry&quot;&gt;&#039;, &#039;&lt;div class=&quot;home_bottom&quot;&gt;&#039;, &quot;zenhabits.xml&quot;) 
+# blog = ImportBlogPosts(&quot;http://blog.extracheese.org/&quot;, &#039;&lt;div class=&quot;post content&quot;&gt;&#039;, &#039;&lt;div class=&quot;clearfix&quot;&gt;&lt;/div&gt;&#039;, &quot;/Users/bbelderbos/Downloads/gary.xml&quot;) 
+# + import all urls
+# blog.import_post_urls()
+# blog = ImportBlogPosts(&quot;http://programmingzen.com&quot;, &#039;&lt;div class=&quot;post-wrapper&quot;&gt;&#039;, &#039;related posts&#039;, &quot;/Users/bbelderbos/Downloads/programmingzen.xml&quot;) 
+# + supposedly all posts
+# blog.import_post_urls(&quot;/20&quot;)
+</pre>
+<h3>Running the script / example outputs</h3>
+<p> I ran the following command to get all my 2012 blog posts in a text file:</p>
+<pre>
+$ python import_blog_posts.py  -u http://bobbelderbos.com \
+  -b &#039;&lt;div class=&quot;entry-content&quot;&gt;&#039; -e &#039;&lt;div&gt;&lt;br /&gt;&lt;h4&gt;&lt;strong&gt;You might also like:&#039; \ 
+  -p &quot;http://bobbelderbos.com/2012&quot; &gt; import_blog_posts_bb_2012.txt
+</pre>
+<p> You can see the result <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/import_blog_posts_bb_2012.txt" target="_blank">here</a>. Run it without the -p option (no post filter) and you can get over 140 posts == 14.000 lines ... useful for quickly vi-ing anything and copying code snippets ;)</p>
+<p>Another example:  run it with -p "git" to get my 3 posts that had "git" in the url:</p>
+<pre>
+$ python import_blog_posts.py  -u http://bobbelderbos.com \ 
+  -b &#039;&lt;div class=&quot;entry-content&quot;&gt;&#039; -e &#039;&lt;div&gt;&lt;br /&gt;&lt;h4&gt;&lt;strong&gt;You might also like:&#039; \
+  -p &quot;git&quot; &gt; git.txt
+</pre>

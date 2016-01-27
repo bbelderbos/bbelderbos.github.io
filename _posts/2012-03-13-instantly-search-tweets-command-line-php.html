@@ -1,0 +1,108 @@
+---
+layout: post
+title: Instantly search tweets from command line with PHP
+date: 2012-03-13 00:49:51.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- command line
+- php
+- tweets
+- twitter
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1841'
+  _wp_old_slug: instantly-search-tweets
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '608785424'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In the previous post I showed a way to <a href="http://bobbelderbos.com/2012/03/a-simple-script-to-archive-your-tweets/" target="_blank">archive your tweets</a>, in this post I do want to leverage the power of Twitter's search interface, now to instantly search through tweets from the command line.</p>
+<p><!--more--></p>
+<p class="newhere">You can receive each new post by subscribing via <a href="http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos" onclick="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos', 'popupwindow', 'scrollbars=yes,width=550,height=520'); return false;">email</a> or <a href="http://bobbelderbos.com/rss" target="_blank">RSS</a>.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/search_tweets_cli.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>I made a quick PHP script to query twitter search and check out who twitted what, when and from which source. Two advantages, 1 disadvantage:</p>
+<ul>
+<li> I like working from CLI, it gives me options to filter the output and send it through pipes to other programs like sed/awk, lynx or even sendmail.</li>
+<li> Sometimes you see a link go viral, but from which sources did users tweet? With this query you can easily see this. </li>
+<li> One disadvantage, as stated in <a href="http://bobbelderbos.com/2012/03/a-simple-script-to-archive-your-tweets/" target="_blank">my last post</a> is the short search span of twitter search: only 6-9 days. </li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p> The following script is the most basic form, you can easily expand this checking out <a href="https://dev.twitter.com/docs/api/1/get/search" target="_blank">GET search</a> and <a href="https://dev.twitter.com/docs/using-search" target="_blank">Using the Twitter Search API</a>. You might want to use <a href="http://php.net/manual/en/function.getopt.php" target="_blank">getopt</a> to let the script accept more command line options. Interesting additions might be : page and rpp for returning more results, since_id/ until to get a timeframe or zoom in on location with geocode.</p>
+<h3> A simple PHP script</h3>
+<pre>
+   #!/usr/bin/php
+   <?php $str = $argv[1] or die("provide a search stringn");
+   $tweets = getTweets($str);
+   
+   foreach($tweets?>results as $item) {
+     echo "$item->from_user_name ($item->from_user_id) ";
+     echo "nt- tweeted: $item->text nt- via: $item->source";
+     echo "nt- at: $item->created_at nn";
+   }
+   
+   function getTweets($str) {
+   	$url = "http://search.twitter.com/search.json?q=".urlencode($str);
+     if(!$info = @file_get_contents($url, true)) {
+   	  die("Not able to get twitter history for this stringn"); 
+     }	
+     $tweets = json_decode($info);
+     return $tweets;
+   }
+   ?>
+</pre>
+<p> Pretty straightforward. Note that you could use <a href="http://bobbelderbos.com/2011/12/select-from-internet-examples-yql-api/" target="_blank">yql</a> but unfortunately it didn't always return results in my case. I found search.twitter to be more reliable.</p>
+<p> The script is very easy, it just queries search.twitter, returns json, which we decode and loop. Use cases:</p>
+<ul>
+<li> check who mentions my domain: $ php twitter_search.php bobbelderbos</li>
+<li> or onother keyword:  $ php twitter_search.php "kony 2012"</li>
+<li> who is mentioning me?: $ php twitter_search.php @bbelderbos</li>
+<li> with a hash (need to escape): $ php twitter_search.php #python</li>
+<li> etc.</li>
+</ul>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/cli_example.png" alt="widget example" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<p> Now you can do all kinds of stuff with this data, like set up a cronjob to alert when certain patterns come by, mail yourself when you have a new mention, etc. (you can do this also in Twitter itself, but now you are in control :-)</p>
+<p>You can build on top of this script as discussed earlier and pipe the results to powerful sed/awk/perl or whatever.</p>
+<h3> Raw data you get back: </h3>
+<pre>
+   stdClass Object
+   (
+   ..
+       [results] => Array
+           (
+               [0] => stdClass Object
+                   (
+                       [created_at] => Mon, 12 Mar 2012 17:20:11 +0000
+                       [from_user] => KCITP
+                       [from_user_id] => 80589393
+                       [from_user_id_str] => 80589393
+                       [from_user_name] => KC IT Professionals
+                       [geo] => 
+                       [id] => 179255478474383360
+                       [id_str] => 179255478474383360
+                       [iso_language_code] => en
+                       [metadata] => stdClass Object
+                           (
+                               [result_type] => recent
+                           )
+   
+                       [profile_image_url] => http://a0.twimg.com/profile_images/1143479908/kcit-twitter1_normal.jpg
+                       [profile_image_url_https] => https://si0.twimg.com/profile_images/1143479908/kcit-twitter1_normal.jpg
+                       [source][/source] => &lt;a href=&quot;http://bufferapp.com&quot; rel=&quot;nofollow&quot;&gt;Buffer&lt;/a&gt;
+                       [text][/text] => How to push your code to your remote web server with Git  http://t.co/om2hAHEK
+                       [to_user] => 
+                       [to_user_id] => 
+                       [to_user_id_str] => 
+                       [to_user_name] => 
+                   )
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>

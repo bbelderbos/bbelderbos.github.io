@@ -1,0 +1,218 @@
+---
+layout: post
+title: 'New Facebook App / travel site: Globe Explorer'
+date: 2012-02-19 22:45:12.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- APIs
+- Facebook app
+- globe explorer
+- travel
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1718'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '582238925'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> In today's post I present a new Facebook App: <a href="http://www.bobbelderbos.com/globe/" target="_blank">Globe Explorer</a>. I will show some printscreens and techniques I used in the current design. As usual, I <a href="http://bobbelderbos.com/2011/04/make-developer-life-easier/" target="_blank">started simple</a> to expand with new features in the future.</p>
+<p><!--more--></p>
+<p class="newhere">New here? You might want to subscribe to my blog by <a href="http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos" onclick="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos', 'popupwindow', 'scrollbars=yes,width=550,height=520'); return false;">email</a> or <a href="http://bobbelderbos.com/rss" target="_blank">RSS</a>.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/logo.jpg" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p> The idea of the app is to bring together basic info of almost all countries in the world and show attractive photos. See <a href="http://bobbelderbos.com/2012/02/how-to-start-building-your-own-countrytravel-api/" target="_blank">my last post</a> how I got the basic data.</p>
+<p>On top of that I built a login with Facebook to allow people to add recommendations and "special things" of the country, to add more personal value to the data. Again, a lot more can be done like user profiles, allow users to upload photos, location checkins, user following/mentions/likes, etc., but this is a start.</p>
+<p>In the rest of the post, I'll show you some techniques I used developing this site.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> The design</h3>
+<p>This is the homepage::</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/homepage_logged_out.png" alt="homepage logged out" style="float:none; margin: 20px;" width="580" /></p>
+<p>With more navigation options when logged in with Facebook:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/homepage_logged_in.png" alt="homepage logged in" style="float:none; margin: 20px;" width="580" /></p>
+<p> When browsing to a country, the image gallery changes to display photos of that country:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/ecuador_gallery.png" alt="ecuador image gallery" style="float:none; margin: 20px;" width="432" /></p>
+<p>Images show a bigger version when hovering over them with your mouse. This is done with the jQuery plugin <a href="http://cssglobe.com/post/1695/easiest-tooltip-and-image-preview-using-jquery" target="_blank">Image Preview</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/images_overlay1.png" alt="images overalay" style="float:none; margin: 20px;" width="428" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/images_overlay2.png" alt="images overlay" style="float:none; margin: 20px;" width="280" /><br />
+ <img class="size-full" src="{{ site.baseurl }}/assets/image_overlay3.png" alt="image overlay" style="float:none; margin: 20px;" width="489" /></p>
+<p>Basic specs from DB, again see my <a href="http://bobbelderbos.com/2012/02/how-to-start-building-your-own-countrytravel-api/" target="_blank">preparation work</a> how I got the data:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/specs.png" alt="specs" style="float:none; margin: 20px;" width="401" /></p>
+<p>A typical country page, for example <a href="http://www.bobbelderbos.com/globe/tr" target="_blank">Turkey</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/turkey_page.png" alt="turkey country page" style="float:none; margin: 20px;" width="580" /></p>
+<p> ... or what about <a href="http://www.bobbelderbos.com/globe/br" target="_blank">Brazil</a>?</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/brazil.png" alt="brazil country page" style="float:none; margin: 20px;" width="580" /></p>
+<h3> Technologies behind it</h3>
+<h4> HTML5 boilerplate</h4>
+<p>This is indeed, <a href="http://html5boilerplate.com/" target="_blank">as their page says</a>, "a rock-solid default for HTML5 awesome": performance, HTML5 ready, cross-browser support, CSS skeleton, etc. I did put in a <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank">reset css</a> to wipe out more unwanted default browser styles.</p>
+<h4> h1 and h2 fonts</h4>
+<p>The header fonts are "Philosopher" which you can get from <a href="http://www.google.com/webfonts#ChoosePlace:select" target="_blank">Google Web Fonts</a> and is easy to add:</p>
+<pre>
+   &lt;link href='http://fonts.googleapis.com/css?family=Philosopher:400,700' rel='stylesheet' type='text/css'&gt;
+</pre>
+<h4> Clean URLs</h4>
+<p>Each country is accessible under baseurl/two-digits, for example:</p>
+<p><a href="http://www.bobbelderbos.com/globe/ni" target="_blank">Nicaragua</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/cleanurl1.png" alt="clean urls" style="float:none; margin: 20px;" width="259" /></p>
+<p><a href="http://www.bobbelderbos.com/globe/br" target="_blank">Brazil</a>:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/cleanurl2.png" alt="clean urls" style="float:none; margin: 20px;" width="303" /></p>
+<p>This is much better than index.php?country=ad. Put this in .htaccess (if you use Apache webserver) to support clean URLs (see also <a href="http://bobbelderbos.com/2011/01/clean-urls-must-use/" target="_blank">this post</a>)</p>
+<pre>
+   RewriteEngine On
+   RewriteRule  ^[a-z0-9]+.(php|js|css|html)$ - [NC,L]
+   RewriteRule ^([a-zA-Z_0-9-.]+)$ index.php?country=$1
+</pre>
+<h4> Autocomplete</h4>
+<p>One of the things I like most and <a href="http://bobbelderbos.com/2011/01/my-5-favorite-jquery-snippets/" target="_blank">one of my favorite jQuery plugins</a> (<a href="http://bobbelderbos.com/2011/12/sharemovies-new-feature-search-interface-instant-trailers/" target="_blank">another recent example of its power</a>). You start typing in the search box and the corresponding country(ies) with flag(s) show up, press enter when your country is selected and it redirects to the page of the country. Not that hard to code; the jQuery:</p>
+<pre>
+   $(&quot;#searchCountry&quot;).autocomplete( &quot;searchCountry.php&quot;);
+   ..
+   // http://forum.jquery.com/topic/jquery-autocomplete-submit-form-on-result
+   $(&quot;#searchCountry&quot;).result(function (event, data, formatted) {
+   	$(&quot;#searchCountry&quot;).val('');
+   	
+   	$(&quot;#feedback&quot;).html('&lt;img class=&quot;loadingImg&quot; src=&quot;img/ajax-loader.gif&quot; id=&quot;loading&quot; /&gt;');
+   	
+   	var country = formatted.replace(/(&lt;.+?&gt;)|&amp;nbsp;/gi, '');
+   	
+   	if(country != 'No country found!') {	
+   		$.post(&quot;getCleanUrl.php&quot;,
+   			{ search: country},	function(data){
+   				location.href= data;
+   			}
+   		);
+   	} else {
+   		$(&quot;#loading&quot;).hide();
+   	}
+   });
+</pre>
+<p> ... and the php of "searchCountry.php":</p>
+<pre>
+   &lt;?php
+   include(&quot;conn.php&quot;);
+   include(&quot;functions.php&quot;);
+   
+   $_GET = sanitize($_GET);
+   
+   $q = strtolower($_GET[&quot;q&quot;]);
+   if (!$q) return;
+   
+   $q = &quot;SELECT iso2,country FROM countries where LOWER(country) like '%$q%' AND longitude NOT LIKE ''&quot;;
+   $r = $link-&gt;query($q);
+    
+   if(mysqli_num_rows($r)) {
+   	while($row = $r -&gt;fetch_object()){ 
+   		$iso2 = strtolower($row-&gt;iso2);
+   		echo '&lt;img src=&quot;img/flags/'.$iso2.'.gif&quot;&gt;&amp;nbsp;'; 
+   		echo '&lt;span class=&quot;countryCode&quot; id=&quot;' . $iso2 . '&quot;&gt;'.ucfirst(strtolower($row-&gt;country)) . '&lt;/span&gt;';
+   		echo &quot;n&quot;;
+   	}
+   	
+   } else {
+   	echo 'No country found!';
+   }
+   $link-&gt;close();
+   ?&gt;
+</pre>
+<p> ... and the php of "getCleanUrl.php":</p>
+<pre>
+   &lt;?php
+   include(&quot;conn.php&quot;);
+   include(&quot;functions.php&quot;);
+   $_POST = sanitize($_POST);
+   $search = strtoupper(trim($_POST['search']));
+  
+   $q = &quot;SELECT iso2 FROM countries WHERE country LIKE '$search' limit 1&quot;; 
+   $r = $link-&gt;query($q); 
+  
+   while($row = $r -&gt;fetch_object()){
+  	 echo strtolower($row-&gt;iso2);
+   }
+   ?&gt;
+</pre>
+<p>To see this in action:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/autocomplete.png" alt="jquery autocomplete" style="float:none; margin: 20px;" width="444" /></p>
+<h4> Facebook authorization</h4>
+<p>Get v.3.1.1 <a href="https://github.com/facebook/php-sdk" target="_blank">from github</a> , usually I copy the with_js_sdk.php which includes both PHP and JS SDKs and get all html out and make it an fb.php include file. Put in you app ID + secret, and you can start to use authorized stuff when $user gets defined (login). I used the login-button from FB with the extra permission to post to wall "publish_stream" (only if user checks the box when commenting, see later on):</p>
+<pre>
+   &lt;div style=&quot;display:inline; &quot; class=&quot;fb-login-button&quot; data-show-faces=&quot;false&quot; data-width=&quot;400&quot; data-max-rows=&quot;1&quot; scope=&quot;publish_stream&quot;&gt;&lt;/div&gt;
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h4> Get social content</h4>
+<p>On each country page a user can add recommendations:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/recommend_country.png" alt="recommend country" style="float:none; margin: 20px;" width="435" /></p>
+<p>... or like "special things" (dropdown with Expressions, Food, Cities, Traditions, Movies, Music, etc.):</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/special_things1.png" alt="special things" style="float:none; margin: 20px;" width="441" /></p>
+<p> When you change the category (object) in "special things", the title changes, compare the previous printscreen with the next two:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/special_things2.png" alt="special things country" style="float:none; margin: 20px;" width="441" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/special_things3.png" alt="special things country" style="float:none; margin: 20px;" width="435" /></p>
+<p> When comments add up, I use a vertical scroll bar (<a href="http://www.kelvinluck.com/assets/jquery/jScrollPane/jScrollPane.html" target="_blank">jScrollPane</a>), which gives an elegant style while I can leave the "display comment" sections a 100px height:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/jscrollpane.png" alt="example of jScrollPane" style="float:none; margin: 20px;" width="433" /></p>
+<h4> Post to Facebook</h4>
+<p> You can post your comment to Facebook by activating the checkbox under the input field. Opt-in is better I think, because opt-out in FB Apps is usually seen as spammy. Here you see this in action:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/post_food.png" alt="activate post to FB" style="float:none; margin: 20px;" width="426" /></p>
+<p>And how this looks on your FB wall:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/post_to_fb.png" alt="result on FB wall" style="float:none; margin: 20px;" width="448" /></p>
+<h4> Facebook JS SDK functions:</h4>
+<p> You can invite friends and let users share content to their walls with just this code (having included the FB JS SDK above):</p>
+<pre>
+   function Invite () {
+     FB.ui({ method: 'apprequests',
+       message: 'Check out this App if you like travelling and exploring countries ...'
+     });
+   }
+  
+   function WriteToWall(urlName, urlLink, urlDescr, urlLogo){
+   	 FB.ui({ 
+  		method: 'feed', 
+      	name: urlName,
+  		link: urlLink,
+  		description: urlDescr,
+         picture: urlLogo
+  	});
+   }
+  
+   .. which you call from your HTML
+   
+   ..
+   &lt;?php if ($user): ?&gt;
+  	Hi, &lt;?php echo fbImg($user) . ' '. $user_profile['first_name']; ?&gt;, 
+  		&lt;a href=&quot;&lt;?php echo $logoutUrl; ?&gt;&quot;&gt;Logout&lt;/a&gt;
+  		&amp;nbsp;|&amp;nbsp;&lt;a href=&quot;#&quot; onclick=&quot;WriteToWall('&lt;?php  echo $title.'',''.$countryUrl.'',''.$metaDescription.'',''.$ogImage; ?&gt;')&quot; 
+  			title=&quot;Send to your wall&quot;&gt;Share this&lt;?php if($_GET) echo ' country'?&gt;&lt;/a&gt;			
+  		&amp;nbsp;|&amp;nbsp;&lt;a href=&quot;#&quot; onclick=&quot;Invite()&quot; title=&quot;Tell your friends about this app&quot;&gt;Invite friends&lt;/a&gt;
+  
+   &lt;?php else:
+   ..
+</pre>
+<p>Invite your friends to use the app:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/invite_friends.png" alt="invite friends" style="float:none; margin: 20px;" width="580" /></p>
+<p>Share a certain (country) page to your wall. A random image of the country will be shown (and under the hood set as meta..og:image, the tag Facebook 'listens' to in order to display the image in the post, more info <a href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">here</a>):</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/share_wall2.png" alt="share to wall" style="float:none; margin: 20px;" width="580" /></p>
+<h4> User registration</h4>
+<p> In the fb.php include I check if the user was here before and if not, I register him/her:</p>
+<pre>
+   ..
+   if ($user) {
+    try {
+      // Proceed knowing you have a logged in user who's authenticated.
+      $user_profile = $facebook-&gt;api('/me');  // &lt;= this is from the FB PHP SDK
+  
+  	// register user 
+  	if(!userExists($user) &amp;&amp; $user_profile) {
+  		userRegister($user_profile);
+  	}
+</pre>
+<h4> Footer</h4>
+<p> In the footer a carousel of flags per continent. You can check <a href="http://bobbelderbos.com/2012/01/twitter-widget-show-latest-tweets-carousel-slide/" target="_blank">this post</a> how to make such a carousel effect with jQuery (and some CSS).</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/flag_slider.png" alt="flag carousel" style="float:none; margin: 20px;" width="448" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h4> To conclude</h4>
+<p> This is it for now. Let me know if you have questions and/or if you have any feedback/ suggestions what could be cool to add to <a href="http://www.bobbelderbos.com/globe/" target="_blank">this app</a> ...</p>

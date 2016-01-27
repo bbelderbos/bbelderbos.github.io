@@ -1,0 +1,72 @@
+---
+layout: post
+title: Your mobile site in 2 min, without being a techie!
+date: 2010-10-11 19:51:56.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- GMBHnews
+- mobile
+- monetize
+- rss
+- SEO
+- tools
+- traffic
+meta:
+  _edit_last: '1'
+  socialize: '1,2'
+  _thumbnail_id: '481'
+  _sexybookmarks_shortUrl: http://b2l.me/aysq86
+  _wp_old_slug: your-mobile-site-in-2-min-without-being-a-techie
+  _sexybookmarks_permaHash: b16bfed6a0a53eb934d6f05ba6e38d01
+  dsq_thread_id: '154659235'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today more and more people browse the web via a mobile device. This means for each new design we need to take into account how the design looks on such a device. There are many ways to do this. <!--more-->CSS is highly flexible so using percentage widths and floats, content drops when the screen size becomes smaller. Cool.. but budget, time and knowledge don't always allow to make a second investment for a mobile version. That's where mobilize tools come into play.</p>
+<p>In August I posted about <a href="http://bobbelderbos.com/2010/08/mobify-mobile-device-app/" target="_blank">Mobify</a>, a tool to roll your own mobile version selecting the divs from your site and style them. This took some time but had the advantage of being highly customizable. Today I show the other way around: a more standard way that is much faster and simpler. You can have a mobile version online in only 2 minutes without doing geeky stuff. Meet <a href="http://www.gmbhnews.com/make-mobile-site/" target="_blank">GMBHnews</a>, a tool designed to create a mobile version of your site based on its <a href="http://www.problogger.net/what-is-rss/" target="_blank">RSS feed</a>.</p>
+<h3>Why should I use this?</h3>
+<p>Compare these two mobile versions and it should be clear that it's not just an afterthought to tweak a little and give our visitors a chance to read our content better:</p>
+<p>[caption id="attachment_479" align="alignleft" width="295" caption="design intact but lot of scrolling required"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/10/no_mobile.png"><img class="size-full wp-image-479     " title="no_mobile" src="{{ site.baseurl }}/assets/no_mobile.png" alt="no mobile" width="295" height="687" /></a>[/caption]</p>
+<p>[caption id="attachment_480" align="alignleft" width="293" caption="content is better viewable this way"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/10/yes_mobile.png"><img class="size-full wp-image-480    " title="yes_mobile" src="{{ site.baseurl }}/assets/yes_mobile.png" alt="yes mobile" width="293" height="687" /></a>[/caption]</p>
+<h3>Howto</h3>
+<p>So to start off you need a feed URL. If you use Wordpress, you have this already set up, if not you can roll your own, there are plenty of manuals available, for example <a href="http://www.webreference.com/authoring/languages/xml/rss/custom_feeds/" target="_blank">this one</a>. Then you simply sign up and you get an unique URL assigned, mine is <a href="http://www.gmbhnews.com/view/Personal-website-of-Bob-Belderbos.html" target="_blank">http://www.gmbhnews.com/view/Personal-website-of-Bob-Belderbos.html</a>. After clicking the "mobilize now" button, you are presented with a code snippet you can put in the header of your site. It will redirect all mobile traffic to your GMBHnews URL. The structure of you mobile site looks like Google reader, see some printscreens below: you have the titles you can toggle open.</p>
+<p>[caption id="attachment_484" align="aligncenter" width="630" caption="some printscreens of gmbhnews"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/10/printscreems_gmbh.jpg"><img class="size-full wp-image-484 " title="printscreems_gmbh" src="{{ site.baseurl }}/assets/printscreems_gmbh.jpg" alt="some printscreens of gmbhnews" width="630" height="350" /></a>[/caption]</p>
+<h3>Strengths and weaknesses</h3>
+<p>So playing with this last week, I found some advantages / disadvantages:</p>
+<p><span style="text-decoration: underline;">Advantages</span><br />
+-It is simple and fast: sign up with your RSS feed and you're done. Put the snippet in your page, and routing goes automatically, detecting if a mobile device browses your site. I only tested it with iphone and the redirect works after putting the snippet in my footer (I prefer to put JS in the footer to gain performance). In case of my customized Wordpress theme I had to create a hook to add the code to my footer:</p>
+<pre> // mobile version gmbh
+function childtheme_gmbh() { ?&gt;
+&lt;script type="text/javascript"&gt;
+(function(){var c=navigator.userAgent
+.. .. 
+browser detection code ..
+a.href="h
+<pre id="line484">http://www.gmbhnews.com/view/Personal-website-of-Bob-Belderbos.html?i=COMR</pre>
+<p>.. ..  &lt;/script&gt; &lt;?php } add_action('wp_footer', 'childtheme_gmbh');<br />
+-It's RSS-based. New content will be displayed instantly on your mobilized site. No manual updating required.</p>
+<p>-Social media integration. People can vote your site sharing it on twitter or facebook. Hopefully this will be integrated on a per-article-basis, but in my case, having the share buttons below the articles, they are visible anyway.</p>
+<p>-Your blog will be included in GMBHnews. This might generate more traffic to your site. You can host various blogs/ RSS feeds. This is an advantage for big companies with hundreds of blogs/ feeds. Visit <a href="http://www.gmbhnews.com" target="_blank">GMBHnews</a> for examples.</p>
+<p>-You can monetize the traffic with adsense or private custom ads. This is interesting for site owners as well as publishers.</p>
+<p>- One solution for a great variety of mobile devices. Sign up once and done. The simplicity of the standard template makes it quite robust. No compatibility nightmares if you'd go with a customized design, you're all set. And I think that with mobile devices the focus is on content, it's just a matter what comes first when screen real estate is (severely) limited.</p>
+<p>-SEO friendly structure of the site URLs to gain additional traffic: it respects title + description + keywords and google likes that</p>
+<p><span style="text-decoration: underline;"><br />
+Disadvantages</span>:<br />
+-It's one standard design, you cannot customize its look nor feel with CSS. If you want the same look as your site, choose a more specialized way. If you want that you could use Mobify which let you select divs and play with the underlying CSS. This is not for techies that like to play with their design, load a separate stylesheet and do your any nifty CSS stuff<br />
+For anybody who wants to go with an advanced solution, you might check out O'Reilly's <a href="http://oreilly.com/catalog/0636920015109" target="_blank">HTML5 Mobile Web Development</a></p>
+<p>-It's RSS-based. If you don't have a blog but a portfolio with photos, this text-based service is probably not for you.</p>
+<p>-I had some issues with smileys displaying too big and images not showing up, maybe a linking issue. Also I had some issues with the social media buttons. I guess, as the app is still in Beta phase, this will be all sorted out in future releases.. As I am using this solution for now, any issue I report to <a href="http://www.gmbhnews.com/contact-us/" target="_blank">support</a>. I tend to get a quick and helpful response.</p>
+<p>-Unlike other services it's free for 30 days (trial) then you'll have to pay a monthly fee, starting at $ 9/month. It's not expensive though, if you start to monetize your site you can earn it back and even more.</p>
+<h3>Conclusion</h3>
+<p>If you are a CSS ninja that wants to have his/her mobile counterpart look the same, don't try this. If you want to manage various blogs and you want to recognize the mobile browsing market-share, but without loosing much time, this might be an interesting option for you.</p>
+<p>I like it as a quick solution right now, and the upcoming web makes this quite a valuable service. However, personally I like to hack so I think in the end I will come up with a customized html5/css solution. The problem is that it will cost extra time and effort.</p>
+<p>As there is a free trial, you don't loose anything by signing up and trying it yourself. Let me know what you think ...</p>
+<p style="text-align: center;"><a href="http://bobbelderbos.com/wp-content/uploads/2010/10/mobile.jpg"><img class="size-full wp-image-481 aligncenter" title="mobile" src="{{ site.baseurl }}/assets/mobile.jpg" alt="" width="200" height="200" /></a></p>

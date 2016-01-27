@@ -1,0 +1,252 @@
+---
+layout: post
+title: Daily movie digest Spanish TV / Part II - rewrite in Python
+date: 2013-01-02 20:07:02.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- python
+- scripting
+- spanish tv
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2273'
+  dsq_thread_id: '1004802735'
+  _oembed_3950f4c006754a5aae006be54c551df7: '{{unknown}}'
+  _oembed_d221f414d1e56e89bb2aeb6921e8a1e0: '{{unknown}}'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> To learn more Python I am making up some new scripting exercises these days. I am also rewriting some Perl scripts I made last year. Today my daily Spanish TV movie email script, discussed <a href="http://bobbelderbos.com/2012/09/perl-practice-daily-mail-of-movies-spanish-tv/" target="_blank">here</a>: rewritten and improved in Python.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>What is this script about?</h3>
+<p> This script queries <a href="http://www.sincroguia.tv/todas-las-peliculas.html" target="_blank">http://www.sincroguia.tv/todas-las-peliculas.html</a> for movies that will be aired on Spanish TV today. For each title it crawls the corresponding URL for additional details. All is formatted in an output I get emailed everyday via a cronjob on my webhost.</p>
+<h3>What could be better since last time?</h3>
+<ul>
+<img class="size-full" src="{{ site.baseurl }}/assets/cinetv2.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<li> All titles were shown in verbose mode, so if I wanted to quickly see what was on, it required a lot of scrolling, not good. Hence the script prints a summary first now (example at the end of this post).</li>
+<li> Related: the script has day detection now, because during weekdays I only want to know what is on starting 8pm, for weekend days I want to have the movie guide for the whole day.</li>
+<li> The movie URLs get more thoroughly parsed, providing more movie info (kudos to sincroguia.tv, the movie info is actually quite good)</li>
+<li> Spanish movie titles have their English counter-title on the details page, so I pushed this vital piece of information to the top summary. This way I can quickly see what movie it actually is !</li>
+<li> Structure code in OOP: this is a new trend in my coding lately and I feel code gets much cleaner, and potentially more re-usable. The class is a black box and somebody could just plug it in and call the methods he/she is interested in, in this case only two, but it makes the point I think: </li>
+<pre>
+t = TvCine()
+t.print_movie_titles()
+t.print_movie_details()
+</pre>
+<p> I still think the methods should be shorter and over time I want to introduce TDD to make it all more robust, but you have to start somewhere. I think this version is much more readable than the <a href="https://github.com/bbelderbos/Codesnippets/blob/master/perl/cine.pl" target="_blank">Perl variant</a> (any opinions and suggestions are welcome in the comments of course). Btw, <a href="http://www.linuxjournal.com/article/3882" target="_blank">Why Python?</a> is an interesting read if you also consider Python after or alongside Perl.</p>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>The script</h3>
+<p> Without further ado, see also on <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/cine_tv.py" target="_blank">github</a>:</p>
+<pre>
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Author: Bob Belderbos / written: Dec 2012
+# Purpose: get movies aired on Spanish tv to use in 24-hour cronjob
+#
+import pprint, urllib, re, sys, datetime
+from bs4 import BeautifulSoup as Soup
+
+class TvCine(object):
+
+  def __init__(self):
+    &quot;&quot;&quot; Setup variables, define hour range of which I want to know the movie airing of &quot;&quot;&quot;
+    # if weekday (0-4 - 0 being Monday) show movies from 20-24h, weekend I want to see all movies aired: 
+    self.weekday = datetime.datetime.today().weekday() 
+    if self.weekday in [5,6]: # 5 = Sat, 6 = Sun
+      self.START_TIME = 9
+    else: 
+      self.START_TIME = 20
+    # always end at midnight (tomorrow a new day, so a new output from cron)
+    self.END_TIME = 00
+    self.moviePage = &quot;http://www.sincroguia.tv/todas-las-peliculas.html&quot; 
+    self.movies = self.parse_movies()
+    # pprint.pprint(self.movies); sys.exit()
+
+
+  def parse_movies(self):
+    &quot;&quot;&quot; Import the movie URL &quot;&quot;&quot;
+    soup = Soup(self.read_url(self.moviePage))
+    movies = []
+    for link in soup.find_all(&quot;a&quot;):
+      time = link.previous_sibling
+      try:
+        channel = re.sub(r&quot;.* - &quot;, &quot;&quot;, str(link.contents[0].encode(encoding=&#39;UTF-8&#39;,errors=&#39;strict&#39;)))
+      except:
+        channel = &quot;not_found&quot; 
+      url = link.get(&#39;href&#39;)
+      title = link.get(&#39;title&#39;)
+      if not &quot;/peliculas/&quot; in url: continue
+      if int(time[:2]) &lt; self.START_TIME: continue
+      if time[:2] == self.END_TIME: break
+      (longTitle, verboseInfo) = self.get_movie_verbose_info(title, url)
+      movies.append({ &#39;time&#39;: time[0:6], 
+                      &#39;channel&#39;: channel,
+                      &#39;title&#39;:longTitle.encode(encoding=&#39;UTF-8&#39;,errors=&#39;strict&#39;), 
+                      &#39;url&#39;: url.encode(encoding=&#39;UTF-8&#39;,errors=&#39;strict&#39;), 
+                      &#39;info&#39;: verboseInfo.encode(encoding=&#39;UTF-8&#39;,errors=&#39;strict&#39;),  
+                    })
+    return movies
+
+   
+  def get_movie_verbose_info(self, title, url):
+    &quot;&quot;&quot; Read the movie page in and return the translated title if available and all movie info &quot;&quot;&quot;
+    html = self.read_url(url)
+    # try to get the relevant html section of the movie page, if nothing found too bad, move on
+    soup = self.filter_relevant_bits(html)
+    titleInfo = ficha = contentficha = &quot;&quot;
+    lineNum = 0
+    if soup: 
+      for line in soup.li.stripped_strings: 
+        ficha += line + &quot;n&quot;
+      for line in soup.find_all(&#39;li&#39;)[1].stripped_strings:
+        lineNum += 1
+        if lineNum&lt;3: titleInfo += line + &quot; &quot;
+        contentficha += line + &quot;n&quot;
+    else:
+      ficha = &quot;Not able to obtain movie info for %s&quot; % title
+    return (titleInfo, ficha+&quot;n&quot;+contentficha)
+
+
+  def read_url(self, url):
+    &quot;&quot;&quot; Read and return the content of a url &quot;&quot;&quot;
+    f = urllib.urlopen(url) 
+    html = f.read()
+    f.close
+    return html
+
+  
+  def filter_relevant_bits(self, html):
+    &quot;&quot;&quot; Get the html part that matters from the movie page &quot;&quot;&quot;
+    a = html.split(&#39;class=&quot;ficha&quot;&gt;&#39;)
+    try:
+      movieInfo = a[1].split(&#39;&lt;a href=&quot;javascript:;&quot; onclick=&quot;remote&#39;)
+    except IndexError:
+      return False 
+    soup = Soup(movieInfo[0]) 
+    return soup
+
+
+  def print_movie_titles(self): 
+    &quot;&quot;&quot; Print all the movie titles to be aired on Spanish TV today &quot;&quot;&quot;
+    print &quot;I. Movies Spanish TV Today %s:00-%s:00n&quot; % (self.START_TIME, self.END_TIME)
+    for m in self.movies:
+      print m[&#39;time&#39;], &quot; | &quot;, &quot;%-8s&quot; % m[&#39;channel&#39;], &quot; | &quot;, m[&#39;title&#39;]
+    print &quot;nn&quot;
+      
+
+  def print_movie_details(self):
+    &quot;&quot;&quot; Print verbose details for each movie &quot;&quot;&quot;
+    print &quot;II. Details for each movie ... n&quot; 
+    for m in self.movies:
+      print &quot;+&quot; * 80
+      print m[&#39;time&#39;], &quot; | &quot;, &quot;%-8s&quot; % m[&#39;channel&#39;], &quot; | &quot;, m[&#39;title&#39;]
+      print &quot;+&quot; * 80
+      print &quot;URL: n&quot; + m[&#39;url&#39;]
+      print &quot;nDetails: n&quot; + m[&#39;info&#39;]
+      print &quot;nn&quot;
+
+
+### instant
+t = TvCine()
+t.print_movie_titles()
+t.print_movie_details()
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>How does the output look?</h3>
+<p> I can send you one, or download the script and run it yourself. This is a snippet (the Spanish accents actually work in my terminal and email, not sure why they get messed up here):</p>
+<pre>
+$ python cine_tv.py 
+
+I. Movies Spanish TV Today 20:00-0:00
+
+20:00   |  L63       |  Cine: Poltergeist (Fen&Atilde;&sup3;menos extra&Atilde;&plusmn;os) Cine - Terror 
+20:25   |  PARAM     |  El guerrero americano II: la confrontaci&Atilde;&sup3;n (American Ninja 2: The Confrontation) 
+22:00   |  PARAM     |  Seabiscuit, m&Atilde;&iexcl;s all&Atilde;&iexcl; de la leyenda Cine - Drama 
+22:00   |  L63       |  Cine: Poltergeist II (Poltergeist II: The Other Side) 
+22:00   |  T5        |  Cine: El equipo A (The A-Team) 
+22:00   |  La2       |  El cine de La 2: Oliver Twist Cine - Drama 
+22:10   |  A3        |  El pelicul&Atilde;&sup3;n: Toy Story 3 Cine - Animaci&Atilde;&sup3;n 
+22:25   |  La6       |  Cine: Estado de sitio (The Siege) 
+22:30   |  La1       |  Cine: Ocean&#39;s Eleven (Ocean&#39;s Eleven) 
+22:30   |  Nova      |  Cine: Homicidio en primer grado (Murder in the First) 
+
+
+
+II. Details for each movie ... 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20:00   |  L63       |  Cine: Poltergeist (Fen&Atilde;&sup3;menos extra&Atilde;&plusmn;os) Cine - Terror 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+URL: 
+http://www.sincroguia.tv/peliculas/poltergeist_fenos_extra_18570664.html
+
+Details: 
+Director:
+Tobe Hooper
+Int&Atilde;&copy;rpretes:
+JoBeth Williams, Oliver Robins, Heather O&#39;Rourke, Beatrice Straight, Craig T. Nelson
+Gui&Atilde;&sup3;n:
+Steven Spielberg, Michael Grais, Mark Victor
+M&Atilde;&ordm;sica:
+Jerry Goldsmith
+Director de Fotograf&Atilde;&shy;a:
+Matthew F. Leonetti
+Producci&Atilde;&sup3;n:
+Steven Spielberg, Frank Marshall
+Productora:
+Metro-Goldwyn-Mayer (MGM), SLM Production Group
+Idioma Original:
+Ingl&Atilde;&copy;s
+Nacionalidad:
+Estados Unidos
+A&Atilde;&plusmn;o:
+1982
+Duraci&Atilde;&sup3;n:
+114          minutos
+Edad:
+Todos los P&Atilde;&ordm;blicos
+
+Cine: Poltergeist (Fen&Atilde;&sup3;menos extra&Atilde;&plusmn;os)
+Cine - Terror
+laSexta3
+Mi&Atilde;&copy;rcoles&Acirc;&nbsp;02&Acirc;&nbsp;de&Acirc;&nbsp;Enero&Acirc;&nbsp;de&Acirc;&nbsp;2013
+Inicio:&Acirc;&nbsp;
+        20:00        /&Acirc;&nbsp;Fin:
+        22:00
+Terror
+Calificaci&Atilde;&sup3;n Art&Atilde;&shy;stica:
+Calificaci&Atilde;&sup3;n Comercial:
+Una familia estadounidense padece fen&Atilde;&sup3;menos paranormales en su casa. Al principio, los esp&Atilde;&shy;ritus se manifiestan moviendo muebles y dem&Atilde;&iexcl;s objetos del hogar. Pero pronto se vuelven agresivos y secuestran a la hija peque&Atilde;&plusmn;a de la familia. Cuando todas las explicaciones cient&Atilde;&shy;ficas y racionales han fracasado, los padres contratan a una espiritista que intentar&Atilde;&iexcl; limpiar la casa y recuperar a la ni&Atilde;&plusmn;a.
+Producida por Steven Spielberg (quien se rumorea que tambi&Atilde;&copy;n dirigi&Atilde;&sup3; parte del filme), &quot;Poltergeist&quot; fue una de las pel&Atilde;&shy;culas de terror m&Atilde;&iexcl;s exitosas de la d&Atilde;&copy;cada de 1980. Recuper&Atilde;&sup3; para el cine a Tobe Hooper (&quot;La matanza de Texas&quot;), un nombre legendario del g&Atilde;&copy;nero. La cinta est&Atilde;&iexcl; basada en un cap&Atilde;&shy;tulo de la serie &quot;La dimensi&Atilde;&sup3;n desconocida&quot; titulado &quot;Ni&Atilde;&plusmn;a perdida&quot;. &quot;Poltergeist (Fen&Atilde;&sup3;menos extra&Atilde;&plusmn;os)&quot; dio pie a dos secuelas y hasta a una serie de televisi&Atilde;&sup3;n.
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20:25   |  PARAM     |  El guerrero americano II: la confrontaci&Atilde;&sup3;n (American Ninja 2: The Confrontation) 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+URL: 
+http://www.sincroguia.tv/peliculas/el_guerrero_americano_ii_la_confrontaci_18511018.html
+
+Details: 
+..
+..
+etc. etc.
+..
+..
+
+</pre>
+<h3>In closing</h3>
+<p> Hope this inspires you to try to come up with coding exercises yourself to share. Feel free to ping me for ideas and suggestions.</p>
+<p> I wish you all a Happy New Year</p>

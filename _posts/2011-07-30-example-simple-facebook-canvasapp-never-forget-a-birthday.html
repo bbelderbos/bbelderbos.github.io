@@ -1,0 +1,271 @@
+---
+layout: post
+title: 'Example of a simple Facebook Canvas App: "Never Forget a Birthday"'
+date: 2011-07-30 11:12:05.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- app
+- birthday
+- css
+- dialog
+- facebook api
+- fql
+- JS
+- JS sdk
+- like
+- login
+- meta
+- permissions
+- php
+- php SDK
+- skeleton
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1070'
+  dsq_thread_id: '372494631'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Hi there, I just finished another <a title="new fb app: never forget a birthday" href="http://apps.facebook.com/mybdaycal/" target="_blank">Facebook App</a> to check out your friends' birthdays and send them easily a wall post or a personal message. This post shows some of the technologies behind it. <!--more--></p>
+<h3>PHP SDK library</h3>
+<p>First you need to grab a copy of the <a title="php sdk on github" href="https://github.com/facebook/php-sdk/" target="_blank">PHP SDK 3.0</a> library. <a title="great tutorial on implementing the php sdk 3.0 library" href="http://thinkdiff.net/facebook/graph-api-iframe-base-facebook-application-development-php-sdk-3-0/" target="_blank">This great article</a> by Mahmud Ahsan shows a nice code example how you can implement it. Also when creating the app, in the dashboard you are provided with a simple example (this was a test app)</p>
+<p>&nbsp;</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-30-at-12.06.03-AM.png"><img class="size-full wp-image-1071 alignnone" title="Screen shot 2011-07-30 at 12.06.03 AM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-30-at-12.06.03-AM.png" alt="" width="405" height="435" /></a></p>
+<p>&nbsp;</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-30-at-12.06.10-AM.png"><img class="alignnone size-full wp-image-1072" title="Screen shot 2011-07-30 at 12.06.10 AM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-30-at-12.06.10-AM.png" alt="" width="482" height="433" /></a></p>
+<p>You can administer your apps from the <a title="apps homepage" href="https://developers.facebook.com/apps" target="_blank">developer's apps page</a> (you need to sign up first)</p>
+<h3>Direct login, no login button</h3>
+<p>Instead of the famous login button I direct the user directly to the login / grant permission page/dialog with :</p>
+<pre>    if (!$user) {
+        echo "&lt;script type='text/javascript'&gt;top.location.href = '$loginUrl';&lt;/script&gt;";
+        exit;
+    }</pre>
+<p>$loginUrl comes from $facebook-&gt;getLoginUrl from the PHP SDK itself.</p>
+<h3>Extended permission</h3>
+<p>In fbmain.php you need to define the extra permissions the user needs to grant, in this case just 1:</p>
+<pre>    $loginUrl   = $facebook-&gt;getLoginUrl(
+            array( 'scope'         =&gt;  'friends_birthday'  )
+    );</pre>
+<p>When a user accesses the app for the first time this looks something like:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-30-at-11.20.51-AM.png"><img class="alignnone size-medium wp-image-1077" title="Screen shot 2011-07-30 at 11.20.51 AM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-30-at-11.20.51-AM-300x173.png" alt="" width="300" height="173" /></a></p>
+<h3>FQL, the workhorse</h3>
+<p>As discussed in <a title="fql explained" href="http://bobbelderbos.com/2011/07/fql-powerful-way-query-facebook-graph-api/" target="_blank">my previous post</a> you can use FQL to get all Friends' birthdays:</p>
+<pre>$c_month = date('m');	// I also use a GET variable to input other months
+
+$query = "https://api.facebook.com/method/fql.query?query=";
+$query .= urlencode("SELECT uid, name,pic_square, birthday_date</pre>
+<pre>  FROM user WHERE (substr(birthday_date, 0, 2) = \"$c_month\")</pre>
+<pre>  AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) order by name"); 
+
+$query .= "&amp;access_token=".$access_token."&amp;format=json";
+$out = file_get_contents($query);
+$response = json_decode($out, true);
+aasort($response,"birthday_date");  // sorts the birthdays in chronological order</pre>
+<h3>CSS</h3>
+<p>To check some of the styles used, I recommend to install the <a title="toolbar" href="https://addons.mozilla.org/es-es/firefox/addon/web-developer/" target="_blank">developer toolbar</a>. The elegance of the Georgia suits well here.  I used some red (#900) to emphasize "Never" and the month.</p>
+<p>PHP adds a class for the current date so that today's birthdays will jump out giving them a reddish background color:</p>
+<pre>.currentDay {background-color: #FF6666;}</pre>
+<pre><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/due.png"><img class="alignnone size-medium wp-image-1082" title="due" src="{{ site.baseurl }}/assets/due-300x56.png" alt="" width="300" height="56" /></a></pre>
+<h3>JS / Jquery</h3>
+<p>Clicking between the months might take a bit - FQL needs to query the month you clicked (preloading all stuff would take too long, caching the results would be too advanced for this stage) - so a loader.gif is shown in a feedback div at the top of the page :</p>
+<pre>	// chrome workaround http://bit.ly/nHwY2P
+	new Image().src = 'images/loader.gif';
+
+	$("#navlinks a").click(function(){
+		$("#feedback").html('&lt;img src="images/loader.gif"&gt;');
+
+	});</pre>
+<h3>Facebook JS SDK</h3>
+<p>For some features it is preferred to also add the <a title="JS sdk" href="http://developers.facebook.com/docs/reference/javascript/" target="_blank">JS SDK</a>. Especially for popup dialogs, inviting friends to your apps and the Like button. Below the inclusion of the library as well as the post to wall, send message and invite functions. $fbconfig['appid'] comes from your fbmain.php config file (see link to the thinkdiff article provided earlier):</p>
+<pre>&lt;div id="fb-root"&gt;&lt;/div&gt;
+&lt;script src="http://connect.facebook.net/en_US/all.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  FB.init({appId: '&lt;?= $fbconfig['appid' ] ?&gt;', status: true,
+           cookie: true, xfbml: true});
+  FB.Event.subscribe('auth.login', function(response) {
+    window.location.reload();
+  });</pre>
+<pre>// click on the green comment button and you get a popup to post to your friend's wall
+ function fb_publish(sendUid) {
+	// http://developers.facebook.com/docs/reference/javascript/FB.ui/
+
+	 FB.ui(
+	   {
+	     to: sendUid,
+		 method: 'feed'
+	   }
+	 );</pre>
+<pre>// yields:</pre>
+<pre><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-30-at-11.22.09-AM.png"><img class="alignnone size-medium wp-image-1078" title="Screen shot 2011-07-30 at 11.22.09 AM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-30-at-11.22.09-AM-300x122.png" alt="" width="300" height="122" /></a>
+
+  }</pre>
+<pre></pre>
+<pre>// click the email button and you can send a private message</pre>
+<pre>// it seems that a link is required, not sure why FB designed it this way ?!</pre>
+<pre> function fb_send(sendUid) {
+	// http://developers.facebook.com/docs/reference/javascript/FB.ui/
+
+	 FB.ui(
+	   {
+	    to: sendUid,
+	    method: 'send',
+	    name: 'Happy Birthday!',
+	    link: 'https://apps.facebook.com/mybdaycal/',
+	    picture: 'http://bobbelderbos.com/bday/images/birthday.jpg'
+	   }
+	 );</pre>
+<pre>// yields:</pre>
+<pre><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-30-at-11.21.20-AM.png"><img class="alignnone size-medium wp-image-1079" title="Screen shot 2011-07-30 at 11.21.20 AM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-30-at-11.21.20-AM-300x169.png" alt="" width="300" height="169" /></a>
+
+  }</pre>
+<pre>//  at the left upper corner you can click "invite friends", a dialog appears</pre>
+<pre>// with all your friends, you can send them a request to use this app</pre>
+<pre>  function Invite () {
+    FB.ui({ method: 'apprequests',
+      message: 'This app lets you stay up2date with friends birthdays and send them</pre>
+<pre>                directly a happy birthday message'
+    });</pre>
+<pre>// yields:</pre>
+<pre><a href="http://bobbelderbos.com/wp-content/uploads/2011/07/Screen-shot-2011-07-30-at-11.21.28-AM.png"><img class="alignnone size-medium wp-image-1080" title="Screen shot 2011-07-30 at 11.21.28 AM" src="{{ site.baseurl }}/assets/Screen-shot-2011-07-30-at-11.21.28-AM-300x82.png" alt="" width="300" height="82" /></a>
+  }
+
+&lt;/script&gt;</pre>
+<p>The functions are called in the PHP that loops over all the friends (from the FQL response):</p>
+<pre>	echo '&lt;td&gt;&lt;a class="aWall" href="#" <strong>onclick="fb_publish(
+<pre> ..</pre>
+<pre>	&lt;a style="font-size: 85%; " href="#" <strong>onclick="Invite()"</strong></pre>
+<pre>        title="Invite your Friends to this App"&gt;Invite Friends &amp;raquo;&lt;/a&gt;</pre>
+<h3>Like Button</h3>
+<p>The like button links to the <a title="FB app page" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">FB Application page</a>. Since last April you can <a title="send option was introduced" href="http://bobbelderbos.com/2011/04/new-send-button-facebook-ap/" target="_blank">include the Send button</a>.</p>
+<pre>&lt;fb:like href="http://www.facebook.com/apps/application.php?id=246397802045313"</pre>
+<pre> <strong>send="true"</strong> width="380" show_faces="false" font="lucida grande"&gt;&lt;/fb:like&gt;</pre>
+<h3>Meta tags</h3>
+<p>See the <a title="fb opengraph" href="http://developers.facebook.com/docs/opengraph/" target="_blank">opengraph documentation</a>. The <a title="post on this phenomenon" href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">og:image allows the Like button to pick the right image</a></p>
+<pre>	&lt;meta property="og:image" content="http://www.bobbelderbos.com/bday/images/birthday.jpg" /&gt;
+	&lt;meta property="fb:admins" content="628517118" /&gt;
+	&lt;meta property="fb:app_id" content="246397802045313"&gt;</pre>
+<h3>Framework</h3>
+<p>I use the <a title="skeleton page" href="http://www.getskeleton.com/" target="_blank">Skeleton</a> boilerplate that has some good defaults for structuring my page. CSS and JS.</p>
+<h3>Nothing new just playing, feedback welcome</h3>
+<p><img class="alignright size-thumbnail wp-image-1070" title="bdayApp" src="{{ site.baseurl }}/assets/bdayApp-150x150.png" alt="" width="120" height="120" /></p>
+<p>This functionality is nothing new, it seems that Facebook built in something quite similar, but the purpose was to learn more about the Facebook API (FQL, SDKs, dialogs, etc.) and dedicate a blog post to it. Interesting would be to combine it with a birthday card API somehow ...</p>
+<p>If it is useful to anybody that would be great.</p>
+<p>I love to hear your feedback.</p>
+<p>App link: <a title="go to app" href="http://apps.facebook.com/mybdaycal/" target="_blank">http://apps.facebook.com/mybdaycal/</a></p>
+<p>FB page: <a title="fb page of the app" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">http://facebook.com/apps/application.php?id=246397802045313</a></p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covered, just drop me a message, I am open to anything web-related.</p>
+'.$sendUid.'
+<pre> ..</pre>
+<pre>	&lt;a style="font-size: 85%; " href="#" <strong>onclick="Invite()"</strong></pre>
+<pre>        title="Invite your Friends to this App"&gt;Invite Friends &amp;raquo;&lt;/a&gt;</pre>
+<h3>Like Button</h3>
+<p>The like button links to the <a title="FB app page" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">FB Application page</a>. Since last April you can <a title="send option was introduced" href="http://bobbelderbos.com/2011/04/new-send-button-facebook-ap/" target="_blank">include the Send button</a>.</p>
+<pre>&lt;fb:like href="http://www.facebook.com/apps/application.php?id=246397802045313"</pre>
+<pre> <strong>send="true"</strong> width="380" show_faces="false" font="lucida grande"&gt;&lt;/fb:like&gt;</pre>
+<h3>Meta tags</h3>
+<p>See the <a title="fb opengraph" href="http://developers.facebook.com/docs/opengraph/" target="_blank">opengraph documentation</a>. The <a title="post on this phenomenon" href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">og:image allows the Like button to pick the right image</a></p>
+<pre>	&lt;meta property="og:image" content="http://www.bobbelderbos.com/bday/images/birthday.jpg" /&gt;
+	&lt;meta property="fb:admins" content="628517118" /&gt;
+	&lt;meta property="fb:app_id" content="246397802045313"&gt;</pre>
+<h3>Framework</h3>
+<p>I use the <a title="skeleton page" href="http://www.getskeleton.com/" target="_blank">Skeleton</a> boilerplate that has some good defaults for structuring my page. CSS and JS.</p>
+<h3>Nothing new just playing, feedback welcome</h3>
+<p><img class="alignright size-thumbnail wp-image-1070" title="bdayApp" src="{{ site.baseurl }}/assets/bdayApp-150x150.png" alt="" width="120" height="120" /></p>
+<p>This functionality is nothing new, it seems that Facebook built in something quite similar, but the purpose was to learn more about the Facebook API (FQL, SDKs, dialogs, etc.) and dedicate a blog post to it. Interesting would be to combine it with a birthday card API somehow ...</p>
+<p>If it is useful to anybody that would be great.</p>
+<p>I love to hear your feedback.</p>
+<p>App link: <a title="go to app" href="http://apps.facebook.com/mybdaycal/" target="_blank">http://apps.facebook.com/mybdaycal/</a></p>
+<p>FB page: <a title="fb page of the app" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">http://facebook.com/apps/application.php?id=246397802045313</a></p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covered, just drop me a message, I am open to anything web-related.</p>
+)"</strong>
+		title="Send '.$friend['name'].' a Wall Post"&gt;
+		&lt;img src="images/comment.png"&gt;&lt;/a&gt;&lt;/td&gt;';
+	echo '&lt;td&gt;&lt;a class="aSend" href="#" <strong>onclick="fb_send(
+<pre> ..</pre>
+<pre>	&lt;a style="font-size: 85%; " href="#" <strong>onclick="Invite()"</strong></pre>
+<pre>        title="Invite your Friends to this App"&gt;Invite Friends &amp;raquo;&lt;/a&gt;</pre>
+<h3>Like Button</h3>
+<p>The like button links to the <a title="FB app page" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">FB Application page</a>. Since last April you can <a title="send option was introduced" href="http://bobbelderbos.com/2011/04/new-send-button-facebook-ap/" target="_blank">include the Send button</a>.</p>
+<pre>&lt;fb:like href="http://www.facebook.com/apps/application.php?id=246397802045313"</pre>
+<pre> <strong>send="true"</strong> width="380" show_faces="false" font="lucida grande"&gt;&lt;/fb:like&gt;</pre>
+<h3>Meta tags</h3>
+<p>See the <a title="fb opengraph" href="http://developers.facebook.com/docs/opengraph/" target="_blank">opengraph documentation</a>. The <a title="post on this phenomenon" href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">og:image allows the Like button to pick the right image</a></p>
+<pre>	&lt;meta property="og:image" content="http://www.bobbelderbos.com/bday/images/birthday.jpg" /&gt;
+	&lt;meta property="fb:admins" content="628517118" /&gt;
+	&lt;meta property="fb:app_id" content="246397802045313"&gt;</pre>
+<h3>Framework</h3>
+<p>I use the <a title="skeleton page" href="http://www.getskeleton.com/" target="_blank">Skeleton</a> boilerplate that has some good defaults for structuring my page. CSS and JS.</p>
+<h3>Nothing new just playing, feedback welcome</h3>
+<p><img class="alignright size-thumbnail wp-image-1070" title="bdayApp" src="{{ site.baseurl }}/assets/bdayApp-150x150.png" alt="" width="120" height="120" /></p>
+<p>This functionality is nothing new, it seems that Facebook built in something quite similar, but the purpose was to learn more about the Facebook API (FQL, SDKs, dialogs, etc.) and dedicate a blog post to it. Interesting would be to combine it with a birthday card API somehow ...</p>
+<p>If it is useful to anybody that would be great.</p>
+<p>I love to hear your feedback.</p>
+<p>App link: <a title="go to app" href="http://apps.facebook.com/mybdaycal/" target="_blank">http://apps.facebook.com/mybdaycal/</a></p>
+<p>FB page: <a title="fb page of the app" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">http://facebook.com/apps/application.php?id=246397802045313</a></p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covered, just drop me a message, I am open to anything web-related.</p>
+'.$sendUid.'
+<pre> ..</pre>
+<pre>	&lt;a style="font-size: 85%; " href="#" <strong>onclick="Invite()"</strong></pre>
+<pre>        title="Invite your Friends to this App"&gt;Invite Friends &amp;raquo;&lt;/a&gt;</pre>
+<h3>Like Button</h3>
+<p>The like button links to the <a title="FB app page" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">FB Application page</a>. Since last April you can <a title="send option was introduced" href="http://bobbelderbos.com/2011/04/new-send-button-facebook-ap/" target="_blank">include the Send button</a>.</p>
+<pre>&lt;fb:like href="http://www.facebook.com/apps/application.php?id=246397802045313"</pre>
+<pre> <strong>send="true"</strong> width="380" show_faces="false" font="lucida grande"&gt;&lt;/fb:like&gt;</pre>
+<h3>Meta tags</h3>
+<p>See the <a title="fb opengraph" href="http://developers.facebook.com/docs/opengraph/" target="_blank">opengraph documentation</a>. The <a title="post on this phenomenon" href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">og:image allows the Like button to pick the right image</a></p>
+<pre>	&lt;meta property="og:image" content="http://www.bobbelderbos.com/bday/images/birthday.jpg" /&gt;
+	&lt;meta property="fb:admins" content="628517118" /&gt;
+	&lt;meta property="fb:app_id" content="246397802045313"&gt;</pre>
+<h3>Framework</h3>
+<p>I use the <a title="skeleton page" href="http://www.getskeleton.com/" target="_blank">Skeleton</a> boilerplate that has some good defaults for structuring my page. CSS and JS.</p>
+<h3>Nothing new just playing, feedback welcome</h3>
+<p><img class="alignright size-thumbnail wp-image-1070" title="bdayApp" src="{{ site.baseurl }}/assets/bdayApp-150x150.png" alt="" width="120" height="120" /></p>
+<p>This functionality is nothing new, it seems that Facebook built in something quite similar, but the purpose was to learn more about the Facebook API (FQL, SDKs, dialogs, etc.) and dedicate a blog post to it. Interesting would be to combine it with a birthday card API somehow ...</p>
+<p>If it is useful to anybody that would be great.</p>
+<p>I love to hear your feedback.</p>
+<p>App link: <a title="go to app" href="http://apps.facebook.com/mybdaycal/" target="_blank">http://apps.facebook.com/mybdaycal/</a></p>
+<p>FB page: <a title="fb page of the app" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">http://facebook.com/apps/application.php?id=246397802045313</a></p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covered, just drop me a message, I am open to anything web-related.</p>
+)"</strong>
+		title="Send '.$friend['name'].' a Private Message"&gt;
+                &lt;img src="images/mail.png"&gt;&lt;/a&gt;&lt;/td&gt;';</pre>
+<pre> ..</pre>
+<pre>	&lt;a style="font-size: 85%; " href="#" <strong>onclick="Invite()"</strong></pre>
+<pre>        title="Invite your Friends to this App"&gt;Invite Friends &amp;raquo;&lt;/a&gt;</pre>
+<h3>Like Button</h3>
+<p>The like button links to the <a title="FB app page" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">FB Application page</a>. Since last April you can <a title="send option was introduced" href="http://bobbelderbos.com/2011/04/new-send-button-facebook-ap/" target="_blank">include the Send button</a>.</p>
+<pre>&lt;fb:like href="http://www.facebook.com/apps/application.php?id=246397802045313"</pre>
+<pre> <strong>send="true"</strong> width="380" show_faces="false" font="lucida grande"&gt;&lt;/fb:like&gt;</pre>
+<h3>Meta tags</h3>
+<p>See the <a title="fb opengraph" href="http://developers.facebook.com/docs/opengraph/" target="_blank">opengraph documentation</a>. The <a title="post on this phenomenon" href="http://bobbelderbos.com/2011/03/facebook-like-button-right-image/" target="_blank">og:image allows the Like button to pick the right image</a></p>
+<pre>	&lt;meta property="og:image" content="http://www.bobbelderbos.com/bday/images/birthday.jpg" /&gt;
+	&lt;meta property="fb:admins" content="628517118" /&gt;
+	&lt;meta property="fb:app_id" content="246397802045313"&gt;</pre>
+<h3>Framework</h3>
+<p>I use the <a title="skeleton page" href="http://www.getskeleton.com/" target="_blank">Skeleton</a> boilerplate that has some good defaults for structuring my page. CSS and JS.</p>
+<h3>Nothing new just playing, feedback welcome</h3>
+<p><img class="alignright size-thumbnail wp-image-1070" title="bdayApp" src="{{ site.baseurl }}/assets/bdayApp-150x150.png" alt="" width="120" height="120" /></p>
+<p>This functionality is nothing new, it seems that Facebook built in something quite similar, but the purpose was to learn more about the Facebook API (FQL, SDKs, dialogs, etc.) and dedicate a blog post to it. Interesting would be to combine it with a birthday card API somehow ...</p>
+<p>If it is useful to anybody that would be great.</p>
+<p>I love to hear your feedback.</p>
+<p>App link: <a title="go to app" href="http://apps.facebook.com/mybdaycal/" target="_blank">http://apps.facebook.com/mybdaycal/</a></p>
+<p>FB page: <a title="fb page of the app" href="http://www.facebook.com/apps/application.php?id=246397802045313" target="_blank">http://facebook.com/apps/application.php?id=246397802045313</a></p>
+<h3>From here on ...</h3>
+<p>You can subscribe to this blog, join my <a title="my blog is on facebook" href="http://www.facebook.com/groups/bobsblog" target="_blank">Facebook group</a>, comment on this post below, or find me on twitter <a title="I am on twitter as well" href="http://twitter.com/#!/bbelderbos" target="_blank">@bbelderbos</a>.</p>
+<p>By the way, if you have interesting topics you would like to see covered, just drop me a message, I am open to anything web-related.</p>

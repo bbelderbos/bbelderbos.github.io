@@ -1,0 +1,83 @@
+---
+layout: post
+title: Fundamental SSH tricks when working across multiple hosts
+date: 2013-05-12 12:33:23.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- config
+- key
+- ssh
+- ssh-copy-id
+- ssh-keygen
+- tools
+- tricks
+- unix
+meta:
+  _thumbnail_id: '2382'
+  _edit_last: '1'
+  snapEdIT: '1'
+  dsq_thread_id: '1281793351'
+  snapDL: s:208:"a:1:{i:0;a:7:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:2:"DL";s:5:"pDate";s:19:"2013-05-12
+    10:35:14";}}";
+  snap_isAutoPosted: '1'
+  snapFB: 's:274:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_574973649203434";s:5:"pDate";s:19:"2013-05-12
+    10:35:19";}}";'
+  snapLI: 's:376:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";s:6:"&nbsp;";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:123:"http://www.linkedin.com/updates?discuss=&amp;scope=17946624&amp;stype=M&amp;topic=5739296514929352704&amp;type=U&amp;a=mW2a";s:5:"pDate";s:19:"2013-05-12
+    10:35:20";}}";'
+  snapTW: 's:242:"a:1:{i:0;a:7:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"333530828300767233";s:5:"pDate";s:19:"2013-05-12
+    10:35:21";}}";'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Time to note down some SSH tricks. Vim, Git, Unix, SSH! All very efficient when you spend some time learning the ins and outs.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Key-based login</h3>
+<p>It is hard to keep up with many hostnames and passwords so first thing to set up is a <a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/" target="_blank">key-based login</a>. First run ssh-keygen -t dsa and then <a href="http://linux.die.net/man/1/ssh-copy-id" target="_blank">ssh-copy-id</a> (if not present check out this <a href="http://www.ipreferjim.com/2011/07/hostgator-ssh-warns-too-many-authentication-failures/" target="_blank">one-liner</a>)</p>
+<h3>The power of ~/.ssh/config</h3>
+<p><a href="http://linux.die.net/man/5/ssh_config" target="_blank">Man</a>. Check out this <a href="http://nerderati.com/2011/03/simplify-your-life-with-an-ssh-config-file/" target="_blank">nice intro</a>. Using this file is more convenient than shell aliases. I even used this file to solve a mysterious "Too many authentication failures for [user]" which happened (ssh -v) when multiple keys were offered to the remote host!</p>
+<h3>X11 forwarding</h3>
+<p>Run ssh -X host to show remote X applications on your local screen (if X is running on your local machine)</p>
+<h3>Run commands on a remote server</h3>
+<p>ssh user@remote_host 'cmd' - this is a powerful way to quickly analyze data on different hosts without the burden of logging in and copying terminal output. See a nice <a href="http://www.linuxjournal.com/article/6602?page=0,2" target="_blank">Perl loop example</a>.</p>
+<h3>Pipe data from/to a remote system</h3>
+<p>One of my favorites: see <a href="http://www.symkat.com/ssh-tips-and-tricks-you-need" target="_blank">this post</a> for two powerful examples:</p>
+<ul>
+<li> 1. send a big directory to a another server compressing / uncompressing it via the pipe-to-ssh: </li>
+<p> $ tar -cz content | ssh user@remote_host 'tar -xz'</p>
+<p> The other way around works just as well to get files off a remote server: $ ssh remote_host tar c content/ | tar xv</p>
+<li> 2. backup a remote mysql database to STDOUT and receive it via pipe/SSH as STDIN to import it into a local DB: </li>
+<p> $ ssh user@remote_host 'mysqldump -udbuser -ppassword dbname' | mysql -uroot -ppassword backup</p>
+<h3>Mount a remote directory</h3>
+<p> $ sshfs user@remote_host:/home/user/documents local_folder/ - see this <a href="http://www.itworld.com/it-managementstrategy/261500/16-ultimate-openssh-hacks?page=0,1" target="_blank">ssh hacks post</a>.</p>
+<h3>Practical example</h3>
+<p> This just happened trying to convert this post from text to html:</p>
+<pre>
+$ perl parsepost.pl 2013.05.12_ssh_tricks.txt 
+Can&#39;t locate HTML/Entities.pm in @INC ...
+</pre>
+<p> Instead of fixing it right away I took the opportunity to try a quick workaround via ssh:</p>
+<pre>
+# cat the txt post to STDOUT,
+# via pipe/ssh to remote server it goes into perl script as STDIN (-), 
+# the result is redirected to a file on my local server,
+# note that I can do &quot;ssh bob&quot; thanks to my .ssh/config setup ;)
+$ cat 2013.05.12_ssh_tricks.txt | ssh bob &lt;path&gt;/perl/wordpress_parse_post.pl - &gt; 2013.05.12_ssh_tricks.html
+</pre>
+<h3>Only the beginning</h3>
+<p> Forwarding, tunneling, proxies, access to services through a firewall ...  much more is possible. Check out <a href="http://matt.might.net/articles/ssh-hacks/" target="_blank">SSH: More than secure shell</a> for other SSH use cases.</p>
+<h3>Your favorite SSH trick/ hack?</h3>
+<p> Feel free to comment below ...</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like>
+</ul>

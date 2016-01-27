@@ -1,0 +1,141 @@
+---
+layout: post
+title: 'Perl practice: daily mail of all movies aired on Spanish TV'
+date: 2012-09-16 20:57:37.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- movies
+- perl
+- scripting
+- spanish tv
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2179'
+  dsq_thread_id: '846783468'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p>I like to solve common day problems, at the same time learning more coding. Learning to code is all about <a href="http://bobbelderbos.com/2012/09/how-to-grow-craft-programming/" target="_blank">practice</a>. Today I show you a Perl script to get a daily email listing all movies broadcasted by Spanish TV in the coming 24 hours.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/cinetv.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p> I tried to do this <a href="https://github.com/bbelderbos/Codesnippets/blob/master/python/cine_tv.py" target="_blank">some time ago</a> - <a href="http://www.crummy.com/software/BeautifulSoup/" target="_blank">BeautifulSoup</a> is very powerful for html parsing, but with the typical <a href="http://parrilla-tv.lavanguardia.com/" target="_blank">tv guide</a> I had to rely on a class "cine inactiu" to filter the movies out. This worked pretty well, but it was not complete and as the movie names are in Spanish I linked to imdbapi for more info which usually did not yield any result. So I needed to redo this exercise ...</p>
+<p> I didn't start scripting. First I looked for a better source which <a href="http://www.sincroguia.tv/todas-las-peliculas.html" target="_blank">I found</a>. This page does half of the work finding all movies to be aired today on Spanish TV. Usually it is not necessary to code everything! What I wanted to add on top of this was:</p>
+<ul>
+<li> Enrich this list with info for each movie, mainly the director and actors. This was easy following and parsing each link of the list. </li>
+<li> Email this list to my email with a cron job. An issue was the encoding not showing up well in Apple Mail and mailx not sending out the cron mail when the encoding was not defined well in the command's switches. More on that in a minute, without further ado the script which is also available <a href="https://github.com/bbelderbos/Codesnippets/blob/master/perl/cine.pl" target="_blank">on Github</a>:</li>
+</ul>
+<pre>
+#!/usr/bin/perl -w
+# author: bob belderbos
+# v0.1 sept 2012
+# purpose: send an email with all movies on Spanish TV in the next 24 hours
+#          sincroguia.tv has a pretty complete list
+#          this script servers best in a daily cronjob
+#
+use strict; 
+use Data::Dumper; 
+use LWP::Simple;
+use Encode qw(encode decode); # http://perlgeek.de/en/article/encodings-and-unicode
+
+my $enc = &#39;utf-8&#39;; 
+my $output;
+my $email = &quot;yourname@example.com&quot;;
+
+my @html = getUrl(&quot;http://www.sincroguia.tv/todas-las-peliculas.html&quot;);
+
+# movie lines start with hh:mm timestamps
+for (grep {/^d{2}:d{2}|^&lt;br/} @html){
+  # separate days
+  if(/^&lt;br/){
+    s/&lt;br /&gt;//g;
+    $output .= createHeader($_, &quot;*&quot;);
+    next;
+  }
+
+  # parse movies
+  m/(d{2}:d{2}) - &lt;a.*?&quot;([^&quot;]+)&quot; href=&quot;([^&quot;]+)&quot;.*- ([^&lt;]+).*/;
+  my ($time, $title, $url, $channel) = ($1, $2, $3, $4);
+  $output .= encode($enc, 
+    createHeader(&quot;$time / $channel / $title&quot;) . 
+    &quot;$urln&quot; . 
+    getMovieInfo($url) . 
+    &quot;nn&quot;);
+}
+
+# send me the generated movielist
+sendEmail($email, $output);
+  
+
+
+sub getUrl {
+  my $url = shift; 
+  my @html = split /&lt;/?li[&gt; ]/, get($url);
+  return @html;
+}
+
+
+sub getMovieInfo {
+  my $url = shift; 
+  my $info;
+  for(getUrl($url)){
+    next if(! /column/);
+    for my $line (split /&lt;/?h3[&gt; ]/, $_){
+      if($line =~ /Director:|rpretes|Idioma|Nacionalidad|A&amp;ntilde/){
+        $line =~ s/.*?strong&gt;(.*)&lt;/strong&gt;(.*)/$1$2n/g;        
+        $line =~ s/A&amp;ntilde;o/Estreno/g;
+        $info .= $line ;
+      }
+    }
+    last; 
+  }
+  return $info;
+}  
+
+
+sub createHeader {
+  my $str = shift; 
+  my $delimiter = shift // &quot;=&quot;;
+  my $width = 70;
+  my $output = &quot;n&quot; . $delimiter x $width . &quot;n&quot; . $str . &quot;n&quot; . $delimiter x $width . &quot;n&quot;;
+  return $output;
+}
+
+
+sub sendEmail {
+  my ($to, $output) = @_;
+  my $subject = &quot;Today&#39;s movies Spanish TV&quot;;
+  
+  # on mail pipe: http://objectmix.com/perl/380680-sending-email-perl-using-pipe-mailx.html
+  open my $pipe, &#39;|-&#39;, &#39;mailx&#39;, 
+    &#39;-s&#39;, $subject, 
+    # char issue mailx: http://forums.opensuse.org/english/other-forums/development/programming-scripting/419802-charset-problem-mailx.html
+    &#39;-S&#39;, &#39;ttycharset=utf-8&#39;, &#39;-S&#39;, &#39;sendcharsets=utf-8&#39;, &#39;-S&#39;, &#39;encoding=8bit&#39;, 
+    $to or die &quot;can&#39;t open pipe to mailx: $!n&quot;;
+  print $pipe $output;
+  close $pipe;
+}
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>Some notes / things I learned</h3>
+<ul>
+<li> I learned how send email via Perl, see the "sendEmail" subroutine. I used a <a href="http://objectmix.com/perl/380680-sending-email-perl-using-pipe-mailx.html" target="_blank">pipe / mailx</a>, using <a href="http://perl.about.com/od/email/a/perlemailsub.htm" target="_blank">sendmail</a> would not work with my hosting account. The only thing I had trouble with were Spanish characters like é, á, ñ, etc. Mailx would complain, not send out the mail, putting the email in dead.letter in my home. Encoded to utf-8 the help of <a href="http://forums.opensuse.org/english/other-forums/development/programming-scripting/419802-charset-problem-mailx.html" target="_blank">this article</a> did the trick!</li>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mail.png" alt="example mail" style="float:none; margin: 20px;" width="580" /></p>
+<li> The other challenge with Spanish characters was parsing the <a href="http://www.sincroguia.tv/todas-las-peliculas.html" target="_blank">source page</a>. I found <a href="http://perlgeek.de/en/article/encodings-and-unicode" target="_blank">a good article</a> explaining encodings and code to do this.</li>
+<li> The rest is pretty basic Perl, some Regex that really makes me like Perl and use it for more and more text parsing. I probably have to use some eval {} if one of the movie pages does not respond, otherwise the cronjob will send me another mail with the stderr output of the script execution (or I can say 2>/dev/null in the cronjob, but I think script should handle this). </li>
+</ul>
+<h3>Bonus</h3>
+<p>Having the time coded as hh:mm, Apple mail recognizes this and when clicking it you can add an event to your calendar. This way I can easily put a reminder of a movie I potentially want to see later in the evening.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/add_event.png" alt="add event from mail" style="float:none; margin: 20px;" width="580" /></p>
+<h3>Update 23.09.2012</h3>
+<p>The movie page does not always give the English movie name and sometimes it has a generic term like "La película de la semana" which doesn't give any clew.  So I did <a href="https://github.com/bbelderbos/Codesnippets/blob/master/perl/cine.pl" target="_blank">some more parsing</a>to include the movie name, original name and plot info. I also included the Twitter and Facebook sharing links which are on each movie page at the bottom, example:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/newoutput.png" alt="new output" style="float:none; margin: 20px;" width="570" /></p>

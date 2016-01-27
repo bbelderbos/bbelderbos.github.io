@@ -1,0 +1,115 @@
+---
+layout: post
+title: Hi folks, what are you reading? Share it on "My Reading List"
+date: 2011-03-04 21:05:40.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- applications
+- books
+- facebook api
+- google
+- portfolio
+- programming
+- reading
+- reading list
+- share
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '783'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  dsq_thread_id: '245625015'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Today I announce a new Facebook App I built: My Reading List. It allows you to keep a reading list and share interesting books with your friends. This app makes sharing your favorite books very simple. Just login with Facebook and you are good to go..</p>
+<h3><!--more-->Technology and idea</h3>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/whatareyoureading.jpg"><img class="alignright size-full wp-image-783" title="whatareyoureading" src="{{ site.baseurl }}/assets/whatareyoureading.jpg" alt="" width="120" height="120" /></a><a title="go the the app" href="http://fbreadinglist.com/" target="_blank">The app</a> uses the Facebook API to identify you. Secondly it uses the Google Book Search APIs to extract the book info like the title, a thumbnail and a link to more info provided by Google. I made a design of 540px wide so it can be used on <a title="my reading list homepage" href="http://fbreadinglist.com/" target="_blank">my domain</a> as well as in the <a title=".. and the facebook canvas version" href="http://apps.facebook.com/fbreadinglist/" target="_blank">Facebook Canvas</a>. Like a <a title="my other facebook app: sharemovi.es" href="http://sharemovi.es/" target="_blank">site for movies</a>,  I always wanted to do something similar for books. Like movies, you get  a lot of good tips from friends. I also like to share what I am reading  and keep a simple list of it. More info about the Canvas can be found at the <a title="facebook canvas" href="http://developers.facebook.com/docs/guides/canvas" target="_blank">Facebook API documentation</a>.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Trigger</h3>
+<p>Amazon has this great Reading List app. I stumbled upon a <a title="get satisfaction post about reading list" href="http://getsatisfaction.com/amazon/topics/how_to_create_a_amazon_reading_list" target="_blank">post</a> where people asked why this wasn't ported to Facebook (and why various reading lists couldn't be synced to one reading app, which <a title="tried to access amazon / linkedin reading list from outside, no luck" href="http://developer.linkedin.com/thread/1802" target="_blank">unfortunately is not possible for linkedin / amazon's reading list</a>). The Facebook argument was already enough to get me going :)</p>
+<h3>Besides I like reading!</h3>
+<p>Few years ago I would "schedule a read" with a friend, we would plan to read a book together and discuss it. It was highly motivating and it led to good discussions and fun learning. Why not bring this kind of fun to the powerful APIs Facebook and Google have to offer?!</p>
+<h3>Design</h3>
+<p>Let's see what the My Reading List app looks like and what you can do with it ..<br />
+This is the homepage when logged in with Facebook. You need Facebook to add books and use other features:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/homepage.png"><img class="alignnone size-full wp-image-784" title="homepage of my reading list" src="{{ site.baseurl }}/assets/homepage.png" alt="" width="654" height="622" /></a></p>
+<p>Of course you can browse the published titles without a Facebook Login. Here is the "Logged out" view of the site:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/homepage_logged_out.png"><img class="alignnone size-full wp-image-805" title="homepage logged out" src="{{ site.baseurl }}/assets/homepage_logged_out.png" alt="" width="598" height="461" /></a></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Add a book</h3>
+<p>When you are logged in you will see an "Add" button, click on it and a form slides out to add a title:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/addbook.png"><img class="alignnone size-full wp-image-785" title="add book form" src="{{ site.baseurl }}/assets/addbook.png" alt="" width="550" height="153" /></a></p>
+<p>And as you start typing the <a title="Google Book Search APIs link" href="http://code.google.com/apis/books/" target="_blank">Google Book Search APIs</a> shows you potential titles. It's a similar data mining exercise I did before with <a title="another project: sharemovi.es" href="http://bobbelderbos.com/2010/11/sneak-preview-sharemovies/" target="_blank">sharemovi.es</a>. It uses <a title="one of my favorite jquery plugins" href="http://bobbelderbos.com/2011/01/my-5-favorite-jquery-snippets/" target="_blank">Juery's autocomplete plugin</a> and submits the form automatically when clicking on the book you want to add:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/autocomplete.png"><img class="alignnone size-full wp-image-786" title="autocomplete" src="{{ site.baseurl }}/assets/autocomplete.png" alt="" width="557" height="272" /></a></p>
+<p>.. then, upon selecting the title you want to add, a form slides down to publish this title to the stream with your opinion about the title:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/addbookform.png"><img class="alignnone size-full wp-image-787" title="add book form" src="{{ site.baseurl }}/assets/addbookform.png" alt="" width="571" height="553" /></a></p>
+<p>It gives you the option to say you <em>want</em> to read it, you <em>are</em> reading it or you <em>have</em> read it:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/status.png"><img class="alignnone size-full wp-image-788" title="have read, want to read, am reading it" src="{{ site.baseurl }}/assets/status.png" alt="" width="279" height="118" /></a></p>
+<p>Moreover, it lets you post it to your wall, but you can always choose to only leave the info inside the app:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/posttowall.png"><img class="alignnone size-full wp-image-789" title="post to wall" src="{{ site.baseurl }}/assets/posttowall.png" alt="" width="315" height="122" /></a></p>
+<p>Once you click "Add Book" the book is published to the stream. If you choose to publish it to your wall, something like this appears on your Facebook Wall:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/posttowallresult.png"><img class="alignnone size-full wp-image-791" title="post to wall result" src="{{ site.baseurl }}/assets/posttowallresult.png" alt="" width="485" height="166" /></a></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Search</h3>
+<p>You can search for books and readers. Each book has has its own page with the  <a title="facebook comment plugin v2" href="http://developers.facebook.com/docs/reference/plugins/comments/" target="_blank">enhanced Facebook Comment plugin</a> and a neat overlay with a preview of the book (thanks to <a title="google's preview wizard" href="http://code.google.com/apis/books/docs/preview-wizard.html" target="_blank">Google's Preview Wizard</a>).</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/searchtitle.png"><img class="alignnone size-full wp-image-795" title="search title" src="{{ site.baseurl }}/assets/searchtitle.png" alt="" width="540" height="113" /></a></p>
+<p>Checking out the Python title:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/bookpage.png"><img class="alignnone size-full wp-image-796" title="book page" src="{{ site.baseurl }}/assets/bookpage.png" alt="" width="551" height="484" /></a></p>
+<p>You see all the social features. Click on the Google Preview button and you can take a look inside the book:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/googlepreview.png"><img class="alignnone size-full wp-image-797" title="google preview" src="{{ site.baseurl }}/assets/googlepreview.png" alt="" width="609" height="560" /></a></p>
+<p style="padding-left: 30px;"><span style="color: #808080;"><em>** Keep in mind that if Google does not have a preview of the book available the Google Preview is not visible on the book's page. However, in the stream of books on the homepage, the same Google Button opens a new page (tab) with more details about the book. A request for enhancement would be to detect when there is no Google Preview when requested and also put the link there instead..</em></span></p>
+<p><em><br />
+</em></p>
+<h3>More stuff ..</h3>
+<p>Other features are displayed for each title on the homepage (when not drilled down to a specific title) - it consists of 3 actions:</p>
+<h3>1. Comment</h3>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/commentontitle.png"><img class="alignnone size-full wp-image-798" title="comment on title" src="{{ site.baseurl }}/assets/commentontitle.png" alt="" width="193" height="72" /></a></p>
+<p>With the comment button you will be taken to the book's individual page to comment using the <a title="facebook comments plugin" href="http://developers.facebook.com/docs/reference/plugins/comments" target="_blank">Facebook Comments Plugin</a> (see second printscreen under "Search").</p>
+<h3>2.Recommend</h3>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/recommendtitle.png"><img class="alignnone size-full wp-image-799" title="recommend title" src="{{ site.baseurl }}/assets/recommendtitle.png" alt="" width="160" height="67" /></a></p>
+<p>You can use the mail button to write a quick recommendation to friends. This works like this:</p>
+<p>a. click on the email icon, a form pops up to write your message:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/writerecommendation.png"><img class="alignnone size-full wp-image-801" title="write recommendation" src="{{ site.baseurl }}/assets/writerecommendation.png" alt="" width="687" height="313" /></a></p>
+<p>b. when you click on the "Next .." button you get the <a title="about facebook requests" href="http://developers.facebook.com/blog/post/464" target="_blank">Facebook Requests</a> dialog with the info copied in there. This second dialog is needed to select one or more friends to send the recommendation to:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/sendtofriends.png"><img class="alignnone size-full wp-image-802" title="send to friends" src="{{ site.baseurl }}/assets/sendtofriends.png" alt="" width="687" height="230" /></a></p>
+<p>c. Your selected friends will get a notification of the recommendation in Facebook:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/notificationinfacebook.png"><img class="alignnone size-full wp-image-809" title="notification in facebook" src="{{ site.baseurl }}/assets/notificationinfacebook.png" alt="" width="360" height="125" /></a></p>
+<p>d. When a friend clicks on it they will see the recommendation + the URL of the book title.<br />
+The "Accept" button of Facebook has no extra functionality yet, it just takes you to the app (Canvas version)</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/therecommendationitself.png"><img class="alignnone size-full wp-image-810" title="the recommendation itself" src="{{ site.baseurl }}/assets/therecommendationitself.png" alt="" width="502" height="151" /></a></p>
+<h3>3. Like</h3>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/likeabook.png"><img class="alignnone size-full wp-image-800" title="like a book" src="{{ site.baseurl }}/assets/likeabook.png" alt="" width="192" height="71" /></a></p>
+<p>Apart from the <a title="facebook like button" href="http://developers.facebook.com/docs/reference/plugins/like" target="_blank">FB Like button plugin</a>, I made an internal "Like" system.<br />
+Under the "Popular" button in the sub navigation bar, you can see which titles were liked this way:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/populartitles.png"><img class="alignnone size-full wp-image-803" title="popular titles" src="{{ site.baseurl }}/assets/populartitles.png" alt="" width="148" height="45" /></a></p>
+<p>.. when clicked:</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/03/listofpopulartitles.png"><img class="alignnone size-full wp-image-804" title="list of popular titles" src="{{ site.baseurl }}/assets/listofpopulartitles.png" alt="" width="562" height="433" /></a></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Please try ..</h3>
+<p>I am looking forward for more users to get on-board! I would love to hear your thoughts and feedback!</p>
+<p>It is an experiment, so don't expect it to be complete. For example edit/delete of existing data, "your reading profile", adding other reader's books to your list, etc. would take up too much time for this trial.</p>
+<p>The app is <a title="my reading app url" href="http://fbreadinglist.com/" target="_blank">hosted at my domain</a> but can also be used <a title="my reading app url" href="http://apps.facebook.com/fbreadinglist/" target="_blank">from within Facebook</a> and has the following <a title="facebook page of my reading list" href="http://www.facebook.com/apps/application.php?id=190383630995551" target="_blank">Facebook page</a></p>
+<h3>Next ..</h3>
+<p>I think this covers about all features. In future blog post I will cover the technical aspects of these features. What plugins did I use? How can you use the Google Book Search APIs? More on the Facebook API (see "Further reading" at the end of this post). CSS tricks I became to like. And of course jQuery for enhancing the user's experience.</p>
+<p>&nbsp;</p>
+<h3>Other posts that might interest you ..</h3>
+<p>1. <a title="Sneak preview: sharemovies" href="http://bobbelderbos.com/2010/11/sneak-preview-sharemovies/" target="_blank">Sneak preview: sharemovies</a></p>
+<p>2. <a title="Twitter API: tweet with PHP" href="http://bobbelderbos.com/2010/12/twitter-api-tweet-with-php/" target="_blank">Twitter API: tweet with PHP</a></p>
+<p>3. <a title="Facebook API: post with PHP" href="http://bobbelderbos.com/2011/01/facebook-api-wall-post/" target="_blank">Facebook API: post with PHP</a></p>
+<p>4. <a title="How to build a movie trailer API using gData" href="http://bobbelderbos.com/2011/01/build-movie-trailer-api-using-gdata/" target="_blank">How to build a movie trailer API using gData</a></p>
+<p>5. <a title="My 5 favorite jQuery snippets" href="http://bobbelderbos.com/2011/01/my-5-favorite-jquery-snippets/" target="_blank">My 5 favorite jQuery snippets</a></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>And above all ..</h3>
+<p>Happy reading!! Let me know what books you like ..</p>

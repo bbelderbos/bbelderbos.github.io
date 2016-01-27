@@ -1,0 +1,145 @@
+---
+layout: post
+title: How to install Ruby(Gems) as regular user on Bluehost and Unix
+date: 2012-11-04 17:00:23.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- bluehost
+- gems
+- installation
+- ruby
+- unix
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2248'
+  _wp_old_slug: ruby-rubygems-nonrootunix
+  dsq_thread_id: '913545746'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>In this posts some notes on installing Ruby and RubyGems on Bluehost, my hosting provider. While I was writing this I also tried it on Solaris 11 and Ubuntu 12.10 as a regular (non-root) user. So now I can deploy the latest version of Ruby to most places I push code to.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>Of course this only makes sense if you want to have the latest version or if Ruby is not installed at all and you have no sudo / root rights. For Ubuntu I usually have full access so running an "$ apt-get install ruby" would be all it takes. For Bluehost I obviously don't have root access, for Solaris usually the same. Bluehost does come with gem 1.7.2 and ruby 1.8.7 out of the box. Learning Ruby I want to make sure though I can use the latest version on my local- and remote hosts, hence this post.</p>
+<h3>Installation steps</h3>
+<ul>
+<li> First get the latest version:</li>
+<p>$ mkdir ~/ruby && cd ~/ruby<br />
+$ wget ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p286.tar.bz2<br />
+(at this time)<br />
+$ bzcat ruby-1.9.3-p286.tar.bz2 | tar -xvf -<br />
+$ cd ruby-1.9.3-p286</p>
+<li> Install it (see also <a href="http://www.r-bloggers.com/installing-ruby-on-linux-as-a-user-other-than-root/" target="_blank">this article</a>).</li>
+<p>$ ./configure --prefix=$HOME<br />
+$ make<br />
+$ make install</p>
+<p>!! On Solaris 11 you might need to <a href="http://stackoverflow.com/questions/4664472/installing-gcc-on-oracle-solaris-11" target="_blank">install gcc</a> ($ sudo pkg install gcc-3) first.</p>
+<p>!! Although this worked perfectly as a user on Ubuntu and Solaris, on Bluehost this failed. On a hosting box it might be better to run the following commands which I found <a href="http://betterlogic.com/roger/2008/07/how-to-install-a-custom-version-of-ruby-and-gems-on-bluehost/" target="_blank">here</a>:</p>
+<pre>
+(still in ruby-1.9.3-p286)
+$ autoconf
+$ nice ./configure --enable-shared --prefix=$HOME/ruby/ 
+$ nice make 
+$ make install
+</pre>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/rubyinstall.png" alt="featured image ruby rubygems install" style="float:right; margin: 20px;" width="200" /></p>
+<li> Next make sure you update your $PATH variable in your shell's dotfile with the new Ruby binary (in my case .bashrc). </li>
+<p>If this is your first Ruby installation you can just append it to the end, if you have multiple instances, like I had on Bluehost, you might prepend it so that the shell looks first at the Ruby binary you installed with your user account. For dealing with multiple Ruby versions on your box, you might want to check out <a href="https://rvm.io" target="_blank">Ruby Version Manager</a> as well.</p>
+<pre>
+$ vi ~/.bashrc
+export PATH=$HOME/ruby/bin:$PATH
+</pre>
+<p>If you don't want to mess with the PATH variable, you can also create aliases:</p>
+<pre>
+$ vi ~/.bashrc
+alias ruby19=&#39;$HOME/ruby/bin/ruby&#39;
+alias gem18=&#39;$HOME/ruby/bin/gem&#39;
+</pre>
+<li> Next install RubyGems</li>
+<pre>
+$ wget http://production.cf.rubygems.org/rubygems/rubygems-1.8.24.tgz
+(at this time)
+$ zcat rubygems-1.8.24.tgz | tar -xvf -
+(gzcat on Solaris)
+$ cd rubygems-1.8.24
+$ ruby setup.rb 
+(where ruby is $home/ruby/bin/ruby due to the PATH change in the previous step)
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<pre>
+&lt;my home&gt;/bin/ruby/lib/ruby/1.9.1/yaml.rb:56:in `&lt;top (required)&gt;&#39;:
+It seems your ruby installation is missing psych (for YAML output).
+To eliminate this warning, please install libyaml and reinstall your ruby.
+RubyGems 1.8.24 installed
+
+== 1.8.24 / 2012-04-27
+
+* 1 bug fix:
+
+  * Install the .pem files properly. Fixes #320
+  * Remove OpenSSL dependency from the http code path
+
+
+------------------------------------------------------------------------------
+
+RubyGems installed the following executables:
+  &lt;my home&gt;/ruby/bin/gem
+</pre>
+<p>The libyaml error didn't get in the way so far, but usually it is better to solve any errors ... I got this error on each Unix flavor (as a user).</p>
+<li> Bluehost recommends <a href="https://my.bluehost.com/cgi/help/365" target="_blank">the following GEM variable settings</a>, again in your shell's dotfile:</li>
+<pre>
+export GEM_HOME=$HOME/ruby/gems
+export GEM_PATH=$GEM_HOME:/usr/lib/ruby/gems/1.8
+export GEM_CACHE=$GEM_HOME/cache
+(and if you will use rails)
+ENV[&#39;GEM_PATH&#39;] = &#39;/path/to/your/home/ruby/gems:/usr/lib/ruby/gems/1.8&#39;
+</pre>
+<p>/usr/lib/ruby/gems/1.8 is the default gems location, if this is the first installation just leave this off.</p>
+<li> To test if it works I install two gems:</li>
+<pre>
+$ gem install RedCloth
+..
+
+$ gem install hpricot
+..
+
+$ gem list --local
+..
+*** LOCAL GEMS ***
+
+hpricot (0.8.6)
+RedCloth (4.2.9)
+
+$ ls $HOME/ruby/gems/gems
+hpricot-0.8.6  RedCloth-4.2.9
+</pre>
+<p>!! Note that on Ubuntu you might get the following error which means you have to install zlib ($ sudo apt-get install zlib1g-dev) :</p>
+<pre>
+ERROR:  Loading command: install (LoadError)
+    cannot load such file -- zlib
+</pre>
+<li> Testing the new gem:</li>
+<pre>
+$ irb
+irb(main):001:0&gt; require &quot;rubygems&quot;
+=&gt; true
+irb(main):002:0&gt; require &quot;RedCloth&quot;
+=&gt; true
+irb(main):003:0&gt; r = RedCloth.new(&quot;this is a *test* of _using RedCloth_&quot;)
+=&gt; &quot;this is a *test* of _using RedCloth_&quot;
+irb(main):004:0&gt; puts r.to_html
+&lt;p&gt;this is a &lt;strong&gt;test&lt;/strong&gt; of &lt;em&gt;using RedCloth&lt;/em&gt;&lt;/p&gt;
+=&gt; nil
+</pre>
+<p> Works.</p>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>And that's it. Now I can write Ruby 1.9.x scripts knowing that they will work on my remote servers because I will simply install the latest Ruby version as my user.</p>

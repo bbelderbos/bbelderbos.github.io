@@ -1,0 +1,130 @@
+---
+layout: post
+title: The importance of semantic markup and css
+date: 2010-10-19 23:28:17.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- css
+- css reset
+- css3
+- html
+- layout
+- semantic markup
+- SEO
+- structure
+- tutorial
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '495'
+  dsq_thread_id: '158859378'
+  _wp_old_slug: the-importance-of-good-markup-and-css
+  socialize: '1,2'
+  _sexybookmarks_shortUrl: http://b2l.me/azksyw
+  _sexybookmarks_permaHash: 5c40842bf6e5d93f5a21efa7828d777f
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Two important rules to get a good design: semantic markup and css!</p>
+<p>1. <em>Semantic markup</em> means you apply html in a way that makes sense. In the early days everything was marked up with tables, but was all data presented really tabular? No! <!--more-->Navigation items make more sense being unordered lists (&lt;ul&gt;) of list items (&lt;li&gt;), there are important headlines (&lt;h1&gt;) vs less important ones (&lt;h2&gt; .. &lt;h6&gt;), and a banner wrapped in a h1 tag has extra meaning by adding an id of "logo".</p>
+<p>All this makes that elements are more specific and css styling easier. Application data gets more informative so that <a href="http://microformats.org/" target="_blank">microformats</a> (much like XML) allow for sharing vcards and calendars across applications. At last be a little more verbose when coding html, for example adding title, alt and rel attributes, may help impaired users to get a better web experience (text instead of images, screenreaders, etc.). The list goes on. Andy Clark has some good video trainings dedicated to this, and <a href="http://www.transcendingcss.com/" target="_blank">Transcendent CSS</a> is one of the best books regarding this aspect, web design in general and CSS. I just read that Andy <a href="http://www.fivesimplesteps.com/books/hardboiled-web-design" target="_blank">released a new title<br />
+</a><br />
+2. <em>CSS</em> separates content from style. A device without CSS support can see the core content, and we then apply CSS to make a page more attractive and visually ordered. CSS is also a great designer's tool: instead of fixed mockups in Photoshop it is way more flexible: you want to swap two columns? Edit a stylesheet rule, in PS you would have to draw new rectangulars and save the file again for web.</p>
+<p>CSS has strong support for liquid (%) and float designs, I can't imagine how Photoshop could ever give you that much flexibility to play with your mockup. CSS3 supports nice new features as text shadow, rounded corners, rgba colors and a lot more. The most important aspect is this: keep style and structure separated to warrant flexible design.</p>
+<p><!--nextpage--></p>
+<p>With these two important points in mind we can quickly expand upon a basic structure and how you would start with CSS. I am still defining my ideal framework but there are some parts in the below example I have become to adopt with most new projects.</p>
+<h3><em>Semantic markup and </em><em>CSS in action</em></h3>
+<p>3. This will be a quick example of something I am working on. It merely serves as an example and should be enhanced ..</p>
+<pre><strong>&lt;!-- A.header file --&gt;</strong></pre>
+<pre>&lt;head&gt;</pre>
+<pre>.. css files, title, meta tags, etc.</pre>
+<pre>&lt;/head&gt;</pre>
+<pre>&lt;body&gt;</pre>
+<pre>  &lt;div id="content"&gt;</pre>
+<pre>    &lt;div id="header"&gt;</pre>
+<pre>       &lt;h1 id="logo"&gt;</pre>
+<pre>         &lt;a href="index.php"&gt;Site's brand&lt;/a&gt;</pre>
+<pre>       &lt;/h1&gt;</pre>
+<pre>       &lt;div id="loginWrapper"&gt;</pre>
+<pre>       ..</pre>
+<pre>       &lt;/div&gt;&lt;!--end loginWrapper--&gt;</pre>
+<pre>       &lt;ul id="navigation"&gt;</pre>
+<pre>         &lt;li&gt;..&lt;/li&gt;</pre>
+<pre>         &lt;li&gt;..&lt;/li&gt;</pre>
+<pre>        ..
+      &lt;/ul&gt;&lt;!-- end navigation --&gt;</pre>
+<pre>      ... another div with search box ...</pre>
+<pre>    &lt;div&gt;&lt;!--end header--&gt;
+
+<strong>&lt;!-- B. main content --&gt;</strong>
+     &lt;div id="maincontent"&gt;
+         .. .. where all stuff of the page happens. you can make more divs here.
+               you can also use 960 grids, etc. Usually I tend to keep it simple and
+               use 2 or 3 columns: main / sidebar, or: leftCol/ innerCol/ rightCol
+     &lt;div id="main"&gt;
+         ..
+     &lt;/div&gt; &lt;!-- end main --&gt;
+
+<!--nextpage--></pre>
+<pre>         $$ variable content $$ ** all before and after this line is included as part
+         of a templating system
+
+     &lt;div id="sidebar"&gt;
+        ..
+     &lt;/div&gt;&lt;!-- end sidebar --&gt;
+   &lt;/div&gt;&lt;!-- end maincontent --&gt;</pre>
+<address><strong>&lt;!-- C. footer content --&gt;</strong></address>
+<pre>     &lt;div id="footer"&gt;</pre>
+<pre>       ..</pre>
+<pre>     &lt;/div&gt;&lt;!-- end footer --&gt;</pre>
+<pre>  &lt;/div&gt;&lt;!-- end content --&gt;</pre>
+<pre>  ..javascript files (at the end of page to ease the pain of potential JS delays)</pre>
+<pre>&lt;/body&gt;</pre>
+<pre>&lt;/html&gt;</pre>
+<h3>Layout</h3>
+<p>4. Basic layout. I always start with <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank">a css reset</a> to eliminate any inconsistencies across browsers. It is a brilliant solution to make a clean start.<br />
+Then I set some basic rules, usually I decide if I go with fixed width and what type</p>
+<p>/*general rules*/</p>
+<pre>body {font : 75%/1.5 "Lucida Grande", Helvetica, "Lucida Sans Unicode", Arial, Verdana, sans-serif;</pre>
+<pre> /*width: 980px; */ margin: 0 auto;  color:#333; ackground-color:#4b373a; }</pre>
+<pre>li {list-style: none; float: left; padding: 5px 10px; }</pre>
+<pre>a {  text-decoration: none; color: #900; }</pre>
+<pre>a:hover {  text-decoration: none; color: #600; }</pre>
+<pre>p{ line-height: 1.2em;}</pre>
+<p>etc. .. (/* width: 980px; */ would be uncommented if you go for a fixed width, I found 980px on Apple's site, it's a good size, although 960px is commonly used as well)</p>
+<h3>A logo respecting back-to-home link and SEO</h3>
+<p>The banner usually makes me feel there is some progress, so I like to add it soon, but as style on top of a h1 called #logo (&lt;h1 id="logo"&gt;). This is a good SEO trick I learned from Aarron Walter in his <a href="http://buildingfindablewebsites.com/" target="_blank">Building Findable Websites</a>. Keep in mind that &lt;h1&gt; together with &lt;title&gt; are the most important SEO elements on the page.</p>
+<p><!--nextpage--></p>
+<p><span style="text-decoration: underline;">Markup</span></p>
+<pre>&lt;h1 id="logo"&gt;</pre>
+<pre> &lt;a href="index.php"&gt;Brand of site&lt;/a&gt;</pre>
+<pre> &lt;/h1&gt;</pre>
+<p><span style="text-decoration: underline;">CSS</span></p>
+<p>/*logo*/</p>
+<pre>h1#logo {position: absolute; top:0px; width: 980px; height: 109px; z-index:89;</pre>
+<pre> background:url('../i/banner.jpg') no-repeat; }</pre>
+<pre>h1#logo a {display: block; text-indent: -9999px; width: 980px; height: 109px;}</pre>
+<p>As you see we have a h1 with an anchor linking back to homepage. Then you bounce the text off the page placing it -9999 px to the left and on top (a higher z-index stacks content, how higher the value, how higher up in the stack).</p>
+<p>Then some layout. You can get some random <a href="http://www.lipsum.com/" target="_blank">lipsum</a> text to full in the divs to see how it lines out. I tend to use CSS' <em>border: 1px solid red</em> to see what I am working on:</p>
+<pre>#header, #footer, #mainContent, #content {border: 1px solid red;}</pre>
+<p>.. at the end you can just delete this rule.</p>
+<p>Also I had to clear out some padding that slipped in probably due to the plugins I am using (with its included CSS)</p>
+<pre> .. other stylesheets, usually delivered by jquery plugins I tend to use ..</pre>
+<pre> &lt;link rel="stylesheet" href="css/base.css" type="text/css" /&gt;</pre>
+<h3>3 tips</h3>
+<p>1. Make sure your css sheet comes last. I didn't do that and lost some precious time searching in my correct base.css to find out that a stylesheet that was included after base.css, introduced an undesired style. Include base.css as last stylesheet. It prevents headaches ;)</p>
+<p>2. Use the firefox <a href="https://addons.mozilla.org/en-US/firefox/addon/60/" target="_blank">Web developer tool bar</a><span style="text-decoration: underline;"> -&gt; Information -&gt; Display Element Information</span> to inspect individual divs for children / parents, etc. It's a wonderful tool to keep track where you are and how the markup is organized.</p>
+<p>3. Think about the layout before CSS-ing. You have a myriad of possibilities: floats, liquid layout, fixed pixel widths, all define a sites identity (like color). A framework like <a href="http://960.gs/" target="_blank">960 grid system</a> might help you (with fixed layouts), but it also introduces more code and might obscure certain aspects (inherent to frameworks, however you can save quite some time). I can dedicate many more posts to CSS ..</p>
+<p><!--nextpage--></p>
+<h3>Conclusion</h3>
+<p>To make a long story short, today I really wanted to share the importance of becoming aware of proper markup and use of CSS for styling your page. Without CSS a page should be still readable and good markup should describe what the element means on the page. It also should improve accessibility to the underlying content, both for people with more difficulty to access your content as well as search engines and microformats that allow export of vcards and hcalendars to external apps.</p>
+<p>Secondly the CSS: without proper markup it becomes difficult if not impossible to have an economic and flexible stylesheet. I think we all came to a point once we got lost in our own CSS' specificity. You set up so many rules drilling deeper in a wood of divs and classes, not seeing the trees anymore.</p>
+<blockquote><p>.. "huh? why is that link not changing color when styling that anchor" ..</p></blockquote>
+<p>Good semantic markup gives you the bare essential to start laying out your site with CSS. Use semantic markup and CSS to the advantage of your users, customers and (of course) for your own quality of work !</p>

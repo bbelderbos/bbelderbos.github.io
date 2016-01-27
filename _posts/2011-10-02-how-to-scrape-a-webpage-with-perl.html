@@ -1,0 +1,44 @@
+---
+layout: post
+title: How to scrape a webpage with Perl
+date: 2011-10-02 10:34:00.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- perl
+- website scraping
+meta:
+  posterous_6b63f8d297c73139dd329498419cf441_post_id: '73564954'
+  posterous_6b63f8d297c73139dd329498419cf441_permalink: http://exploringtheweb.net/how-to-scrape-a-webpage-with-perl-searching-f
+  _thumbnail_id: '1338'
+  _edit_last: '1'
+  _wp_old_slug: how-to-scrape-a-webpage-with-perl-getting-book-categories
+  dsq_thread_id: '500590481'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>I wanted to have a book category list for a potential feature in&nbsp;<a href="http://bobbelderbos.com/books" target="_blank">My Reading List</a>. I found <a href="http://www.thealternativebookshop.com/category.html" target="_blank">this page</a>. Then I wondered how I could parse the html to reuse the categories. It turned out to be pretty easy in Perl&nbsp;:)</p>
+<p><!--more--></p>
+<p>
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-10-02_at_1.21.28_PM.png.scaled530-300x232.png" /></p>
+<p>You can download the script <a href="http://bobbelderbos.com/src/parseCategories" target="_blank">here</a>. It does the following: </p>
+<ul>
+<li>1.&nbsp;Usage: perl -w parseCategories.pl -j -s, where -j = json, -s = sql, -t = text&nbsp;<br />Sql would be to import the data into a table for re-use (e.g. autocomplete)</li>
+<li>2. it uses&nbsp;LWP::Simple to import the content of the mentioned website into a variable</li>
+<li>3. it splits the content in an array and loops over the lines, checking for the patterns: <br />a. category (font.*&lt;ul&gt;), <br />b. subcategory (&lt;li&gt;&lt;a href...) <br />- it puts those in a hash</li>
+<li>4. depending the cli option, it provides the output </li>
+</ul>
+<p>Perl's motto is TMTOWTDI (There's more than one way to do it), so I would be happy to hear any suggestions to improve this script. <br />At least it got the job done. It was just a quick test. Ideally you would want to make it re-usable: <br />1. receive URL from cli as well<br />2. put parsing in functions and let user define those as well. <br />- with this in place it could be extended to be a generic/simple URL/content parser.&nbsp;</p>
+<p>
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-10-02_at_11.14.56_AM.png.scaled530-300x142.png" /><br />
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-10-02_at_11.15.14_AM.png.scaled530-300x265.png" /><br />
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-10-02_at_12.44.23_PM.png.scaled1000-300x141.png" /><br />
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-10-02_at_12.20.28_PM.png.scaled1000-300x53.png" /><br />
+<img src="{{ site.baseurl }}/assets/Screen_shot_2011-10-02_at_12.19.30_PM.png.scaled1000-300x99.png" /></p>

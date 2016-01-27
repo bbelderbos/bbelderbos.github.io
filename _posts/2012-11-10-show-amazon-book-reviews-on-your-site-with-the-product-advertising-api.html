@@ -1,0 +1,117 @@
+---
+layout: post
+title: Show Amazon book reviews on your site with the Product Advertising API
+date: 2012-11-10 18:48:40.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- amazon
+- APIs
+- books
+- Product Advertising API
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2260'
+  dsq_thread_id: '922094018'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> Some months ago I added book reviews from Amazon to <a href="http://fbreadinglist.com" target="_blank">My Reading List</a>. Under Reviews, when you click "Amazon" you get an overlay with the 3 most useful reviews. In this post I show you how to do it.</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Amazon ECS</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/amazon_reviews.png" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p> I use Amazon all the time to look if a particular book is worth my time. Hence book reviews had to be in this app. I found a good PHP class to do this easily: <a href="https://github.com/Exeu/Amazon-ECS-PHP-Library" target="_blank">Amazon-ECS-PHP-Library</a>. Using this class the app generates an URL to an Amazon page with only the reviews on it (e.g. http://www.amazon.com/reviews/iframe?akid=..more..parameters..), based on its ISBN number. This URL is linked to under Reviews: "Amazon". When clicked, I use Fancybox (discussed <a href="http://bobbelderbos.com/2011/09/my-reading-list-google-book-preview-overlay/" target="_blank">previously</a>) to load the URL in an overlay (iframe). See the images below.</p>
+<h3>Inputs: ISBN (10 / 13 digits) and ASIN</h3>
+<p>Note that My Reading List uses the <a href="https://developers.google.com/books/" target="_blank">Google Books API</a> which returns short and long ISBN numbers (10 and 13 digits respectively, <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" target="_blank">about ISBN</a>). The 10 digit string is usually equal to the <a href="http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number" target="_blank">ASIN</a> which is the "Amazon Standard Identification Number". If there is no response from the short ISBN/ ASIN, I convert the longer ISBN to ASIN and try with that one. I had to add the "lookupIsbn" method to the Amazon ECS class to be able to do this. With the two ISBN types supported I got a response URL for almost all the books I have tested so far.</p>
+<h3>Caching</h3>
+<p>I was considering caching the Amazon iframe URLs, but they are only valid for 24 hours so I decided to generate them on the fly for now.</p>
+<h3>How it looks </h3>
+<p>This is the <a href="http://fbreadinglist.com/?googleID=DlTYuQAACAAJ" target="_blank">Practical Vim</a> page:</p>
+<h4>Link to reviews:</h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/click.png" alt="link on book page" style="float:none; margin: 20px;" width="410" /></p>
+<h4>Overlay when clicked:</h4>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/reviews.png" alt="reviews in overlay" style="float:none; margin: 20px;" width="410" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>The code</h3>
+<pre>
+# see comment above about 10 and 13 digit ISBNs 
+if($reviews = getAmazonReviews($book[&#39;ISBN_10&#39;])) {
+  $amazonReviewsIframe = $reviews;
+} else {
+  $asin = isbnToAsin($book[&#39;ISBN_13&#39;]);
+  $amazonReviewsIframe = getAmazonReviews($asin); 
+}
+
+..
+
+if($amazonReviewsIframe) {
+  echo &quot;&lt;a class=&#39;fboxEdit&#39; href=&#39;$amazonReviewsIframe&#39;&gt;Amazon&lt;/a&gt;&quot;;
+}
+
+
+
+(functions) 
+
+# get the first two values from the Product Advertising API, 
+# last 2 values are needed for Amazon-ECS-PHP-Library
+define(&quot;API_KEY&quot;,         &quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;);
+define(&quot;API_SECRET&quot;,      &quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;);
+define(&quot;COUNTRY_CODE&quot;,    &quot;com&quot;);
+define(&quot;ASSOC_TAG&quot;,       &quot;myrealis&quot;);
+
+
+function amazonApi() {
+  # https://github.com/Exeu/Amazon-ECS-PHP-Library/blob/master/lib/AmazonECS.class.php
+  require_once &#39;AmazonECS.class.php&#39;; 
+  $client = new AmazonECS(API_KEY, API_SECRET, COUNTRY_CODE, ASSOC_TAG);                                                                
+  return $client;
+}
+
+function getAmazonReviews($asin) {
+  $client = amazonApi();
+  $response = $client-&gt;category(&#39;Books&#39;)-&gt;responseGroup(&#39;Reviews&#39;)-&gt;search($asin);
+
+  if($response-&gt;Items-&gt;Item-&gt;ASIN == $asin) {
+    return $response-&gt;Items-&gt;Item-&gt;CustomerReviews-&gt;IFrameURL;
+  } else {
+    return False;
+  }
+}
+
+function isbnToAsin($isbn){
+  $client = amazonApi();
+
+  # I extended the AmazonECS.class with the &quot;lookupIsbn&quot; function
+  $response  = $client-&gt;category(&#39;Books&#39;)-&gt;lookupIsbn($isbn);
+
+  if(isset($response-&gt;Items-&gt;Item-&gt;ASIN)) {
+    return $response-&gt;Items-&gt;Item-&gt;ASIN;
+  } else {
+    return False;
+  }
+}
+
+
+# added inside the AmazonECS.class
+..
+public function lookupIsbn($isbn) {
+  $params = $this-&gt;buildRequestParams(&#39;ItemLookup&#39;, array(
+    &#39;ItemId&#39; =&gt; $isbn, &#39;IdType&#39; =&gt; &#39;ISBN&#39;, &#39;SearchIndex&#39; =&gt; &#39;Books&#39;
+  ));
+
+  return $this-&gt;returnData(
+    $this-&gt;performSoapRequest(&quot;ItemLookup&quot;, $params)
+  );
+}
+
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>

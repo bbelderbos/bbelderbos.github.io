@@ -1,0 +1,168 @@
+---
+layout: post
+title: How to start building your own country/ travel API
+date: 2012-02-17 17:15:10.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- APIs
+- travel
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1710'
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '579962442'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> I am about to finish a travel Facebook App. The design looks promising, especially because of the info and pictures I could crawl together. Few more days and I will release a first draft. For now the answer to: "how to create your own country API?" </p>
+<p><!--more--></p>
+<p class="newhere">New here? You might want to subscribe to my blog by <a href="http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos" onclick="window.open('http://feedburner.google.com/fb/a/mailverify?uri=bbelderbos', 'popupwindow', 'scrollbars=yes,width=550,height=520'); return false;">email</a> or <a href="http://bobbelderbos.com/rss" target="_blank">RSS</a>.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/country_api.jpg" alt="country api featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>That seemed a challenge at first, but combining 1 flat txt file and 2 APIs, I got a pretty decent database that served my purpose.</p>
+<p>It serves the travel fans under us to browse countries, viewing nice photos of those countries, and comment on each country page as well (logged in with Facebook). If it works, and people start to add content themselves, it will become a personal experience. It starts basic, new features can always be added.</p>
+<p>But before this could work in any way, the app has to provide some content itself. Especially with a travel / country app, photos are unmissable!</p>
+<p>In this posts some examples how to get the data required for a country database to build a nice travel app ...</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> First things first, the raw data</h3>
+<p> I used <a href="http://www.geonames.org/export/" target="_blank">geonames.org</a> to get some basic info for all <a href="http://reference.sitepoint.com/html/lang-codes" target="_blank">ISO 2 country codes</a>, see a list <a href="http://download.geonames.org/export/dump/countryInfo.txt" target="_blank">here</a>. I found small, nice country flag gif images <a href="http://stefangabos.ro/other-projects/list-of-world-countries-with-national-flags/" target="_blank">here</a> (filenames match the two-char ISO2 names -> AE, DE, NL, etc.).</p>
+<h3> 2nd of all: the worldbank API to get exact longitudes and latitudes per country. </h3>
+<p> Lists of these parameters per country exist. We need them for the <a href="http://www.tixik.com/en/info/api" target="_blank">Tixik API</a> (next step). However the lists I found (<a href="http://www.maxmind.com/app/country_latlon" target="_blank">example</a>), did not work quite well with Tixik. What worked best were the results from <a href="http://data.worldbank.org/developers" target="_blank">the worldbank API</a> , for example: <a href="http://api.worldbank.org/countries/ES" target="_blank">for Spain</a> - you can make the call to get all latitudes/ longitudes for all countries with <a href="http://api.worldbank.org/countries?per_page=300" target="_blank">this call</a>. Then update the DB with these values and you have a pretty nice set to work with:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sql_Db.png" alt="sql country table" style="float:none; margin: 20px;" width="580" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3> 3rd: tixik country photo links</h3>
+<p> Now the fun starts: photos! A travel app is about showing photos. You will see the endresult, but here is the workhorse to get to the data: <a href="http://www.tixik.com/" target="_blank">Tixik</a>. I discovered it by accident, but it has a very simple yet efficient <a href="http://www.tixik.com/en/info/api/" target="_blank">api</a>. Quote from Tixik: "We have hundreds of thousands of presentations with pictures and texts in multiple languages. Would you like to have some of them on your website?"</p>
+<p> And the answer is "of course we want that!". Well, it is plain simple and now you see the "why" of the latitude and longitude of the last step: <a href="http://www.tixik.com/en/api/nearby?lat=36.106121163930377&lng=28.07762145996093&limit=10&key=demo" target="_blank">http://www.tixik.com/en/api/nearby?lat=36.106121163930377&lng=28.07762145996093&limit=10&key=demo</a>. You can raise the limit to get more photos, the key you put in when you sign up with just your name and email. To get some nice picture (links) from Andorra <a href="http://www.tixik.com/en/api/nearby?lat=42.5075&lng=1.5218&limit=50&key=demo" target="_blank">click here</a>.</p>
+<p>When processing this info for each country, you have a database with about 10.000 pic links:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sql_images.png" alt="images table with imported images from tixik" style="float:none; margin: 20px;" width="580" /></p>
+<h3> Some code to get this working ...</h3>
+<p> I will keep it short given the size of this post. So not all details, just the core things you need to get started. :</p>
+<ul>
+<li> Create 2 DB tables: one to hold the country info and another to hold links to the images (from Tixik). Relation is the two letter iso2 country code.</li>
+<pre>
+   CREATE TABLE IF NOT EXISTS `countries` (
+     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `iso2` varchar(2) NOT NULL,
+     `country` varchar(50) NOT NULL,
+     `capital` varchar(50) NOT NULL,
+     `area` varchar(20) NOT NULL,
+     `population` varchar(20) NOT NULL,
+     `continent` varchar(2) NOT NULL,
+     `currCode` varchar(3) NOT NULL,
+     `currName` varchar(20) NOT NULL,
+     `phone` varchar(10) NOT NULL,
+     `langs` varchar(2) NOT NULL,
+     `neighbours` varchar(30) NOT NULL,
+     `longitude` varchar(20) DEFAULT NULL,
+     `latitude` varchar(20) NOT NULL,
+     PRIMARY KEY (`id`)
+   ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+   
+   -- --------------------------------------------------------
+   
+   --
+   -- Table structure for table `images`
+   --
+   
+   CREATE TABLE IF NOT EXISTS `images` (
+     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `country` varchar(2) NOT NULL,
+     `name` varchar(200) NOT NULL,
+     `tn` varchar(200) NOT NULL,
+     `tn_big` varchar(200) NOT NULL,
+     `created` int(11) NOT NULL,
+     PRIMARY KEY (`id`)
+   ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+</pre>
+<li> Import the data from geonames: I got to <a href="http://bobbelderbos.com/src/countries_final.txt" target="_blank">this file</a>. You can run a simple Perl script to bounce the SQL insert statements (see my comment on SQL insert in the next step ...): </li>
+<pre>
+  while(&lt;&gt;){
+    chomp;
+    @arr = split(/t/, $_);
+ 	
+    $insert =&quot;INSERT INTO countries (id, iso2, country, capital, area, population, continent, currCode, currName, phone, langs, neighbours) 
+      VALUES (NULL, '$arr[0]', '$arr[1]', '$arr[2]', '$arr[3]', '$arr[4]', '$arr[5]', '$arr[6]', '$arr[7]', '$arr[8]', '$arr[9]', '$arr[10]');&quot;;
+  
+    print &quot;$insertn&quot;;
+  	
+  } 
+</pre>
+<p> Run it as $ perl test.pl country_file - it will take that file as input, loop through it, split each line into an array based on the tab character, etc.</p>
+<li> Update longitude and latitude from worldbank API: </li>
+<pre>
+  function getLocationParamsWorldBank(){
+    // saved xml from http://api.worldbank.org/countries?per_page=300
+    $wbUrl = 'api.worldbank.countries.all.xml';
+    $ns='wb';
+   
+    $xml = @simplexml_load_file($wbUrl);
+    $params = array();
+    $counter=0;
+   
+    foreach($xml-&gt;children($ns,true) as $i) {		
+      $query = &quot;UPDATE countries SET longitude='&quot;.$i-&gt;longitude.&quot;',
+        latitude='&quot;.$i-&gt;latitude.&quot;' &quot;;
+      $query .= &quot;WHERE iso2='&quot;.$i-&gt;iso2Code.&quot;';&quot;;
+      echo $query .&quot;&lt;br&gt;&quot;;
+    }
+  }
+</pre>
+<p> No SQL security here, because I am going to do the import myself. I can also do the import with PHP MySql commands but for this exercise I wanted to see the commands first and then copy paste. If you want to let PHP do all the work, run something like this on the $query (after having created the database $link object):</p>
+<pre>
+   $r = $link-&gt;query($query);
+   $returnID = $link-&gt;insert_id;
+
+   if(is_numeric($returnID)) { 
+   ..
+</pre>
+<li> Last prepare the Tixik URLs to get the images per country and write the links to the images table: </li>
+<pre>
+  function getThumbs($country) {
+    $params = getLocationParamsDb($country);  // skipped for brevity
+    $xml = queryTixik($params);
+    $images = processTixikImages($xml);	
+    writeImagesToDb($country, $images); // skipped for brevity
+  }
+   
+  function queryTixik($params, $limit = 50) {
+    $latitude = $params['latitude']; // form &quot;getLocationParamsDb&quot;
+    $longitude = $params['longitude'];
+    $tixKey = &quot;--obtain from tixik.com -- &quot;;
+   	
+    $txUrl = &quot;http://www.tixik.com/en/api/nearby?lat=$latitude&amp;lng=$longitude&amp;limit=$limit&amp;key=$tixKey&quot;;
+    $xml = simplexml_load_file($txUrl, 'SimpleXMLElement', LIBXML_NOCDATA); 
+    return $xml;
+  }
+   
+  function processTixikImages($xml){	
+    $images = array(); $i = 0;
+    foreach ($xml-&gt;items-&gt;item as $item) {
+      if (@fclose(@fopen($item-&gt;tn, &quot;r&quot;)) ) {
+        $images[$i]['name'] = str_replace(&quot;'&quot;,&quot;'&quot;,$item-&gt;name); // not screw up sql statement
+        $images[$i]['tn'] = $item-&gt;tn; // thumbnail
+   	$images[$i]['tn_big'] = $item-&gt;tn_big; // bigger version of image
+   	$i++;
+      }
+    }
+  }
+</pre>
+<p>I became a fan of shortening my functions. It is a good programming practice. Next time I turn the 4 functions into 8, it really makes things cleaner.</p>
+<p>Nice trick: LIBXML_NOCDATA allows you to read the CDATA outputs (comments) which are not processed per default by simplexml_load_file. XML Tixik returns, has this occasionally so err on the safe side.</p>
+<p>Another thing that I wanted to make sure was that each thumbnail link was actually accessible. <a href="http://www.zann-marketing.com/developer/20051128/check-if-external-image-exists.html" target="_blank">Here is how</a>: basically you can test for the positive return of:</p>
+<pre>
+   if (@fclose(@fopen($item-&gt;tn, &quot;r&quot;)) ) { .. }
+</pre>
+<p>Again, I skipped some details to not make this post too long. Play with it, I learned quite a bit putting myself up for this exercise. The result was worth the effort though.</p>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Sneak preview</h3>
+<p> OK, you might be wondering now: "the data is there, now what?!" ... I will give you a quick preview of the FB app I am building ...</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/sneak_preview.jpg" alt="preview travel app" style="float:none; margin: 20px;" width="580" /></p>

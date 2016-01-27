@@ -1,0 +1,250 @@
+---
+layout: post
+title: 'Mastering Git: 5 useful tips to increase your skills'
+date: 2013-03-25 18:00:00.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- branch
+- git
+- gitk
+- rebase
+- remote
+- repository
+- reset
+- software
+- stash
+- tools
+- version control
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2375'
+  snapEdIT: '1'
+  dsq_thread_id: '1162438034'
+  snapFB: 's:274:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"PostType";s:1:"A";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:31:"160267890674014_555930681107731";s:5:"pDate";s:19:"2013-03-25
+    17:00:37";}}";'
+  snapDL: s:208:"a:1:{i:0;a:7:{s:4:"doDL";s:1:"1";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:6:"%TEXT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:2:"DL";s:5:"pDate";s:19:"2013-03-25
+    17:00:32";}}";
+  snap_isAutoPosted: '1'
+  snapLI: 's:376:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:25:"Blogged:
+    %TITLE% - %SURL%";s:11:"SNAPformatT";s:6:"&nbsp;";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:123:"http://www.linkedin.com/updates?discuss=&amp;scope=17946624&amp;stype=M&amp;topic=5721998863582101504&amp;type=U&amp;a=lO4T";s:5:"pDate";s:19:"2013-03-25
+    17:00:38";}}";'
+  snapTW: 's:242:"a:1:{i:0;a:7:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:32:"Blogged:
+    %TITLE% - %SURL% %CATS%";s:8:"attchImg";s:1:"0";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"316233190215913472";s:5:"pDate";s:19:"2013-03-25
+    17:00:42";}}";'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p> A little over a year ago I wrote <a href="http://bobbelderbos.com/2012/02/git-in-a-nutshell/" target="_blank">my first post on git</a> with some basics. I just started using it and since then I never looked back. A follow-up post of some more basic to intermediate Git operations ...</p>
+<p><!--more--></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p>Git has definitely saved me a lot of time and gave my projects much better structure (you become better at committing (smaller) chunks of code!). I am also not afraid anymore to make changes, which leads to more freedom when coding. In this article, some random things I learned, in a couple of months I will follow up with an "advanced Git" post ...</p>
+<h3>Branching</h3>
+<p> Braches are cheap (<a href="http://git-scm.com/book/ch3-1.html" target="_blank">41 bytes</a>), and it is very convenient to work on bugs, new features, try out ideas in isolation (without touching the main branch aka master).</p>
+<p> So first thing I now do when working on something non-trivial:</p>
+<pre>
+$ git checkout -b new_branch_name
+</pre>
+<p> Which creates and puts you on the new branch at once (longer version: $ git branch new_branch_name && git checkout new_branch_name). To merge? Simple:</p>
+<pre>
+# go to receiver branch
+#&nbsp;any changes on branch you come from need to be committed
+$ git checkout master 
+# fold the branch in if happy with changes
+$ git merge new_branch_name
+</pre>
+<p>Best is to merge often, the longer you diverge from master, the more likely you have to solve merge conflicts.</p>
+<h3>Rebasing</h3>
+<p> Today <a href="http://shop.oreilly.com/product/0636920017462.do" target="_blank">I learned</a> about a new concept: <a href="http://git-scm.com/book/en/Git-Branching-Rebasing" target="_blank">rebasing</a>. This basically allows you to clean up history: you can make it appear that all work happened in series, even though it originally happened in parallel. I also understand it allows you to move branches forward in time so that they stay closer to master.</p>
+<p>!! Note that you want to do this on local commits only, because you effectively are changing history, don't do this on code that has been shared (pushed to the remote repo). Now that I branch more often, I can see me using this feature ...</p>
+<h3>Undo commands</h3>
+<p> Again, something to do before pushing code to a team, but to correct your last commit, easy:</p>
+<pre>
+$ git commit --amend
+</pre>
+<p> This not only lets you change your commit message, it also allows you to add new files (git add .) which then will be committed into the last commit you are amending.</p>
+<p> Sometimes you are not happy with commits before the last one; --amend cannot help you there, but git reset does. You want to be cautious with this command though:</p>
+<pre>
+# undo commit, but keep files in changed state
+$ git reset --soft tree-ish (e.g. HEAD^) 
+#&nbsp;undo commit and also delete the changes, as if the change(s) never happened
+$ git reset --hard tree-ish (e.g. HEAD^)
+
+# example wiping out last commit: 
+$ git log -2
+commit d4d479a6121d6757dfcf49795dc0d7134be474f6
+..
+    test commit
+
+commit 60cbc505273e6f583f347844069106fb1ffde5eb
+..
+
+$ git reset --hard HEAD^
+HEAD is now at 60cbc50 make an extra div for flexible content under the video
+$ git status
+# On branch new_feature
+nothing to commit (working directory clean)
+</pre>
+<p> See <a href="http://stackoverflow.com/questions/927358/how-to-undo-the-last-git-commit" target="_blank">here</a> for a good explanation of the different switches of git reset.</p>
+<p> Also handy: to revert uncommited changes just do :</p>
+<pre>
+$ git checkout -- file(s)
+</pre>
+<p> ... and the changes on the file(s) are cancelled. About <a href="http://git-scm.com/book/ch2-4.html" target="_blank">undoing in git</a>.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Useful tools</h3>
+<p> There are a lot, just a few handy things I learned in the tool's space:</p>
+<ul>
+<li> Visualization of git history: check out <a href="http://stackoverflow.com/questions/1570535/guide-to-understanding-gitk" target="_blank">gitk</a>, or create the following alias to graphically see branches etc in the log: </li>
+<pre>
+$ git config --global --add alias.lol &quot;log --graph --decorate --pretty=oneline --abbrev-commit --all&quot;
+</pre>
+<li> Learn to use a <a href="http://bobbelderbos.com/2012/03/push-code-remote-web-server-git/" target="_blank">bare repo</a>. Some time ago I made <a href="http://bobbelderbos.com/2012/07/simple-bash-script-to-clone-remote-git-repositories/" target="_blank">a script</a> that saves time creating remotes on my hosting server.</li>
+<li> Use <a href="http://git-scm.com/book/en/Git-Basics-Tips-and-Tricks" target="_blank">autocomplete</a> and show the current branch in your <a href="https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh" target="_blank">shell prompt</a>. Configure the following in your shell init file:</li>
+<pre>
+#&nbsp;from .bashrc
+..
+source ~/.git-completion.bash
+source ~/.git-prompt.sh
+PS1=&#39;[\u@\h \W$(__git_ps1 &quot; (%s)&quot;)]\$ &#39; 
+
+#&nbsp;prompt now shows active branch
+[bbelderbos@Bob-Belderboss-MacBook-Pro youtube_feed (master)]$ git checkout -b new_feature
+Switched to a new branch &#39;new_feature&#39;
+[bbelderbos@Bob-Belderboss-MacBook-Pro youtube_feed (new_feature)]$ 
+</pre>
+<li> <a href="http://git-scm.com/book/en/Git-Tools-Stashing" target="_blank">Stashing</a> allows you to store some edits to a stack when you're not ready to commit them and you need to move branches for example (git doesn't allow to switch branch when there are pending changes):</li>
+<pre>
+$ git status 
+#&nbsp;dirty files
+$ git stash save
+$ git status #&nbsp;= clean
+$ git checkout other_branch # pending changes would abort this command, now I can
+$ git stash apply stash@{0} # use &quot;pop&quot; to wipe it out of the stack
+$ git status #&nbsp;change now shows up in the destination branch I am on
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>File changes in >1 commits:</h3>
+<pre>
+$ git add -p
+</pre>
+<p> This is a form of interactive committing, by showing hunks of the file (-p stands for --patch mode) that you can add to the commit or not. Below an example. I actually heard about this feature today, and I just tested it writing this blog. The great thing about Git (and Vim for that matter) is the easiness to test out things which give you direct feedback. As you get handier with the commands you see it is easy to undo anything, understanding a small subset of git commands and you can test things out without making a mess, besides, it is hard to really loose work in Git ...</p>
+<pre>
+# making two edits to style.css
+# 1. adding padding to body
+#&nbsp;2. increasing font-size of p
+$ git diff 
+diff --git a/style.css b/style.css
+..
+@@ -2,6 +2,7 @@ body {
+..
++  padding: 5px;
+ }
+..
++p {
++  font-size: 1.1em;
++}
+ 
+# add file in --patch / interactive mode, note the &quot;Stage this hunk&quot; questions
+# I only stage the first change
+$ git add -p
+diff --git a/style.css b/style.css
+index 88a2b04..13a1311 100644
+--- a/style.css
++++ b/style.css
+@@ -2,6 +2,7 @@ body {
+   font : 75%/1.5 &quot;Lucida Grande&quot;, Helvetica, &quot;Lucida Sans Unicode&quot;, Arial, Verdana, sans-serif;
+   color:#000; background-color: #f2f2f2;  
+   margin: 0 5px;
++  padding: 5px;
+ }
+ a {
+   color: #900;
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]? y
+@@ -80,4 +81,7 @@ span.inactive {
+   padding: 2px 6px 2px 6px;
+   cursor: default;
+ }
++p {
++  font-size: 1.1em;
++}
+ 
+Stage this hunk [y,n,q,a,d,/,K,g,e,?]? n
+
+# gs is a bash alias for &quot;git status&quot;
+$ gs
+..
+..
+# modified:   style.css
+
+# first commit (with 1 of the 2 changes)
+$ git commit -m &quot;added padding&quot;
+[new_feature 95c7c53] added padding
+ 1 file changed, 1 insertion(+)
+
+#&nbsp;left is the second change (which was not staged with the first commit)
+$ git diff style.css
+diff --git a/style.css b/style.css
+index c0a0a96..13a1311 100644
+--- a/style.css
++++ b/style.css
+@@ -81,4 +81,7 @@ span.inactive {
+   padding: 2px 6px 2px 6px;
+   cursor: default;
+ }
++p {
++  font-size: 1.1em;
++}
+
+# adding the 2nd change 
+$ git add .
+$ git commit -m &quot;increased font-size&quot;
+[new_feature 809e00a] increased font-size
+ 1 file changed, 3 insertions(+)
+
+# changes have gone in two commits
+$ git  diff HEAD^..HEAD
+diff --git a/style.css b/style.css
+index c0a0a96..13a1311 100644
+--- a/style.css
++++ b/style.css
+@@ -81,4 +81,7 @@ span.inactive {
+   padding: 2px 6px 2px 6px;
+   cursor: default;
+ }
++p {
++  font-size: 1.1em;
++}
+ 
+$ git  diff HEAD^^..HEAD^
+diff --git a/style.css b/style.css
+index 88a2b04..c0a0a96 100644
+--- a/style.css
++++ b/style.css
+@@ -2,6 +2,7 @@ body {
+   font : 75%/1.5 &quot;Lucida Grande&quot;, Helvetica, &quot;Lucida Sans Unicode&quot;, Arial, Verdana, sans-serif;
+   color:#000; background-color: #f2f2f2;  
+   margin: 0 5px;
++  padding: 5px;
+ }
+ a {
+   color: #900;
+</pre>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Git is a huge subject</h3>
+<p> ... and learning more of it pays off: it saves time and you can improve software quality by making smart commits, isolate work in branches, etc. </p>
+<p> It is also a generic skill: you can use it for any project, be it Javascript, PHP, C++, Python, or whatever changes you want to keep track of: a blog, or if you write a book.</p>
+<p>I hope this rather random selection of tips has been useful, what other git operations do you often use to improve / speed up your work flow?</p>
+<pre>
+$ git add 2013.03.24_git_intermediate.txt
+$ git commit -m &quot;git post done&quot;
+</pre>
+</ul>

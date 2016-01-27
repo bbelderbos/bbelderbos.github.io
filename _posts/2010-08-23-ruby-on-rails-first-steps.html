@@ -1,0 +1,86 @@
+---
+layout: post
+title: Ruby on Rails – first steps
+date: 2010-08-23 18:33:36.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- howto
+- mvc
+- rails
+- ruby
+meta:
+  _edit_last: '1'
+  _sexybookmarks_shortUrl: http://b2l.me/atwzzw
+  _sexybookmarks_permaHash: 819779c1b98c5a9d20a2063658b00c57
+  dsq_thread_id: '142335355'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Ruby on Rails? .. yes, I started to learn Ruby on Rails (abbr as ROR)!<br />
+It's quite a challenge and honestly it's not the first attempt.<br />
+but .. the water is not that cold after all :D</p>
+<h2>So why taking this challenge?</h2>
+<p><strong>Well.. Ruby is a strong and sexy OOP language and Rails embeds the MVC architecture<br />
+When dealing with more complex projects a MVC approach is inevitable<br />
+</strong></p>
+<p><strong>MVC</strong> stands for <span style="text-decoration: underline;">Model-View-Controller</span> and allows your web app to be structured in a more logical way:<br />
+-the <span style="text-decoration: underline;">model</span> handles the data (database)<br />
+-the <span style="text-decoration: underline;">controllers</span> the application logic<br />
+-the <span style="text-decoration: underline;">views</span> the presentation logic</p>
+<p>Some advantages of MVC are scalability, easier maintenance and re-use of code. When using it for a while I will expand on this ..</p>
+<p>A good intro on ruby on rails and the MVC architecture -which surprisingly enough <a href="http://en.wikipedia.org/wiki/Model–View–Controller" target="_blank">has been around for over 30 years</a>!- can be found <a href="http://articles.sitepoint.com/article/learn-ruby-on-rails/8" target="_blank">here</a>. <a href="http://www.amazon.com/Build-Your-Ruby-Rails-Applications/dp/0975841955" target="_blank">Build your own ruby on rails web applications</a>, by the <a href="http://www.sitepoint.com/articlelist/471/" target="_blank">same author</a>, is a good intro. I started to read it this weekend, although terribly busy, I am one third through, because it is accessible and to-the-point.</p>
+<h2>Installation</h2>
+<p>You need to take several steps to get ROR up and running on your system, depending the OS you are running.<br />
+Basically you need to:<br />
+- install rails<br />
+- install rubygems*<br />
+- install rails via gem<br />
+- install mysql<br />
+- install ri (optional; documentation)</p>
+<p><span style="color: #808080;">* this is the name of the app. When installed, you run $ gem .. from the command line interface (aka terminal).<br />
+It a ruby app or package manager, compare it to "port" on the Mac or "apt-get" on Ubuntu. </span></p>
+<p>I had some compatibility issues between the various apps on Linux and Mac (mainly Mysql config).<br />
+I found some useful links I want to share:<br />
+- Ubuntu: all errors could be found + solved here: <a href="http://rbjl.net/20-rubybuntu-2-troubleshooting-common-ruby-ubuntu-problems" target="_blank">http://rbjl.net/20-rubybuntu-2-troubleshooting-common-ruby-ubuntu-problems</a><br />
+- Mac: comes with ruby + rails, less work here. You might have an issue with Mysql when starting your freshly created webapp: in your terminal where you start the app with "ruby script/server" you see<span style="color: #ff6600;"> uninitialized constant MysqlCompat::MysqlRes <span style="color: #000000;">and a lot of spam after that. </span></span>Installing Mysql via "gem" with the following flags helped - thanks to this <a href="http://www.ruby-forum.com/topic/192550" target="_blank">tip</a></p>
+<pre>sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config</pre>
+<p>Just some observations from a guy stubbing his toe in the swimming pool :D</p>
+<p>[caption id="attachment_114" align="aligncenter" width="600" caption="installed ruby on rails on mac and ubuntu"]<a href="http://bobbelderbos.com/wp-content/uploads/2010/08/installed.jpg"><img class="size-full wp-image-114 " title="installed ruby on rails on mac and ubuntu" src="{{ site.baseurl }}/assets/installed.jpg" alt="installation ok" width="600" height="400" /></a>[/caption]</p>
+<h2>Prepare for next months..</h2>
+<p>The links below are far better in explaining the installation process and first steps with ROR</p>
+<p>In the (near) future I'd like to dedicate <strong><span style="text-decoration: underline;">3 posts</span></strong> to:</p>
+<p>1- <strong><span style="color: #ff00ff;">the ruby programming language</span></strong><br />
+PHP is fun, it's powerful, it's comfortable, somebody I can laugh and cry with, but it has its limitations and OOP was put on top of it.<br />
+Ruby is natively OOP, it's compact and it seems very smart and in conjunction with rails it's very powerful.</p>
+<p>2- <strong><span style="color: #993366;">the rails framework</span></strong><br />
+More on MVC and its practical implications doing web development.</p>
+<p>3- <strong><span style="color: #99cc00;">my first rails app</span></strong></p>
+<p>.. if you're interested just follow the "New blog post" notices <a href="http://twitter.com/bbelderbos" target="_blank">@bbelderbos</a></p>
+<h2><strong>Useful sources</strong></h2>
+<p><strong> </strong>So you also want to ride Ruby on Rails ?<br />
+Here are some useful links:</p>
+<ul>
+<li>ROR homepag: <a href="http://rubyonrails.org/" target="_blank">http://rubyonrails.org/</a></li>
+<li>ROR guides: <a href="http://guides.rubyonrails.org/" target="_blank">http://guides.rubyonrails.org/</a></li>
+<li>ROR on twitter: <a href="http://twitter.com/rails" target="_blank">http://twitter.com/rails</a></li>
+<li>ROR linkedin: <a href="http://www.linkedin.com/groups?home=&amp;gid=22413" target="_blank">http://www.linkedin.com/groups?home=&amp;gid=22413</a></li>
+<li>ROR beginner's guide: <a href="http://articles.sitepoint.com/article/learn-ruby-on-rails" target="_blank">http://articles.sitepoint.com/article/learn-ruby-on-rails</a></li>
+<li>Book <a href="http://www.amazon.com/s/ref=ntt_athr_dp_sr_1?_encoding=UTF8&amp;sort=relevancerank&amp;search-alias=books&amp;field-author=Patrick%20Lenz">Patrick Lenz</a>: <a href="http://www.amazon.com/Build-Your-Ruby-Rails-Applications/dp/0975841955" target="_blank">http://www.amazon.com/Build-Your-Ruby-Rails-Applications/dp/0975841955</a></li>
+<li>ROR tuts sitepoint: <a href="http://articles.sitepoint.com/category/ruby" target="_blank">http://articles.sitepoint.com/category/ruby</a></li>
+<li>Top 12 ROR Tutorials: <a href="http://www.digitalmediaminute.com/article/1816/top-ruby-on-rails-tutorials" target="_blank">http://www.digitalmediaminute.com/article/1816/top-ruby-on-rails-tutorials</a></li>
+<li>Install ROR on
+<ul>
+<li>mac (+ intro): <a href="http://developer.apple.com/tools/rubyonrails.html" target="_blank">http://developer.apple.com/tools/rubyonrails.html</a></li>
+<li>linux: <a href="https://help.ubuntu.com/community/RubyOnRails" target="_blank">https://help.ubuntu.com/community/RubyOnRails</a></li>
+<li>windows: <a href="http://allaboutruby.wordpress.com/2009/07/20/installing-rails-on-windows-3-years-later/" target="_blank">http://allaboutruby.wordpress.com/2009/07/20/installing-rails-on-windows-3-years-later/</a></li>
+</ul>
+</li>
+</ul>

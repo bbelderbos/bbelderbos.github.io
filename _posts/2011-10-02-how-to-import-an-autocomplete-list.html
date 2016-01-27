@@ -1,0 +1,33 @@
+---
+layout: post
+title: How to import an autocomplete list
+date: 2011-10-02 07:24:00.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- autocomplete
+- hacks
+- json
+- php
+meta:
+  posterous_6b63f8d297c73139dd329498419cf441_post_id: '73540938'
+  posterous_6b63f8d297c73139dd329498419cf441_permalink: http://exploringtheweb.net/how-to-import-an-autocomplete-list
+  _thumbnail_id: '1345'
+  _edit_last: '1'
+  dsq_thread_id: '497851651'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>This is a trick I learned in need of a specific list. You can check in the firebug console what URL and get variable is running in the background to reproduce the result list.</p>
+<p><!--more--></p>
+<p>The example loops over the results letter by letter and storing each unique value in an array. You probably need several nested foreach statements.</p>
+<p>Below you see just one, which got me 200 items, going with a 2nd loop (so testing aa through zz) got me 2400 results, and I think there were even more.&nbsp;</p>
+<p>The <a href="http://php.net/manual/en/function.json-decode.php" target="_blank">json_decode</a> function is quite useful&nbsp;when dealing with data APIs which often return JSON</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/10/autocomplete.png.scaled1000.png"><img src="{{ site.baseurl }}/assets/autocomplete.png.scaled1000.png" alt="autocomplete example code" title="autocomplete.png.scaled1000" width="600" /></a></p>

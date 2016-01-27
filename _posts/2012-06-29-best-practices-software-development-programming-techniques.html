@@ -1,0 +1,86 @@
+---
+layout: post
+title: Best practices of software development - I) Programming Techniques
+date: 2012-06-29 18:15:01.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- best practices
+- coding
+- software development
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '2005'
+  dsq_thread_id: '745037512'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> The coming weeks I will have 3 articles for you about best practices of software development. Following these methods could lead to more efficient development and better quality code. In this post: Programming Techniques and Strategies.</p>
+<p><!--more--></p>
+<h3>Purpose and planning</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/swdev1.jpg" alt="featured image" style="float:right; margin: 20px;" width="200" /></p>
+<p> The purpose of this series is to have some understanding of how to write quality code to become a better developer. It should be a theoretical reference to go back to from time to time. It should complement the practical day-to-day learning.</p>
+<ul>
+<li> <a href="http://bobbelderbos.com/2012/06/best-practices-software-development-programming-techniques/" target="_blank">I) Programming Techniques and Strategies</a></li>
+<li> <a href="http://bobbelderbos.com/2012/07/best-practices-software-development-good-coding-methodologies/" target="_blank">II) Good Coding Methodologies</a></li>
+<li> III) Maintaining Quality Code</li>
+</ul>
+<p> Potentially I will follow up with a 4th article about Objected-oriented Coding, whenever I have some more experience with it.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Programming Techniques and Strategies</h3>
+<p> 50% to 75% of development time goes into testing and validation of code. Why? Software development is a complicated process. In this posts some techniques to handle this.</p>
+<h3>Complexity</h3>
+<p>4 things that define uncontrolled complexity and should be limited:</p>
+<ul>
+<li> Coupling: the more dependencies of subsystems the more complex the system overall and the easier bugs get introduced;</li>
+<li> Control flows; the number of independent paths (see also <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank">Cyclomatic complexity</a>);</li>
+<li> Complexity of data structures;</li>
+<li> The overall size of the program.</li>
+</ul>
+<p> To avoid or reduce complexity a developer can:</p>
+<ul>
+<li> Partition: break the program up in smaller units or classes;</li>
+<li> Add hierarchy to your programs. A good example is the <a href="http://en.wikipedia.org/wiki/OSI_model" target="_blank">OSI model</a>: similar communication functions are grouped into logical layers. In programs, units are black boxes and are self contained. This way they are easier to test. Use local (not global) variables. Build in privacy: data should be local to each blackbox element (method or function);</li>
+<li> Limit functionality at the start. Adding functionality scales up complexity in a non-linear fashion;</li>
+<li> Use an iterative development process: have early and frequent feedback loops. See further down ...</li>
+</ul>
+<h3>Elegant software </h3>
+<p>Good software ought to be non verbose and elegant. The most efficient piece of software for a particular purpose uses the least amount of code and the smallest number of abstracted entities.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Human factor</h3>
+<p>The human factor is important. Pair programming can reduce the amount of bugs introduced into the system. Same with peer reviews and collective code ownership (if communicated well and version controlled).</p>
+<h3>Software quality</h3>
+<p>Good software can be measured by the following key metrics:</p>
+<ul>
+<li> External factors: availability, efficiency, flexibility, integrity/ security, interoperability, reliability and usability.</li>
+<li> Internal factors: maintainability (average time to correct faults), reusability (well documented, platform independent, modular), readability, portability, testability.</li>
+</ul>
+<h3>Defensive programming</h3>
+<p>The best prevention measure is to write robust code that anticipates problems, validates data inputs and terminates gracefully providing debug info to de developer.</p>
+<p> To be defensive a developer should use:</p>
+<ul>
+<li> Assertions: test for errors that should never occur;</li>
+<li> Input validations: test ALL data inputs (whether it comes from a database, users, or from methods);</li>
+<li> Error handling: these errors are expected but it depends the application how to handle them (a cash withdrawal machine should handle errors differently than a word processing program);</li>
+<li> Error containment: shut down parts of the program to prevent damage to other parts.</li>
+</ul>
+<h3>Software development methodologies:</h3>
+<p> There are different types of development styles:</p>
+<ul>
+<li> <a href="http://en.wikipedia.org/wiki/Waterfall_model" target="_blank">The Waterfall model</a> is a sequential design process with its roots in the manufacturing industry. Progress flows from the top to the bottom. Requirements, design, implementation, verification and maintenance, each stage is completed before moving to the next one. The risk here is when requirements change throughout the process. In that case you would have to go through most of the process again.</li>
+<li> <a href="http://en.wikipedia.org/wiki/Iterative_and_incremental_development" target="_blank">Iterative development</a> is cyclic and a response to the weaknesses of the Waterfall model. It is more flexible because it works with smaller iterations. It is adaptive, starts with a small version, changes per cycle are smaller so easier to correct if wrong. The customer has an early demo ready.</li>
+<li> <a href="http://en.wikipedia.org/wiki/Agile_software_development" target="_blank">Agile methods</a> are iterative and incremental. They are adaptive rather than predictive and people-oriented rather than process driven. The work is done in small self-organizing, cross-functional teams. </li>
+<li> <a href="http://en.wikipedia.org/wiki/Extreme_programming" target="_blank">Extreme Programming</a> is a type of agile software development. It is characterized by simplicity and clarity in code (using coding standards), rapid iterations, team work (pair programming), refactoring and unit testing, frequent feedback from the customer (changes are a fact of life) and 40-hour workweeks (no overtime).</li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3>More resources</h3>
+<p>Two must-reads on this topic are: <a href="http://bobbelderbos.com/2011/02/great-book-about-software-engineering/" target="_blank">The Pragmatic Programmer: From Journeyman to Master</a> and <a href="http://www.amazon.com/dp/B001GSTOAM/?tag=bobbelderbos-20" target="_blank">Clean Code: A Handbook of Agile Software Craftsmanship</a>.</p>
+<p>Two of my previous posts that are related: <a href="http://bobbelderbos.com/2011/04/make-developer-life-easier/" target="_blank">Some tips to make a developer's life easier</a> and <a href="http://bobbelderbos.com/2011/07/becoming-good-debugger/" target="_blank">Becoming a good debugger</a>.</p>

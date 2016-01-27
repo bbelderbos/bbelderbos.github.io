@@ -1,0 +1,88 @@
+---
+layout: post
+title: 'Project: playing/upcoming weekly movie email (themoviedb API)'
+date: 2015-11-15 23:45:49.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+- Projects
+tags:
+- api
+- movies
+- optparse
+- python
+- sharemovi.es
+- shelve
+- themoviedb
+- tmdb
+- tmdbsimple
+meta:
+  _edit_last: '1'
+  _oembed_99184f1b84c76a6d71555ebb9f288f88: '{{unknown}}'
+  _thumbnail_id: '2731'
+  featured_posts_widget_flag: 'false'
+  _at_widget: '1'
+  dsq_thread_id: '4321965187'
+  _post_restored_from: a:3:{s:20:"restored_revision_id";i:2747;s:16:"restored_by_user";i:1;s:13:"restored_time";i:1447969953;}
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>Hi again, some more coding today. My <a href="http://bobbelderbos.com/2013/01/sharemovies-python-script-cron-latest-movies/" target="_blank">original attempt</a> at this broke some time ago, because <a href="https://www.themoviedb.org/movie" target="_blank">themoviedb's page</a> HTML changed. Lesson learned: rather use an API.</p>
+<p>So I rewrote this script, improving it and adding some cool new features. Check out the code/readme on <a href="https://github.com/bbelderbos/themoviedb" target="_blank">github</a>.</p>
+<hr />
+<h4>Usage</h4>
+<pre><code>main.py [options]
+Options:
+  -h, --help            show this help message and exit
+  -a ACTOR, --actor=ACTOR
+                        filter on actor (not yet implemented)
+  -c CATEGORY, --category=CATEGORY
+                        category [now_playing, upcoming, top_rated, popular]
+  -d DIRECTOR, --director=DIRECTOR
+                        filter on director (not yet implemented)
+  -g GENRES, --genres=GENRES
+                        filter on genres (not yet implemented)
+  -l LISTING, --listing=LISTING
+                        create email from themoviedb list URL
+  -m, --mailres         mail the html to recipients
+  -n NUMRES, --numres=NUMRES
+                        number of results
+  -p, --printres        print the html</code></pre>
+<p>&nbsp;</p>
+<hr />
+<h4>To use it yourself:</h4>
+<ol>
+<li>create a flat text file called 'key' with your <a href="https://www.themoviedb.org/documentation/api" target="_blank">themoviedb API</a> key;</li>
+<li>create a flat text file called 'recipients' with one or more emails (each one on a new line);</li>
+<li>use a cron job to call the script to send one or more notification alerts, I use the weekly.py script for this (note I also added a customized banner, if you don't want it modify generate_header in output.py).</li>
+</ol>
+<h4></h4>
+<hr />
+<h4>Some things I picked up:</h4>
+<p>Apart from the end result - a rich html email with new movie details -it's nice to see what you can learn from this kind of project:</p>
+<ul>
+<li>for any data mining, use the API if available, relying on HTML is trickier. <a href="https://www.themoviedb.org" target="_blank">Themoviedb</a> has a great API I already used for my <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> site, for this exercise I used the friendly <a href="https://github.com/celiao/tmdbsimple/" target="_blank">tmdbsimple</a> Python wrapper.</li>
+<li>instead of a text file or DB, I use the <a href="https://docs.python.org/2/library/shelve.html" target="_blank">Python shelve</a> for caching. I store movie IDs and movie details (info and credits = cast) as a key,value pairs. So data for each movie ID is downloaded once, then re-used for priting, mailing, etc. <img class="size-full wp-image-2731 alignright" src="{{ site.baseurl }}/assets/title_of_i.png" alt="weekly movie email" width="200" height="200" />Also, storing objects is a pretty flex solution, you can load them from the shelve and call methods on them).  See cache.py for its implementation. I used the shelve recently for the <a href="http://bobbelderbos.com/2015/11/new-safari-books-notification-email/">Safari new books</a> project too (see <a href="https://github.com/bbelderbos/safari/tree/master/rss">here</a>)</li>
+<li>use several classes (files) to decouple the design (cache, mail, output generation, movie objects, handle movie lists). The code was easy to extend, for example to work with customized (themoviedb) lists. I only had to write some code to crawl the list page (tmdbsimple does not support lists), the subsequent actions of shelving, printing and emailing worked out of the box, passing a list of movie IDs.</li>
+<li>optparse / OptionParser makes CLI switch handling very easy and compact, I use it all the time.</li>
+<li>I learned how to Python email using bcc and how to exclude mails and API key from the code putting them in files and ignore them from version control with .gitignore, pretty important.</li>
+<li>probably a couple of things more ... comment if you like to know more ...</li>
+</ul>
+<hr />
+<h4>Example mails</h4>
+<h5>I. weekly</h5>
+<p style="text-align: justify;"><a href="http://bobbelderbos.com/wp-content/uploads/2015/11/sharemovi.es-movie-alert.png"><img class="wp-image-2733 size-full" src="{{ site.baseurl }}/assets/sharemovi.es-movie-alert.png" alt="sharemovi.es-movie-alert" width="816" height="748" /></a></p>
+<h5 style="text-align: justify;">II. of a customized list (hacker movies)</h5>
+<p style="text-align: justify;"><a href="http://bobbelderbos.com/wp-content/uploads/2015/11/Screen-Shot-2015-11-15-at-22.54.06.png"><img class="wp-image-2732 size-full" src="{{ site.baseurl }}/assets/Screen-Shot-2015-11-15-at-22.54.06.png" alt="Screen Shot 2015-11-15 at 22.54.06" width="688" height="602" /></a></p>
+<hr />
+<h4>Update 19.11.2015</h4>
+<hr />
+<p>&nbsp;</p>
+<p>You can now add movies from the newsletter to your sharemovi.es watchlist when FB logged in - see the small link at the "Released" line, alongside the IMDB link:</p>
+<p style="text-align: justify;"><a href="http://bobbelderbos.com/wp-content/uploads/2015/11/Screen-Shot-2015-11-19-at-22.08.54.png"><img class="size-medium wp-image-2746" src="{{ site.baseurl }}/assets/Screen-Shot-2015-11-19-at-22.08.54-245x300.png" alt="Screen Shot 2015-11-19 at 22.08.54" width="245" height="300" /></a></p>

@@ -1,0 +1,76 @@
+---
+layout: post
+title: 'Exploring the web: my new responsive portfolio site'
+date: 2012-04-03 23:27:28.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- design
+- portfolio
+- responsive
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1929'
+  dsq_thread_id: '635512120'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> Last week I finished <a href="http://exploringtheweb.net" target="_blank">my new portfolio design</a>. It shows some websites I have built the last couple of years. As my blog I integrated bamboo in the design. There is a light and dark theme. And most important it is responsive: it is compatible with the iphone and ipad.</p>
+<p><!--more--></p>
+<p> Before designing <a href="http://exploringtheweb.net" target="_blank">this portfolio site</a>, I used a <a href="http://wordpress.org/extend/plugins/wp-portfolio/" target="_blank">Wordpress plugin</a> which was pretty good. The downside was that I could not fully control the look and feel of your portfolio. That's why I designed something myself!</p>
+<p>I started to take screenshots with <a href="http://www.paulhammond.org/webkit2png/" target="_blank">this nice command line tool</a>.</p>
+<p>Then I used the <a href="http://html5boilerplate.com" target="_blank">HTML5 boilerplate</a> and <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank">reset.css</a> to get optimal defaults. I use both tools for every site now, and it is really prevents headaches later on in the process. Big thanks to the developers of these tools!</p>
+<p>The fetching of the works is done with PHP and a MySQL Database backend.</p>
+<h3> Functionality</h3>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<ul>
+<li> Click on a thumbnail and you can browse through a carousel of all the works (done with <a href="http://fancyapps.com/fancybox/" target="_blank">Fancybox</a>).</li>
+<li> Under each work is a link to its page which is a slug based on the website's URL (for example exploringtheweb.net/bobbelderboscom). Clean URLs is another practice I use often and are done with a simple RewriteRule in .htaccess. On the work's page you can read about the site, browse to the next/previous project, etc. It also links to any related blog if it exists. Examples: <a href="http://exploringtheweb.net/friendsjukeboxcom" target="_blank">Friends Jukebox</a> or  <a href="http://exploringtheweb.net/bobbelderboscomglobe" target="_blank">Globe Explorer</a></li>
+<li> In the footer there is a Feedback link that slides a Facebook Comment box open when clicked. You can also change the theme from: <a href="http://exploringtheweb.net/bobbelderboscomglobe?theme=light" target="_blank">light</a> to <a href="http://exploringtheweb.net/bobbelderboscomglobe?theme=dark" target="_blank">dark</a> or vice-versa in the footer of the site. This sets a session variable and/or cookie to remember the theme you have selected. I first had the themes toggle each day when you'd enter the site, but I decided that I liked the light one better, so I left that as the default. </li>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3> Media queries</h3>
+<p>As <a href="http://bobbelderbos.com/2012/01/web-design-shift-read-responsive-web-desig/" target="_blank">discussed earlier on my blog</a> media queries can be quite powerful. I only made basic use of them, yet with sufficient result: the portfolio site supports ipad and iphone! It is done by targeting different stylesheets upon detection of the device width of these devices:</p>
+<pre>
+&lt;link rel="stylesheet" href="css/iphone.css" 
+  media="only screen and (max-device-width: 480px)" type="text/css"&gt;
+&lt;link rel="stylesheet" href="css/ipad.css" 
+  media="only screen and (min-device-width : 768px) and (max-device-width : 1024px)" 
+  type="text/css"&gt;
+</pre>
+<p>These stylesheets then overwrite / add styles on top of the main styleseet.</p>
+<p> Below you can see some printscreens how the site scales on different devices:</p>
+<h3> 1. Benefit screen estate: the Desktop</h3>
+<p> You see that the wider your screen the more works you see. This is done with a simple left float.</p>
+<p>Homepage:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_desktop_2.png" alt="portfolio desktop picture 2" style="float:none; margin: 20px;" width="580" /></p>
+<p>Homepage resizing the browser:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_desktop_3.png" alt="portfolio desktop picture 3" style="float:none; margin: 20px;" width="480" /></p>
+<p>This is the experience of looking at a work's site:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_site_desktop.png" alt="portfolio site picture" style="float:none; margin: 20px;" width="580" /></p>
+<p>You see the description is at the left side, where on mobile devices it moves on top of the image.</p>
+<h3> 2. Go smaller but mobile: Ipad</h3>
+<p> Ipad has two columns per default on the homepage.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_ipad_2.png" alt="portfolio - ipad - picture 2" style="float:none; margin: 20px;" width="580" /></p>
+<p>On the work pages you see the text scales above the picture: </p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_ipad_1.png" alt="portfolio - ipad - picture 1" style="float:none; margin: 20px;" width="580" /></p>
+<h3> 3. In your pocket, but be compact: Iphone</h3>
+<p> On the Iphone the homepage has a single column of works:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_iphone_1.png" alt="portfolio iphone picture 1" style="float:none; margin: 20px;" width="400" /></p>
+<p>Secondly on a work's page the text is also placed above the image. Note that also the header is smaller to gain screen estate:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/portfolio_iphone_2.png" alt="portfolio iphone picture 2" style="float:none; margin: 20px;" width="400" /></p>
+<p>Also note that the header has a fixed position so content scrolls behind it. See <a href="http://bobbelderbos.com/2012/03/how-to-make-a-fixed-sidebar-or-header-with-css/" target="_blank">here</a> how I did this. It is one of the details I like most about this design.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<p> Let me know if you have any comments or suggestions. A followup plan could be to extend this site to let:</p>
+<ul>
+<li> users create their own portfolio site, potentially with a subscription option to have your unique URL at <a href="http://exploringtheweb.net" target="_blank">http://exploringtheweb.net</a>. A challenge is how to process portfolio images, you take them with a tool like <a href="http://www.paulhammond.org/webkit2png/" target="_blank">webkit2png</a> which generates pretty heavy images, or you let your users upload their images. I think the latter is most practical in the end. I had to manually optimize the images for the web, because they were taking too much time to load.</li>
+<li> users edit the default design with a theme builder so that they can leverage the power of this layout but with customized banners, colors, fonts, etc.</li>
+</ul>

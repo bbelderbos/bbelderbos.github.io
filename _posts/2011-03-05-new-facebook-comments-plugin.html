@@ -1,0 +1,94 @@
+---
+layout: post
+title: Pros and Cons of the new Facebook Comments plugin
+date: 2011-03-05 22:38:31.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- api
+- comments
+- developer
+- facebook
+- social media
+meta:
+  _edit_last: '1'
+  socialize_text: If you enjoyed this post, please consider leaving a comment below
+    or <a href="http://bobbelderbos.com/feed/" title="Syndicate this site using RSS">subscribing
+    to the <abbr title="Really Simple Syndication">RSS</abbr> feed</a> to have future
+    articles delivered to your feed reader.
+  socialize: '1,2'
+  _thumbnail_id: '820'
+  dsq_thread_id: '246464911'
+  _wp_old_slug: pros-and-cons-of-the-new-facebook-comments-plugin
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>This week Facebook released a mayor upgrade to their existing Facebook Comments plugin. This plugin, part of Facebook's <a title="social plugins from Facebook" href="http://developers.facebook.com/docs/plugins/" target="_blank">Social Plugins</a>, lets visitors comment on your site's content. In this post some details about the upgrade and an issue I ran into when upgrading the plugin on one of my sites.<!--more--></p>
+<p>The intro video is quite cool, I suggest you check it out and read the <a title="comments plugin readme" href="http://developers.facebook.com/docs/reference/plugins/comments/" target="_blank">instructions page</a> and the post on the <a title="Facebook developer's blog" href="http://developers.facebook.com/blog/post/472" target="_blank">Developer Blog</a>, if  you want to use this plugin.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<p><object width="400" height="224"><param name="allowfullscreen" value="true" /><param name="movie" value="http://www.facebook.com/v/10150433645890484" /><embed type="application/x-shockwave-flash" width="400" height="224" src="http://www.facebook.com/v/10150433645890484" allowfullscreen="true"></embed></object></p>
+<h3>What's so cool about this upgrade?</h3>
+<p>1. Most interesting comments first (friends and "most liked" comments first)<a href="http://bobbelderbos.com/wp-content/uploads/2011/03/fb_comments.png"><img class="size-full wp-image-820 alignright" title="fb_comments" src="{{ site.baseurl }}/assets/fb_comments.png" alt="" width="160" height="160" /></a></p>
+<p>2. You can reply from the news feed which will be synced back to the comment box on your site. So this allows for easier interaction with your content's comments and potentially more traffic to your site.</p>
+<p>3. When somebody replies to your comment you will be notified in Facebook</p>
+<p>4. Admins have control via a whole new <a title="moderation dashboard" href="http://developers.facebook.com/tools/comments/" target="_blank">moderation dashboard</a> which let you handle comments of all your FB apps. Also moderation has more options now.</p>
+<p>5. Easy to upgrade the first version of the comment plug-in by adding migrated="1" in the fb:comment tag</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>What is less cool?</h3>
+<p>1. Privacy. One aspect that might disturb people is that Facebook shows more context about the person that places the comment, like country and work place. Of course this can be minimized by adjusting your privacy settings, but I can imagine that people might be surprised when they put their first comment on another site that uses the new version of the plugin.</p>
+<p>2. Issues with the migrating and fql-ing all comments of an app .. see further down</p>
+<p>3. Fixed width of 500px, if you use a smaller width, different text elements will overlap. I reserved 410px for the previous version so I had to tweak the CSS of my app to neatly fit in the 500px box. It could be that Facebook will address this in the future.</p>
+<p>&nbsp;</p>
+<h3>Code</h3>
+<p>As before, it's plain easy to deploy:</p>
+<pre>&lt;div id="fb-root"&gt;&lt;/div&gt;
+&lt;script src="http://connect.facebook.net/en_US/all.js#xfbml=1"&gt;&lt;/script&gt;
+&lt;fb:comments href="YOUR_CANONICAL_URL"&gt;&lt;/fb:comments&gt;
+
+(with the migration="1" flag if you upgrade an existing code snippet)</pre>
+<p>&nbsp;</p>
+<h3>Migration issues</h3>
+<p>On <a title="go to sharemovi.es site" href="http://sharemovi.es" target="_blank">sharemovi.es</a> I have comment box per movie url, so I had a serious challenge to check back and forth v1 and v2 of the plugin.</p>
+<p>I had to skim through <a title="comments on release comment plugin" href="http://developers.facebook.com/blog/post/472?ref=notif&amp;notif_t=open_graph_comment" target="_blank">the comments on the developer blog</a> to figger out that when you didn't use the XID flag in the first version of fb:comments , like :</p>
+<pre>&lt;fb:comments xid="YOUR_XID" migrated="1"&gt;&lt;/fb:comments&gt;
+</pre>
+<p>.. you wouldn't see your comments in the new version. Holy crap, all the movie comments were gone! In the end I got it fixed by urlencoding the URL. There was a bug in the code requiring you to urlencode the url twice. Facebook got this quickly fixed and the comments came back with the following snippet (pff.. )</p>
+<pre>&lt;fb:comments migrated="1"
+  xid="&lt;?=urlencode("http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"])?&gt;"&gt;
+&lt;/fb:comments&gt;</pre>
+<p>&nbsp;</p>
+<h3>Querying comments with FQL</h3>
+<p>Another thing that got 'broke' was the listing of number of comments. A shame, because I was quite glad with my code that could extract the number of comments per movie URL. Clicking the number would get you an overlay with the comments, styled with my own CSS. So comment box generated content extracted to other parts of the site.</p>
+<p>Unfortunately this doesn't work anymore</p>
+<pre>$fql = 'select xid,count from comments_info where app_id=&lt;&lt;my_app&gt;&gt;';
+  $param  =   array(
+  'method'     =&gt; 'fql.query',
+  'query'     =&gt; $fql,
+  'callback'    =&gt; '',
+  'access_token' =&gt; $session['access_token']
+);
+$fqlResult = $facebook-&gt;api($param);</pre>
+<p>The newer method Facebook proposes would be something like the following, but I cannot get it to work for my URLs:</p>
+<p><em>select post_id, fromid, time, text, post_fbid from comment where object_id in (select comments_fbid from link_stat where url="http://developers.facebook.com/blog/post/472")</em></p>
+<p>I will be checking this further of course, when I have the solution I will post it here .. Of course if somebody reads this and has found the solution, please put a comment here with the solution :)</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Number of comments</h3>
+<p>Just new in the <a title="go to comments plugin FAQ" href="http://developers.facebook.com/docs/reference/plugins/comments/" target="_blank">FAQ</a> of the comments plugin is the number of posts for a particular URL. Unfortunately it doesn't work for sharemovi.es but it is a cool new feature, and it seems Facebook replied very fast on requests from users here:</p>
+<pre><code>&lt;fb:comments-count href=http://example.com/&gt;&lt;/fb:comments-count&gt; awesome comments </code></pre>
+<p>or</p>
+<pre><code>&lt;iframe src="http://www.facebook.com/plugins/comments.php?href=example.com&amp;permalink=1" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:16px;" allowTransparency="true"&gt;&lt;/iframe&gt; </code></pre>
+<h3>
+Examples new comment plugin</h3>
+<p>Currently I am using the comment box on my two Facebook Apps to let users comment on movies and books:</p>
+<p><a title="sharemovi.es app" href="http://sharemovi.es/" target="_blank">sharemovi.es</a> (blog post: <a title="Sneak preview: sharemovies" href="../2010/11/sneak-preview-sharemovies/" target="_blank">Sneak preview: sharemovies</a>)</p>
+<p><a title="my reading list app" href="http://www.bobbelderbos.com/books/" target="_blank">my reading list</a> (blog post: <a title="announcing my reading list" href="http://bobbelderbos.com/2011/03/new-facebook-app-my-reading-list/" target="_blank">Hi folks, what are you reading? Share it on “My Reading List”</a></p>
+<h3>
+<p>Like this post?</h3>
+<p>Share it using the social media buttons at the top and bottom of this post. Or post a comment, I like to hear from you ..</p>

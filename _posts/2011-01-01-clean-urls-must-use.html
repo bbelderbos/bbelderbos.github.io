@@ -1,0 +1,38 @@
+---
+layout: post
+title: Clean URLs not just an option ..
+date: 2011-01-01 20:14:12.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags: []
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '656'
+  _sexybookmarks_shortUrl: http://bit.ly/eAmSgv
+  _sexybookmarks_permaHash: 97b93eac0f105264665df599a6b2f79b
+  dsq_thread_id: '201121740'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+<p>First of all Happy New Year! I hope you'll all have a 2011 full of inspiration and interesting work on the web. A quick post to kick off the New Year. Why are <a href="http://en.wikipedia.org/wiki/Clean_URLs" target="_blank">Clean URLs</a> important? And how to set them up painlessly thanks to Apache's <a href="http://httpd.apache.org/docs/1.3/mod/mod_rewrite.html" target="_blank">mod_rewrite</a> module.<!--more--></p>
+<p>There are many reasons to use clean URLs. First of all the cleanness. A long query string seems garbled and you certainly won't remember it when somebody asks for it. <a href="http://blog.facebook.com/blog.php?post=90316352130" target="_blank">Facebook introduced it in 2009</a> (quite late as this is out there much longer). Now compare <a href="http://www.facebook.com/bbelderbos#!/home.php?sk=group_118232854902671&amp;ap=1" target="_blank">http://www.facebook.com/bbelderbos </a>with <a href="http://www.facebook.com/profile.php?id=628517118" target="_blank">http://www.facebook.com/profile.php?id=628517118</a> .. the latter is hard to remember and .php and id are not relevant for the average user, right? <a href="http://bobbelderbos.com/wp-content/uploads/2011/01/clearURLs.png"><img class="alignright size-full wp-image-656" style="margin-top: 15px;" title="clearURLs" src="{{ site.baseurl }}/assets/clearURLs.png" alt="" width="200" height="200" /></a></p>
+<p>Second SEO. Google's <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=35769" target="_blank">Webmaster guidelines</a> outline: "<em>If you decide to use dynamic pages (i.e., the URL contains a "?"  character), be aware that not every search engine spider crawls dynamic  pages as well as static pages. It helps to keep the parameters short and  the number of them few.</em>" So it is best to be short but informative in your links.</p>
+<p>Moreover, it's the standard. About any CMS has this feature integrated. Take Wordpress: check the URL of this post you see domain -&gt; year -&gt; month -&gt; <a href="http://en.wikipedia.org/wiki/Slug_%28web_publishing%29" target="_blank">slug</a> of the post. It is informative, it tells the title and year/month of the post. Moreover, instead of page.php?id=1234&amp;foo=5678, it contains keywords which are of relatively high value for search engine indexing. So clean URLs make for a better search engine ranking!</p>
+<p>So now to the techie part, how can we make them? It is rather easy! Take for example <a href="http://sharemovi.es/" target="_blank">sharemovi.es</a>, I have an index page that gets a GET variable called "t" with the value of the user, here "bbelderbos". This means it will get data from the database according the user it gets inputted.</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/cleanURL1.png"><img class="size-full wp-image-657 alignnone" title="cleanURL1" src="{{ site.baseurl }}/assets/cleanURL1.png" alt="" width="319" height="28" /></a></p>
+<p>Now I want to have this translated to :</p>
+<p><a href="http://bobbelderbos.com/wp-content/uploads/2011/01/cleanURL2.png"><img class="size-full wp-image-658 alignnone" title="cleanURL2" src="{{ site.baseurl }}/assets/cleanURL2.png" alt="" width="236" height="30" /></a></p>
+<p>Enter Apache's mod_rewrite. You'll need to make/edit a file called <code>.htaccess</code> at the same level where the script (index.php) file is located. All it takes are the following two lines:</p>
+<pre>RewriteEngine On</pre>
+<pre>RewriteRule ^(\w+)$ index.php?t=$1</pre>
+<p>- The first line lets Apache (the webserver) know that you want to rewrite URLs</p>
+<p>- The second line actually defines the <em>rewrite action</em>. It starts with a <a href="http://en.wikipedia.org/wiki/Regular_expression" target="_blank">regular expression</a>: '^' to start the string, '(\w)' to match a word, then '$' to mark the end of the string. This will match a string that is stored in variable '$1'.<br />
+Then it defines the rewrite pattern: index.php?t=$1, so filling it with what it retained in $1 it will translate 'bbelderbos' to 'index.php?t=bbelderbos'. The beauty of this it's done under the hood: while the user is presented with the tidy URL, the server receives the full info it will need to generate the page: index.php?t=bbelderbos</p>
+<p>See more examples of rewrite rules in <a href="http://wettone.com/code/clean-urls" target="_blank">this article</a> or simply google 'mod_rewrite'. To write (complicated) rewrite rules, requires some knowledge of Regular Expressions. Oreilly has <a href="http://oreilly.com/catalog/9781565922570" target="_blank">some interesting titles</a> on the subject, but you can easily get along checking out almost any PHP or programming tutorial. I like the introduction on regex given in <a href="http://articles.sitepoint.com/article/php-mysql-tutorial" target="_blank">this PHP book</a>.</p>

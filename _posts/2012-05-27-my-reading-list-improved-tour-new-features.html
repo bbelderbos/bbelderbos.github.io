@@ -1,0 +1,73 @@
+---
+layout: post
+title: My Reading List improved - a quick tour of its new features
+date: 2012-05-27 20:39:20.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Web development
+tags:
+- books
+- design
+- my reading list
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1980'
+  _wp_old_slug: my-reading-list-improved-tour-new
+  dsq_thread_id: '705302663'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> I have further tweaked the <a href="http://fbreadinglist.com/" target="_blank">My Reading List</a> Facebook app. In this post a quick tour with printscreens of its new features.</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/myreadinglist.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>This has been promoted to one of my favorite web/programming projects now :) The Google Books API does a great job in providing rich content for a wide range of books. With the integration of the Amazon customer reviews and the info My Reading List users are adding, it is becoming a powerful tool to share your reading and inform yourself about potential next reads and/or book purchases. With this new release, it is easier to find and add new books to your list. You can find much more info per book. And the overall look and feel have been improved as well. A quick tour what is new:</p>
+<h3> 3-way autocomplete</h3>
+<p>When you search a book from the search box in the header you get a result devided in: 1. books already added and by who, 2. books not added but found by the Google Books API with a link to add them, 3. matching usernames for the search string sorted descending on the number of books added:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_autocomplete.png" alt="autocomplete gives 3 results back" style="float:none; margin: 20px;" width="604" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
+<h3> The "adding book" autocomplete search box</h3>
+<p> ... is always visible now. It was hidden behind an "add book" button. This was not necessary so I made it always visible at the top of the homepage:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_addBook.png" alt="add book always visible" style="float:none; margin: 20px;" width="575" /></p>
+<p> When you select a book from the autocomplete a form slides down to add it to your reading list:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_addBook2.png" alt="when selecting a book" style="float:none; margin: 20px;" width="575" /></p>
+<h3> Edit everywhere</h3>
+<p> Instead of one edit place, the app shows you click-to-edit buttons (nice <a href="http://bobbelderbos.com/2011/09/nice-jquery-plugin-jeditable/" target="_blank">jQuery plugin</a>) everywhere it detects a book from you:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_edit_everywhere.png" alt="edit everywhere" style="float:none; margin: 20px;" width="565" /></p>
+<h3> Easier to find your books</h3>
+<p> After some time you can build up quite a reading list. When you click on "Edit Books", you get an overlay with your books. At the top you find a filter box that, when you start typing, show you matching titles on the fly:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_edit_iframe.png" alt="edit iframe - filter box" style="float:none; margin: 20px;" width="620" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> New book pages</h3>
+<p> Each book has a page with more info than before, apart from the Amazon reviews, this data comes from the Google Books API:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_bookPage.png" alt="book pages iframe" style="float:none; margin: 20px;" width="559" /></p>
+<p> And as more people start adding books, sometimes you see multiple reviews from My Reading List users for the same book (Steve Jobs bio as an example here)</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_bookPage2.png" alt="what my reading list users say about the book" style="float:none; margin: 20px;" width="559" /></p>
+<h3> Similar books</h3>
+<p> Google Books API can be queried for similar titles, that is what I integrated further down the book pages (example for a book about Git version control software):</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_similarTitles.png" alt="similar titles" style="float:none; margin: 20px;" width="569" /></p>
+<h3> Easily add books to your reading list</h3>
+<p> ... from the book page, if you click the "Add to My Books" button, you get an overlay identical to the "add book" form we saw before. When you add it with or without review, the overlay closes, the page refreshes and you are linked to that book.</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_addBookFromPage.png" alt="add book from page" style="float:none; margin: 20px;" width="547" /><br />
+<img class="size-full" src="{{ site.baseurl }}/assets/mrl_addBookFromPage2.png" alt="overlay to add book" style="float:none; margin: 20px;" width="547" /></p>
+<h3> Amazon reviews</h3>
+<p> Last but not least, and one of my favorites: integration of Amazon customer reviews. I really wanted this feature to be integrated! Today I had some time to check out the Amazon Product Advertising API. It had some nice technical challenges which I will dedicate another blog post to. If the app manages to get an iframe URL with reviews it is visible on the books page. There is also a link to the Google Books reviews (different sources is a good thing!) and a link to buy the book at Amazon:</p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/mrl_amazon_reviews.png" alt="amazon reviews are there (YES)" style="float:none; margin: 20px;" width="620" /></p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3> Where is it?</h3>
+<p>As mentioned <a href="http://bobbelderbos.com/2012/05/release-notes-my-reading-list-v1-1/" target="_blank">in my last post</a> I put My Reading List on its <a href="http://fbreadinglist.com/" target="_blank">own domain</a> now. You can subscribe to updates by following the <a href="https://www.facebook.com/MyReadingListApp" target="_blank">My Reading List Facebook page</a>. All new titles that get added are streamed to <a href="https://twitter.com/#!/fbreadinglist" target="_blank">Twitter</a> as well.</p>
+<h3> Previous blog posts</h3>
+<p> If you have doubts or questions, or you just want to know more about this app and its feautes, I have been blogging about it for a while now (descending order):</p>
+<ul>
+<li>2012/05 > <a href="http://bobbelderbos.com/2012/05/release-notes-my-reading-list-v1-1/" target="_blank">Release notes My Reading List v1.1</a></li>
+<li>2011/09 > <a href="http://bobbelderbos.com/2011/09/my-reading-list-widget/" target="_blank">My Reading List Widget</a></li>
+<li>2011/09 > <a href="http://bobbelderbos.com/2011/09/my-reading-list-google-book-preview-overlay/" target="_blank">My Reading List: load Google book preview in overlay</a></li>
+<li>2011/09 > <a href="http://bobbelderbos.com/2011/09/nice-jquery-plugin-jeditable/" target="_blank">Nice Jquery plugin: Jeditable</a></li>
+<li>2011/03 > <a href="http://bobbelderbos.com/2011/03/new-facebook-app-my-reading-list/" target="_blank">Hi folks, what are you reading? Share it on “My Reading List”</a></li>
+</ul>

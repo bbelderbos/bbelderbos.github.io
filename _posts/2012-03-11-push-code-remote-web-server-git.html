@@ -1,0 +1,76 @@
+---
+layout: post
+title: How to push your code to your remote web server with Git
+date: 2012-03-11 23:44:53.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Coding
+tags:
+- git
+- git push
+- remote
+meta:
+  _edit_last: '1'
+  _thumbnail_id: '1826'
+  _wp_old_slug: how-to-push-code-to
+  _syntaxhighlighter_encoded: '1'
+  dsq_thread_id: '607389171'
+author:
+  login: bbWebdesign
+  email: bobbelderbos@gmail.com
+  display_name: Bob
+  first_name: Bob
+  last_name: Belderbos
+---
+
+<p> Today a quick post on how to use Git to push your code to a remote location. I found this very useful when developing sites. Welcome to post #100.</p>
+<p><!--more--></p>
+<p><img class="size-full" src="{{ site.baseurl }}/assets/git_remote.png" alt="featured image" style="float:right; margin: 20px;" width="150" /></p>
+<p>I learned this from <a href="http://toroid.org/ams/git-website-howto" target="_blank">Using Git to manage a web site</a> and after using this technique at 2 websites, I found this needed to have a dedicated post. The article explains it very well, but this note taking helps me to remember and implement it well. And you guys might find this quite useful :)</p>
+<p>Note that it is highly recommended to set up a key-based login to your remote server, see <a href="http://t.co/LitH6qPf" target="_blank">this useful SSH reference</a> for more details.</p>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
+<h3>Steps from local git to remote mirror</h3>
+<ul>
+<li> On the local server you begin with your project and commits, see <a href="http://bobbelderbos.com/2012/02/git-in-a-nutshell/" target="_blank">my first Git post</a> how to get started if you are not familiar with Git.   </li>
+<li> On the remote node you start by creating a new repository (assuming ~/repositories as the home of all code repos):</li>
+<pre>
+$ cd ~/repositories && mkdir repository.git
+$ cd repository.git
+$ git init --bare 
+</pre>
+<p> You will see something like: Initialized empty Git repository in /home/user/repository.git/ and it means you have a new repository to mirror the local one to.</p>
+<li> Make a destination directory where your code will be copied to: </li>
+<pre>
+$ mkdir /home/user/target_dir 
+</pre>
+<li> Create the following script that will take care to check out the latest copy in the source target directory (/home/user/target_dir) when you commit to the remote server (with $ git commit aliasName ; see towards the end of this post ... )</li>
+<pre>
+$ vi hooks/post-receive
+</pre>
+<p> Enter the following:</p>
+<pre>
+# #!/bin/sh
+# GIT_WORK_TREE=/home/user/target_dir git checkout -f
+</pre>
+<li> And give the script execution permissions with:</li>
+<pre>
+$ chmod +x hooks/post-receive
+</pre>
+<p>You can find a quick wrapper script at <a href="https://github.com/bbelderbos/Codesnippets/blob/master/bash/git_create_new_repo.sh" target="_blank">Github</a>.</p>
+</ul>
+<li> Back on your localhost:</li>
+<ul>
+<li> Define a name of the remote mirror (replacing aliasName, user, domain.com and repository.git with your stuff ): </li>
+<pre>
+$ git remote add aliasName ssh://user@domain.com/home/user/repositories/repository.git
+</pre>
+<li> Push the code to remote location, creating a new "branch" master there, the hooks/post-receive script causes the source code to be copied to /home/user/target_dir you defined earlier.</li>
+<pre>
+$ git push web +master:refs/heads/master 
+</pre>
+<li> Following updates are easy: </li>
+<p> After local committing with: $ git add . ; $ git commit -m "message" , you push your code to your remote mirror with: $ git push aliasName</p>
+</ul>
+<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like> </p>
