@@ -18,9 +18,11 @@ Here are some links and notes from the migration I am doing from Wordpress to Je
 
 3. import posts from WP, see [here](http://import.jekyllrb.com/docs/wordpressdotcom/) and [Stackoverflow](http://stackoverflow.com/questions/31216857/import-wordpress-posts-in-jekyll) - how awesome:
 
-        $ ruby -rubygems -e 'require "jekyll-import"; JekyllImport::Importers::WordpressDotCom.run({ "source" => "bobbelderbos.wordpress.2016-01-27.xml" } )'
+        $ ruby -rubygems -e 'require "jekyll-import"; \
+          JekyllImport::Importers::WordpressDotCom.run({ \ 
+          "source" => "bobbelderbos.wordpress.2016-01-27.xml" } )'
         Downloading images for Chrome for web development
-          http://bobbelderbos.com/wp-content/uploads/2010/03/5_chrome_web_developper_extensions1.png
+          http://bobbelderbos.com/wp-content/uploads/2010/03/...
             OK!
         ..
         ..
