@@ -2,7 +2,6 @@
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
 permalink:           pretty
-relative_permalinks: true
 
 # Setup
 title:               Bob Belderbos | Software Developer
@@ -45,3 +44,8 @@ analytics :
     tracking_id : 'UA-11978104-1'
   getclicky :
     site_id :
+
+# Gems
+gems: [jekyll-paginate]
+paginate: 5
+paginate_path: "page:num"
