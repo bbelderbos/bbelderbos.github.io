@@ -10,8 +10,6 @@ Move out of your comfort zone. You can only grow if you are willing to feel awkw
 If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want - Zig Ziglar
 </p>
 
-## My experience
-
 Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
 
 I studied business but discovered early that I am really passionate about software development. I obtained certifications in Python, Java and Android programming (O'Reilly School of Technology). I share my learning on software development, coding and web technologies at http://bobbelderbos.com/. I am currently learning more about Algorithms, Big Data (Hadoop) and leading (agile) teams.
@@ -27,8 +25,14 @@ Languages: fluent in Spanish / English / Dutch, conversation skills in French. I
 ## Where to follow me
 
 * [Twitter](http://twitter.com/bbelderbos)
-* [LinkedIN](https://www.linkedin.com/in/bbelderbos)
+* [LinkedIn](https://www.linkedin.com/in/bbelderbos)
 * [Github](http://github.com/bbelderbos)
+
+## Disclaimer
+
+Ideas expressed on my blog are mine, and have nothing to do with the current/previous employers.
+
+## Feedback
 
 Have questions or suggestions? Feel free to <a href="mailto:info@bobbelderbos.com?Subject=Hi%20Bob" target="_top">contact me</a>, I am happy to help.
 
