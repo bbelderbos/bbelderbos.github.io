@@ -77,9 +77,30 @@ tbody tr:nth-child(odd) th {
   background-color: #f9f9f9;
 }
 
+/* img styling */
 .callout {
   float: left;
   margin: 0 10px 10px 0;
   padding: 5px; 
   border: 1px solid #ddd;
+}
+
+/* prev next post 
+   http://david.elbe.me/jekyll/2015/06/20/how-to-link-to-next-and-previous-post-with-jekyll.html */
+.PageNavigation {
+  font-size: 14px;
+  display: block;
+  width: auto;
+  overflow: hidden;
+}
+
+.PageNavigation a {
+  display: block;
+  width: 50%;
+  float: left;
+  margin: 1em 0;
+}
+
+.PageNavigation .next {
+  text-align: right;
 }
