@@ -1,7 +1,5 @@
 # Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:           pretty
+permalink:           /:year/:month/:title
 
 # Setup
 title:               Bob Belderbos | Software Developer
