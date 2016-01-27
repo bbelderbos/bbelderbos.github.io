@@ -4,10 +4,10 @@ title: About
 ---
 
 <p class="message">
-Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. (Bryan Tracey)
+Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. - Bryan Tracey
 </p>
 <p class="message">
-If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want (Zig Ziglar)
+If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want - Zig Ziglar
 </p>
 
 ## My experience
@@ -30,6 +30,6 @@ Languages: fluent in Spanish / English / Dutch, conversation skills in French. I
 * [LinkedIN](https://www.linkedin.com/in/bbelderbos)
 * [Github](http://github.com/bbelderbos)
 
-Have questions or suggestions? Feel free to contact me, I am happy to help.
+Have questions or suggestions? Feel free to <a href="mailto:info@bobbelderbos.com?Subject=Hi%20Bob" target="_top">contact me</a>, I am happy to help.
 
 Thanks for reading!
