@@ -4,7 +4,7 @@ title: Certifications
 ---
 
 ## O'Reilly School of Technology
-I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to gain experience and build up a portfolio. 
+I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
 ![Python certificate]({{ site.url }}/assets/oreilly_ost_python.jpeg)
 
@@ -13,7 +13,7 @@ I obtained various programming certificates at the O'Reilly School of Technology
 Advanced certificate on its way ...
 <hr>
 
-## Completed Courses
+## Info about the courses I completed 
 
 ### Android 1: Introduction to Mobile Application Development
 
