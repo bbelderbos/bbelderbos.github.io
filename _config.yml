@@ -30,8 +30,7 @@ github:
 pages_list:       
   About: '/about'
   Archive: '/archive'
-  Certifications: '/certifications'
-# Feed: '/atom.xml'
+  Feed: '/atom.xml'
 
 # Settings for analytics helper
 # Set 'provider' to the analytics provider you want to use.
