@@ -9,7 +9,7 @@ title: About
 
 Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
 
-I studied business but discovered early that I am really passionate about software development. I obtained certifications in Python, Java and Android programming (O'Reilly School of Technology). I share my learning on software development, coding and web technologies at http://bobbelderbos.com/. I am currently learning more about Algorithms, Big Data (Hadoop) and leading (agile) teams.
+I studied business but discovered early that I am really passionate about software development. I obtained [certifications in Python, Java and Android programming]({{ site.url }}/certifications) (O'Reilly School of Technology). I share my learning on software development, coding and web technologies at http://bobbelderbos.com/. I am currently learning more about Algorithms, Big Data (Hadoop) and leading (agile) teams.
 
 ![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png){: .callout}
 
