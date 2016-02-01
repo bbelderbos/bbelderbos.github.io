@@ -6,11 +6,12 @@ title: Certifications
 ## O'Reilly School of Technology
 I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
-![Python certificate]({{ site.url }}/assets/oreilly_ost_python.jpeg)
+![Java certificate]({{ site.url }}/assets/java_adv.png)
 
-![Java certificate]({{ site.url }}/assets/oreilly_ost_java.jpeg)
+![Java Advanced certificate]({{ site.url }}/assets/java.png)
 
-Advanced certificate on its way ...
+![Python certificate]({{ site.url }}/assets/python.png)
+
 <hr>
 
 ## Info about the courses I completed 
@@ -25,9 +26,8 @@ Advanced certificate on its way ...
 - Save and manipulate data using Shared Preferences and SQLite databases.
 - Thread processes.
 - Create an application that implements multiple activities and can interact with a SQLite database.
-
-[Course pdf](assets/ostdocs/AndroidDevelopment1.pdf)
-[End project I built](https://play.google.com/store/apps/details?id=com.bobbelderbos.freemonkey)
+- [Course pdf](assets/ostdocs/AndroidDevelopment1.pdf)
+- [End project I built](https://play.google.com/store/apps/details?id=com.bobbelderbos.freemonkey)
 <hr>
 
 ### Java Programming 1: Introduction to Java and the Eclipse Development Environment
@@ -39,8 +39,7 @@ Advanced certificate on its way ...
 - Add interaction to programs using components and listeners.
 - Apply the Java API to draw graphics.
 - Demonstrate understanding of modularity, modifiers, permissions, scope, and inheritance.
-
-[Course pdf](assets/ostdocs/Java1IntroductionandEclipseDevelopmentEnvironment.pdf)
+- [Course pdf](assets/ostdocs/Java1IntroductionandEclipseDevelopmentEnvironment.pdf)
 <hr>
 
 ### Java Programming 2: The Java Programming Language
@@ -53,8 +52,7 @@ Advanced certificate on its way ...
 - Apply decision logic and operational precedence to Java code.
 - Implement multidimensional arrays, loops, and branching statements.
 - Trace code for better software quality.
-
-[Course pdf](assets/ostdocs/Java2ProgrammingLanguage.pdf)
+- [Course pdf](assets/ostdocs/Java2ProgrammingLanguage.pdf)
 <hr>
   
 ### Java Programming 3: Java Programming Foundations
@@ -67,8 +65,7 @@ Advanced certificate on its way ...
 - Enhance Java flexibility with enumeration, casting, interface extension, generics, and the collection framework.
 - Handle and map images.
 - Deploy applications using Eclipse and Java JAR files.
-
-[Course pdf](assets/ostdocs/Java3ProgrammingFoundations.pdf)
+- [Course pdf](assets/ostdocs/Java3ProgrammingFoundations.pdf)
 <hr>
 
 ### Java Programming 4: Java Application Building
@@ -81,8 +78,7 @@ Advanced certificate on its way ...
 - Create and manipulate threads for concurrent programming.
 - Connect with databases using JDBC API factory design patterns and view controllers.
 - Document and tag code using Javadoc and API pages.
-
-[Course pdf](assets/ostdocs/Java4ApplicationBuilding.pdf)
+- [Course pdf](assets/ostdocs/Java4ApplicationBuilding.pdf)
 <hr>
 
 ### Java Programming 5: Distributed Java Applications
@@ -96,11 +92,10 @@ Advanced certificate on its way ...
 - Develop effective JUnit test cases to validate the execution of these controllers.
 - Develop a testing framework that maximizes code coverage of JUnit test cases.
 - From the very first lab, you will be developing a client/server application, adding new features and functionality with each successive lab. You will learn by following the design and implementation of the application in the lab. Each quiz will validate that you learned the key information and the projects, performed at your pace, will describe useful extensions to the main development of the overall project.
-
-[Course pdf](assets/ostdocs/Java5DistributedJavaApplications.pdf)
+- [Course pdf](assets/ostdocs/Java5DistributedJavaApplications.pdf)
 <hr>
 
-### Data Structures and Algorithms
+### Java Programming 6: Data Structures and Algorithms
 
 > Learn to work with the core data structures and algorithms needed to write efficient code. In many circumstances, the proper answer comes down to choosing the right data structure and implementing the right algorithm. Throughout the course, students are shown how to connect their growing knowledge of data structures with algorithms so they can design their own algorithms effectively. It will cover the core data structures in computer science including fixed arrays, linked lists, maps, queues and dequeues, trees and graphs, and will use existing implementations in the JDK to solve real problems. Upon completion of this course, you will be able to:
 
@@ -108,8 +103,7 @@ Advanced certificate on its way ...
 - Analyze the performance of your algorithms.
 - Demonstrate mastery of core data structures, such as trees, graphs, maps, queues and dequeus.
 - Design complex data structures and algorithms based on these core data structures.
-
-[Course pdf](assets/ostdocs/Java6DataStructuresandAlgorithms.pdf)
+- [Course pdf](assets/ostdocs/Java6DataStructuresandAlgorithms.pdf)
 <hr>
 
 ### Python 1: Beginning Python
@@ -124,8 +118,7 @@ Advanced certificate on its way ...
 - Define classes and instantiate objects using Python’s Class mechanism.
 - Handle exceptions and document code.
 - Build and debug an entire program written in Python.
-
-[Course pdf](assets/ostdocs/Python1.pdf)
+- [Course pdf](assets/ostdocs/Python1.pdf)
 <hr>
   
 ### Python 2: Getting More Out of Python
@@ -138,8 +131,7 @@ Advanced certificate on its way ...
 - Design and implement relational databases using Python and SQL.
 - Create and send emails from Python programs.
 - Build a full-fledged Python database application.
-
-[Course pdf](assets/ostdocs/Python2GettingMoreOutOfPython.pdf)
+- [Course pdf](assets/ostdocs/Python2GettingMoreOutOfPython.pdf)
 <hr>
   
 ### Python 3: The Python Environment
@@ -155,8 +147,7 @@ Advanced certificate on its way ...
 - Exchange binary data with other languages and systems.
 - Configure user setups and log activity.
 - Calculate date and time.
-
-[Course pdf](assets/ostdocs/Python3ThePythonEnvironment.pdf)
+- [Course pdf](assets/ostdocs/Python3ThePythonEnvironment.pdf)
 <hr>
   
 ### Python 4: Advanced Python
@@ -171,5 +162,4 @@ Advanced certificate on its way ...
 - Manage arithmetic contexts and memory mapping.
 - Demonstrate understanding of the Python community, conferences, and job market.
 - Develop a multiprocessing solution to a significant data processing problem.
-
-[Course pdf](assets/ostdocs/Python4AdvancedPython.pdf)
+- [Course pdf](assets/ostdocs/Python4AdvancedPython.pdf)
