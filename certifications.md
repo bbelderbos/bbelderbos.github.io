@@ -3,7 +3,8 @@ layout: page
 title: Certifications
 ---
 
-## O'Reilly School of Technology
+# O'Reilly School of Technology
+
 I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
 ![Java certificate]({{ site.url }}/assets/ost_java_adv.jpg)
@@ -11,11 +12,11 @@ I obtained various programming certificates at the O'Reilly School of Technology
 ![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
 
 ![Python certificate]({{ site.url }}/assets/ost_python.jpg)
-<hr>
+***
 
-## More info about the courses I completed
+## More info about the courses I completed
 
-### Android 1: Introduction to Mobile Application Development
+### Android 1: Introduction to Mobile Application Development
 
 > Learn the fundamentals of writing an Android application. Mobile devices have become a prominent part of our daily lives, and we have come to rely on them for on-the-go information. Since its inception in 2005, Android has grown to become an integral part of this revolution. Most Android applications are developed using a customized version of Java. Upon completion of this course, you will be able to:
 
@@ -27,9 +28,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Create an application that implements multiple activities and can interact with a SQLite database.
 - [Course pdf](assets/ostdocs/AndroidDevelopment1.pdf)
 - [End project I built](https://play.google.com/store/apps/details?id=com.bobbelderbos.freemonkey)
-<hr>
 
-### Java Programming 1: Introduction to Java and the Eclipse Development Environment
+***
+
+### Java Programming 1: Introduction to Java and the Eclipse Development Environment
 
 > Learn the fundamental concepts and syntax of the Java programming language. Throughout this course, you will learn by building examples using the Ellipse IDE, which is supplied as a Learning Sandbox. Completion of this course will give you a basic understanding of Object-Oriented techniques in Java. Upon completion of this course, you will be able to:
 
@@ -39,7 +41,8 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Apply the Java API to draw graphics.
 - Demonstrate understanding of modularity, modifiers, permissions, scope, and inheritance.
 - [Course pdf](assets/ostdocs/Java1IntroductionandEclipseDevelopmentEnvironment.pdf)
-<hr>
+
+***
 
 ### Java Programming 2: The Java Programming Language
 
@@ -52,9 +55,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Implement multidimensional arrays, loops, and branching statements.
 - Trace code for better software quality.
 - [Course pdf](assets/ostdocs/Java2ProgrammingLanguage.pdf)
-<hr>
-  
-### Java Programming 3: Java Programming Foundations
+
+***
+
+### Java Programming 3: Java Programming Foundations
 
 > Learn to build the programmer’s repertoire of fundamental Java application capabilities. You will achieve an understanding of the structure and purposes for many classes in the Java API. In-depth experience with user interfaces, event and exception handling, Java I/O, and the collection framework will provide you with a toolkit for implementing applications and understanding source code of others. Programs designed in the course using Java Threads, Client/Server Sockets, and Database Connectivity provide a solid basis for application building. Upon completion of this course, you’ll be able to:
 
@@ -65,9 +69,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Handle and map images.
 - Deploy applications using Eclipse and Java JAR files.
 - [Course pdf](assets/ostdocs/Java3ProgrammingFoundations.pdf)
-<hr>
 
-### Java Programming 4: Java Application Building
+***
+
+### Java Programming 4: Java Application Building
 
 > Learn to understand of the structure and purposes for many of the classes in the Java API. In-depth experience with user-interfaces, event and exception handling, database connectivity, multiple threads and synchronization will provide you with a toolkit for implementing applications as well as understanding source code of others. Programs designed in the course using Java Threads, Client/Server Sockets, and Database Connectivity provide a solid basis for application building. Upon completion of this course, you will be able to:
 
@@ -78,9 +83,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Connect with databases using JDBC API factory design patterns and view controllers.
 - Document and tag code using Javadoc and API pages.
 - [Course pdf](assets/ostdocs/Java4ApplicationBuilding.pdf)
-<hr>
 
-### Java Programming 5: Distributed Java Applications
+***
+
+### Java Programming 5: Distributed Java Applications
 
 > Learn to develop a client/server distributed Java application from the ground up. Here you will exercise all of your Java skills to implement a graphical client that communicates with a remote back-end server using XML messages. You will learn the tradeoffs that are common in client/server systems and gain valuable insights into how to design your own distributed, multi-threaded applications. Upon completion of this course, you will be able to:
 
@@ -92,9 +98,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Develop a testing framework that maximizes code coverage of JUnit test cases.
 - From the very first lab, you will be developing a client/server application, adding new features and functionality with each successive lab. You will learn by following the design and implementation of the application in the lab. Each quiz will validate that you learned the key information and the projects, performed at your pace, will describe useful extensions to the main development of the overall project.
 - [Course pdf](assets/ostdocs/Java5DistributedJavaApplications.pdf)
-<hr>
 
-### Java Programming 6: Data Structures and Algorithms
+***
+
+### Java Programming 6: Data Structures and Algorithms
 
 > Learn to work with the core data structures and algorithms needed to write efficient code. In many circumstances, the proper answer comes down to choosing the right data structure and implementing the right algorithm. Throughout the course, students are shown how to connect their growing knowledge of data structures with algorithms so they can design their own algorithms effectively. It will cover the core data structures in computer science including fixed arrays, linked lists, maps, queues and dequeues, trees and graphs, and will use existing implementations in the JDK to solve real problems. Upon completion of this course, you will be able to:
 
@@ -103,9 +110,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Demonstrate mastery of core data structures, such as trees, graphs, maps, queues and dequeus.
 - Design complex data structures and algorithms based on these core data structures.
 - [Course pdf](assets/ostdocs/Java6DataStructuresandAlgorithms.pdf)
-<hr>
 
-### Python 1: Beginning Python
+***
+
+### Python 1: Beginning Python
 
 > Learn the basics of programming with Python. You will learn about expressions, variables, conditionals, loops, lists, sets, dicts, functions, objects, and exceptions. Upon completion of this course, you will be able to:
 
@@ -118,9 +126,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Handle exceptions and document code.
 - Build and debug an entire program written in Python.
 - [Course pdf](assets/ostdocs/Python1.pdf)
-<hr>
-  
-### Python 2: Getting More Out of Python
+
+***
+
+### Python 2: Getting More Out of Python
 
 > Learn more in-depth techniques and strategies for programming with Python. You will get hands-on experience with Python’s modular unit testing features; file handling, storage, and archival; graphical user interfaces; and technologies for working with databases and email. Upon completion of this online Python course, you will be able to:
 
@@ -131,9 +140,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Create and send emails from Python programs.
 - Build a full-fledged Python database application.
 - [Course pdf](assets/ostdocs/Python2GettingMoreOutOfPython.pdf)
-<hr>
-  
-### Python 3: The Python Environment
+
+***
+
+### Python 3: The Python Environment
 
 > Learn more high-end techniques and strategies for programming with Python. Upon completion of this course you will be able to:
 
@@ -147,9 +157,10 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Configure user setups and log activity.
 - Calculate date and time.
 - [Course pdf](assets/ostdocs/Python3ThePythonEnvironment.pdf)
-<hr>
-  
-### Python 4: Advanced Python
+
+***
+
+### Python 4: Advanced Python
 
 > Learn to incorporate further object-oriented design principles and techniques with the intention of rounding out your skill set. Techniques like recursion, composition, and delegation are explained and put into practice through the ever-present test-driven practical work. Upon completion of this course, you will be able to:
 
@@ -162,3 +173,4 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Demonstrate understanding of the Python community, conferences, and job market.
 - Develop a multiprocessing solution to a significant data processing problem.
 - [Course pdf](assets/ostdocs/Python4AdvancedPython.pdf)
+
