@@ -19,8 +19,8 @@ I am pretty happy and proud of this achievement. The two modules were known to b
 I copied the (already publicly available) course PDFs to my [certifications page](http://bobbelderbos.com/certifications) if interested.
 
 For those interested in algorithms: 
-- The author of the algorithms part of this certificate has a [good video course](http://shop.oreilly.com/product/110000667.do) where he goes over a lot of the same material using Python. 
-- Coursera just kicked off Algorithms, part I (Princeton) which I am doing at the moment.
+* The author of the algorithms part of this certificate has a [good video course](http://shop.oreilly.com/product/110000667.do) where he goes over a lot of the same material using Python. 
+* Coursera just kicked off Algorithms, part I (Princeton) which I am doing at the moment.
 
 {% include twitter_plug.html %}
 
