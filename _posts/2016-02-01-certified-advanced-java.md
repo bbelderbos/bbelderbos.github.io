@@ -6,11 +6,11 @@ comments: True
 
 > Success is the result of perfection, hard work, learning from failure, loyalty, and persistence.  - Colin Powell
 
-## I did it :)
-
 ![Java Advanced certificate]({{ site.url }}/assets/ost_java_adv.jpg)
 
 *** 
+
+## I did it :)
 
 Just before O'Reilly School of Technology (OST) [closes](http://www.oreillyschool.com/), I managed to get certified in Advanced Java, more details [here](http://bobbelderbos.com/certifications) (java5 and -6). 
 
