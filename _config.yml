@@ -4,7 +4,7 @@ permalink:           /:year/:month/:title
 # Setup
 title:               Bob Belderbos | Software Developer
 tagline:             My learning on software development, coding and web technologies
-url:                 http://bbelderbos.github.io
+url:                 http://bobbelderbos.com
 paginate:            1
 baseurl:             ""
 
