@@ -11,8 +11,9 @@ I obtained various programming certificates at the O'Reilly School of Technology
 ![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
 
 ![Python certificate]({{ site.url }}/assets/ost_python.jpg)
+<hr>
 
-## More info about the courses I completed 
+## More info about the courses I completed
 
 ### Android 1: Introduction to Mobile Application Development
 
