@@ -12,6 +12,7 @@ I obtained various programming certificates at the O'Reilly School of Technology
 ![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
 
 ![Python certificate]({{ site.url }}/assets/ost_python.jpg)
+
 ***
 
 ## More info about the courses I completed
