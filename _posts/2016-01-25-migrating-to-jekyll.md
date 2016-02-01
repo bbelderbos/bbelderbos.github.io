@@ -32,9 +32,10 @@ Here are some links and notes from the migration I am doing from Wordpress to Je
             OK!
         Imported 151 posts
 
-4. permalinks ...
-5. theme ...
-6. ... TODO ... finishing these notes
+4. permalinks: easily configurable [here](http://jekyllrb.com/docs/permalinks/)
+5. considering changing the Poole them to the nice two-column [Hyde theme](http://hyde.getpoole.com/)
+6. write posts in markdown? [Not a problem](https://daringfireball.net/projects/markdown/)
+7. I will update after having used Jekyll for some time ...
 
 {% include twitter_plug.html %}
 
