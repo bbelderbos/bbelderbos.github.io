@@ -6,16 +6,13 @@ title: Certifications
 ## O'Reilly School of Technology
 I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
-![Java certificate]({{ site.url }}/assets/java_adv.png)
+![Java certificate]({{ site.url }}/assets/ost_java_adv.jpg)
 
-![Java Advanced certificate]({{ site.url }}/assets/java.png)
+![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
 
-![Python certificate]({{ site.url }}/assets/python.png)
+![Python certificate]({{ site.url }}/assets/ost_python.jpg)
 
-
-hi 
-
-## Info about the courses I completed 
+## More info about the courses I completed 
 
 ### Android 1: Introduction to Mobile Application Development
 
