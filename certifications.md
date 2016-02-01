@@ -12,8 +12,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 
 ![Python certificate]({{ site.url }}/assets/python.png)
 
-<hr>
-
 ## Info about the courses I completed 
 
 ### Android 1: Introduction to Mobile Application Development
