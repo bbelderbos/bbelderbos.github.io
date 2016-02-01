@@ -3,7 +3,7 @@ layout: page
 title: Certifications
 ---
 
-# O'Reilly School of Technology
+## O'Reilly School of Technology
 
 I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
