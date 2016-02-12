@@ -6,26 +6,21 @@ http://bobbelderbos.com/2012/03/how-to-make-a-fixed-sidebar-or-header-with-css/
 */
 
 .masthead {
-  padding: 0.5rem 1.5rem;
-  margin-bottom: 3rem;
+  padding: 0.5rem 1.5rem 0 1.5rem;
+  margin-bottom: 1rem;
   position: fixed;
   left: 0;
   top: 0;
-  background: #f09c42; /* #303030; */
+  background: #62c647; /* #f09c42; #303030; */
   width: 100%;
   z-index: 20;
--webkit-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
--moz-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
-}
-
-
-#pageLinks {
-  float: right; 
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
+  box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
 }
 
 .masthead-title { 
-  min-width: 320px;
+  min-width: 400px;
   margin-top: 0;
   margin-bottom: 0;
   color: #fff;
@@ -34,10 +29,22 @@ box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
     color: #fff;
   }
 
-  small {
-    font-size: 75%;
+  li {
+    text-decoration: none; 
+    display: inline; 
+    font-size: 85%;
     font-weight: 400;
     color: #f2f2f2;
     letter-spacing: 0;
   }
+  li a {
+    padding: 5px 0 0 15px; 
+  }
+}
+
+.masthead-title a {
+  float: left; 
+}
+#pageLinks {
+  float: right; 
 }
