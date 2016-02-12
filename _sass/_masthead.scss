@@ -1,26 +1,43 @@
 // Masthead
 //
 // Super small header above the content for site name and short description.
+/* make fixed: 
+http://bobbelderbos.com/2012/03/how-to-make-a-fixed-sidebar-or-header-with-css/
+*/
 
 .masthead {
-  padding-top:    1rem;
-  padding-bottom: 1rem;
+  padding: 0.5rem 1.5rem;
   margin-bottom: 3rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: #f09c42; /* #303030; */
+  width: 100%;
+  z-index: 20;
+-webkit-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
+-moz-box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
+box-shadow: 0px 2px 5px 0px rgba(194,194,194,1);
 }
 
-.masthead-title {
+
+#pageLinks {
+  float: right; 
+}
+
+.masthead-title { 
+  min-width: 320px;
   margin-top: 0;
   margin-bottom: 0;
-  color: #505050;
+  color: #fff;
 
   a {
-    color: #505050;
+    color: #fff;
   }
 
   small {
     font-size: 75%;
     font-weight: 400;
-    color: #c0c0c0;
+    color: #f2f2f2;
     letter-spacing: 0;
   }
 }
