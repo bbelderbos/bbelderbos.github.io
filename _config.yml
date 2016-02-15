@@ -1,5 +1,15 @@
-# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
-permalink:           /:year/:month/:title/                                                                                                                               
+# issue permalinks
+# fix: https://github.com/jekyll/jekyll/issues/302
+# Site settings
+permalink:           /:year/:month/:title/
+
+# Pages permalink
+defaults:
+  -
+    scope:
+      type: "pages"
+    values:
+      permalink: pretty
 
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
