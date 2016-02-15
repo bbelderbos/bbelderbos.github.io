@@ -2,7 +2,7 @@
 # fix: https://github.com/jekyll/jekyll/issues/302
 # Site settings
 permalink: pretty
-# permalinks: /:year/:month/:title/
+# permalink: /:year/:month/:title/
 
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
@@ -18,6 +18,12 @@ defaults:
       path: "" # empty string for all files
     values:
       title: Bob Belderbos
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      permalink: /:year/:month/:title/
 
 description: Data geek, programmer, avid student of life.
 author:
