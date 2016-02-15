@@ -20,7 +20,7 @@ defaults:
   -
     scope:
       path: ""
-      type: "posts"
+      type: "post"
     values:
       permalinks: /:year/:month/:title/
 
