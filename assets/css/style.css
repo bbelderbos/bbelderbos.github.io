@@ -39,11 +39,12 @@ a.nav-link i{
 	font-size: 16px;
 }
 a.nav-link:hover { color: #777 }
-a.aboutMe { color: #fff; }
+a.aboutMe { color: #f2756a; text-decoration: underline; }
 
 #bio {
 	font-family: "Courier New", Courier, monospace;
-	font-size: 11px;
+	font-size: 12px;
+  font-weight: bold;
 	margin: 0 auto;
 	margin-bottom: 10px;
 }
