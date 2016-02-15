@@ -1,6 +1,9 @@
 # Ignore docs files
 _gh_pages
-_site
+_includes/_site/*
+_site/*
+!_site/categories.html
+!_site/tags.html
 .ruby-version
 .sass-cache
 
