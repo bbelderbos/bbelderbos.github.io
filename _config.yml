@@ -1,38 +1,44 @@
-# Permalinks
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 permalink:           /:year/:month/:title/
 
-# Setup
-title:               Bob Belderbos | Software Developer
-tagline:             My learning on software development, coding and web technologies
-url:                 http://bobbelderbos.com
-paginate:            1
-baseurl:             ""
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: pygments
+markdown: kramdown
+disqus: bbelderbos
+google_analytics: UA-11978104-1
 
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
-sass:
-  sass_dir:          _sass
-  style:            :compressed
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: Bob Belderbos
 
-# About/contact
+description: Data geek, programmer, avid student of life.
 author:
-  name:              Bob Belderbos
-  url:               https://twitter.com/bbelderbos
-  email:             info@bobbelderbos.com
+  name: Bob Belderbos
+  email: info@bobbelderbos.com
+  github: bbelderbos
+  twitter: bbelderbos
+  pinterest: bbelderbos
+  linkedin: bbelderbos
+  bio: Data geek, programmer, avid student of life. 
+  email_md5: e1d159796a39ce2eafe4b40e9b8f9871
 
-# Custom vars
-version:             2.0.0
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+
+# set it as url of an image
+sidebar_background_image: # https://dl.dropboxusercontent.com/u/5798664/binary_wallpaper.jpg
+#https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
+
+BASE_PATH:
+
+gems:
+  - jekyll-paginate
+
 github:
   repo:              https://github.com/bbelderbos/bbelderbos.github.io
-
-# navigation bar 
-pages_list:       
-  About: '/about'
-  Archive: '/archive'
-  Feed: '/atom.xml'
-
-# Gems
-gems: [jekyll-paginate]
-paginate: 5
-paginate_path: "page:num"

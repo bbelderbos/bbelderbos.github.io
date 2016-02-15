@@ -36,5 +36,4 @@ Here are some links and notes from the migration I am doing from Wordpress to Je
 6. write posts in markdown? [Not a problem](https://daringfireball.net/projects/markdown/)
 7. I will update after having used Jekyll for some time ...
 
-{% include twitter_plug.html %}
 

@@ -3,34 +3,21 @@ layout: page
 title: About
 ---
 
+Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
+
+I studied business but discovered early that I am really passionate about programming, web development and automation. Since 2010 I have been sharing my learning on software development at http://bobbelderbos.com/. I certified in Python and Java at the O'Reilly School of Technology. Although my current focus is on learning Big Data / Hadoop, I am flexible in learning the best technology for the job.
+
+I characterize myself as organized, analytical, proactive, integer, goal-oriented, a good team player, and an effective communicator. One of my most important traits is that I am continuously working on becoming better in my field.
+
+Apart from delivering high quality solutions with an eye for detail, I am innovative and strategic in my thinking and a natural connector. People I work with say I am personable and empathic. That's why I aim to be a mentor/ inspiration for other developers.
+
+I am fluent in Spanish / English / Dutch, conversation skills in French. I enjoy learning languages and working in multicultural teams. I enjoy learning languages/ working in multicultural teams, reading (podcasts), and highly value fitness and health.
+
+<strong>Disclaimer: </strong> ideas expressed on my blog are mine, and have nothing to do with the current/previous employers. Have questions or suggestions? Feel free to <a href="mailto:info@bobbelderbos.com?Subject=Hi%20Bob" target="_top">contact me</a>, I am happy to help.
+
+Thanks for reading!
+
 > Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. - Bryan Tracey
 
 > If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want - Zig Ziglar
 
-Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
-
-I studied business but discovered early that I am really passionate about software development. I obtained [certifications in Python, Java and Android programming]({{ site.url }}/certifications) (O'Reilly School of Technology). I share my learning on software development, coding and web technologies at http://bobbelderbos.com/. I am currently learning more about Algorithms, Big Data (Hadoop) and leading (agile) teams.
-
-![This is me, ABC: always be coding]({{ site.url }}/assets/bob_profile.png){: .callout}
-
-I characterize myself as organized, analytical, proactive, integer, goal-oriented, a good team player, and an effective communicator. One of my most important traits is that I am continuously working on becoming better in my field. 
-
-Apart from delivering high quality solutions with eye for detail, I am innovative and strategic in my thinking and a natural connector. People I work with say I am personable and empathic. That's why I aim to be a mentor/inspiration for other developers. 
-
-Languages: fluent in Spanish / English / Dutch, conversation skills in French. I enjoy learning languages and working in multicultural teams.
-
-## Where to follow me
-
-* [Twitter](http://twitter.com/bbelderbos)
-* [LinkedIn](https://www.linkedin.com/in/bbelderbos)
-* [Github](http://github.com/bbelderbos)
-
-## Disclaimer
-
-Ideas expressed on my blog are mine, and have nothing to do with the current/previous employers.
-
-## Feedback
-
-Have questions or suggestions? Feel free to <a href="mailto:info@bobbelderbos.com?Subject=Hi%20Bob" target="_top">contact me</a>, I am happy to help.
-
-Thanks for reading!
