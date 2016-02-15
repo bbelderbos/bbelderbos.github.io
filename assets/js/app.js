@@ -2,8 +2,10 @@
 
  function init() {
     /* Sidebar height set */
+    //alert($(document).height());
     $sidebarStyles = $('.sidebar').attr('style')
-    $sidebarStyles += ' min-height: ' + $(document).height() + 'px;';
+    //$sidebarStyles += ' min-height: ' + $(document).height() + 'px;';
+    $sidebarStyles += ' height: ' + '1600px;';
     $('.sidebar').attr('style', $sidebarStyles);
 
     /* Secondary contact links */
