@@ -1,16 +1,7 @@
 # issue permalinks
 # fix: https://github.com/jekyll/jekyll/issues/302
 # Site settings
-permalink:          pretty 
-
-# Pages permalink
-defaults:
-  -
-    scope:
-      path: "" # an empty string here means all files in the project
-      type: "posts" # previously `post` in Jekyll 2.2.
-    values:
-      permalink: /:year/:month/:title/
+permalink: /:year/:month/:title/
 
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
@@ -26,6 +17,12 @@ defaults:
       path: "" # empty string for all files
     values:
       title: Bob Belderbos
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      permalinks: pretty
 
 description: Data geek, programmer, avid student of life.
 author:
