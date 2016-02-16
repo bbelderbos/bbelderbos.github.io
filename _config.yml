@@ -1,8 +1,8 @@
 # issue permalinks
 # fix: https://github.com/jekyll/jekyll/issues/302
 # Site settings
-permalink: pretty
-# permalink: /:year/:month/:title/
+# permalink: pretty
+permalink: /:year/:month/:title/
 
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
@@ -31,8 +31,8 @@ author:
   email_md5: e1d159796a39ce2eafe4b40e9b8f9871
 
 rss_path: feed.xml
-categories_path: categories.html
-tags_path: tags.html
+categories_path: categories.md
+tags_path: tags.md
 
 # set it as url of an image
 sidebar_background_image: https://dl.dropboxusercontent.com/u/5798664/binary_wallpaper.jpg
