@@ -1,8 +1,5 @@
 # visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
-# permalink: pretty
-#permalink: /:year/:month/:title/
-
 url:                 http://bobbelderbos.com                                                                                                                             
 baseurl:             ""
 
@@ -20,6 +17,12 @@ defaults:
       path: "" # empty string for all files
     values:
       title: Bob Belderbos
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:                                                                                                                                                              
+      permalink: /:year/:month/:title/
 
 description: Data geek, programmer, avid student of life.
 author:
