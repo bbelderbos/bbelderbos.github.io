@@ -3,19 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>{{ page.title }}</title>
-	{% if page.description %}
-	<meta name="description" content="{{ page.description }}">
-	{% endif %}
-	<meta name="author" content="{{ site.author.name }}">
-
+  <meta name="author" content="{{ site.author.name }}">
+  {% if page.summary %}<meta name="description" content="{{ page.summary | escape }}"> {% endif %}
+  {%if page.tags %}<meta name="keywords" content="{{ page.tags | join: ', ' | escape }}"/>{%endif %}
 	<!-- Enable responsive viewport -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!-- Open Graph tags (FB sharing!) -->
-  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ page.url }}" />
-  <meta property="og:image" content="{{ site.BASE_PATH }}/public/bob_whoami.png" />
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:image" content="{{ site.url }}public/bob_whoami.png" />
+  {% if page.summary %}<meta property="og:description" content="{{ page.summary | escape }}">{% endif %}
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	<!--[if lt IE 9]>

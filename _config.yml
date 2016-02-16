@@ -1,6 +1,6 @@
 # visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
-url:                 http://bobbelderbos.com                                                                                                                             
+url:                 http://bobbelderbos.com
 baseurl:             ""
 
 paginate: 10 # pagination based on number of posts
