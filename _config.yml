@@ -1,8 +1,10 @@
-# issue permalinks
-# fix: https://github.com/jekyll/jekyll/issues/302
-# Site settings
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+
 # permalink: pretty
-permalink: /:year/:month/:title/
+#permalink: /:year/:month/:title/
+
+url:                 http://bobbelderbos.com                                                                                                                             
+baseurl:             ""
 
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
@@ -38,11 +40,7 @@ tags_path: tags.html
 sidebar_background_image: https://dl.dropboxusercontent.com/u/5798664/binary_wallpaper.jpg
 #https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
 
-
 BASE_PATH:
 
 gems:
   - jekyll-paginate
-
-github:
-  repo:              https://github.com/bbelderbos/bbelderbos.github.io
