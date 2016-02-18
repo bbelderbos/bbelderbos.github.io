@@ -21,5 +21,6 @@ Thanks for reading!
 
 > Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. - Bryan Tracey
 
-> If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want - Zig Ziglar
+> If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want. - Zig Ziglar
 
+> Many a false step was made by standing still. – Fortune cookie
