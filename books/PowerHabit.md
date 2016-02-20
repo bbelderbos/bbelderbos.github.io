@@ -26,4 +26,8 @@ permalink: /books/PowerHabit
 
 > ... Whether selling a new song, a new food, or a new crib, the lesson is the same: If you dress a new something in old habits, it's easier for the public to accept it. (loc. 3273-3275)
 
-Get the book at [Amazon](http://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X/?tag=myrealis) | Back to [Shelves](index.html)
+
+---
+
+Get the book at [Amazon](http://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X/?tag=myrealis)  
+Back to [my book shelves](index.html)
