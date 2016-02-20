@@ -39,17 +39,15 @@ author:
 <p> In this post I use a small DVD collection. The movie data (director, actors, year published, etc.) are from IMDb and thanks to <a href="http://www.imdbapi.com/" target="_blank">IMDb API</a> (Brian Fritz), you get the data easily via curl. At the end of this post you can see a 5 min video demo of the whole process.</p>
 <h3> How it works</h3>
 <ul>
-<li> First I create a database and insert the <a href="http://bobbelderbos.com/src/moviecollection/table.sql" target="_blank">movie collection table</a></li>
-<li> The script <a href="http://bobbelderbos.com/src/moviecollection/getMovieData" target="_blank">getMovieData.pl</a> serves to import the movie data from the API with curl and converts the XML to SQL. The escapeSingleQuote function allows the output to contain single quotes.</li>
-<li> The <a href="http://bobbelderbos.com/src/moviecollection/batch" target="_blank">batch.pl</a> script is a little wrapper to run the getMovieData.pl on each title of the movie list you provide as input file. So for the <a href="http://bobbelderbos.com/src/moviecollection/movielist.txt" target="_blank">example list</a> you get 41 INSERT statements.</li>
+<li> First I create a database and insert the movie collection table: table.sql - all code is <a href="https://github.com/bbelderbos/Codesnippets/tree/master/perl/moviecollection" target="_blank">here</a></li>
+<li> getMovieData.pl serves to import the movie data from the API with curl and converts the XML to SQL. The escapeSingleQuote function allows the output to contain single quotes.</li>
+<li> batch.pl is a little wrapper to run the getMovieData.pl on each title of the movie list you provide as input file. So for the movielist.txt example file you get 41 INSERT statements.</li>
 </ul>
-<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
 <h3> Conclusion</h3>
 <p> In 3 simple steps you get a complete set of data for each movie title, in a standardized format. Importing this data in a database allows for easy app development. You can quickly lookup what movies you have of your favorite actor or director, what movies were released in 2009, which movies were highest rated or had the most votes, etc. Having the data in a database, makes life easier :)</p>
-<p><fb:like href="" send="true" width="580" show_faces="false" action="like" font=""></fb:like></p>
 <h3> An example in PHP</h3>
 <p><img class="size-full" src="{{ site.baseurl }}/assets/example_movieCollection_site.png" alt="example_movieCollection_site" style="float:none; margin: 20px;" width="600" /><br />
-<a href="http://bobbelderbos.com/src/moviecollection/site_php" target="_blank">- code -</a></p>
+<a href="https://github.com/bbelderbos/Codesnippets/tree/master/perl/moviecollection" target="_blank">- code -</a></p>
 <h3> Video Demo</h3>
 <p>   <iframe src="http://www.screenr.com/embed/Wnqs" width="650" height="396" frameborder="0"></iframe></p>
 <h3>Feedback</h3>
