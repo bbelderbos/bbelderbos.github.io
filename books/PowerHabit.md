@@ -6,6 +6,7 @@ permalink: /books/PowerHabit
 
     Great read to work on one of the most important success factors: form productive habits. 
     I read it takes 60-90 days to instill a new habit, it takes discipline and practice. 
+    But it is hackable because every habit is made up of a cue, a routine, and a reward!
     This book is filled with interesting case studies, I need to recover some more notes though ...
 
 ## Notes
