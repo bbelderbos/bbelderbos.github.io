@@ -40,9 +40,7 @@ Again the [4WW](http://fourhourworkweek.com/) is golden here. It taught me [Park
 
 Like fear of failure, perfectionism is another enemy. Almost always good is good enough, spend more time and you perfect the unnecessary. For example I could easily have spend two hours writing this post, but setting two pomodori of a max. of 50 min made me do this task twice as fast! 
 
-### Bonus
-
-To develop habits it's also a must to study habit forming. Here is [a great book](http://bobbelderbos.com/books/PowerHabit) I recently read that might be helpful for you.
+Bonus: to develop habits it's also a must to study habit forming. Here is [a great book](http://bobbelderbos.com/books/PowerHabit) I recently read that might be helpful for you.
 
 ### What about you?
 
