@@ -36,6 +36,14 @@ Closely related to the tracking is a liability partner. If you have shared goals
 
 ### Set deadlines for tasks
 
-Again the [4WW](http://fourhourworkweek.com/) is golden here. It taught me [Parkinson's law](https://en.wikipedia.org/wiki/Parkinson's_law): a task blows up in size according to the time you give it. I find setting times and using the [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) in execution a very powerful partnership. The extreme focus does miracles in the amount of work you get done when time is compressed. And often good is good enough, spend more time and you perfect the unnecessary. For example I could easily have spend one-two hours writing this post, but seeing a pomodoro of half an hour made me do it twice as fast!
+Again the [4WW](http://fourhourworkweek.com/) is golden here. It taught me [Parkinson's law](https://en.wikipedia.org/wiki/Parkinson's_law): a task blows up in size according to the time you give it. I find setting deadlines (assigning max times to tasks) and using the [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) in execution a very powerful partnership. The extreme focus does miracles in the amount of work you get done when time is compressed. Of course it takes practice and you will often have it wrong, but it's better to have an imperfect system than no system at all. 
 
-What power habits are you (un)learning? Feel free to share them in the comments.
+Like fear of failure, perfectionism is another enemy. Almost always good is good enough, spend more time and you perfect the unnecessary. For example I could easily have spend two hours writing this post, but setting two pomodori of a max. of 50 min made me do this task twice as fast! 
+
+### Bonus
+
+To develop habits it's also a must to study habit forming. Here is [a great book](http://bobbelderbos.com/books/PowerHabit) I recently read that might be helpful for you.
+
+### What about you?
+
+I would love to hear if these are things you do to become more productive too? And/or what other habits are (un)learning?
