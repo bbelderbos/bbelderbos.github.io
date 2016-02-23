@@ -233,3 +233,10 @@ a.musicBtn .fa-music {
 .space {
   padding-right: 20px;
 }
+.notice {
+  margin: 10px 0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #ffff99;
+  border: 2px solid #cca300;
+}
