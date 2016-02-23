@@ -174,4 +174,4 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Demonstrate understanding of the Python community, conferences, and job market.
 - Develop a multiprocessing solution to a significant data processing problem.
 - [Course pdf](assets/ostdocs/Python4AdvancedPython.pdf)
-
+- Not sure if this course, but you had to answer a Stackoverflow question, I did [this one](http://stackoverflow.com/questions/21591103/why-am-i-not-getting-the-correct-response/21591837#21591837)
