@@ -16,7 +16,7 @@ I am using (and learning as we speak) the following habits to become more effect
 
 ### Batch / manage interruptions
 
-Obvious but this one takes constant discipline, and after periods of having a better handle I tend to fall back. Programmers are makers and we need to adhere to [a maker's schedule](http://www.paulgraham.com/makersschedule.html). Read chapter 7 of [4WW](http://fourhourworkweek.com/) how to manage time. [Deep work](http://calnewport.com/books/deep-work/) (Cal Newport) is high on my reading list and deals with this:
+Obvious but this one takes constant discipline, and after periods of having a better handle I tend to fall back. Programmers are makers and we need to adhere to [a maker's schedule](http://www.paulgraham.com/makersschedule.html). Read chapter 7 of [4HWW](http://www.amazon.com/dp/0307465357?tag=bobbeld-20) how to manage time. [Deep work](http://calnewport.com/books/deep-work/) (Cal Newport) is high on my reading list and deals with this:
 
 > One of the most valuable skills in our economy is becoming increasingly rare. If you master this skill, you’ll achieve extraordinary results.
 
@@ -36,7 +36,7 @@ Closely related to the tracking is a liability partner. If you have shared goals
 
 ### Set deadlines for tasks
 
-Again the [4WW](http://fourhourworkweek.com/) is golden here. It taught me [Parkinson's law](https://en.wikipedia.org/wiki/Parkinson's_law): a task blows up in size according to the time you give it. I find setting deadlines (assigning max times to tasks) and using the [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) in execution a very powerful partnership. The extreme focus does miracles in the amount of work you get done when time is compressed. Of course it takes practice and you will often have it wrong, but it's better to have an imperfect system than no system at all. 
+Again the [4HWW](http://www.amazon.com/dp/0307465357?tag=bobbeld-20) is golden here. It taught me [Parkinson's law](https://en.wikipedia.org/wiki/Parkinson's_law): a task blows up in size according to the time you give it. I find setting deadlines (assigning max times to tasks) and using the [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) in execution a very powerful partnership. The extreme focus does miracles in the amount of work you get done when time is compressed. Of course it takes practice and you will often have it wrong, but it's better to have an imperfect system than no system at all. 
 
 Like fear of failure, perfectionism is another enemy. Almost always good is good enough, spend more time and you perfect the unnecessary. For example I could easily have spend two hours writing this post, but setting two pomodori of a max. of 50 min made me do this task twice as fast! 
 
