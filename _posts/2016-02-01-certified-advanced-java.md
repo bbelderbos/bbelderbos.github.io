@@ -1,11 +1,10 @@
 ---
 layout: post
 title: Certified Advanced Java
-categories: [programming]
-summary: After Python and Java, I certified in Advanced Java (distributed apps and algorithms) at the O'Reilly School of Technology
-tags: [java, certifications, distributed applications, algorithms, O'Reilly]
-fullview: true
 comments: true
+summary: I did it! After Python and Java, I certified in Advanced Java (distributed apps and algorithms) at the O'Reilly School of Technology, read more to see my diploma and certification page.
+categories: [programming]
+tags: [java, certifications, distributed applications, algorithms, O'Reilly]
 ---
 
 > Success is the result of perfection, hard work, learning from failure, loyalty, and persistence.  - Colin Powell

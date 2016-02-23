@@ -2,7 +2,8 @@
 layout: post
 title: 5 power habits that will make you instantly more successful
 comments: True
-summary: I am using and learning these daily habits to be more productive, they take discipline but are easy to adopt.
+summary: I am using and learning some daily habits to be more productive, they take discipline but are easy to adopt. They are 1. manage interruptions, 2. set goals / planning, 3. measure progress, 4. have a liability partner, and 5. set deadlines for tasks. 
+categories: [Productivity]
 tags: [productivity, habits, focus, success, pareto, parkinson, goals, planning]
 ---
 
