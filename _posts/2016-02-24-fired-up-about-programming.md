@@ -2,82 +2,59 @@
 layout: post
 title: How I got fired up about programming 
 comments: True
-summary: The VBA script that got me hooked to coding back in 2006. This is a fun story to read and probably some of you programmers out there recognize the iniial spark of passion for the craft. Enjoy!
-tags: [memories, Excel, VBA, Spain]
+summary: The Excel VBA script that got me hooked to coding back in 2006. This is a fun story to read and probably some of you programmers out there recognize the initial spark of passion for the craft. Enjoy!
+tags: [programming, motivation, automation, Excel, macros, VBA, Spain, brute force, algorithms, story, learning]
 ---
 
-I just tried to figure out where the passion for coding started and I can find two anchors:
+I just tried to figure out where my passion for coding started. I can find two anchors:
 
-* an early affinity / passion for automating tasks (back when studying business economics)
+* an early affinity / passion for automating tasks (since my Business Economics cost control dissertation)
 
-* [an Excel game](http://juegosexcel.com/foro/viewtopic.php?t=6396) that nobody seemed to solve manually back at the day when I was working as a Financial Analyst. Automating that game taught me my first programming skills in VBA and gave me a tremendous empowerment what programming could do.
+* [an Excel game](http://juegosexcel.com/foro/viewtopic.php?t=6396) that I hacked/ automated to solve. For the first time I share the story behind this, I'm glad I did not forget.
 
-Since then almost no day goes by where I get stoked about coding and automating boring tasks, making life of others (and myself) easier. When prepared to learn, practice and fail, it has great awards.
+<p class="notice">I felt so proud of my first 'real' script and people's reaction when they saw it in action. So to share the fun, I am working on a video so you can see it too, stay tuned ...I also link to the game and my Excel VBA script so you can try it yourself.</p>
 
-The game was about guessing 52 Spanish cities by photo:
+## The story
+
+It was 2006, I worked as a financial analyst. We were hard workers, but we also wanted to relax from time to time. Hence funny emails. One day though [this Excel game](http://juegosexcel.com/foro/viewtopic.php?t=6396) was sent around. It contained photos of 52 Spanish cities which you had to guess:
 
 ![That funny game that was sent around in '06]({{ site.baseurl }}/assets/spanish_cities_start.png)
 
-It’s funny that program took me quite a while to write, probably due to the need to select cells and input guesses until match (Excel specific). Code below (respect for the newby ;) - I would now document it, split it into multiple functions, name variables appropriately, etc.). I don’t have MS Excel anymore, so I can't try it now. The game is still [out there](http://juegosexcel.com/descargas/?did=280) (feel free to try it out and if so please share in the comments ...)
+Folks spent quite some time on it getting to 50% quickly then 80% but the last 20% caused a lot of head-banging. I thought: "this is an opportunity to automate". Solve the puzzle with a Macro, get the skills, wow my colleagues. 
 
-It is basic stuff, you can write a loop in loop solution in Python in minutes, I also note I got so much more routine since then, it's all practice!  
+And that was what I did.  Here is the result: the macro automatically fills in all the 52 fields with solutions in seconds. It is pretty simple in hindsight: 
 
-However for me this was a pivotal moment where I brought together a. a need (OK a game, but still people were really bugged by not finding the solution), b. learn to code, and c. a specific context (has to work in Excel, make a button to launch it etc.) - very important: the theory only teaches you so much. 
+1. store all cities in an array (I think I got them from the web somewhere and I think this took some trial and error honestly, these day I would call a web API for sure!), 
 
-Since then the best learning has been working on concrete problems and don’t be afraid to make mistakes.
+2. loop in loop (brute force): loop over the cells trying each city from an array and continue to next when match. 
 
-Here is the result: it prefilling all 52 fields with solutions in seconds (I felt so proud of my first ‘real’ script and people's jaw dropping haha):
+For all its simplicity though it took me quite some time to write! I had to learn loops, variable, etc. from scratch, and there was the added complexity of having to go into a cell and match the "Correcto!" in another cell to know when to break the loop. But when I saw this I knew it had paid off!
 
-![Resolved in seconds with the VBA macro]({{ site.baseurl }}/assets/spanish_cities_done.png)
-
----
-
-It was then that I definitely knew this was MY THING.
+![Resolved in seconds with the Excel VBA macro]({{ site.baseurl }}/assets/spanish_cities_done.png)
 
 ---
 
-Disclaimer: sloppy VBA code:
+## Pivotal moment
 
-    Sub answers() 
+It was then that I knew this was MY THING.
 
-      Sheets(1).Select
+Apart from a couple of jaws dropping when seeing this, this taught me my first programming skills in Excel VBA and more importantly the empowerment of what programming can do. It instilled in me a deep passion I feel very fortunate to carry with me every day. As people people who know me witness: I get stoked about applying coding skills to solve boring stuff to make their lives easier, freeing them up to work on the more important stuff.
 
-      Dim var As Variant, i As Byte, k As Byte, _
-      array1 As Variant, array2 As Variant
+## Learn by doing
 
-        array1 = Array("b29", "b39", "b49", "b59", "b69", "b79", "b89", _ 
-        "b99", "b109", "b119", "b129", "b139", "b149", "e29", "e39", "e49", _
-        "e59", "e69", "e79", "e89", "e99", "e109", "e119", "e129", "e139", _ 
-        "e149", "h29", "h39", "h49", "h59", "h69", "h79", "h89", "h99", "h109", _
-        "h119", "h129", "h139", "h149", "k29", "k39", "k49", "k59", "k69", "k79", _ 
-        "k89", "k99", "k109", "k119", "k129", "k139", "k149")
-        
-        array2 = Array("ALAVA", "ALBACETE", "ALICANTE", "ALMERIA", "ASTURIAS", "AVILA", _ 
-        "BADAJOZ", "BARCELONA", "BILBAO", "BURGOS", "CACERES", "CADIZ", "CANTABRIA", _
-        "CASTELLON", "CEUTA", "CIUDAD REAL", "CORDOBA", "CUENCA", "GERONA", "GRANADA", _ 
-        "GUADALAJARA", "GUIPUZCOA", "HUELVA", "HUESCA", "JAEN", "LA CORUÑA", "LA RIOJA", _
-        "LAS PALMAS", "LEON", "LERIDA", "LUGO", "MADRID", "MALAGA", "MELILLA", "MURCIA", _ 
-        "NAVARRA", "ORENSE", "PALENCIA", "MALLORCA", "PAMPLONA", "PONTEVEDRA", "SALAMANCA", _
-        "SANTA CRUZ DE TENERIFE", "SANTANDER", "SEGOVIA", "SEVILLA", "SORIA", "TARRAGONA", _ 
-        "TENERIFE", "TERUEL", "TOLEDO", "VALENCIA", "VALLADOLID", "VIZCAYA", "ZAMORA", _
-        "ZARAGOZA", "VITORIA", "SAN SEBASTIAN", "OVIEDO", "LOGROÑO") 
-        
-      For i = LBound(array1) To UBound(array1)
-          
-        For k = 0 To UBound(array2)
-        Range(array1(i)).Value = array2(k)
-          If Range(array1(i)).Offset(1, 1).Value = "CORRECTO!" Then
-            Exit For 
-          End If
-        Next k
+Programming can have a steep learning curve but once you practice, fail, get better, it's fun and interesting. Once you start to build stuff that saves other people tons of hours it is a highly rewarding activity to emerge in. 
 
-      Next i
+I just read a [great post](https://sivers.org/learn-js) on how to learn Javascript. One piece of advice: read books, yes, but start to build stuff. Just solve a problem you have or one of your friends or colleagues to get practice. 
 
-    End Sub
+You can find plenty of examples on this blog, just a couple: [safaribooks notification email](http://bobbelderbos.com/2015/11/new-safari-books-notification-email/), [podcast feed downloader](http://bobbelderbos.com/2013/12/podcast-scripting-golf/), [search stackoverflow inside Vim](http://bobbelderbos.com/2013/01/search-copy-stackoverflow-data-in-vim-with-conque/), or sites I managed to built like [sharemovi.es](http://bobbelderbos.com/2010/11/sneak-preview-sharemovies/) and [my reading list](http://bobbelderbos.com/2011/03/new-facebook-app-my-reading-list/). 
 
+## Reference material
 
----
+You can get the Excel VBA code [here](https://github.com/bbelderbos/Codesnippets/tree/master/vba) and the game is still [here](http://juegosexcel.com/descargas/?did=280). Note though this is my first ever script so it is ugly (seeing those meaningless variable names anybody?), I would structure it much better now. But you have to start somewhere and this one did the job nicely.
 
-Enjoy coding :)
+Last but not least: enjoy coding! :) 
+For additional motivation I highly recommend you read [The Passionate Programmer](http://bobbelderbos.com/2011/04/advance-career-read-passionate-programmer/) by Chad Fowler. To learn more about the craft of writing solid code I recommend reading [The Pragmatic Programmer: From Journeyman to Master](http://bobbelderbos.com/2011/02/great-book-about-software-engineering/).
 
-If you have a similar experience of where it all started, please use the comments below ...
+## What about you?
+
+Feel free to share your first exposure to programming, anecdotes, where you started your journey and how it is going, in the comments below. Thanks
