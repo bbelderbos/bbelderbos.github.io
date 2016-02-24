@@ -1,6 +1,6 @@
 ---
 layout: post
-title: I certified Advanced Java at the O'Reilly School of Technology
+title: I certified in Advanced Java at the O'Reilly School of Technology
 comments: true
 summary: I did it! After Python and Java, I certified in Advanced Java (distributed apps and algorithms) at the O'Reilly School of Technology, read more to see my diploma and certification page.
 categories: [Programming]
