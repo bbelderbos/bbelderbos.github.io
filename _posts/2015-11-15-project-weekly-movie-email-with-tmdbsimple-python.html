@@ -1,6 +1,8 @@
 ---
 layout: post
 title: 'Project: playing/upcoming weekly movie email (themoviedb API)'
+summary: In this post I show you how to write a Python script to send a weekly newsletter out of now_playing, upcoming, top_rated, and popular movies, using the themoviedb API
+image: weekly-movie-email.png
 date: 2015-11-15 23:45:49.000000000 +01:00
 type: post
 published: true
@@ -68,7 +70,7 @@ Options:
 <p>Apart from the end result - a rich html email with new movie details -it's nice to see what you can learn from this kind of project:</p>
 <ul>
 <li>for any data mining, use the API if available, relying on HTML is trickier. <a href="https://www.themoviedb.org" target="_blank">Themoviedb</a> has a great API I already used for my <a href="http://sharemovi.es" target="_blank">sharemovi.es</a> site, for this exercise I used the friendly <a href="https://github.com/celiao/tmdbsimple/" target="_blank">tmdbsimple</a> Python wrapper.</li>
-<li>instead of a text file or DB, I use the <a href="https://docs.python.org/2/library/shelve.html" target="_blank">Python shelve</a> for caching. I store movie IDs and movie details (info and credits = cast) as a key,value pairs. So data for each movie ID is downloaded once, then re-used for priting, mailing, etc. <img class="size-full wp-image-2731 alignright" src="{{ site.baseurl }}/assets/title_of_i.png" alt="weekly movie email" width="200" height="200" />Also, storing objects is a pretty flex solution, you can load them from the shelve and call methods on them).  See cache.py for its implementation. I used the shelve recently for the <a href="http://bobbelderbos.com/2015/11/new-safari-books-notification-email/">Safari new books</a> project too (see <a href="https://github.com/bbelderbos/safari/tree/master/rss">here</a>)</li>
+<li>instead of a text file or DB, I use the <a href="https://docs.python.org/2/library/shelve.html" target="_blank">Python shelve</a> for caching. I store movie IDs and movie details (info and credits = cast) as a key,value pairs. So data for each movie ID is downloaded once, then re-used for priting, mailing, etc. Also, storing objects is a pretty flex solution, you can load them from the shelve and call methods on them).  See cache.py for its implementation. I used the shelve recently for the <a href="http://bobbelderbos.com/2015/11/new-safari-books-notification-email/">Safari new books</a> project too (see <a href="https://github.com/bbelderbos/safari/tree/master/rss">here</a>)</li>
 <li>use several classes (files) to decouple the design (cache, mail, output generation, movie objects, handle movie lists). The code was easy to extend, for example to work with customized (themoviedb) lists. I only had to write some code to crawl the list page (tmdbsimple does not support lists), the subsequent actions of shelving, printing and emailing worked out of the box, passing a list of movie IDs.</li>
 <li>optparse / OptionParser makes CLI switch handling very easy and compact, I use it all the time.</li>
 <li>I learned how to Python email using bcc and how to exclude mails and API key from the code putting them in files and ignore them from version control with .gitignore, pretty important.</li>

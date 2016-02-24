@@ -1,6 +1,8 @@
 ---
 layout: post
 title: 'Better alternative for PHP sleep: use a dotted progress bar with Javascript'
+image: javascript_dotted_bar.png
+summary: From PHP sleep to Javascript setInterval, choosing the best tool for the job to create a visual dotted progress bar in the browser.
 date: 2015-11-19 22:47:59.000000000 +01:00
 type: post
 published: true
@@ -33,7 +35,7 @@ author:
 <p style="text-align: justify;"><a href="http://bobbelderbos.com/wp-content/uploads/2015/11/Screen-Shot-2015-11-19-at-22.33.35.png"><img class="size-medium wp-image-2749" src="{{ site.baseurl }}/assets/Screen-Shot-2015-11-19-at-22.33.35-300x106.png" alt="Screen Shot 2015-11-19 at 22.33.35" width="300" height="106" /></a></p>
 <h4>The problem with PHP sleep</h4>
 <p>This taught me a cool trick: you need to pause a bit so the user can read the message before being redirected. My first approach was PHP's sleep function, but that would show the initial echo only after the sleep, rendering it useless.</p>
-<p><img class="alignleft size-full wp-image-2750" src="{{ site.baseurl }}/assets/javascript_dotted_progress_bar.png" alt="javascript_dotted_progress_bar" width="200" height="200" />Then I <a href="http://stackoverflow.com/questions/3078867/php-output-text-before-sleep" target="_blank">read about</a> ob_start() and ob_flush(). This did not work either, <a href="http://stackoverflow.com/questions/3685760/php-output-data-before-and-after-sleep" target="_blank">reason</a>: browsers also contain their own buffers. I realized that apart from sleeping I wanted to show some sort of progress bar.</p>
+<p>Then I <a href="http://stackoverflow.com/questions/3078867/php-output-text-before-sleep" target="_blank">read about</a> ob_start() and ob_flush(). This did not work either, <a href="http://stackoverflow.com/questions/3685760/php-output-data-before-and-after-sleep" target="_blank">reason</a>: browsers also contain their own buffers. I realized that apart from sleeping I wanted to show some sort of progress bar.</p>
 <p>Here we enter JavaScript which is great for this kind of asynchronous stuff. I used <a href="http://stackoverflow.com/questions/3049553/simple-jquery-second-counter" target="_blank">this solution</a>. As explained at <a href="http://www.w3schools.com/jsref/met_win_setinterval.asp" target="_blank">w3schools</a>: "the setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds). The setInterval() method will continue calling the function until <a href="http://www.w3schools.com/jsref/met_win_clearinterval.asp">clearInterval()</a> is called".</p>
 <h4>
 Code:</h4>

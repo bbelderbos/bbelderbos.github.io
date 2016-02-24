@@ -1,6 +1,8 @@
 ---
 layout: post
 title: 'Project: monitoring recently added books at Safari Books Online'
+image: safaribooks.png
+summary: Don't miss any book! Using Python/ BeautifulSoup I scrape Safaribooks' recently added page and create a daily (cron) notification email. This pre-work led to me writing my first Twitter bot @newsafaribooks
 comments: true
 date: 2015-11-09 01:04:34.000000000 +01:00
 type: post
@@ -57,7 +59,7 @@ author:
   last_name: Belderbos
 ---
 <p><a href="https://www.safaribooksonline.com" target="_blank">Safari Books Online</a> is awesome, many reasons, worth another blog post. For one thing you get to access the latest and greatest titles even early releases. You can conveniently monitor it <a href="https://www.safaribooksonline.com/explore/new/by-day/" target="_blank">here</a>.</p>
-<p><a href="http://bobbelderbos.com/wp-content/uploads/2015/10/track_new_.png"><img class="alignleft size-full wp-image-2712" src="{{ site.baseurl }}/assets/track_new_.png" alt="track_new_" width="200" height="200" /></a>However going to this page every day is cumbersome and there don't seem to be an RSS feed. Hence it was time to set up a notification mailer that grabs the page, parses its content, checks the timestamp (less than 24 hours) and sends a nice html email. You can grab your copy / checkout the code at <a href="https://github.com/bbelderbos/safari" target="_blank">github</a>.</p>
+<p>However going to this page every day is cumbersome and there don't seem to be an RSS feed. Hence it was time to set up a notification mailer that grabs the page, parses its content, checks the timestamp (less than 24 hours) and sends a nice html email. You can grab your copy / checkout the code at <a href="https://github.com/bbelderbos/safari" target="_blank">github</a>.</p>
 <p>I use the great <a href="http://www.crummy.com/software/BeautifulSoup/" target="_blank">BeautifulSoup</a> plugin as discussed <a href="http://bobbelderbos.com/2012/04/scrape-site-beautifulsoup-python/" target="_blank">previously</a>), including the <a href="https://github.com/html5lib/html5lib-python" target="_blank">html5lib</a>. It's most convenient to run the script in a cron job. I use the -d (daily switch) to get all new titles in the last 24 hours, and use the -w (weekly) once a week to filter on topics that I am interested in. This last execution mode saves me time searching for these filters manually. You can also filter by publisher.</p>
 <p>I never get to miss a book this way :)</p>
 <p>==</p>

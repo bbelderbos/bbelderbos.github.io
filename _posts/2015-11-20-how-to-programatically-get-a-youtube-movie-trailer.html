@@ -1,6 +1,8 @@
 ---
 layout: post
 title: How to programatically get a youtube movie trailer
+image: youtube_trailer.png
+summary: Youtube's Gdata API died, in this post I show you how to use themoviedb API to pull a trailer for a specific movie.
 date: 2015-11-20 23:47:47.000000000 +01:00
 type: post
 published: true
@@ -30,7 +32,6 @@ author:
   first_name: Bob
   last_name: Belderbos
 ---
-<p><a href="http://bobbelderbos.com/wp-content/uploads/2015/11/youtube_trailer_themoviedb1.png"><img class="alignleft size-full wp-image-2772" src="{{ site.baseurl }}/assets/youtube_trailer_themoviedb1.png" alt="youtube_trailer_themoviedb" width="200" height="200" /></a></p>
 <p>I really liked Youtube's Gdata API, <a href="http://bobbelderbos.com/2011/01/build-movie-trailer-api-using-gdata/" target="_blank">I had it all working nicely</a>. As you can see from that post I had a nice popup overlay on <a href="http://sharemovi.es">Sharemovi.es</a> with the movie trailer video embedded. Till it broke ... <a href="https://support.google.com/youtube/answer/6098135?hl=en" target="_blank">Gdata is gone</a>. So needed to fix it ...</p>
 <h4>Alternative</h4>
 <p>Turns out that you can get the trailer via <a href="https://www.themoviedb.org/documentation/api?language=en">themoviedb API</a>. See <a href="https://www.themoviedb.org/talk/5451ec02c3a3680245005e3c" target="_blank">here</a>: you need themoviedb's movieID and call the /videos method. When testing it gave me 5 trailers. I will show you the PHP code I use to query the API and how to convert the youtube to HMTL you can embed into your page. I use the <a href="http://onehackoranother.com/projects/jquery/boxy/" target="_blank">Jquery boxy plugin</a> for the overlay (see printscreen at the bottom).</p>
@@ -95,12 +96,10 @@ function getTrailerSnippet($youtubeId, $width, $height) {
     echo "No Trailer found";
   }
 }</pre>
-<pre></pre>
 <p>&nbsp;</p>
 <hr />
 <p>On the main page I have a link to this script with a GET variable called "id" that receives the movieID. The class "boxy" is required to make the Jquery boxy overlay work.</p>
 <pre>echo "&lt;a href='<strong>trailer.php?id=$movieId</strong>' class='boxy trailerOverlay' title='Trailer of ".str_replace("'","",$dataMovie['title'])."'&gt;&lt;img src='i/youtube.png'&gt;&lt;/a&gt;";</pre>
-<pre></pre>
 <hr />
 <h4>Result</h4>
 <p>And we're good again:</p>
