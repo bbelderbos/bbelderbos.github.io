@@ -13,9 +13,11 @@ I just tried to figure out where my passion for coding started. I can find two a
 
 * [an Excel game](http://juegosexcel.com/foro/viewtopic.php?t=6396) that I hacked/ automated to solve. For the first time I share the story behind this, I'm glad I did not forget.
 
-<p class="notice">I felt so proud of my first 'real' script and people's reaction when they saw it in action. So to share the fun, I am working on a video so you can see it too, stay tuned ...I also link to the game and my Excel VBA script so you can try it yourself.</p>
+### The hack
 
-## The story
+<div class="container"><iframe src="https://www.youtube.com/embed/ZLPr4Q7KACQ" frameborder="0" allowfullscreen class="video"></iframe></div>
+
+### The story
 
 It was 2006, I worked as a financial analyst. We were hard workers, but we also wanted to relax from time to time. Hence funny emails. One day though [this Excel game](http://juegosexcel.com/foro/viewtopic.php?t=6396) was sent around. It contained photos of 52 Spanish cities which you had to guess:
 
