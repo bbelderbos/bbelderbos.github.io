@@ -4,14 +4,12 @@ title: Your movie site in just one minute
 comments: True
 summary: Improvement of my popular post "Your own movie database in 5 minutes with IMDb API and Perl", rewritten in Python you can now have your own static movie html site in less than one minute!
 tags: [imdb, omdb, movies, api, python, coding, html, css, perl]
-excerpt_separator: <!--more-->
+image: own_movie_site.png
 ---
 
 This is a rewrite/improvement of my popular script/post [Your own movie database in 5 minutes with IMDb API and Perl](http://bobbelderbos.com/2011/11/movie-database-imdb-api-perl/) that got (and still gets) quite some visits every day. I rewrote the code in Python, took out the DB dependency (goal was a static site anyways) and documented the steps.
 
 **Disclaimer:** this is quick and dirty. If you want to build a a real movie site, use something more powerful like [themoviedb](http://themoviedb.org), I used that A. to build [sharemovi.es](http://bobbelderbos.com/2012/07/new-release-sharemovies-design-features/) and B. create a [weekly movie email script](http://bobbelderbos.com/2015/11/project-weekly-movie-email-with-tmdbsimple-python/). So keep that in mind when reading this and if you decide to use it.
-
-<!--more-->
 
 ---
 
@@ -114,7 +112,7 @@ You don't have to create any text files unless you want to use your own set of m
 
 ---
 
-## Resulting page
+### Resulting page
 
 ![Resulting movie html page]({{ site.baseurl }}/assets/moviepage_result.png)
 

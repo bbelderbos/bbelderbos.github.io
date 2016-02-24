@@ -5,6 +5,7 @@ comments: True
 summary: I am using and learning some daily habits to be more productive, they take discipline but are easy to adopt. They are 1. manage interruptions, 2. set goals / planning, 3. measure progress, 4. have a liability partner, and 5. set deadlines for tasks. 
 categories: [Productivity]
 tags: [productivity, habits, focus, success, pareto, parkinson, goals, planning]
+image: power-habits.png
 ---
 
 Who produces value becomes more successful. Hence productivity needs to be hacked. 

@@ -1,10 +1,11 @@
 ---
 layout: post
-title: Migrating my blog to Jekyll
+title: Migrating my blog from Wordpress to Jekyll and GitHub Pages
 comments: True
 summary: Jekyll, how could I live without you? Die hard blogging with markdown in vim :) Also note that my site loads much faster now than when it was using Wordpress, impressive to say the least.
 categories: [Projects]
-tags: [Jekyll, blogging, tools, markdown, vim, ruby, wordpress]
+tags: [Jekyll, blogging, tools, markdown, vim, ruby, wordpress, github]
+image: blog-jekyll-github.png
 ---
 
 [Jekyll](http://jekyllrb.com) is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From the [readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
@@ -41,7 +42,7 @@ Here are some links and notes from the migration I am doing from Wordpress to Je
 
 ---
 
-## Update 15.02.2016
+### Update 15.02.2016
 
 I am using the awesome [dbyll theme](https://github.com/dbtek/dbyll) now with [Mr Robot (Sega) font](https://www.reddit.com/r/MrRobot/comments/3h3l31/mr_robot_font_to_download/). It took a bit of debugging / tweaking but I am very happy with the looks plus having full control of my blog from the command line! Besides no more heavy CMS (Wordpress), database dependency and (!) (buggy) plugins that affect performance. The site loads superfast!
 
