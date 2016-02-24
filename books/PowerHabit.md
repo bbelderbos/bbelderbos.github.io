@@ -30,6 +30,6 @@ permalink: /books/PowerHabit
 
 ---
 
-<i class="fa fa-shopping-cart"></i> Get the book at [Amazon](http://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X/?tag=myrealis)
+<i class="fa fa-shopping-cart"></i> Get the book at [Amazon](http://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X/?tag=bobbeld-20)
 
 <i class="fa fa-arrow-left"></i> Back to [my book shelves](index.html)

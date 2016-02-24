@@ -21,7 +21,7 @@ Obvious but this one takes constant discipline, and after periods of having a be
 
 > One of the most valuable skills in our economy is becoming increasingly rare. If you master this skill, you’ll achieve extraordinary results.
 
-[The one thing](http://www.amazon.es/The-One-Thing-Surprisingly-Extraordinary/dp/1885167776/?tag=myrealis) is a great book to (re)gain focus.
+[The one thing](http://www.amazon.es/The-One-Thing-Surprisingly-Extraordinary/dp/1885167776/?tag=bobbeld-20) is a great book to (re)gain focus.
 
 ### Set goals and plan
 
