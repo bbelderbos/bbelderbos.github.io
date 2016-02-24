@@ -110,6 +110,9 @@ article{
 article {
 	padding: 0 5% 0;
 }
+article.home {
+  clear: both !important;
+}
 
 article.home div a, article.home pre a { color: #2c3e50; }
 article.home div a:hover, article.home pre a:hover { color: #2c3e50; text-decoration: none; }
@@ -164,6 +167,22 @@ article.home h2 a:hover,
 article.home h3 a:hover,
 article.home h4 a:hover {
 	color: #e74c3c;
+}
+
+article.home .featImg {
+  float: right; 
+}
+article.home .excerpt {
+  padding: 2px 15px 0 0 !important;
+}
+article.home h2 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+	letter-spacing: 2px;
+}
+article.home h2 a {
+  /* on home ubuntu headers look cleaner */
+	font-family: 'Ubuntu';
 }
 
 .author .author-image {

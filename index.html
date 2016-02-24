@@ -30,7 +30,7 @@ tags: [data, coding, programming, software, hacking, development, web, technolog
     {{ post.content }}
     {% else %}
     {% if post.summary %}
-    {{ post.summary }}
+    <img class="featImg" src="{{ site.baseurl }}/assets/featured/{{ post.image }}" alt="{{ post.title }}"><p class="excerpt">{{ post.summary }}</p>
     {% elsif post.description %}
     {{ post.description }}
     {% else %}

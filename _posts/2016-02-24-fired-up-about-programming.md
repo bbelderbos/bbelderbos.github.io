@@ -4,6 +4,7 @@ title: How I got fired up about programming
 comments: True
 summary: The Excel VBA script that got me hooked to coding back in 2006. This is a fun story to read and probably some of you programmers out there recognize the initial spark of passion for the craft. Enjoy!
 tags: [programming, motivation, automation, Excel, macros, VBA, Spain, brute force, algorithms, story, learning]
+image: fired_up_programming.png
 ---
 
 I just tried to figure out where my passion for coding started. I can find two anchors:
