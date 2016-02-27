@@ -292,6 +292,10 @@ a.musicBtn .fa-music {
   float: left;
   padding: 30px 30px 30px 0;
 }
+#instantPreviewRight {
+  float: right;
+  padding: 20px 0 20px 20px;
+}
 .myNotes {
   padding-top: 15px;
 }
