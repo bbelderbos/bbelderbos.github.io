@@ -10,7 +10,14 @@
 
 {% if site.author.bio %}
 <div id="bio" class="text-center">
-	{{site.author.bio}} <a class="aboutMe" href="{{ site.BASE_PATH }}/about">About me</a>
+	{{site.author.bio}} 
+   <br>
+   <ul id="sbLinks">
+    <li><a href="{{ site.BASE_PATH }}/about">About</a></li>
+	  <li><a href="{{ site.BASE_PATH }}/categories.html">Blog</a></li>
+	  <li><a href="{{ site.BASE_PATH }}/books">Books</a></li>
+	  <li><a href="{{ site.BASE_PATH }}/search">Search</a></li>
+   </ul>
 </div>
 {% endif %}
 
