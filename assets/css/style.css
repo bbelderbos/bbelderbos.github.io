@@ -208,6 +208,7 @@ article.home h2 a {
 }
 
 footer {
+  clear: both;
 	padding-top: 15px;
 	font-family: 'Ubuntu';
 }
