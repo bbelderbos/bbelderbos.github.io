@@ -4,12 +4,20 @@ title: The Power of Habit
 permalink: /books/PowerHabit
 ---
 
-    Great read to work on one of the most important success factors: form productive habits. 
-    I read it takes 60-90 days to instill a new habit, it takes discipline and practice. 
-    But it is hackable because every habit is made up of a cue, a routine, and a reward!
-    This book is filled with interesting case studies, I need to recover some more notes though ...
+### Summary
 
-## Notes
+Great read to work on one of the most important success factors: form productive habits. 
+I read it takes 60-90 days to instill a new habit, it takes discipline and practice. 
+But it is hackable because every habit is made up of a cue, a routine, and a reward!
+This book is filled with interesting case studies, I need to recover some more notes though ...
+
+<span class="alignRight"><i class="fa fa-list"></i> Back to <a href="index.html">shelves</a></span>
+
+<div id="instantPreview">
+  <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen style="max-width:100%" src="https://read.amazon.com/kp/card?asin=B006WAIV6M&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_WEA0wb1EXMDCT&tag=bobbeld-20" ></iframe>
+</div>
+
+<h3 class="myNotes">My Notes</h3>
 
 > "Understanding habits is the most important thing I've learned in the army," the major told me. "It's changed everything about how I see the world. You want to fall asleep fast and wake up feeling good? Pay attention to your nighttime patterns and what you automatically do when you get up. You want to make running easy? Create triggers to make it a routine. I drill my kids on this stuff. (loc. 177-180)
 
@@ -26,10 +34,3 @@ permalink: /books/PowerHabit
 > Yet despite this capacity for internecine warfare, most companies roll along relatively peacefully, year after year, because they have routines—habits—that create truces that allow everyone to set aside their rivalries long enough to get a day's work done. (loc. 2548-2551)
 
 > ... Whether selling a new song, a new food, or a new crib, the lesson is the same: If you dress a new something in old habits, it's easier for the public to accept it. (loc. 3273-3275)
-
-
----
-
-<i class="fa fa-shopping-cart"></i> Get the book at [Amazon](http://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X/?tag=bobbeld-20)
-
-<i class="fa fa-arrow-left"></i> Back to [my book shelves](index.html)
