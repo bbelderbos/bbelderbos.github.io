@@ -15,12 +15,12 @@ Programming is my main occupation. Where did I start, how to get better?
 
 * [How I got fired up about programming](2016/02/fired-up-about-programming/) goes back to the origin of my journey as a programmer.
 * Over the last few years [I earned certifications](2016/02/certified-advanced-java/) in Python and Java at the O'Reilly School of Technology.
-* [How to grow in the craft of programming](2012/09/how-to-grow-craft-programming/)?
+* [How to grow in the craft of programming](2012/08/how-to-grow-craft-programming/)?
 * I keep rereading Chad Fowler's [The passionate programmer](2011/04/advance-career-read-passionate-programmer/), inspiring!
 
 ---
 
-### Software Best Practices
+### Software Best Practices
 
 Just a few resources from the blog. I frequently update [my reading page](books) where I have a section about software development books.
 
@@ -41,11 +41,11 @@ Most of my blog content is around building useful things to cover practical need
 
 ---
 
-### Web design
+### Web design
 
 No good program without appropriate design, I love building functional sites that look nice!
 
-* Some iterations of my site: [2009 - first design](http://projects.bobbelderbos.com/bb_website_2009.jpg) (still proud about this one). Revamps: [2010](2010/09/new-website-design/), [2013](2013/02/responsive-website-redesign/), and recently [I migrated to the ultra fast Jekyll](2016/01/migrating-to-jekyll/).
+* Some iterations of my site: [2009 - first design](http://projects.bobbelderbos.com/bb_website_2009.jpg) (still proud of this one). Revamps: [2010](2010/09/new-website-design/), [2013](2013/02/responsive-website-redesign/), and recently [I migrated to the ultra fast Jekyll](2016/01/migrating-to-jekyll/).
 * You can see some of my webdesigns at my [Portfolio site](http://projects.bobbelderbos.com/portfolio/).
 * My movie site and first Facebook API project: [Sharemovi.es](http://sharemovi.es/) (uses themoviedb API, [launch post](2010/11/sneak-preview-sharemovies/)).
 * Weekend project in 2011 (Facebook API): [My Reading List](http://fbreadinglist.com/) (uses Google Books API, [launch post](2011/03/new-facebook-app-my-reading-list/)).
@@ -74,7 +74,7 @@ Although I don't guide my writing by stats, it is interesting to see what gets m
 
 ---
 
-### Last but not least: writing and productivity
+### Last but not least: writing and productivity
 
 Writing is one of the most important skills to develop, and being conscience about productivity gets you on the fast track: 
 
