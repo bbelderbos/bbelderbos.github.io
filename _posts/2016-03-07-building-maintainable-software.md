@@ -6,6 +6,7 @@ summary: Review the book "Building Maintainable Software" which presents then gu
 categories: [Software Development]
 tags: [coding, software, best practices, java, sig, development, maintainability, refactoring, guidelines]
 image: building_maint_sw.png
+published: false
 ---
 
 ### Building Maintainable Software
