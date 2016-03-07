@@ -27,13 +27,13 @@ Each guideline has concrete / easy-to-understand Java code samples. At the end o
 
 Without further ado, the guidelines. For each one I looked up some code and share what I learned:
 
-#### 1. Write short units of code: limit the length of methods and constructors
+#### 1. Write short units of code (Chapter 2)
 
-> Shorter units are easier to analyze, test, and reuse.
+> Shorter units (that is, methods and constructors) are easier to analyze, test, and reuse.
 
-Most of my refactoring falls into this code. The book prescribes a simple rule: methods of 15 lines or less.
+Most of my refactoring falls into this guideline I think. The book prescribes a simple rule: methods of 15 lines or less.
 
-I think I get better at which explains why I find more recent code easier to maintain :)
+I think I get better at this which explains why I find more recent code easier to maintain :)
 
 Before:
 
@@ -57,7 +57,9 @@ Before:
     v)  write_html                | 4
     x)  __init__                  | 23 => refactor into smaller methods
 
-Big methods usually mix different responsabilities, "get_digest" for example mixes data parsing and preparing html:
+I (quickly) wrote countMethodLines.py for this post, it targets Python code. If you want to play with it, grab it [here](https://github.com/bbelderbos/Codesnippets/blob/master/python/countMethodLines.py). I might expand it to check other guidelines as well ...
+
+Big methods usually mix different responsabilities, the get_digest method above for example mixes data parsing and preparing html:
 
     def get_digest(self):
       self.html = "<div id='content' style='font: 85%/1.6 Verdana, sans-serif;'>"
@@ -71,7 +73,7 @@ Big methods usually mix different responsabilities, "get_digest" for example mix
             continue
       ..
 
-... so this should be broken apart: have a list or dict with all elements, then load in the html as template from storage (file) and populate placeholders with another class/method. At least 3 different methods. It is cool to see that pure metrics (LOC per method) reveals these kind of issues.
+... so this should be broken apart into two or more methods. It is cool to see how metrics (LOC per method) reveal these kind of issues.
 
 Lately I got the lines per method better (see also 7. / code balance)
 
@@ -82,9 +84,7 @@ Lately I got the lines per method better (see also 7. / code balance)
     v)  line_is_comment           | 3
     v)  file2list                 | 3
 
-I wrote countMethodLines.py for this post, it is for Python and should be further tested/ enhanced. You can get it [here](https://github.com/bbelderbos/Codesnippets/blob/master/python/countMethodLines.py). I might expand it to check other guidelines as well (if time).
-
-#### 2. Write simple units of code: limit the number of branch points per method
+#### 2. Write simple units of code (Chapter 3)
 
 > Units with fewer decision points are easier to analyze and test.
 
@@ -94,9 +94,9 @@ I still get them occasionally when the architecture is not well defined upfront 
 
 The book has a great refactoring example of a switch statement (getFlagColors) to a Map data structure with a method to retrieve a flag from it. It comes down to splitting growing methods (size and nesting) into smaller methods.
 
-#### 3. Write code once, rather than risk copying buggy code
+#### 3. Write code once (Chapter 4)
 
-> Duplication causes regression bugs and all kinds of issues as you have to update several pieces of code for each change, bad!
+> Duplication of source code should be avoided at all times, since changes will need to be made in each copy. Duplication is also a source of regression bugs.
 
 This is probably the easiest to grasp / fix, however I am surprised how often I see repetition of some kind.
 
@@ -126,9 +126,9 @@ Now waking up early only requires a chane in the go_out method:
 
 I try to be ruthless when coding and address even trivial examples as above. Code needs to be DRY!
 
-#### 4. Keep unit interfaces small by extracting parameters into objects
+#### 4. Keep unit interfaces small (Chapter 5)
 
-> Units with fewer parameters are easier to test and reuse.
+> Units (methods and constructors) with fewer parameters are easier to test and reuse.
 
 A valuable lesson here is to keep list of parameters to a method small, I found this in my code which is relatively complex: 
 
@@ -145,23 +145,23 @@ A valuable lesson here is to keep list of parameters to a method small, I found 
       self.sitemap = blog.sitemap
       ..
 
-#### 5. Separate concerns to avoid building large classes
+#### 5. Separate concerns in modules (Chapter 6)
 
-> Loosely coupled modules (classes) are easier to modify and lead to a more modular system.
+> Modules (classes) that are loosely coupled are easier to modify and lead to a more modular system.
 
 Keep classes small and limit he number of places where class is alled by code outside the calss itself.
 
-#### 6. Couple architecture components loosely
+#### 6. Couple architecture components loosely (Chapter 7)
 
-> Same as last rule but at a higher level, strive for loose coupling, also on a component level
+> Top-level components of a system that are more loosely coupled are easier to modify and lead to a more modular system.
 
 For example when you have classes Input -> Output -> Logging -> FileHandling -> XMLParsing -> etc. - make sure these components operate independently, passing the Logging object to all the other modules and vice versa creates more dependencies (is not loose coupling).
 
-The book shows an example of the [abstract factory design pattern](https://en.wikipedia.org/wiki/Abstract_factory_pattern). TODO: find an example from my code for this one.
+The book shows an example of the [abstract factory design pattern](https://en.wikipedia.org/wiki/Abstract_factory_pattern). 
 
-#### 7. Balance the number and size of top-level components in your code
+#### 7. Keep architecture components balanced (Chapter 8)
 
-> A well-balanced architecture of uniform size is most modular and enables easy modification through separation of concerns.
+> A well-balanced architecture, with not too many and not too few components, of uniform size, is the most modular and enables easy modification through separation of concerns.
 
 I think I get this better these days, compare an old project:
 
@@ -209,23 +209,23 @@ Going back to the 15-line-per-method rule, checking this against the better bala
     v)  file_to_list              | 4
     v)  __init__                  | 1
 
-I will confirm but when touching this code (maybe in a couple of weeks or months) it should be painless.
+Updating this codebase will be much easier!
 
-#### 8. Keep your codebase as small as possible
+#### 8. Keep your codebase small (Chapter 9)
 
-> A large system is difficult to maintain, because more code needs to be analyzed, changed and tested.
+> A large system is difficult to maintain, because more code needs to be analyzed, changed and tested. Also maintenance productivity per line of code is lower in a large system than in a small system.
 
 I have not a quick example of this, because most projects for this blog are relatively small, but I know from experience that the bigger the codebase the more complex it gets. I also am conscious what goes into the code base, sometimes whole components/subdirectories justify a seperate project (version control) and should be separated.
 
-#### 9. Automate tests for your codebase
+#### 9. Automate development pipeline and tests (Chapter 10)
 
-> Manual tests do not scale. Automated tests enable near-instantaneous feedback on the effectiveness of modifcations.
+> Automated tests (that is, test that can be executed without manual intervention) enable near-instantaneous feedback on the effectiveness of modifications. Manual tests do not scale.
 
 Here I need to get a bit more into the TDD-habit yet. I have been adding tests being late in the development cycle, ideally you do this when writing the code or even drive your design by testing, because you get in the habit of thinking about how your code can be tested. I can confirm that the inmediate feedback and safety net of a regression suite, makes you less afraid to make changes which often is required on active projects.
 
-#### 10. Write clean code, avoiding code smells that indicate deeper problems
+#### 10. Write clean code (Chapter 11)
 
-> Watch out for dead code and outdated comments. Good code documents itself.
+> Having irrelevant artifacts such as TODOs and dead code in your codebase makes it more difficult for new team members to become productive. Therefore, it makes maintenance less efficient.
 
 True, I still use comments to document not so obvious things, but you should wonder: if it requires comments, shouldn't it be refactored / redesigned? And yes, uncommented code leads to confusion (no worries, git still has copies of everything!) and comments tend to get outdated only adding up to the confusion of the ones that need to maintain the code.
 
@@ -234,31 +234,29 @@ For example you could make this more explanatory:
     ..
       for li in lines:
       ...
-        # ignore blank lines or lines that start with comments
-        if not li or li.startswith("#"):
+        # ignore lines that start with a comment
+        if li.startswith("#"):
           continue
 
 ... by creating a method: 
 
-    def ignore_line(li):
-      if not li.strip():
-        return True 
+    def ignore_comment(li):
       if li.startswith("#"):
         return True
       return False
 
     ..
       for li in lines:
-        if ignore_line(li):
+        if ignore_comment(li):
           continue 
 
-This has the additional advantage of controlling the "ignore lines" logic in one place so you can easily add more conditions. It takes some more lines of code, but it is all about keep it maintainable.
-
-See [my reading page]({{ site.baseurl }}/books) for other good books on software quality.
+This has the additional advantage of controlling the "ignore comments" logic in one place so you can easily add more conditions. It takes some more lines of code, but it is easier to maintain.
 
 ---
 
 And that's it: 10 simple guidelines, however just so much for reading, this is a book to go back to from time to time to make sure this becomes second nature.
+
+See [my reading page]({{ site.baseurl }}/books) for more books on software quality.
 
 ### Resources
 
