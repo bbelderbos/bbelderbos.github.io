@@ -41,7 +41,7 @@ a.nav-link i{
 a.nav-link:hover { color: #777 }
 
 #sbLinks {
-  padding: 10px 0px;
+  padding: 0 0 10px 0;
   margin-bottom: 10px;
 }
 #sbLinks li {
@@ -182,6 +182,9 @@ article.home h3 a:hover,
 article.home h4 a:hover {
 	color: #e74c3c;
 }
+h4 {
+  padding-top: 15px; 
+}
 
 .featImg {
   float: right; 
@@ -309,6 +312,5 @@ a.musicBtn .fa-music {
   font-size: 1.5em;
   margin: 10px 0;
   padding: 5px 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #999;
+  border-top: 1px solid #999;
 }
