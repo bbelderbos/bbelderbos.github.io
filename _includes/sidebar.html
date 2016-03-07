@@ -11,13 +11,13 @@
 {% if site.author.bio %}
 <div id="bio" class="text-center">
 	{{site.author.bio}} 
-   <br>
-   <ul id="sbLinks">
-    <li><a href="{{ site.BASE_PATH }}/about">About</a></li>
-	  <li><a href="{{ site.BASE_PATH }}/categories.html">Blog</a></li>
-	  <li><a href="{{ site.BASE_PATH }}/books">Books</a></li>
-	  <li><a href="{{ site.BASE_PATH }}/search">Search</a></li>
-   </ul>
+  <div id="readmeDiv"><i class="fa fa-terminal"></i> <a href="{{ site.BASE_PATH }}/readme">README</a></div>
+  <ul id="sbLinks">
+    <li><i class="fa fa-info-circle"></i> <a href="{{ site.BASE_PATH }}/about">About</a></li>
+	  <li><i class="fa fa-archive"></i> <a href="{{ site.BASE_PATH }}/archive">Blog</a></li>
+	  <li><i class="fa fa-book"></i> <a href="{{ site.BASE_PATH }}/books">Reading</a></li>
+	  <li><i class="fa fa-search"></i> <a href="{{ site.BASE_PATH }}/search">Search</a></li>
+  </ul>
 </div>
 {% endif %}
 

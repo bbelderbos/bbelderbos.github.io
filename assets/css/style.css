@@ -41,7 +41,8 @@ a.nav-link i{
 a.nav-link:hover { color: #777 }
 
 #sbLinks {
-  padding: 0px;
+  padding: 10px 0px;
+  margin-bottom: 10px;
 }
 #sbLinks li {
   list-style: none;
@@ -302,4 +303,12 @@ a.musicBtn .fa-music {
 .alignRight {
   float: right;
   margin-right: 20px;
+}
+#readmeDiv {
+  text-align: center;
+  font-size: 1.5em;
+  margin: 10px 0;
+  padding: 5px 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #999;
 }
