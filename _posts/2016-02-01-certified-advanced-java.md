@@ -10,7 +10,7 @@ image: java-certified.png
 
 > Success is the result of perfection, hard work, learning from failure, loyalty, and persistence.  - Colin Powell
 
-![Java Advanced certificate]({{ site.url }}/assets/ost_java_adv.jpg)
+![Java Advanced certificate]({{ site.baseurl }}/assets/ost_java_adv.jpg)
 
 ---
 
