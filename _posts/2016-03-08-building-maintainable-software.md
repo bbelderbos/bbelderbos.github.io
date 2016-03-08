@@ -6,18 +6,19 @@ summary: Review the book "Building Maintainable Software" which presents then gu
 categories: [Software Development]
 tags: [coding, software, best practices, java, sig, development, maintainability, refactoring, guidelines]
 image: building_maint_sw.png
-published: false
 ---
 
 ### Building Maintainable Software
 
-[Software Improvement Group](https://www.sig.eu/en) (SIG) recently released [Building Maintainable Software, Ten Guidelines for Future-Proof Code](https://www.sig.eu/en/building-maintainable-software). I am the happy owner of a signed copy for review :) 
+[Software Improvement Group](https://www.sig.eu/en) (SIG) recently released [Building Maintainable Software, Ten Guidelines for Future-Proof Code](https://www.sig.eu/en/building-maintainable-software). In this post I will summarize the ten guidelines and look at some of my code to see where I improved and what I can do better. 
 
-![Signed copy of the book]({{ site.baseurl }}/assets/signed_book_copy.jpg)
+<div id="instantPreviewRight">
+  <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen style="max-width:100%" src="https://read.amazon.com/kp/card?asin=B01B6WS86I&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_IjQ3wb0SZJMN1&tag=bobbeld-20" ></iframe>
+</div>
 
-In this post I will summarize the ten guidelines and look at some of my code to see where I improved and what I can do better. 
+This short guide (134 pages, excl. appendix) is a compact guide to help you write maintainable code. It also serves as preparation for the [Quality Software Developer Foundation Certificate in Maintainability](https://www.sig.eu/en/services/trainingcertification/).
 
-This short guide (134 pages, excl. appendix) is a compact guide to help you write maintainable code. Why is this important? Maintaining source code takes at least twice as long when maintainability is below average (as measured by SIG). If code is not maintainable changes to the codebase are risky and easily introduce bugs. This can even lead to the system being written off before initial release. 
+Why is maintainability important? Maintaining source code takes at least twice as long when maintainability is below average (as measured by SIG). If code is not maintainable changes to the codebase are risky and easily introduce bugs. This can even lead to the system being written off before initial release. 
 
 I think the most important lesson is that maintainability is not an afterthought: you need to start early and have the discipline to make every contribution (commit) count. The book mentions the "Boy Scouts" rule that says "leave the campground cleaner than you found it."
 
@@ -280,12 +281,15 @@ Apart from taking away the need for commenting you got the complex logic in a me
 
 And that's it: 10 simple guidelines. Reading about them however only helps you so much, the real benefit comes from reminding yourself on a daily basis as you code. It should become an attitude, a way of crafting software. As with everything: practice, practice a lot and this will become second nature.
 
-See [my reading page]({{ site.baseurl }}/books) for more books on software quality.
+I am the happy owner of a signed copy I got for this review :) 
+
+![Signed copy of the book]({{ site.baseurl }}/assets/signed_book_copy.jpg)
 
 ### Resources
 
 * Check out the [book's page](https://www.sig.eu/en/building-maintainable-software)
-* You can certify in this! Check out [Quality Software Developer Foundation Certificate in Maintainability](https://www.sig.eu/en/services/trainingcertification/).
+* As said this book is preparation for the [Quality Software Developer Foundation Certificate in Maintainability](https://www.sig.eu/en/services/trainingcertification/).
 * There is an accompanying [video training](https://player.oreilly.com/videos/9781491950791) available as well.
 * Article: [Why Measuring Code Quality Matters](https://www.sig.eu/en/about-sig/blogs/why-measuring-code-quality-matters/).
 * Software Improvement Group: [About SIG](https://www.sig.eu/en/about-sig).
+* See [my reading page]({{ site.baseurl }}/books) for more books on software quality.
