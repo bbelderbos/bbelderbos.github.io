@@ -25,6 +25,7 @@ Programming is my main occupation. Where did I start, how to get better?
 Just a few resources from the blog. I frequently update [my reading page](books) where I have a section about software development books.
 
 * Required reading: [The Pragmatic Programmer: From Journeyman to Master.](2011/02/great-book-about-software-engineering/).
+* 10 guidelines that will make you write more maintainable software, review/learning of the book [Building maintainable software](2016/03/building-maintainable-software/).
 * Some posts on software development best practices: [I) Programming Techniques](2012/06/best-practices-software-development-programming-techniques/), [II) Good Coding Methodologies](2012/07/best-practices-software-development-good-coding-methodologies/), and [becoming a good debugger](2011/07/becoming-good-debugger/).
 
 ---
