@@ -228,7 +228,7 @@ Going back to the 15-line-per-method rule, checking this against the better bala
     v)  file_to_list              | 4
     v)  __init__                  | 1
 
-Updating this codebase will be much easier!
+Updating this codebase will be much easier! Cool how improvement of one guideline leads to improvement in another one.
 
 #### 8. Keep your codebase small (Chapter 9)
 
@@ -246,9 +246,9 @@ Here I need to get a bit more into the TDD-habit yet. I have been adding tests b
 
 > Having irrelevant artifacts such as TODOs and dead code in your codebase makes it more difficult for new team members to become productive. Therefore, it makes maintenance less efficient.
 
-True, I still use comments to document not so obvious things, but you should wonder: if it requires comments, shouldn't it be refactored / redesigned? Uncommented code can be very confusing. No worries: git still has copies of everything! More importantly long comments don't tend to stay up2date with code changes changing from well-intended to lies.
+True, I still use comments to document not so obvious things, but you should wonder: if it requires comments, shouldn't it be refactored / redesigned? Especially commented code can be very confusing. No worries: git still has copies of everything! More importantly long comments don't tend to stay up2date with code changes turning well-intended comments into lies. 
 
-For example you could make this more explanatory by creating a method with a meaningful name: 
+For example you could make the following more explanatory by creating a method with a meaningful name: 
 
 Old: 
 
@@ -274,11 +274,11 @@ New:
         if new_method(arg):
           continue 
 
-Apart from taking away the need for commenting you got the complex logic in a method which is now easier to change or expand. Yes, it adds some lines of code, but I rather pay in length to have readable and maintainable code.
+Apart from taking away the need for commenting you got the complex logic in a method which is now easier to change or expand. Yes, it adds some lines of code, but I rather pay in length than having code that is harder to read and maintain.
 
 ---
 
-And that's it: 10 simple guidelines. However revise them from time to time, the real benefit comes from reminding yourself on a daily basis as you code. It becomes an attitude, way of crafting software. As with everything: through a practice this becomes second nature.
+And that's it: 10 simple guidelines. Reading about them however only helps you so much, the real benefit comes from reminding yourself on a daily basis as you code. It should become an attitude, a way of crafting software. As with everything: practice, practice a lot and this will become second nature.
 
 See [my reading page]({{ site.baseurl }}/books) for more books on software quality.
 
