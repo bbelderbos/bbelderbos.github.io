@@ -17,15 +17,15 @@ published: false
 
 In this post I will summarize the ten guidelines and look at some of my code to see where I improved and what I can do better. 
 
-This short guide (134 pages, excl. appendix) is a compact guide to help you write maintainable code. Why is this important? Maintaining source code takes at least twice as long when maintainability is below average (as measured by SIG). Maintainable software can evolve! On the contrary, if code is not maintainable any changes to the codebase are considered too risky even leading to systems being written off before a 1.0 release. 
+This short guide (134 pages, excl. appendix) is a compact guide to help you write maintainable code. Why is this important? Maintaining source code takes at least twice as long when maintainability is below average (as measured by SIG). If code is not maintainable changes to the codebase are risky and easily introduce bugs. This can even lead to the system being written off before initial release. 
 
-I think most important is that maintainability is not an afterthought, you need to start early and have the discipline to make every contribution (commit) count. The book mentions the "Boy Scouts" rule that says "leave the campground cleaner than you found it."
+I think the most important lesson is that maintainability is not an afterthought: you need to start early and have the discipline to make every contribution (commit) count. The book mentions the "Boy Scouts" rule that says "leave the campground cleaner than you found it."
 
-### The 10 guidelines
+### The 10 guidelines
 
-Each guideline has concrete / easy-to-understand Java code samples. At the end of each guideline chapter the author tries to take away common misunderstandings (e.g. "our domain is very complex, therefore hight code complexity is unavoidable") and shows how SIG rates the guidelines on real source code. It is really hands-on.
+Each guideline has concrete / easy-to-understand Java code samples. At the end of each guideline chapter the author tries to take away common misunderstandings (statements like "our domain is very complex, therefore hight code complexity is unavoidable") and shows how SIG rates the guidelines on real source code. It is really hands-on.
 
-Without further ado, the guidelines. For each one I looked up some code and share what I learned:
+Without further ado, the guidelines. I tried to link to my own code to better commit the concepts to muscle memory:
 
 #### 1. Write short units of code (Chapter 2)
 
@@ -59,7 +59,7 @@ Before:
 
 I (quickly) wrote countMethodLines.py for this post, it targets Python code. If you want to play with it, grab it [here](https://github.com/bbelderbos/Codesnippets/blob/master/python/countMethodLines.py). I might expand it to check other guidelines as well ...
 
-Big methods usually mix different responsabilities, the get_digest method above for example mixes data parsing and preparing html:
+Big methods usually mix different responsibilities, the get_digest method above for example mixes data parsing and preparing html:
 
     def get_digest(self):
       self.html = "<div id='content' style='font: 85%/1.6 Verdana, sans-serif;'>"
@@ -73,9 +73,9 @@ Big methods usually mix different responsabilities, the get_digest method above 
             continue
       ..
 
-... so this should be broken apart into two or more methods. It is cool to see how metrics (LOC per method) reveal these kind of issues.
+So this should be broken apart into two or more methods. It is cool to see how metrics (LOC per method) reveal these kind of issues.
 
-Lately I got the lines per method better (see also 7. / code balance)
+In the very countMethodLines.py script I improved the LOC per method (see also 7. / code balance)
 
     $ python countMethodLines.py countMethodLines.py 
     v)  print_line                | 5
@@ -88,17 +88,17 @@ Lately I got the lines per method better (see also 7. / code balance)
 
 > Units with fewer decision points are easier to analyze and test.
 
-I think we have all experienced deep nesting if statements in our first programming attempts ;) 
+I think we have all experienced deep nested if statements in our first programming attempts ;) 
 
-I still get them occasionally when the architecture is not well defined upfront or requirements change dramatically. I hate ending up with code that has deep nesting, because it is inherently complex. 
+I still get them occasionally when the architecture is not well defined upfront or requirements change dramatically in the process. I hate ending up with code that has deep nesting, because it is inherently complex. 
 
-The book has a great refactoring example of a switch statement (getFlagColors) to a Map data structure with a method to retrieve a flag from it. It comes down to splitting growing methods (size and nesting) into smaller methods.
+The book has a great refactoring example of a switch statement (getFlagColors) to a Map data structure with a method to retrieve a flag from it. It comes down to splitting growing methods (size and nesting) into smaller methods. Hence it overlaps with the previous guideline.
 
 #### 3. Write code once (Chapter 4)
 
 > Duplication of source code should be avoided at all times, since changes will need to be made in each copy. Duplication is also a source of regression bugs.
 
-This is probably the easiest to grasp / fix, however I am surprised how often I see repetition of some kind.
+This is probably the easiest to grasp / fix, however I am surprised how often I see repetition of some kind when I look at code.
 
 Bad (very trivial example just to make a point):
 
@@ -108,7 +108,7 @@ Bad (very trivial example just to make a point):
       else:
         print "wake up and go for a walk"
 
-Imagine I want to say "wake up at 6am" for some reason. Now I need to update two lines.
+Imagine I want to say "wake up at 6am" for some reason. Now I need to update two print statements.
 So it is better to have the "wake up" in only one place:
 
     def go_out(activity):
@@ -117,14 +117,14 @@ So it is better to have the "wake up" in only one place:
     def do_sport():
       print go_out("swim") if day in weekend else print go_out("walk")
 
-Note that this also invites the shorter "" if ... else "" notation :)
+Note that this also invites the shorter "" if ... else "" notation for compactness :)
 
-Now waking up early only requires a chane in the go_out method:
+Now waking up early only requires a change in the go_out method:
 
     def go_out(activity):
       return "wake up at 6 am and go for a " + activity
 
-I try to be ruthless when coding and address even trivial examples as above. Code needs to be DRY!
+I try to be ruthless when coding and address even trivial examples as above. Get rid of "code smell", keep it DRY!
 
 #### 4. Keep unit interfaces small (Chapter 5)
 
@@ -137,10 +137,10 @@ A valuable lesson here is to keep list of parameters to a method small, I found 
       def __init__(self, url, poststart, postend, sitemap="sitemap.xml"):
         ..
 
-.. why not passing in blog object that holds all the data, but only causes a single parameter to be passed along?
+Why not passing in blog object that holds all the data, but only causes a single parameter to be passed along?
 
      ..
-     def __init__(self, blog): # easier to maintain
+     def __init__(self, blog):
       self.url = blog.url
       self.sitemap = blog.sitemap
       ..
@@ -149,15 +149,34 @@ A valuable lesson here is to keep list of parameters to a method small, I found 
 
 > Modules (classes) that are loosely coupled are easier to modify and lead to a more modular system.
 
-Keep classes small and limit he number of places where class is alled by code outside the calss itself.
+This guideline can be applied by splitting classes to separate concerns. For example in the earlier moviedb crawler example different responsibilities were in one class:
+
+    $ python countMethodLines.py codesnippets/python/themoviedb_crawler.py
+    v)  print_html                | 1
+    v)  mail_html                 | 15
+    v)  get_url                   | 6
+    x)  get_digest                | 40 
+    v)  write_html                | 4
+    x)  __init__                  | 23
+
+We should split these functionalities into different classes: GetData(), ParseData(), CreateOutput(), PrintOutput(), MailOutput(). This makes it more modular. Also note that I kept the class names generic so when we decide to print/mail plain text instead of html it is easy to add.
+
+In a more recent project I did this better: 
+
+    $ wc -l *py
+       52 book.py
+       27 crawler.py
+       27 mail.py
+       68 main.py
+       34 store.py
+       28 utils.py
+      236 total
 
 #### 6. Couple architecture components loosely (Chapter 7)
 
 > Top-level components of a system that are more loosely coupled are easier to modify and lead to a more modular system.
 
-For example when you have classes Input -> Output -> Logging -> FileHandling -> XMLParsing -> etc. - make sure these components operate independently, passing the Logging object to all the other modules and vice versa creates more dependencies (is not loose coupling).
-
-The book shows an example of the [abstract factory design pattern](https://en.wikipedia.org/wiki/Abstract_factory_pattern). 
+For example when you have classes Input -> Output -> Logging -> FileHandling -> XMLParsing -> etc. - make sure these components operate independently, passing the Logging object to all the other modules and vice versa creates more dependencies (is not loose coupling). Keep interfaces on a high level of abstraction to avoid components knowing too much about the implementation details (and thus become too interdependent). The book shows an example of the [abstract factory](https://en.wikipedia.org/wiki/Abstract_factory_pattern) which is described as a design pattern that successfully limits the amount of interface code exposed by a component.
 
 #### 7. Keep architecture components balanced (Chapter 8)
 
@@ -180,7 +199,7 @@ I think I get this better these days, compare an old project:
       11 utils.py
      220 total
 
-= number of top-level components.
+= a number of more or less balanced top-level components.
 
 Going back to the 15-line-per-method rule, checking this against the better balanced project I see even shorter methods: 
 
@@ -215,53 +234,58 @@ Updating this codebase will be much easier!
 
 > A large system is difficult to maintain, because more code needs to be analyzed, changed and tested. Also maintenance productivity per line of code is lower in a large system than in a small system.
 
-I have not a quick example of this, because most projects for this blog are relatively small, but I know from experience that the bigger the codebase the more complex it gets. I also am conscious what goes into the code base, sometimes whole components/subdirectories justify a seperate project (version control) and should be separated.
+I have not a quick example of this, because most projects for this blog are relatively small, but I know from experience that the bigger the codebase the more complex it gets. This guideline recommends to not copy and paste code, refactor existing code, and use third-party libraries and frameworks to avoid unnecessary over-engineering.
 
 #### 9. Automate development pipeline and tests (Chapter 10)
 
 > Automated tests (that is, test that can be executed without manual intervention) enable near-instantaneous feedback on the effectiveness of modifications. Manual tests do not scale.
 
-Here I need to get a bit more into the TDD-habit yet. I have been adding tests being late in the development cycle, ideally you do this when writing the code or even drive your design by testing, because you get in the habit of thinking about how your code can be tested. I can confirm that the inmediate feedback and safety net of a regression suite, makes you less afraid to make changes which often is required on active projects.
+Here I need to get a bit more into the TDD-habit yet. I have been adding tests being late in the development cycle, ideally you do this when writing the code or even drive your design by testing, because you get in the habit of thinking about how your code can be tested. The immediate feedback and safety net of a regression suite, makes you less afraid to make changes which is an important requirement with ever-changing business rules.
 
 #### 10. Write clean code (Chapter 11)
 
 > Having irrelevant artifacts such as TODOs and dead code in your codebase makes it more difficult for new team members to become productive. Therefore, it makes maintenance less efficient.
 
-True, I still use comments to document not so obvious things, but you should wonder: if it requires comments, shouldn't it be refactored / redesigned? And yes, uncommented code leads to confusion (no worries, git still has copies of everything!) and comments tend to get outdated only adding up to the confusion of the ones that need to maintain the code.
+True, I still use comments to document not so obvious things, but you should wonder: if it requires comments, shouldn't it be refactored / redesigned? Uncommented code can be very confusing. No worries: git still has copies of everything! More importantly long comments don't tend to stay up2date with code changes changing from well-intended to lies.
 
-For example you could make this more explanatory: 
+For example you could make this more explanatory by creating a method with a meaningful name: 
+
+Old: 
 
     ..
       for li in lines:
       ...
-        # ignore lines that start with a comment
-        if li.startswith("#"):
+        # I need a 2 line comment here to explain
+        # the line below because it is very complex
+        if some very complex conditions with && and || blabla:
           continue
 
-... by creating a method: 
+New:
 
-    def ignore_comment(li):
-      if li.startswith("#"):
+    def new_method(arg):
+      if blabla:
+        return True
+      elif blabla:
         return True
       return False
 
     ..
       for li in lines:
-        if ignore_comment(li):
+        if new_method(arg):
           continue 
 
-This has the additional advantage of controlling the "ignore comments" logic in one place so you can easily add more conditions. It takes some more lines of code, but it is easier to maintain.
+Apart from taking away the need for commenting you got the complex logic in a method which is now easier to change or expand. Yes, it adds some lines of code, but I rather pay in length to have readable and maintainable code.
 
 ---
 
-And that's it: 10 simple guidelines, however just so much for reading, this is a book to go back to from time to time to make sure this becomes second nature.
+And that's it: 10 simple guidelines. However revise them from time to time, the real benefit comes from reminding yourself on a daily basis as you code. It becomes an attitude, way of crafting software. As with everything: through a practice this becomes second nature.
 
 See [my reading page]({{ site.baseurl }}/books) for more books on software quality.
 
-### Resources
+### Resources
 
 * Check out the [book's page](https://www.sig.eu/en/building-maintainable-software)
 * You can certify in this! Check out [Quality Software Developer Foundation Certificate in Maintainability](https://www.sig.eu/en/services/trainingcertification/).
-* There is a [video training](https://player.oreilly.com/videos/9781491950791) available as well.
+* There is an accompanying [video training](https://player.oreilly.com/videos/9781491950791) available as well.
 * Article: [Why Measuring Code Quality Matters](https://www.sig.eu/en/about-sig/blogs/why-measuring-code-quality-matters/).
 * Software Improvement Group: [About SIG](https://www.sig.eu/en/about-sig).
