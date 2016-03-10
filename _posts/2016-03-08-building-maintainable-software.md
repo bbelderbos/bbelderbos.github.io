@@ -281,9 +281,19 @@ Apart from taking away the need for commenting you got the complex logic in a me
 
 And that's it: 10 simple guidelines. Reading about them however only helps you so much, the real benefit comes from reminding yourself on a daily basis as you code. It should become an attitude, a way of crafting software. As with everything: practice, practice a lot and this will become second nature.
 
+---
+
 I am the happy owner of a signed copy I got for this review :) 
 
 ![Signed copy of the book]({{ site.baseurl }}/assets/signed_book_copy.jpg)
+
+### Sketchnote
+
+A nice visual summary created by [Matt Penny](http://mattypenny.net/2016/02/17/sketchnote-of-talk-by-rob-van-der-leek-and-zeljko-obrenovic-on-building-maintainable-software-for-sustainable-business-growth-8-best-practices/):
+
+![nice illustration of this stuff by Matt Penny](https://mattypennysite.files.wordpress.com/2016/02/van-der-leek-rob-and-obrenovic-zeljko-building-maiantanable-software-8-best-practices.jpg)
+
+---
 
 ### Resources
 
