@@ -11,7 +11,7 @@ I characterize myself as organized, analytical, proactive, integer, goal-oriente
 
 Apart from delivering high quality solutions with an eye for detail, I am innovative and strategic in my thinking and a natural connector. People I work with say I am personable and empathic. That's why I aim to be a mentor/ inspiration for other developers.
 
-I speak Spanish / English / Dutch natively and some French. I enjoy learning languages and working in multicultural teams. I enjoy learning languages/ working in multicultural teams, [reading](http://bobbelderbos.com/books) (podcasts). I highly value fitness and health. And I love <a class="musicBtn" href="{{ site.BASE_PATH}}/music"><i class="fa fa-music"></i></a>
+I speak Spanish / English / Dutch natively and some French. I enjoy learning languages and working in multicultural teams. I enjoy learning languages/ working in multicultural teams, [reading](http://bobbelderbos.com/books) (podcasts). I highly value fitness and health. 
 
 <strong>Disclaimer: </strong> ideas expressed on my blog are mine, and have nothing to do with the current/previous employers. 
 

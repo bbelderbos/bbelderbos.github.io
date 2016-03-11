@@ -86,4 +86,4 @@ Writing is one of the most important skills to develop, and being conscience abo
 
 And where are the books? I shelve those on my [books](books) page. For the new reads I am adding book pages with notes, see for example [The power of habit](books/PowerHabit.html).
 
-Thanks again for stopping by. I hope you enjoy this blog. If there was one thing I could write about that'd make your day better, <a href="mailto:info@bobbelderbos.com?Subject=Please%20write%20about%20..." target="_top">what would it be?</a>
+Thanks again for stopping by. I hope you enjoy this blog. If there was one thing I could write about that'd make your day better, <a href="mailto:ideas@bobbelderbos.com?Subject=Please%20write%20about%20..." target="_top">what would it be?</a>
