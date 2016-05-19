@@ -2,7 +2,23 @@
 layout: page
 title: Portfolio
 ---
+<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+<script type="text/javascript" >
+$( document ).ready(function() {
+  $( "#colorToggle" ).click(function() {
+    $(this).text($(this).text() == ' b&w' ? ' color' : ' b&w');
+    $( this ).toggleClass( "fa-toggle-off fa-toggle-on" );
+    $( "#portfolio li img" ).toggleClass( "color" );
+  });
+});
+</script>
 <style>
+@media screen and (max-width: 480px) {
+   #portfolio li h2 a { font-size: 0.6em; }
+}
+@media screen and (max-width: 360px) {
+   #portfolio li h2 a { font-size: 0.3em; }
+}
 #portfolio li h2, #portfolio li h2 a {
   font-family: 'Ubuntu', sans-serif; 
 }
@@ -23,26 +39,29 @@ title: Portfolio
   font-size: 1em;
   color: #fff;
 }
-@media screen and (max-width: 480px) {
-   #portfolio li h2 a { font-size: 0.6em; }
-}
-@media screen and (max-width: 360px) {
-   #portfolio li h2 a { font-size: 0.3em; }
-}
 #portfolio li img {
   z-index:1;
-}
-#portfolio li img {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  filter:grayscale(100%); 
-  -webkit-filter: grayscale(100%);
   width:100%;
   max-width:700px;
 }
+.bw {
+  filter:grayscale(100%); 
+  -webkit-filter: grayscale(100%);
+}
+.color {
+  filter:grayscale(0%); 
+  -webkit-filter: grayscale(0%);
+}
+#colorToggle {
+  margin: 0 0 10px 40px;
+  cursor: pointer; cursor: hand;
+}
 </style>
 
+<i id="colorToggle" class="fa fa-toggle-off fa-2x" aria-hidden="true"> color</i>
 <ul id="portfolio">
 {% for image in site.static_files reversed %}
     {% if image.path contains 'portfolio/' %}
@@ -56,7 +75,7 @@ title: Portfolio
     {% assign target = "self" %}
   {% endif %}
   <h2><a href="{{link}}" target="_{{target}}">{{name}}</a></h2>
-  <img src="{{ site.baseurl }}{{ image.path }}" alt="{{name}}" />
+  <img src="{{ site.baseurl }}{{ image.path }}" alt="{{name}}" class="bw" />
   <hr>
 </li>
     {% endif %}
