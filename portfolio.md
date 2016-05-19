@@ -13,12 +13,6 @@ $( document ).ready(function() {
 });
 </script>
 <style>
-@media screen and (max-width: 480px) {
-   #portfolio li h2 a { font-size: 0.6em; }
-}
-@media screen and (max-width: 360px) {
-   #portfolio li h2 a { font-size: 0.3em; }
-}
 #portfolio li h2, #portfolio li h2 a {
   font-family: 'Ubuntu', sans-serif; 
 }
@@ -38,6 +32,12 @@ $( document ).ready(function() {
 #portfolio li h2 a {
   font-size: 1em;
   color: #fff;
+}
+@media screen and (max-width: 480px) {
+   #portfolio li h2 a { font-size: 0.6em; }
+}
+@media screen and (max-width: 360px) {
+   #portfolio li h2 a { font-size: 0.3em; }
 }
 #portfolio li img {
   z-index:1;
