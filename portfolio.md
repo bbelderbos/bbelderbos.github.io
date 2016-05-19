@@ -13,18 +13,21 @@ title: Portfolio
 #portfolio li h2 {
   position: absolute;
   bottom: 20px; 
+  left: 15px;
   border-top: 1px solid #fff;
   padding: 5px;
-  left: 15px;
   z-index: 10;
   background: rgba(0,0,0,0.7);
 }
 #portfolio li h2 a {
-  font-size: 0.6em;
+  font-size: 1em;
   color: #fff;
 }
-@media screen and (min-width: 480px) {
-   #portfolio li h2 a { font-size: 1em; }
+@media screen and (max-width: 480px) {
+   #portfolio li h2 a { font-size: 0.6em; }
+}
+@media screen and (max-width: 360px) {
+   #portfolio li h2 a { font-size: 0.3em; }
 }
 #portfolio li img {
   z-index:1;
