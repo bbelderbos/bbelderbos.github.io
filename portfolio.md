@@ -3,14 +3,14 @@ layout: page
 title: Portfolio
 ---
 <style>
-h2, h2 a {
+#portfolio li h2, #portfolio li h2 a {
   font-family: 'Ubuntu', sans-serif; 
 }
-li {
+#portfolio li {
   position: relative;
   list-style: none; 
 }
-li h2 {
+#portfolio li h2 {
   position: absolute;
   bottom: 20px; 
   border-top: 1px solid #fff;
@@ -19,22 +19,28 @@ li h2 {
   z-index: 10;
   background: rgba(0,0,0,0.7);
 }
-li h2 a {
+#portfolio li h2 a {
+  font-size: 0.6em;
   color: #fff;
 }
-li img {
+@media screen and (min-width: 480px) {
+   #portfolio li h2 a { font-size: 1em; }
+}
+#portfolio li img {
   z-index:1;
 }
-img {
+#portfolio li img {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
   filter:grayscale(100%); 
   -webkit-filter: grayscale(100%);
+  width:100%;
+  max-width:700px;
 }
 </style>
 
-<ul>
+<ul id="portfolio">
 {% for image in site.static_files reversed %}
     {% if image.path contains 'portfolio/' %}
 <li>
