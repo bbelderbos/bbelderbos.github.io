@@ -51,7 +51,7 @@ No good program without appropriate design, I love building functional sites tha
 * My movie site and first Facebook API project: [Sharemovi.es](http://sharemovi.es/) (uses themoviedb API, [launch post](2010/11/sneak-preview-sharemovies/)).
 * Weekend project in 2011 (Facebook API): [My Reading List](http://fbreadinglist.com/) (uses Google Books API, [launch post](2011/03/new-facebook-app-my-reading-list/)).
 * More FB apps (not all online or working now): [globe explorer](http://bobbelderbos.com/globe/), [friends jukebox](2011/06/new-facebook-app-friends-jukebox/), [never forget a birthday](2011/07/example-simple-facebook-canvasapp-never-forget-a-birthday/). Latter I really want to redo as a mobile app!
-* For all webdesigns see my [portfolio page](portfolio).
+* For all webdesigns see my [portfolio page](portfolio). 
 
 ---
 
