@@ -5,7 +5,7 @@ title: README
 
 ### Where to start?
 
-I have been writing here about software, web development, technology and my learning for the last {{ site.time | date: '%Y' | minus:2009 }} years. On this page I have grouped some of my posts and creations. If you like what you see, consider joining my private mailing list at the bottom of the page. Thanks for reading!
+I have been writing here about software, web development, technology and my learning for the last {{ site.time | date: '%Y' | minus:2009 }} years. On this page I have grouped some of my posts and creations. 
 
 ---
 
@@ -39,6 +39,7 @@ Most of my blog content is around building useful things to cover practical need
 * A [script](2015/11/new-safari-books-notification-email/) to monitor what gets added to [safaribooksonline](http://safaribooksonline.com/). I turned it into a [Twitter bot](https://twitter.com/newsafaribooks) even.
 * Other scraping scripts: [daily mail of all movies aired on Spanish TV](2012/09/perl-practice-daily-mail-of-movies-spanish-tv/) ([Python version](2013/01/movies-aired-on-spanish-tv-part2-python/)). I also created a [Twitter bot](https://twitter.com/cine_tv_es) for this one (I will soon write a post on automating data flow with Twitter bots).
 * Terminal fun: [How to search and copy Stack Overflow data without leaving Vim!](2013/01/search-copy-stackoverflow-data-in-vim-with-conque/)
+* See also my [portfolio page](portfolio).
 
 ---
 
@@ -47,10 +48,10 @@ Most of my blog content is around building useful things to cover practical need
 No good program without appropriate design, I love building functional sites that look nice!
 
 * Some iterations of my site: [2009 - first design](http://projects.bobbelderbos.com/bb_website_2009.jpg) (still proud of this one). Revamps: [2010](2010/09/new-website-design/), [2013](2013/02/responsive-website-redesign/), and recently [I migrated to the ultra fast Jekyll](2016/01/migrating-to-jekyll/).
-* You can see some of my webdesigns at my [Portfolio site](http://projects.bobbelderbos.com/portfolio/).
 * My movie site and first Facebook API project: [Sharemovi.es](http://sharemovi.es/) (uses themoviedb API, [launch post](2010/11/sneak-preview-sharemovies/)).
 * Weekend project in 2011 (Facebook API): [My Reading List](http://fbreadinglist.com/) (uses Google Books API, [launch post](2011/03/new-facebook-app-my-reading-list/)).
 * More FB apps (not all online or working now): [globe explorer](http://bobbelderbos.com/globe/), [friends jukebox](2011/06/new-facebook-app-friends-jukebox/), [never forget a birthday](2011/07/example-simple-facebook-canvasapp-never-forget-a-birthday/). Latter I really want to redo as a mobile app!
+* For all webdesigns see my [portfolio page](portfolio).
 
 ---
 
