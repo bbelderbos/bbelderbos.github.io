@@ -3,33 +3,18 @@ layout: page
 title: My book shelves
 ---
 <style>
-.section {
-  border-top: 1px solid #ddd;
-  margin-top: 20px;
-  padding: 20px 0;
-  clear: both;
-  overflow: hidden;
+html, body {
+  height: 100%;
+  margin: 0;            /* Reset default margin on the body element */
 }
-ul.shelf {
-  list-style-type: none;
-  padding: 0;
-  margin: 20px 0; 
-  overflow: hidden;
+iframe {
+  display: block;       /* iframes are inline by default */
+  border: none;         /* Reset default border */
+  width: 100%;
+  height: 5000px;
+  overflow:hidden;      /* no scrolling, see also scrolling = no in iframe */
 }
-.shelf li {
-  float: left;
-  padding: 0 25px;
-  border-bottom: 12px solid black;
-}   
-.shelf li img {
-  margin: 25px 15px 0 15px;
-  height: 168px;
-  width: 128px;
-}
-.clear {
-  clear: both;
-}
-</style>     
+</style>
 
 <p>On this page I update my reading progress. Click on a book cover for more info (redirects to notes, a blog post or Amazon).</p> 
 <p>Feel free to <a href="mailto:{{ site.author.email }}">email me</a> or ping me on <a href="http://twitter.com/bbelderbos" target="_blank">Twitter</a> to give/receive book recommendations.</p>
@@ -37,82 +22,4 @@ ul.shelf {
 
 <blockquote><p>A reader lives a thousand lives before he dies, said Jojen. The man who never reads lives only one. - George R.R. Martin, A Dance with Dragons</p></blockquote>
 
-<div class="section">
-  <h2>Software development</h2>
-  <ul class='shelf'>
-    <li><a href='{{ site.BASE_PATH }}/2016/03/building-maintainable-software/'><img src='http://books.google.com/books/content?id=jsV4CwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Building Maintainable Software, Java Edition'></a></li>
-    <li><a href='{{ site.BASE_PATH }}/2011/02/great-book-about-software-engineering/'><img src='http://bks2.books.google.com/books?id=5wBQEp6ruIAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Pragmatic Programmer'></a></li>
-    <li><a href='{{ site.BASE_PATH }}/2011/04/advance-career-read-passionate-programmer/'><img src='http://bks8.books.google.com/books?id=FvJePgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The Passionate Programmer'></a></li>
-    <li><a href='https://read.amazon.com/kp/embed?asin=B0050JLC9Y&preview=newtab&linkCode=kpe&ref_=cm_sw_r_kb_dp_jOC0wb0MPAEEK&tag=bobbeld-20' target='_blank'><img src='http://bks8.books.google.com/books?id=ik0qCTVzl44C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Clean Coder'></a></li>
-    <li><a href='https://read.amazon.com/kp/embed?asin=B008HUMTO0&preview=newtab&linkCode=kpe&ref_=cm_sw_r_kb_dp_zVC0wb14PQZFX&tag=bobbeld-20' target='_blank'><img src='http://bks5.books.google.com/books?id=H2SeMQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='Effective Programming'></a></li>
-    <li><a href='{{ site.BASE_PATH }}/2012/07/books-hackers-and-painters-ideas-computer-age/'><img src='http://books.google.com/books/content?id=shycAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Hackers & Painters'></a></li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>Programming / technology</h2>
-  <ul class='shelf'>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Future Crimes' target='_blank'><img src='http://books.google.com/books/content?id=5v99BAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Future Crimes'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Rise of the Robots' target='_blank'><img src='http://books.google.com/books/content?id=c_5jCQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='Rise of the Robots'></a></li>
-    <li><a href='http://bobbelderbos.com/2012/10/book-review-practical-vim-edit-text-at-the-speed-of-thought/'><img src='http://books.google.com/books/content?id=micRswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='Practical Vim'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Data Science at the Command Line' target='_blank'><img src='http://books.google.com/books/content?id=EsWeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Data Science at the Command Line'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Data Crunching' target='_blank'><img src='http://books.google.com/books/content?id=VXxQAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='Data Crunching'></a></li>
-    <li><a href='http://bobbelderbos.com/2012/10/php-mysql-novice-to-ninja/'><img src='http://books.google.com/books/content?id=DhSjBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='PHP & MySQL: Novice to Ninja'></a></li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>Productivity / business / self improvement</h2>
-  <ul class='shelf'>
-    <li><a href='AmazonWay'><img src='http://books.google.com/books/content?id=fwzZoAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The Amazon Way'></a></li>
-    <li><a href='https://read.amazon.com/kp/embed?asin=B006X0M2TS&preview=newtab&linkCode=kpe&ref_=cm_sw_r_kb_dp_SiQ3wb1P6B599&tag=bobbeld-20' target='_blank'><img src='http://books.google.com/books/content?id=tQ1C-rvAfJUC&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The 4-Hour Work Week'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=So Good They Can't Ignore You' target='_blank'><img src='http://books.google.com/books/content?id=ZW_coFi_h1QC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='So Good They Can't Ignore You'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The One Thing' target='_blank'><img src='http://books.google.com/books/content?id=94ScMQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The One Thing'></a></li>
-    <li><a href='http://bobbelderbos.com/2015/08/get-more-out-of-life-become-an-essentialist/'><img src='http://books.google.com/books/content?id=XaGNAQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Essentialism'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=How To Win Friends and Influence People' target='_blank'><img src='http://books.google.com/books/content?id=1rW-QpIAs8UC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='How To Win Friends and Influence People'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Anything You Want' target='_blank'><img src='http://books.google.com/books/content?id=COVJBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Anything You Want'></a></li>
-    <li><a href='http://bobbelderbos.com/2015/01/fail-everything-win-big/'><img src='http://books.google.com/books/content?id=7FZ6AcGmT0AC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='How to Fail at Almost Everything and Still Win Big'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The 7 Habits of Highly Effective People' target='_blank'><img src='http://books.google.com/books/content?id=iUxbngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The 7 Habits of Highly Effective People'></a></li>
-    <li><a href='PowerHabit'><img src='http://books.google.com/books/content?id=O1MInVXd_aoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Power of Habit'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Obstacle Is the Way' target='_blank'><img src='http://books.google.com/books/content?id=lUp1AgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Obstacle Is the Way'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Go-Giver' target='_blank'><img src='http://books.google.com/books/content?id=JNi-873LX2wC&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The Go-Giver'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Not Fade Away' target='_blank'><img src='http://books.google.com/books/content?id=whKvizMeZp4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Not Fade Away'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Mastery' target='_blank'><img src='http://books.google.com/books/content?id=LxZiUSuVIgcC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Mastery'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Vagabonding' target='_blank'><img src='http://books.google.com/books/content?id=mbobFPY4W1sC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Vagabonding'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Influence' target='_blank'><img src='http://books.google.com/books/content?id=5dfv0HJ1TEoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Influence'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Luck Factor' target='_blank'><img src='http://books.google.com/books/content?id=tHUGAAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The Luck Factor'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Art of Learning' target='_blank'><img src='http://books.google.com/books/content?id=XUwOtdcIWdkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Art of Learning'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Facebook Effect' target='_blank'><img src='http://books.google.com/books/content?id=PxTvbM-VCPEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Facebook Effect'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Night School' target='_blank'><img src='http://books.google.com/books/content?id=3JabAgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='Night School'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=59 Seconds' target='_blank'><img src='http://books.google.com/books/content?id=CTWDFJmp3B0C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='59 Seconds'></a></li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>Writing / blogging</h2>
-  <ul class='shelf'>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=On Writing'><img src='http://books.google.com/books/content?id=MvyTqyff_V4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='On Writing'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=On Writing Well'><img src='http://books.google.com/books/content?id=9yFPAAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='On Writing Well'></a></li>
-    <li><a href='http://bobbelderbos.com/2012/06/great-book-on-technical-blogging/'><img src='http://books.google.com/books/content?id=rByWpwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='Technical Blogging'></a></li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>History / philosophy / novels</h2>
-  <ul class='shelf'>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=A Little History of the World' target='_blank'><img src='http://books.google.com/books/content?id=N2C6BAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='A Little History of the World'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Martian' target='_blank'><img src='http://books.google.com/books/content?id=MQeHAAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='The Martian'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Magic Mountain' target='_blank'><img src='http://books.google.com/books/content?id=1hQcAQAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The Magic Mountain'></a></li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>Health / fitness</h2>
-  <ul class='shelf'>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=The Healthy Programmer' target='_blank'><img src='http://books.google.com/books/content?id=KiPdmAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' alt='The Healthy Programmer'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Arnold' target='_blank'><img src='http://books.google.com/books/content?id=UgzrogOX_gcC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Arnold'></a></li>
-    <li><a href='http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&field-title=Burn the Fat, Feed the Muscle' target='_blank'><img src='http://books.google.com/books/content?id=YdjtirWWWPsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api' alt='Burn the Fat, Feed the Muscle'></a></li>
-  </ul>
-</div>
-
-<div class="clear"></div>
+<iframe src="http://fbreadinglist.com/bookshelf.php?id=628517118" frameborder="0" scrolling="no"></iframe>
