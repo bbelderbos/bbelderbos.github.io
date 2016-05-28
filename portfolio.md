@@ -3,8 +3,10 @@ layout: page
 title: Portfolio
 ---
 <script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/resources/jquery/blazy.min.js"></script>
 <script type="text/javascript" >
 $( document ).ready(function() {
+  var bLazy = new Blazy(); 
   $( "#colorToggle" ).click(function() {
     $(this).text($(this).text() == ' b&w' ? ' color' : ' b&w');
     $( this ).toggleClass( "fa-toggle-off fa-toggle-on" );
@@ -75,7 +77,7 @@ $( document ).ready(function() {
     {% assign target = "self" %}
   {% endif %}
   <h2><a href="{{link}}" target="_{{target}}">{{name}}</a></h2>
-  <img src="{{ site.baseurl }}{{ image.path }}" alt="{{name}}" class="bw" />
+  <img class="bw b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ site.baseurl }}{{ image.path }}" alt="{{name}}" />
   <hr>
 </li>
     {% endif %}
