@@ -2,22 +2,50 @@
 layout: page
 title: About
 ---
+<style>
+.mobileShow { 
+  display: none;
+  margin: 10px;
+  float: left; 
+}
+@media screen and (max-width: 768px) {
+  .mobileShow { 
+    display: inline;
+  }
+}
+@media screen and (max-width: 360px) {
+  .mobileShow img { 
+    width: 120px;
+  }
+}
+p.first::first-letter {
+  font-size: 250%;
+  color: #f2756a;
+  padding-right: 2px;
+}
+</style>
 
-Core skill set: 10 years of experience developing tools and applications for automation, data mining, and solving complex business problems.
+> Software developer with an agile mindset, passionate about data, software quality and growing businesses by automation and performance optimization. 
 
-I studied business but discovered early that I am really passionate about programming, web development and automation. Since 2010 I have been sharing my learning on software development here. I [certified in Python and Java](http://bobbelderbos.com/certifications) at the O'Reilly School of Technology. Although my current focus is on learning Big Data / Hadoop, I am flexible in learning the best technology for the job.
+<div class="mobileShow">
+  <img src="http://www.gravatar.com/avatar/{{site.author.email_md5}}?s=200" class="img-circle" />
+</div>
 
-I characterize myself as organized, analytical, proactive, integer, goal-oriented, a good team player, and an effective communicator. One of my most important traits is that I am continuously working on becoming better in my field.
+<p class="first">Core skill set: 10 years of experience developing tools for automation and data mining / analytics. My applications have saved businesses a significant amount of money, improving their overall quality of service and growth.</p>
 
-Apart from delivering high quality solutions with an eye for detail, I am innovative and strategic in my thinking and a natural connector. People I work with say I am personable and empathic. That's why I aim to be a mentor/ inspiration for other developers.
+I am passionate about data, programming and web development. I share my progress on this personal website.
 
-I speak Spanish / English / Dutch natively and some French. I enjoy learning languages and working in multicultural teams. I enjoy learning languages/ working in multicultural teams, [reading](http://bobbelderbos.com/books) (podcasts). I highly value fitness and health. 
+I characterize myself as organized, analytical, proactive, integer, goal-oriented, a good team player, and an effective communicator. I am continuously working to become a better developer. My unstoppable curiosity, agile mindset and persistence are key traits in this quest.
+
+Apart from delivering high quality solutions with an eye for detail (design), I am innovative, creative and strategic in my thinking. People I work with say I am very personable. I am honored when getting a chance to mentor other developers. I appreciate and enjoy a daily dose of reading and fitness. 
 
 <strong>Disclaimer: </strong> ideas expressed on my blog are mine, and have nothing to do with the current/previous employers. 
 
 Have questions or suggestions? Feel free to <a href="mailto:info@bobbelderbos.com?Subject=Hi%20Bob" target="_top">contact me</a>, I am happy to help.
 
 Thanks for reading!
+
+<hr>
 
 > Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. - Bryan Tracey
 
