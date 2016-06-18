@@ -62,7 +62,23 @@ Before I would init the list each time which leads to needless code:
     if row['date'] not in rows_by_date:
       rows_by_date[row['date']] = []
 
-You can use OrderedDict to leave the order of inserted keys
+You can use OrderedDict to leave the order of inserted keys:
+
+    >>> import collections
+    >>> d = collections.OrderedDict()
+    >>> d['a'] = 'A'
+    >>> d['b'] = 'B'
+    >>> d['c'] = 'C'
+    >>> d['d'] = 'D'
+    >>> d['e'] = 'E'
+    >>> for k, v in d.items():
+    ...     print k, v
+    ... 
+    a A
+    b B
+    c C
+    d D
+    e E
 
 Another nice one is Counter:
 
@@ -80,7 +96,7 @@ Another nice one is Counter:
 
 Again, before I would write most_common manually. Not necessary, this is all done already somewhere in the stdlib :)
 
-### 2. sorted() accepts ad key arg which you can use to sort on something else
+### 2. sorted() accepts a key arg which you can use to sort on something else
 
 Here for example we sort on surname: 
 
