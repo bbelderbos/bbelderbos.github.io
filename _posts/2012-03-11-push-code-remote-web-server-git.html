@@ -66,9 +66,9 @@ $ chmod +x hooks/post-receive
 <pre>
 $ git remote add aliasName ssh://user@domain.com/home/user/repositories/repository.git
 </pre>
-<li> Push the code to remote location, creating a new "branch" master there, the hooks/post-receive script causes the source code to be copied to /home/user/target_dir you defined earlier.</li>
+<li> Push the code to remote location, creating a new "branch" master there, the hooks/post-receive script causes the source code to be copied to /home/user/target_dir you defined earlier. So here we are pushing master to aliasName: </li>
 <pre>
-$ git push web +master:refs/heads/master 
+$ git push aliasName +master:refs/heads/master 
 </pre>
 <li> Following updates are easy: </li>
 <p> After local committing with: $ git add . ; $ git commit -m "message" , you push your code to your remote mirror with: $ git push aliasName</p>
