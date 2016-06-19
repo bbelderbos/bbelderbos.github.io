@@ -43,13 +43,13 @@ image: career_development.png
 
 * Collaborate with other developers (and do code reviews). it is not until you have to explain your code, or [make it maintainable/ extensible](http://bobbelderbos.com/2016/03/building-maintainable-software/), that you really start thinking about the underlying design. Another benefit of blogging: generally when you can explain your skill to another person you mastered it, without it, not so sure.
 
-* Become a better writer. Apart from an essential skill in all areas of life, clear writing has a lot in common with good coding. And read! Good reading is a precursor to good writing. It was also some good avice I picked up from [coders at work](http://www.codersatwork.com): read other people's source code.
+* Become a better writer. Apart from an essential skill in all areas of life, clear writing has a lot in common with good coding. And read! Good reading is a precursor to good writing. Similar advice I picked up from [Coders at work](http://www.codersatwork.com): read source code!
 
 * Try new things. I have been using Python a lot which I love, but there are a lot of other good languages out there. I hear a lot about Machine Learning, AI, interesting to check out. Coding in PHP? Try Django, or try full stack JS. You get the point. Even within a language you already use you can check out specific stuff like (in Python's case) collections, data science modules like Pandas, functional programming, Unicode, OOP features, etc. The important thing is to never become complacent
 
 * Jump on things others don't like. You can gain specialization, persistence skills and relatively high reward. With data analysis for example: the scripting and visualization part is what everybody loves, but data isn't usually delivered in a ready-to-use format. Data cleaning is not the sexiest of efforts but it is what makes the fun stuff possible. I have seen this in Big Data as well: Spark/ Hive/ Pig etc are cool tools, but what about getting the data in there, ETL is a non-trivial part of the effort. Excel has a similar issue (I picked this up [here](http://www.hanselminutes.com/532/data-literacy-and-the-usefulness-of-excel-with-oz-du-soleil)).
 
-* Don't ignore the marketing side. I love the tech side, but sometimes we have to step out of this mindset and wonder who our customers are and what they really need. Check out what needs to be build before building it. You must understand what the market wants and how you can improve and package your own skills. Become effective (solve the right problem), then efficient.
+* Don't ignore the marketing side. I love the tech side, but sometimes we have to step out of this mindset and wonder who our customers are and what they really need. Check out what needs to be build before building it. You must understand what the market wants and how you can improve and package your own skills. Become effective (solve the right problem) first, then efficient (become good at solving the right problem).
 
 * Have a "liability partner". I note that when you are held accountable by a friend or colleague you perform much better. And the joined learning is fun and fruitful.
 
