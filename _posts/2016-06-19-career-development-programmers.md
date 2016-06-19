@@ -2,7 +2,7 @@
 layout: post
 title: Career development for programmers
 comments: True
-summary: In this post I share 14 tips around career development that are helping me significantly me getting better in my field. You are in charge of your career so better put some systems in place to make the most out of it.
+summary: In this post I share 14 tips around career development that are helping me getting better in my field. You are in charge of your career so better put some systems in place to make the most out of it.
 categories: [Productivity]
 tags: [career, development, productivity, softskills, coding, programming, blog, blogging]
 image: career_development.png
