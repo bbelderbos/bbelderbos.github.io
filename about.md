@@ -47,8 +47,18 @@ Thanks for reading!
 
 <hr>
 
+Growth is outside your comfort zone:
+
 > Move out of your comfort zone. You can only grow if you are willing to feel awkward and uncomfortable when you try something new. - Bryan Tracey
+
+Solve other people's problems: 
 
 > If you can dream it, then you can achieve it. You will get all you want in life if you help enough other people get what they want. - Zig Ziglar
 
+Take action, correct along the way:
+
 > Many a false step was made by standing still. – Fortune cookie
+
+It's ok to fail, you will grow:
+
+> I’ve missed more than 9,000 shots in my career. I’ve lost almost 300 games. 26 times, I’ve been trusted to take the game winning shot and missed. I’ve failed over and over and over again in my life. And that is why I succeed. - Michael Jordan
