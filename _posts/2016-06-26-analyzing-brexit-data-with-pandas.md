@@ -46,9 +46,6 @@ Consegui mi objetivo de representar los datos mostrados [aquí](https://ig.ft.co
 
 ---
 
-Desafortunadamente no encontre más datos. Me hubiera interesado sacar más datos sobre como influye la edad, la posicion económica, etc en los resultados (como demuestra [este artículo de FT Data](http://blogs.ft.com/ftdata/2016/06/24/brexit-demographic-divide-eu-referendum-results/)). Si alquien sabe de mas fuentes de datos (aparte del CSV mencionado), comentalo abajo. También por cualquier sugerencia de Pandas ...
-
----
 Algunos enlaces para aprender Pandas:
 
 * [Pandas home y docs](http://pandas.pydata.org)
@@ -56,6 +53,13 @@ Algunos enlaces para aprender Pandas:
 * [Python for Data Analysis](https://www.safaribooksonline.com/library/view/python-for-data/9781449323592/) - libro del creador Wes McKinney.
 * [Introduction to Pandas for Developers](https://www.safaribooksonline.com/library/view/introduction-to-pandas/9781771375764/) / [Data Wrangling and Analysis with Python](https://www.safaribooksonline.com/library/view/data-wrangling-and/9781491960820/) - ya he visto algunos videos, son buenos.
 
+---
+
+#### Actualizacion 27.06.2016
+
+Un analisis más avanzado sería la inclusión de [datos de censo](http://www.ons.gov.uk/census/2011census/2011censusdata) (como sugerió [Pybonacci](https://twitter.com/Pybonacci)). Si ves por ejemplo [el analisis de FT Data](http://blogs.ft.com/ftdata/2016/06/24/brexit-demographic-divide-eu-referendum-results/), ellos integraron datos de demografia de manera interesante.
+
+Lo intenté, pero como no tengo mucha experiencia con Pandas y matplotlib no me salió aún. Puedes ver en [este notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/census_data.ipynb) lo que intenté. Si has sido capaz de generar graficos como FTData con estos datos, por favor compartelo en los comentarios.
 
 <span id="English"></span>
 
@@ -98,13 +102,20 @@ I achieved my goal of representing the data shown [here](https://ig.ft.com/sites
 ...
 
 ---
-
-Unfortunately I did not find more data. I would have liked to include more data regarding influence on the results of age, economics, etc (like [FT Data did in this article](http://blogs.ft.com/ftdata/2016/06/24/brexit-demographic-divide-eu-referendum-results/)). If anybody knows of more data sources (apart from the mentioned CSV) please comment below. Likewise if you have any suggestions around Pandas ...
-
----
 Some links to learn Pandas:
 
 * [Pandas home and docs](http://pandas.pydata.org)
 * [Python’s pandas make data analysis easy and powerful with a few lines of code](https://www.oreilly.com/learning/pythons-pandas-make-data-analysis-easy-and-powerful-with-a-few-lines-of-code?imm_mid=0e520d&cmp=em-prog-na-na-newsltr_20160625) - short and easy tutorial to start.
 * [Python for Data Analysis](https://www.safaribooksonline.com/library/view/python-for-data/9781449323592/) - book by its creator Wes McKinney.
 * [Introduction to Pandas for Developers](https://www.safaribooksonline.com/library/view/introduction-to-pandas/9781771375764/) / [Data Wrangling and Analysis with Python](https://www.safaribooksonline.com/library/view/data-wrangling-and/9781491960820/) - I have seen some videos of these courses already, they are pretty good.
+
+---
+
+#### Update 27.06.2016
+
+A more advanced analysis would be to combine [census data](http://www.ons.gov.uk/census/2011census/2011censusdata) (as suggested by [Pybonacci](https://twitter.com/Pybonacci)). See for example [FT Data's analysis](http://blogs.ft.com/ftdata/2016/06/24/brexit-demographic-divide-eu-referendum-results/) where they neatly integrate demographic data. 
+
+I took a stab at it but as I am new to Pandas and matplotlib I could not pull it off yet. See the notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/census_data.ipynb) to see what I tried. If you are able to generate FTData-like graphs with this data please share how you did it in the comments ...
+
+---
+
