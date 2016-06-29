@@ -79,8 +79,6 @@ Claramente areas con una población mayor y una taza de paro más alto votan por
 
 Lo dicho, para ver como llegué a estos resultados con Pandas el notebook está [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
 
----
-
 <span id="English"></span>
 
 ---
