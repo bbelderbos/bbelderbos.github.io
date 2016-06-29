@@ -55,7 +55,7 @@ Algunos enlaces para aprender Pandas:
 
 ---
 
-#### Actualizacion 30.06.2016
+#### Actualizacion 29.06.2016
 
 Vinculé los datos del voto con los [datos de censo](http://www.ons.gov.uk/census/2011census/2011censusdata) publicamente disponibles (como sugerió [Pybonacci](https://twitter.com/Pybonacci), gracias). Encontré unas correlaciones interesantes (y aprendí algunas cosas de matplotlib usandolo), puedes ver el notebook [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb):
 
@@ -131,7 +131,7 @@ Some links to learn Pandas:
 
 ---
 
-### Update 30.06.2016
+### Update 29.06.2016
 
 I matched the data with publicly available [census data](http://www.ons.gov.uk/census/2011census/2011censusdata) (as suggested by [Pybonacci](https://twitter.com/Pybonacci), thanks). I found some cool correlations (and learned quite some matplotlib along the way), see the full notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb):
 
