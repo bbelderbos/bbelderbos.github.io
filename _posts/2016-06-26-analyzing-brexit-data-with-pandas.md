@@ -75,6 +75,8 @@ Vinculé los datos del voto con los [datos de censo](http://www.ons.gov.uk/censu
 
 ![perc_born_outside_uk.png]({{ site.baseurl }}/assets/perc_born_outside_uk.png)
 
+Claramente areas con una población mayor y una taza de paro más alto votan por salir. Por otro lado, areas con un alto porcentaje de estudios superiores, y regiones donde más gente nacieron fuera de Inglaterra prefieren (por lo general) que Inglaterra se quede en la unión. 
+
 Lo dicho, para ver como llegué a estos resultados con Pandas el notebook está [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
 
 ---
@@ -148,5 +150,7 @@ I matched the data with publicly available [census data](http://www.ons.gov.uk/c
 #### And how does being born outside UK influence?
 
 ![perc_born_outside_uk.png]({{ site.baseurl }}/assets/perc_born_outside_uk.png)
+
+Clearly elderly people and areas with a higher unemployment rate tend to vote for "Leave". On the other hand, areas with a higher percentage of highly educated people, and regions with more people born outside the UK, (generally) prefer that UK remains in the EU. 
 
 Again, to see how I got to these results with Pandas you can see the full notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
