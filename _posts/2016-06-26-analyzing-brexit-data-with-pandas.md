@@ -2,9 +2,9 @@
 layout: post
 title: Analyzing Brexit data with Pandas
 comments: True
-summary: I wanted to learn Pandas for quite some time. As usual on this blog I start with a practical exercise / goal, UK's EU referendum, and use (and learn) Pandas to analyze the results.
+summary: I wanted to learn Pandas for quite some time. As usual on this blog I start with a practical exercise / goal, UK's EU referendum, and use (and learn) Pandas to analyze the results, including UK census data.
 categories: [Data Science]
-tags: [pandas, brexit, data, numpy, matplotlib]
+tags: [pandas, numpy, matplotlib, brexit, data, analysis, mining, scatterplot]
 image: pandas_brexit_data.png
 ---
 
@@ -55,11 +55,29 @@ Algunos enlaces para aprender Pandas:
 
 ---
 
-#### Actualizacion 27.06.2016
+#### Actualizacion 30.06.2016
 
-Un analisis más avanzado sería la inclusión de [datos de censo](http://www.ons.gov.uk/census/2011census/2011censusdata) (como sugerió [Pybonacci](https://twitter.com/Pybonacci)). Si ves por ejemplo [el analisis de FT Data](http://blogs.ft.com/ftdata/2016/06/24/brexit-demographic-divide-eu-referendum-results/), ellos integraron datos de demografia de manera interesante.
+Vinculé los datos del voto con los [datos de censo](http://www.ons.gov.uk/census/2011census/2011censusdata) publicamente disponibles (como sugerió [Pybonacci](https://twitter.com/Pybonacci), gracias). Encontré unas correlaciones interesantes (y aprendí algunas cosas de matplotlib usandolo), puedes ver el notebook [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb):
 
-Lo intenté, pero como no tengo mucha experiencia con Pandas y matplotlib no me salió aún. Puedes ver en [este notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/census_data.ipynb) lo que intenté. Si has sido capaz de generar graficos como FTData con estos datos, por favor compartelo en los comentarios.
+#### Como influye la edad en el voto por salir / quedar? 
+
+![median_age.png]({{ site.baseurl }}/assets/median_age.png)
+
+#### Como influye el porcentaje de paro?
+
+![perc_unemployed.png]({{ site.baseurl }}/assets/perc_unemployed.png)
+
+#### Como influye un nivel más alto de estudios (educación)? 
+
+![perc_high_education.png]({{ site.baseurl }}/assets/perc_high_education.png)
+
+#### Y como influye el porcentaje de gente nacida fuera de Inglaterra? 
+
+![perc_born_outside_uk.png]({{ site.baseurl }}/assets/perc_born_outside_uk.png)
+
+Lo dicho, para ver como llegué a estos resultados con Pandas el notebook está [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
+
+---
 
 <span id="English"></span>
 
@@ -111,11 +129,24 @@ Some links to learn Pandas:
 
 ---
 
-#### Update 27.06.2016
+### Update 30.06.2016
 
-A more advanced analysis would be to combine [census data](http://www.ons.gov.uk/census/2011census/2011censusdata) (as suggested by [Pybonacci](https://twitter.com/Pybonacci)). See for example [FT Data's analysis](http://blogs.ft.com/ftdata/2016/06/24/brexit-demographic-divide-eu-referendum-results/) where they neatly integrate demographic data. 
+I matched the data with publicly available [census data](http://www.ons.gov.uk/census/2011census/2011censusdata) (as suggested by [Pybonacci](https://twitter.com/Pybonacci), thanks). I found some cool correlations (and learned quite some matplotlib along the way), see the full notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb):
 
-I took a stab at it but as I am new to Pandas and matplotlib I could not pull it off yet. See the notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/census_data.ipynb) to see what I tried. If you are able to generate FTData-like graphs with this data please share how you did it in the comments ...
+#### How does age influence the leave / remain vote?
 
----
+![median_age.png]({{ site.baseurl }}/assets/median_age.png)
 
+#### How does unemployment influence?
+
+![perc_unemployed.png]({{ site.baseurl }}/assets/perc_unemployed.png)
+
+#### How does higher education influence?
+
+![perc_high_education.png]({{ site.baseurl }}/assets/perc_high_education.png)
+
+#### And how does being born outside UK influence?
+
+![perc_born_outside_uk.png]({{ site.baseurl }}/assets/perc_born_outside_uk.png)
+
+Again, to see how I got to these results with Pandas you can see the full notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
