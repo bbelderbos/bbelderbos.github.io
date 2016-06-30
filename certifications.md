@@ -31,6 +31,7 @@ I obtained various programming certificates at the O'Reilly School of Technology
 
 ![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
 
+
 ### Android 1: Introduction to Mobile Application Development
 
 ![Android 1 module]({{ site.url }}/assets/ost_android1.jpeg)
@@ -38,7 +39,7 @@ I obtained various programming certificates at the O'Reilly School of Technology
 
 ---
 
-## More info about the courses I completed at O'Reilly
+## More info about the courses I completed at OReilly
 
 ### Android 1: Introduction to Mobile Application Development
 
