@@ -55,7 +55,7 @@ Algunos enlaces para aprender Pandas:
 
 ---
 
-#### Actualizacion 29.06.2016
+### Añadiendo datos demograficos
 
 Vinculé los datos del voto con los [datos de censo](http://www.ons.gov.uk/census/2011census/2011censusdata) publicamente disponibles (como sugerió [Pybonacci](https://twitter.com/Pybonacci), gracias). Encontré unas correlaciones interesantes (y aprendí algunas cosas de matplotlib usandolo), puedes ver el notebook [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb):
 
@@ -78,6 +78,14 @@ Vinculé los datos del voto con los [datos de censo](http://www.ons.gov.uk/censu
 Claramente areas con una población mayor y una taza de paro más alto votan por salir. Por otro lado, areas con un alto porcentaje de estudios superiores, y regiones donde más gente nacieron fuera de Inglaterra prefieren (por lo general) que Inglaterra se quede en la unión. 
 
 Lo dicho, para ver como llegué a estos resultados con Pandas el notebook está [aquí](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
+
+### Bonus: datos de ingresos por región
+
+(está en el [mismo notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
+
+![median_income.png]({{ site.baseurl }}/assets/median_income.png)
+
+Conclusión: se ve claramente que regiones con una mediana de ingresos mas baja prefieren salir de la unión, aunque no es 100% consistente: Irlanda tiene una mediana relativamente baja sino vota por quedarse, y South East tiene un sueldo mediano más alto, no obstante vota por salir. Es interesante como se ve este tipo de tendencias combinando varias fuentes de datos.
 
 <span id="English"></span>
 
@@ -129,7 +137,7 @@ Some links to learn Pandas:
 
 ---
 
-### Update 29.06.2016
+### Adding demographics
 
 I matched the data with publicly available [census data](http://www.ons.gov.uk/census/2011census/2011censusdata) (as suggested by [Pybonacci](https://twitter.com/Pybonacci), thanks). I found some cool correlations (and learned quite some matplotlib along the way), see the full notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb):
 
@@ -152,3 +160,12 @@ I matched the data with publicly available [census data](http://www.ons.gov.uk/c
 Clearly elderly people and areas with a higher unemployment rate tend to vote for "Leave". On the other hand, areas with a higher percentage of highly educated people, and regions with more people born outside the UK, (generally) prefer that UK remains in the EU. 
 
 Again, to see how I got to these results with Pandas you can see the full notebook [here](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb).
+
+### Bonus: income data by region
+
+(see the [same notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
+
+![median_income.png]({{ site.baseurl }}/assets/median_income.png)
+
+Conclusion: we clearly see that regions with a relatively smaller median income are more in favor of leaving the EU, although it is not 100% consistent: Northen Ireland has a lower median income but voted Remain, South East has a higher median income but wants to leave. Interesting though how general trends become visible by merging different data sets.
+
