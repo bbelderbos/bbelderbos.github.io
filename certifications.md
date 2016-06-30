@@ -3,19 +3,42 @@ layout: page
 title: Certifications
 ---
 
-## O'Reilly School of Technology
+## SIG / PEOPLECERT
+
+### Quality Software Development: Maintainability Foundation
+
+![Quality software certificate]({{ site.url }}/assets/sig_quality_software_cert.jpeg)
+
+From [SIG's site](https://www.sig.eu/en/bettercode/):
+
+> Demand for good software is growing very fast, however building quality software remains a major challenge. To tackle this, SIG in collaboration with PEOPLECERT, has developed a qualification in Quality Software Development to certify programmers who have the necessary skillset to produce high quality code. The program covers the fundamental knowledge required for a candidate to individually build software in either Java or C# that is sufficiently maintainable. 
+
+---
+
+## OReilly School of Technology (OST)
 
 I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
-![Java certificate]({{ site.url }}/assets/ost_java_adv.jpg)
-
-![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
+### Python Programmer Series
 
 ![Python certificate]({{ site.url }}/assets/ost_python.jpg)
 
-***
+### Java Programmer Series
 
-## More info about the courses I completed
+![Java certificate]({{ site.url }}/assets/ost_java_adv.jpg)
+
+### Advanced Java Programmer Series
+
+![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
+
+### Android 1: Introduction to Mobile Application Development
+
+![Android 1 module]({{ site.url }}/assets/ost_android1.jpeg)
+
+
+---
+
+## More info about the courses I completed at O'Reilly
 
 ### Android 1: Introduction to Mobile Application Development
 
@@ -28,7 +51,7 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Thread processes.
 - Create an application that implements multiple activities and can interact with a SQLite database.
 - [Course pdf](assets/ostdocs/AndroidDevelopment1.pdf)
-- [End project I built](https://play.google.com/store/apps/details?id=com.bobbelderbos.freemonkey)
+- End project: [Free Monkey](https://play.google.com/store/apps/details?id=com.bobbelderbos.freemonkey), a fun implementation of Hangman
 
 ***
 
