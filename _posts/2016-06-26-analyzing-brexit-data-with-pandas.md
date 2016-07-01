@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Analyzing Brexit data with Pandas
-comments: False
+comments: True
 summary: I wanted to learn Pandas for quite some time. As usual on this blog I start with a practical exercise / goal, UK's EU referendum, and use (and learn) Pandas to analyze the results, including UK census data.
 categories: [Data Science]
 tags: [pandas, numpy, matplotlib, brexit, data, analysis, mining, scatterplot]
@@ -89,8 +89,6 @@ Datos de ingresos (sueldo) eran más dificiles de obtener en [los datos del cens
 
 Se ve claramente que regiones con una mediana de ingresos mas baja prefieren salir de la unión, aunque no es 100% consistente: Irlanda tiene una mediana relativamente baja sino vota por quedarse, y South East tiene un sueldo mediano más alto, no obstante vota por salir. Es interesante como se ve este tipo de tendencias combinando varias fuentes de datos.
 
-Si te ha gustado este articulo o quieres dejar feedback, usa [este enlace](https://github.com/bbelderbos/feedback/issues/new).
-
 <span id="English"></span>
 
 ---
@@ -176,5 +174,3 @@ Income data was harder to get from the [standard census data](http://webarchive.
 (the parsing of the data is documented in the [same notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
 
 We can clearly see that regions with a relatively smaller median income are more in favor of leaving the EU, although it is not 100% consistent: Northen Ireland has a lower median income but voted Remain, South East has a higher median income but wants to leave. Interesting though how general trends become visible by merging different data sets.
-
-If you liked this article or you want to feedback, please use [this link](https://github.com/bbelderbos/feedback/issues/new).
