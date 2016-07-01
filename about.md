@@ -41,7 +41,7 @@ Apart from delivering high quality solutions with an eye for detail (design), I 
 
 <strong>Disclaimer: </strong> ideas expressed on my blog are mine, and have nothing to do with the current/previous employers. 
 
-Have questions or suggestions? Feel free to <a href="mailto:info@bobbelderbos.com?Subject=Hi%20Bob" target="_top">contact me</a>, I am happy to help.
+Have questions or suggestions? Feel free to feedback <a href="https://github.com/bbelderbos/feedback/issues/new">here</a>.
 
 Thanks for reading!
 
