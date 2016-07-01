@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Analyzing Brexit data with Pandas
-comments: True
+comments: False
 summary: I wanted to learn Pandas for quite some time. As usual on this blog I start with a practical exercise / goal, UK's EU referendum, and use (and learn) Pandas to analyze the results, including UK census data.
 categories: [Data Science]
 tags: [pandas, numpy, matplotlib, brexit, data, analysis, mining, scatterplot]
@@ -81,11 +81,15 @@ Lo dicho, para ver como llegué a estos resultados con Pandas el notebook está 
 
 ### Bonus: datos de ingresos por región
 
-(está en el [mismo notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
+Datos de ingresos (sueldo) eran más dificiles de obtener en [los datos del censo](http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-286262) entonces usé [este enlace](https://www.gov.uk/government/statistics/income-and-tax-by-county-and-region-2010-to-2011) para comprobar la relación entre la mediana de ingresos y el voto. Encontré un patrón interesante: 
 
 ![median_income.png]({{ site.baseurl }}/assets/median_income.png)
 
-Conclusión: se ve claramente que regiones con una mediana de ingresos mas baja prefieren salir de la unión, aunque no es 100% consistente: Irlanda tiene una mediana relativamente baja sino vota por quedarse, y South East tiene un sueldo mediano más alto, no obstante vota por salir. Es interesante como se ve este tipo de tendencias combinando varias fuentes de datos.
+(el parsing de los datos está documento en el [mismo notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
+
+Se ve claramente que regiones con una mediana de ingresos mas baja prefieren salir de la unión, aunque no es 100% consistente: Irlanda tiene una mediana relativamente baja sino vota por quedarse, y South East tiene un sueldo mediano más alto, no obstante vota por salir. Es interesante como se ve este tipo de tendencias combinando varias fuentes de datos.
+
+Si te ha gustado este articulo o quieres dejar feedback, usa [este enlace](https://github.com/bbelderbos/feedback/issues/new).
 
 <span id="English"></span>
 
@@ -165,7 +169,12 @@ Again, to see how I got to these results with Pandas you can see the full notebo
 
 (see the [same notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
 
+Income data was harder to get from the [standard census data](http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-286262) so I used [this link](https://www.gov.uk/government/statistics/income-and-tax-by-county-and-region-2010-to-2011) to check the relation of median income on voting. I found an interesting pattern:
+
 ![median_income.png]({{ site.baseurl }}/assets/median_income.png)
 
-Conclusion: we clearly see that regions with a relatively smaller median income are more in favor of leaving the EU, although it is not 100% consistent: Northen Ireland has a lower median income but voted Remain, South East has a higher median income but wants to leave. Interesting though how general trends become visible by merging different data sets.
+(the parsing of the data is documented in the [same notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
 
+We can clearly see that regions with a relatively smaller median income are more in favor of leaving the EU, although it is not 100% consistent: Northen Ireland has a lower median income but voted Remain, South East has a higher median income but wants to leave. Interesting though how general trends become visible by merging different data sets.
+
+If you liked this article or you want to feedback, please use [this link](https://github.com/bbelderbos/feedback/issues/new).
