@@ -19,15 +19,15 @@ From [SIG's site](https://www.sig.eu/en/bettercode/):
 
 I obtained various programming certificates at the O'Reilly School of Technology (OST). As OST is unfortunately closing end of this month (Jan 2016) I pasted the course info below as a reference what I learned. The nice thing about these courses was that they were very practical, you learned by doing, building projects, submitting them for instructor feedback. These projects have contributed greatly to my coding skills and building up a library of useful code.
 
-### Python Programmer Series
+### Python Programming Series
 
 ![Python certificate]({{ site.url }}/assets/ost_python.jpg)
 
-### Java Programmer Series
+### Java Programming Series
 
 ![Java certificate]({{ site.url }}/assets/ost_java_adv.jpg)
 
-### Advanced Java Programmer Series
+### Advanced Java Programming Series
 
 ![Java Advanced certificate]({{ site.url }}/assets/ost_java.jpg)
 
