@@ -165,8 +165,6 @@ Again, to see how I got to these results with Pandas you can see the full notebo
 
 ### Bonus: income data by region
 
-(see the [same notebook](https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb))
-
 Income data was harder to get from the [standard census data](http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-286262) so I used [this link](https://www.gov.uk/government/statistics/income-and-tax-by-county-and-region-2010-to-2011) to check the relation of median income on voting. I found an interesting pattern:
 
 ![median_income.png]({{ site.baseurl }}/assets/median_income.png)
