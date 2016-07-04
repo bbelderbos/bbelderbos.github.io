@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Certified Quality Software Developer
+title: I became a certified Quality Software Developer
 comments: True
-summary: I certified in Quality Software Developer (#QSDcert) via SIG / PEOPLECERT. In this post I share what the exam is about, why I think it is a must have for a software developer, and how you can prepare. 
+summary: I certified in Quality Software Developer (#QSDcert) via SIG / PEOPLECERT. In this post I share what the exam is about, why I think it is a must have for a software developer, and how you can prepare for it.
 categories: [Software Quality]
 tags: [cleancode, software, guidelines, sig, peoplecert, exam, certifications, diploma]
 image: quality_software_certificate.png
@@ -30,9 +30,9 @@ Very positive. The session did not open automatically and in minutes I had PEOPL
 
 > Would you recommend this qualification to other users?
 
-As you guessed from my first answer yes! Specially for software developers caring about quality code (and shouldn't we all?!) I think it is a must. 
+As you guessed from my first answer yes! Specially for software developers caring about quality code (and shouldn't we all?!) I think it is a must.
 
-When I started out I wrote pure functional code for the machine, even recent code has obscure parts, outdated comments, but since studying the book, exam and the clean code literature, I am a more conscious coder. I now add my unittests, refactor code, use descriptive method names over comments, etc. 
+When I started out I wrote pure functional code for the machine, even recent code has obscure parts, outdated comments, but since studying the book, exam and the clean code literature, I am a more conscious coder. I now add my unittests, refactor code, use descriptive method names over comments, etc.
 
 Having this certificate also wants to make you comply. Writing maintainable code feels great and businesses gain more value from it. I measured some recent projects I did and found them more maintainable and more compliant with the guidelines. For me it's proof this stuff works!
 
@@ -60,7 +60,7 @@ Yes, Java / C# are just the languages the concepts are taught in, but the princi
 
 > Why did you feel it was so important to get qualified in QSD?  
 
-Writing quality code is the difference between having a maintainable solution or something that does not release or has to be rewritten early in the product's lifecycle. The difference is between a money yielding solution or a time-wasting effort. Better software is cheaper, specially in the long run. 
+Writing quality code can mean the difference between having a maintainable solution or something that does not release or has to be rewritten early in the product's lifecycle. The difference is between a money yielding solution or a time-wasting effort. Better software is cheaper, specially in the long run.
 
 But there is another dimension: our world increasingly runs on software so can we afford to have unmaintainable systems? With humanity increasingly relying on technology (read code), failing to meet basic quality requirements can even jeopardize our health, security and financial well-being. Software quality might be more important than ever these days ...
 
