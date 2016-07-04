@@ -56,7 +56,7 @@ The preparation material should be enough. I recommend taking the following rout
 
 > Do you think that QSD can be helpful for the software developers out there even for those not working necessarily with Java or C# but they are knowledgeable about them?
 
-Yes, Java / C# are just the languages the concepts are taught in, but the principles are universal, you can apply them to any language. In my case for example I have improved the maintainable of my Python code.
+Yes, Java / C# are just the languages the concepts are taught in, but the principles are universal, you can apply them to any language. In my case for example I have improved the maintainability of my Python code.
 
 > Why did you feel it was so important to get qualified in QSD?  
 
