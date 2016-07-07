@@ -4,7 +4,7 @@ title: How to create a simple Twitter bot with Python
 comments: True
 summary: In this post I show you how to create a Twitter bot. In this case it is a solution that hourly tweets a randomly retrieved design quote to a dedicated Twitter account (bot). It is a small script you can easily adjust for your own needs.
 categories: [Coding]
-tags: [Python, Twitter, API, bot, quotes, design, requests, html, logging]
+tags: [Python, Twitter, APIs, bot, quotes, design, requests, html, logging]
 image: twitter_bot.png
 ---
 
