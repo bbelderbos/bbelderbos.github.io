@@ -8,6 +8,10 @@ tags: [pandas, numpy, matplotlib, brexit, data, analysis, mining, scatterplot]
 image: pandas_brexit_data.png
 ---
 
+A Spanish version of this article has been published on [pybonacci.org](http://pybonacci.org/2016/07/11/analizando-datos-sobre-el-brexit-con-pandas/).
+
+---
+
 Since quite some time I wanted to learn [Pandas](http://pandas.pydata.org). Finally I grabbed a recent opportunity: Brexit = data.
 
 As usual I started with a practical exercise / objective. I used Pandas to analyze the CSV data published by [electoralcommission.org.uk](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information).
