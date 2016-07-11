@@ -7,11 +7,9 @@ title: Certifications
 
 ### Quality Software Development: Maintainability Foundation
 
+I certified in Quality Software Developer (#QSDcert) via SIG / PEOPLECERT. [In this post](http://bobbelderbos.com/2016/07/certified-software-quality/) I share what the exam is about, why I think it is a must have for a software developer, and how you can prepare for it.
+
 ![Quality software certificate]({{ site.url }}/assets/sig_quality_software_cert.jpeg)
-
-From [SIG's site](https://www.sig.eu/en/bettercode/):
-
-> Demand for good software is growing very fast, however building quality software remains a major challenge. To tackle this, SIG in collaboration with PEOPLECERT, has developed a qualification in Quality Software Development to certify programmers who have the necessary skillset to produce high quality code. The program covers the fundamental knowledge required for a candidate to individually build software in either Java or C# that is sufficiently maintainable. 
 
 ---
 
