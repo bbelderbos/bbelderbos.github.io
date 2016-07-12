@@ -62,6 +62,18 @@ Yes, Java / C# are just the languages the concepts are taught in, but the princi
 
 Writing quality code can mean the difference between having a maintainable solution or something that does not release or has to be rewritten early in the product's lifecycle. The difference is between a money yielding solution or a time-wasting effort. Better software is cheaper, specially in the long run.
 
-But there is another dimension: our world increasingly runs on software so can we afford to have unmaintainable systems? With humanity increasingly relying on technology (read code), failing to meet basic quality requirements can even jeopardize our health, security and financial well-being. Software quality might be more important than ever these days ...
+But there is another dimension: our world increasingly runs on software so can we afford to have unmaintainable systems? With humanity increasingly relying on technology (read code), failing to meet basic quality requirements can even jeopardize our health, security and financial well-being. 
+
+<h3>Increasing importance!</h3>
+
+To drive this last point home, SIG's [Save Your Digital Transformation report](https://www.sig.eu/en/save-your-digital-transformation) shows some shocking examples of lack of maintainability in critical software systems:
+
+* A system update at the Royal Bank of Scotland in June 2012 caused a series of malfunctions that took a month to sort out and caused serious problems for hundreds of thousands of people.
+
+* Two hackers demonstrated they could take full control of a journalist’s Jeep Cherokee, because it had become impossible to add proper security measures to the car's system. 
+
+* In the well-publicized case of some Toyota vehicles accelerating while the driver was apparently not touching the pedal, it took independent experts 20 months of looking at the source code to determine whether the accelerator was connecting to the engine in the correct way.
+
+So in a world eaten by software, where life critical functionality has been delegated to software, writing quality code is more important than ever!
 
 ![Quality software certificate]({{ site.baseurl }}/assets/sig_quality_software_cert.jpeg)
