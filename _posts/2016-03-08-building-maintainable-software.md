@@ -8,6 +8,8 @@ tags: [coding, software, best practices, java, sig, development, maintainability
 image: building_maint_sw.png
 ---
 
+Update: as of 29th of June 2016 I certified in this area, you can read about it [here](http://bobbelderbos.com/2016/07/certified-software-quality/).
+
 ### Building Maintainable Software
 
 [Software Improvement Group](https://www.sig.eu/en) (SIG) recently released [Building Maintainable Software, Ten Guidelines for Future-Proof Code](https://www.sig.eu/en/building-maintainable-software). In this post I will summarize the ten guidelines and look at some of my code to see where I improved and what I can do better. 
