@@ -6,6 +6,7 @@ summary: I certified in Quality Software Developer (#QSDcert) via SIG / PEOPLECE
 categories: [Software Quality]
 tags: [cleancode, software, guidelines, sig, peoplecert, exam, certifications, diploma]
 image: quality_software_certificate.png
+crosspost_to_medium: true
 ---
 
 <h3>Software is everywhere</h3>
