@@ -44,3 +44,8 @@ sidebar_background_image: https://dl.dropboxusercontent.com/u/5798664/binary_wal
 #https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
 
 BASE_PATH:
+
+gems:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-crosspost-to-medium
