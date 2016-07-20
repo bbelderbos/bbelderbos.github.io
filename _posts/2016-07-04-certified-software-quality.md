@@ -11,7 +11,7 @@ crosspost_to_medium: true
 
 <h3>Software is everywhere</h3>
 
-In case you still doubted it: [Software Is Eating The World](http://www.wsj.com/articles/SB10001424053111903480904576512250915629460), but building quality software is tough! We can get better with experience and now there is a qualification: [SIG](https://www.sig.eu/) partnered up with [PEOPLECERT](http://www.peoplecert.org) presenting us developers the opportunity to obtain a [Quality Software Development](https://www.sig.eu/en/bettercode/) certificate:
+In case you still doubted it: [Software Is Eating The World](http://www.wsj.com/articles/SB10001424053111903480904576512250915629460), but building quality software is tough! We can get better with experience and now there is a qualification: [SIG](https://www.sig.eu/) partnered up with [PEOPLECERT](http://www.peoplecert.org) presenting us developers the opportunity to obtain a [Quality Software Development](https://www.sig.eu/en/bettercode/) certificate: 
 
 <div class="container"><iframe src="https://www.youtube.com/embed/_sc1gt7abz0" frameborder="0" allowfullscreen class="video"></iframe></div>
 
