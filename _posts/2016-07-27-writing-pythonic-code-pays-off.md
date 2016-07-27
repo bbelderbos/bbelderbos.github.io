@@ -9,17 +9,17 @@ image: pythonic_code.png
 crosspost_to_medium: true
 ---
 
-## Pythonic == easier to read / maintain
+<h3>Pythonic == easier to read / maintain</h3>
 
-In video 6: "Problem solving using more than one solution method" of [Intermediate Python programming](https://www.safaribooksonline.com/library/view/intermediate-python-programming) I stumbled upon a great example of less vs. more Pythonic code. 
+In video 6: "Problem solving using more than one solution method" of [Intermediate Python programming](http://www.infiniteskills.com/training/intermediate-python-programming.html) I stumbled upon a great example of less vs. more Pythonic code. 
 
 I like to post this example here to demonstrate that Pythonic code is so much easier to read and maintain (not to mention the satisfaction of writing it!). 
 
 Although I was already familiar with [reversing a list by using -1 as stride](http://stackoverflow.com/questions/509211/explain-pythons-slice-notation), it was a great reminder that language idioms matter. It makes your code more concise. It leads to more readable code. And more readable code equals more maintainable code!
 
-I posted the example (with explanation and extension) in [this notebook](https://github.com/bbelderbos/python_notebooks).
+I posted the example (with explanation and extension) in [this notebook](https://github.com/bbelderbos/python_notebooks/blob/master/palindrome.ipynb).
 
-## Summary:
+<h3>Summary</h3>
 
 ![palindrome notebook]({{ site.baseurl }}/assets/palindrome1.png)
 
