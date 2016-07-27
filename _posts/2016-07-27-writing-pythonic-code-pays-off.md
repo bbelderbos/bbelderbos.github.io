@@ -39,7 +39,7 @@ This is where the training video ended. I made two additions:
 
 One note on naming. Uncle Bob has a [great video on naming](https://cleancoders.com/episode/clean-code-episode-2/show). One subtle trick is to name boolean methods as is_, so is_palindrome makes you expect a boolean being returned. Which is useful as Python (unlike Java for example) does not force you to specify the return type. get_longest_palindrome clearly expresses the intent to retrieve one value, the longest palindrome. Naming is communication!
 
-## Conclusion:
+<h3>Conclusion:</h3>
 
 The initial code cannot be considered Pythonic, the final code can be in my opinion. 
 
