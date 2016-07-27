@@ -3,7 +3,7 @@ layout: post
 title: 10 cool Python tricks for more elegant code
 comments: True
 summary: I have been reading Python Cookbook 3rd ed. It is full of useful tips and tricks to write better Python code. In this post I share some things I have learned, some have become daily good practices making my code better.
-categories: [Coding]
+categories: [Python]
 tags: [Python, cookbook, tricks, idioms]
 image: python_tricks.png
 ---

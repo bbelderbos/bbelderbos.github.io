@@ -3,7 +3,7 @@ layout: post
 title: Writing tests in Python with unittest and mock
 comments: True
 summary: In this post I take an existing script and write unit tests for it. This was a good exercise to grasp some aspects of writing tests. It even led to catching a bug and doing a couple of refactorings. 
-categories: [Software Development]
+categories: [Python]
 tags: [test, tdd, unittest, Python, mock, twitterbot]
 image: unit_test_python.png
 ---
