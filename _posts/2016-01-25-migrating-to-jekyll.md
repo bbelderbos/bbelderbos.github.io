@@ -16,7 +16,7 @@ image: blog-jekyll-github.png
 
 Here are some links and notes from the migration I am doing from Wordpress to Jekyll: 
 
-1. get started: very [good post](http://joshualande.com/jekyll-github-pages-poole/) which starts with the poole base theme.
+1. get started: very [good post](http://joshualande.com/jekyll-github-pages-poole) which starts with the poole base theme.
 
 2. you need to install some dependencies and I needed to changes to _config.yml to get it running locally, see [here](https://github.com/poole/lanyon/issues/124)
 
