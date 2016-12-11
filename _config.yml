@@ -24,7 +24,7 @@ defaults:
     values:                                                                                                                                                              
       permalink: /:year/:month/:title/
 
-description: Data geek, programmer, avid student of life.
+description: I build useful apps and share my learning
 author:
   name: Bob Belderbos
   email: info@bobbelderbos.com
@@ -32,7 +32,7 @@ author:
   twitter: bbelderbos
   pinterest: bbelderbos
   linkedin: bbelderbos
-  bio: Data geek, programmer, avid student of life. 
+  bio: I build useful apps and share my learning
   email_md5: e1d159796a39ce2eafe4b40e9b8f9871
 
 rss_path: feed.xml
