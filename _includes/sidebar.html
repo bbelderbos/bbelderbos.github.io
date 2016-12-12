@@ -10,15 +10,12 @@
 
 {% if site.author.bio %}
 <div id="bio" class="text-center">
-	{{site.author.bio}} 
-  <div id="readmeDiv"><i class="fa fa-terminal"></i> <a href="{{ site.BASE_PATH }}/guide">README</a></div>
+
+  <p>{{site.author.bio}}</p>
+
   <ul id="sbLinks">
-    <li><i class="fa fa-info-circle"></i> <a href="{{ site.BASE_PATH }}/about">About</a></li>
+    <li><i class="fa fa-info-circle"></i> <a href="{{ site.BASE_PATH }}/guide">__init__</a></li>
 	  <li><i class="fa fa-archive"></i> <a href="{{ site.BASE_PATH }}/archive">Blog</a></li>
-      <li><i class="fa fa-briefcase"></i> <a href="{{ site.BASE_PATH}}/portfolio">Portfolio</a></li>
-    <br>
-	  <li><i class="fa fa-group"></i> <a href="{{ site.fbgroup }}" target="_blank">PyGroup</a></li>
-	  <li><i class="fa fa-book"></i> <a href="{{ site.BASE_PATH }}/books">Reading</a></li>
 	  <li><i class="fa fa-search"></i> <a href="{{ site.BASE_PATH }}/search">Search</a></li>
   </ul>
 </div>
@@ -28,42 +25,42 @@
 	<ul class="list-unstyled list-inline">
 		{% if site.author.twitter %}
 		<li>
-			<a class="btn btn-default btn-sm" href="https://twitter.com/{{ site.author.twitter }}">
+			<a class="btn btn-default btn-sm" href="https://twitter.com/{{ site.author.twitter }}" target="_blank">
 				<i class="fa fa-twitter fa-lg"></i>
 			</a>
 		</li>
 		{% endif %}
-		<li>
-			<a class="btn btn-default btn-sm" href="http://fb.me/bobcodesit">
-				<i class="fa fa-facebook fa-lg"></i>
-			</a>
-		</li>
 		{% if site.author.github %}
 		<li>
-			<a class="btn btn-default btn-sm" href="https://github.com/{{ site.author.github }}">
+			<a class="btn btn-default btn-sm" href="https://github.com/{{ site.author.github }}" target="_blank">
 				<i class="fa fa-github-alt fa-lg"></i>
 			</a>
 		</li>
 		{% endif %}
+		<li>
+			<a class="btn btn-default btn-sm" title="Python FB group" href="{{ site.fbgroup }}" target="_blank">
+				<i class="fa fa-users fa-lg"></i>
+			</a>
+		</li>
 	</ul>
 	<ul id="contact-list-secondary" class="list-unstyled list-inline">
 		<li>
-			<a class="btn btn-default btn-sm" title="Python FB group" href="https://www.facebook.com/groups/1305028816183522/">
-				<i class="fa fa-users fa-lg"></i>
+			<a class="btn btn-default btn-sm" href="{{ site.BASE_PATH }}/{{ site.rss_path }}" target="_blank">
+				<i class="fa fa-rss fa-lg"></i>
 			</a>
 		</li>
 		{% if site.author.linkedin %}
 		<li>
-			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/{{ site.author.linkedin }}">
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank">
 				<i class="fa fa-linkedin fa-lg"></i>
 			</a>
 		</li>
-		{% endif %}
 		<li>
-			<a class="btn btn-default btn-sm" href="{{ site.BASE_PATH }}/{{ site.rss_path }}">
-				<i class="fa fa-rss fa-lg"></i>
+			<a class="btn btn-default btn-sm" href="http://fb.me/bobcodesit" target="_blank">
+				<i class="fa fa-facebook fa-lg"></i>
 			</a>
 		</li>
+		{% endif %}
 	</ul>
 </div>
 <!-- sidebar.html end -->

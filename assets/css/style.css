@@ -41,8 +41,7 @@ a.nav-link i{
 a.nav-link:hover { color: #777 }
 
 #sbLinks {
-  padding: 0 0 10px 0;
-  margin-bottom: 10px;
+  padding: 10px 0 20px 0;
 }
 #sbLinks li {
   list-style: none;
@@ -50,14 +49,21 @@ a.nav-link:hover { color: #777 }
   margin: 0 5px;
 }
 #sbLinks li a {
-  color: #f2756a; 
+  color: #ccccf9; 
+  font-weight: bold;
 }
 #bio {
-	font-family: "Courier New", Courier, monospace;
-	font-size: 12px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
   font-weight: bold;
-	margin: 0 auto;
-	margin-bottom: 10px;
+  margin: 0 auto;
+}
+#bio p {
+  font-size: 16px;
+  font-weight: normal;
+  font-family: 'mrrobot', 'Ubuntu', sans-serif; 
+  padding: 10px 0;
+  word-spacing:5px;
 }
 
 #contact-list li .fa,
@@ -188,6 +194,7 @@ h4 {
 
 .featImg {
   float: right; 
+  padding-left: 10px;
 }
 article.home .excerpt {
   padding: 2px 15px 0 0 !important;
