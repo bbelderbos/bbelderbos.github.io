@@ -26,7 +26,8 @@ See the [archive](archive) for all my posts. I keep track of my reading [here](h
 
 * [Writing maintainable code](http://bobbelderbos.com/2016/03/building-maintainable-software/)
 * [How to grow as a programmer](http://bobbelderbos.com/2012/09/how-to-grow-craft-programming/)
-* Books: [The Pragmatic Programmer: From Journeyman to Master.](http://bobbelderbos.com/2011/02/great-book-about-software-engineering/), [Clean code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), [The passionate programmer](http://bobbelderbos.com/2011/04/advance-career-read-passionate-programmer/), and [Hackers and painters](http://bobbelderbos.com/2012/07/books-hackers-and-painters-ideas-computer-age/).
+* Books: [The Pragmatic Programmer](http://bobbelderbos.com/2011/02/great-book-about-software-engineering/), [Clean code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) and [Refactoring](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672)
+* Books II - inspiration: [The passionate programmer](http://bobbelderbos.com/2011/04/advance-career-read-passionate-programmer/), and [Hackers and painters](http://bobbelderbos.com/2012/07/books-hackers-and-painters-ideas-computer-age/)
 
 ---
 
@@ -44,7 +45,7 @@ See the [archive](archive) for all my posts. I keep track of my reading [here](h
 ### Writings / productivity
 
 * [Career development for programmers](http://bobbelderbos.com/2016/06/career-development-programmers/)
-* [How did I start programming](http://bobbelderbos.com/2016/02/fired-up-about-programming/)
+* [How I started programming](http://bobbelderbos.com/2016/02/fired-up-about-programming/)
 * [5 power habits](http://bobbelderbos.com/2016/02/power-habits/)
-* Books that helped me become more productive: [Deep work](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692), [The one thing](https://www.amazon.com/ONE-Thing-Surprisingly-Extraordinary-Results/dp/1885167776), [4HWW](https://www.amazon.com/4-Hour-Workweek-Escape-Live-Anywhere/dp/0307465357) and [The power of habit](https://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X)
+* I increased my productivity by reading: [Deep work](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692), [The one thing](https://www.amazon.com/ONE-Thing-Surprisingly-Extraordinary-Results/dp/1885167776), [4 Hour workweek](https://www.amazon.com/4-Hour-Workweek-Escape-Live-Anywhere/dp/0307465357) and [The power of habit](https://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X)
 
