@@ -25,6 +25,7 @@ defaults:
       permalink: /:year/:month/:title/
 
 description: I build useful apps and share my learning
+fbgroup: https://www.facebook.com/groups/1305028816183522
 author:
   name: Bob Belderbos
   email: info@bobbelderbos.com
