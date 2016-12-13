@@ -40,6 +40,18 @@ a.nav-link i{
 }
 a.nav-link:hover { color: #777 }
 
+#bio {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 auto;
+}
+#bio p {
+  font-size: 16px;
+  font-weight: normal;
+  padding: 10px 0;
+  word-spacing:5px;
+}
 #sbLinks {
   padding: 10px 0 20px 0;
 }
@@ -51,19 +63,6 @@ a.nav-link:hover { color: #777 }
 #sbLinks li a {
   color: #ccccf9; 
   font-weight: bold;
-}
-#bio {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0 auto;
-}
-#bio p {
-  font-size: 16px;
-  font-weight: normal;
-  font-family: 'mrrobot', 'Ubuntu', sans-serif; 
-  padding: 10px 0;
-  word-spacing:5px;
 }
 
 #contact-list li .fa,
