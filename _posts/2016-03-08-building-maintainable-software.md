@@ -3,7 +3,7 @@ layout: post
 title: 10 guidelines that will make you write more maintainable software
 comments: True
 summary: My review of the book "Building Maintainable Software" which presents ten guidelines to write quality software. Thanks Software Improvement Group (SIG) for teaching us how to "leave the campground cleaner than we found it".
-categories: [Software Development]
+categories: [Software Quality]
 tags: [coding, software, best practices, java, sig, development, maintainability, refactoring, guidelines]
 image: building_maint_sw.png
 ---
