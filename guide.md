@@ -53,7 +53,7 @@ See the [archive](archive) for all my posts. I keep track of my reading [here](h
 
 ### Apps / Projects / Tools
 
-* [Featured Image Creator](http://projects.bobbelderbos.com/featured_image/)
+* [Featured Image Creator](http://bobbelderbos.com/2016/12/featured-image-creator/)
 * [My first Android game](http://bobbelderbos.com/2015/04/my-first-android-game-free-monkey/)
 * Twitter bots: [newsafaribooks](https://twitter.com/newsafaribooks), [cine_tv_es](https://twitter.com/cine_tv_es), [quotes_on_design](https://twitter.com/quotes_ondesign)
 * [Fbreadinglist](http://fbreadinglist.com/), [Sharemovi.es](http://sharemovi.es/), [more web designs](http://bobbelderbos.com/portfolio)
