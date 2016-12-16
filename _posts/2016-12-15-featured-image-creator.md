@@ -36,6 +36,48 @@ This is mostly JS (jQuery) listening to form field changes and taking their chan
 
 ![pick your background]({{ site.baseurl }}/assets/feat_img_bg_theme.png)
 
+I use the [jQuery UI's autocomplete](https://jqueryui.com/autocomplete/) for this: 
+
+	function theme_autocomplete(){
+		$( "#bg1_url" ).autocomplete({
+			dataType: "json",
+			source: "files.php?theme=" + $("#collection option:selected").val(),
+			minLength: 0,
+			search: function(event, ui) {
+			$('.spinner').show();
+			},
+			open: function(event, ui) {
+			$('.spinner').hide();
+			},
+			select: function(event, ui) {
+			event.preventDefault();
+			$(this).val(ui.item.full);
+			$('#featImg').css({"background-image": "url("+ui.item.full+")" });
+			}
+		}).focus(function() { // show all upon focus of ac field
+			$(this).autocomplete('search', $(this).val())
+		}).data( "autocomplete" )._renderItem = function( ul, item ) {
+			var imghtml = '';
+			imghtml += "<a id="+item.full+">";
+			imghtml += "<img src='"+item.thumb+"'>";
+			imghtml += "</a>";
+			return $( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append(imghtml)
+			.appendTo(ul);
+		};
+	}
+	...
+	...
+
+	(function($){
+		// not most elegant, but need the auto-complete dynamically pick collection type
+		theme_autocomplete();                                                                                                                               
+		$('#collection').on('change', function(e) {
+			theme_autocomplete();
+		});
+	})(jQuery);
+
 Pick one and the canvas background updates instantly.
 
 So there is a good deal of CSS as well and some PHP to deal with the form handling and querying the theme background images. Saving the image was a bit of a challenge, but [html2canvas](https://html2canvas.hertzen.com/) made it much easier. For blocking the UI while processing (see next gif), I use [jQuery BlockUI](http://malsup.com/jquery/block/). 
