@@ -10,7 +10,7 @@ image: featured-image-creator.jpg
 
 <h3>Featured image creator</h3>
 
-I created the [Featured image creator](http://projects.bobbelderbos.com/featured_image) to automate featured image creation for my blog. You can of course use it for any image creation. I works by selecting a background theme (material design or bamboo, more themes to be added ...), select a title and font and optionally a second background image. Instead of the fixed themes you can put any image url in the two image fields. You can download and bookmark the image. Here is how it works:
+I created the [Featured image creator](http://projects.bobbelderbos.com/featured_image) to automate featured image creation for my blog. You can of course use it for any image creation. I works by selecting a background theme (material design or bamboo, more themes to be added ...), select a title and font and optionally a second background image. Instead of the fixed themes you can put any image url in the two image fields. You can save (download), bookmark and tweet the created image. Here is how it works:
 
 ![quick tour]({{ site.baseurl }}/assets/feat_img1.gif)
 
@@ -18,11 +18,11 @@ Featured image for this post:
 
 ![quick tour]({{ site.baseurl }}/assets/featured/featured-image-creator.jpg)
 
-Or lets match the font of the tool (Montez, cursive):
+OK lets change the BG and match the font of the tool's title at the top (Montez, cursive):
 
 ![quick tour]({{ site.baseurl }}/assets/featured/featured-image-creator_alt1.jpg)
 
-Or be a bit more creative add the tool's logo as a second background imge: 
+... or be a bit more creative add the tool's logo as a second background imge: 
 
 ![quick tour]({{ site.baseurl }}/assets/featured/featured-image-creator_alt2.jpg)
 
@@ -90,7 +90,7 @@ In that case the Save button does not automatically download the image, it creat
 
 See [this issue](https://github.com/niklasvh/html2canvas/issues/103) and [html2canvas FAQ](https://html2canvas.hertzen.com/faq.html).
 
-Here is a more complete exmample with an second background image:
+Here is a more complete example with an second background image:
 
 ![quick tour]({{ site.baseurl }}/assets/feat_img2.gif)
 
@@ -102,4 +102,4 @@ Consistent look on my blog's homepage:
 
 ![consistency]({{ site.baseurl }}/assets/feat_img_consistency.png)
 
-If you like this feel free to [try it out](http://projects.bobbelderbos.com/featured_image/) and let me know what you think ...
+If you like this feel free to [try it out](http://projects.bobbelderbos.com/featured_image/) and let me know what you think ... And use the Tweet button to share your creations on Twitter using hashtag #FeaturedImageCreator 
