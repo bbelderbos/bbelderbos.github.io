@@ -13,6 +13,8 @@ See the [archive](archive) for all my posts. I keep track of my reading [here](h
 
 ### Python
 
+__Update__: all new Python goes on [PyBites](http://pybit.es) now.
+
 * [Pythonic code](http://bobbelderbos.com/2016/07/writing-pythonic-code-pays-off/)
 * [Tips and tricks](http://bobbelderbos.com/2016/06/python-tips/)
 * [A code kata](http://bobbelderbos.com/2016/12/code-kata/)
