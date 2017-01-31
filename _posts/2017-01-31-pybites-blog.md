@@ -2,17 +2,17 @@
 layout: post
 title: Pybit.es - our new Python blog
 comments: True
-summary: The last 5-and-a-half weeks have been Python on steroids. Julian and myself launched a new blog where we share our Python learning. A post on my learning so far.
+summary: The last six weeks have been Python on steroids. Julian and myself launched a new blog where we share our Python learning. A post on my learning so far.
 categories: [Projects]
 tags: [Python, blog, pelican, codechallenges]
 image: pybites_blog.png
 ---
 
-The last 5-and-a-half weeks have been Python on steroids. [Julian]((http://techmoneykids.com)) and myself launched a new blog where we share our Python learning. A post on my learning so far.
+The last six weeks have been Python on steroids. [Julian]((http://techmoneykids.com)) and myself launched a new blog where we share our Python learning. A post on my learning so far.
 
 <h3>Enter PyBites</h3>
 
-On [PyBites](http://pybit.es) we do code challenges, publish tutorials and a weekly tweet digests of Python-related news. We have some good momentum going on and above all, we're learning and sharing a lot of Python this way.
+On [PyBites](http://pybit.es) we do code challenges, publish tutorials and a weekly tweet digests of Python-related news. We have great momentum, are constantly learning and use the blog to share our passion for Python.
 
 ![our labor of passion]({{ site.baseurl }}/assets/pybites_home.png)
 
@@ -26,11 +26,11 @@ On [PyBites](http://pybit.es) we do code challenges, publish tutorials and a wee
 
 * When you have to blog (explain) something you learn much more. Apart from the code challenges, I learned a lot from explaining [deque](http://pybit.es/collections-deque.html), [pep8](http://pybit.es/pep8.html), [itertools](http://pybit.es/itertools-examples.html), [oop](http://pybit.es/oop-primer.html) and [Python's data model](http://pybit.es/python-data-model.html).
 
-* This blog runs on Jekyll and I think static site generators are awesome. That's why we went with Pelican (Python!) for PyBites. We [learned a lot](http://pybit.es/install-me.html) in the process and managing content on Github as a team is really convenient.
+* bobbelderbos.com runs on Jekyll and I think static site generators are awesome. That's why we went with Pelican (Python!) for PyBites. We [learned a lot](http://pybit.es/install-me.html) in the process and managing content on Github as a team is really convenient.
 
 * Jupyter notebooks are a great learning tool. This week we found a [great plugin](https://github.com/danielfrg/pelican-ipynb) to embed them in our posts (examples [here](http://pybit.es/oop-primer.html) and [here](http://pybit.es/python-data-model.html)).
 
-* Maybe most important of all, we have a lot of fun in the process. PyBites has been a long time coming for us. The difference in our background and experience should make PyBites approachable to all. We hope you enjoy it as much as we do creating it.
+* Maybe most important of all, we have a lot of fun in the process. PyBites has been a long time coming for us. The difference in our background and experience should make PyBites approachable to all. We hope you enjoy it as much as we enjoy creating it.
 
 ---
 
