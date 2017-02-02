@@ -6,6 +6,7 @@ summary: The last six weeks have been Python on steroids. Julian and myself laun
 categories: [Projects]
 tags: [Python, blog, pelican, codechallenges]
 image: pybites_blog.png
+crosspost_to_medium: true
 ---
 
 The last six weeks have been Python on steroids. [Julian]((http://techmoneykids.com)) and myself launched a new blog where we share our Python learning. A post on my learning so far.
