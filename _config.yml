@@ -1,6 +1,6 @@
 # visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
-url:                 http://bobbelderbos.com
+url:                 https://bobbelderbos.com
 baseurl:             ""
 
 paginate: 10 # pagination based on number of posts
@@ -41,10 +41,10 @@ categories_path: categories.html
 tags_path: tags.html
 
 # set it as url of an image
-sidebar_background_image: http://bobbelderbos.com/assets/binary_wallpaper.jpg
+sidebar_background_image: https://bobbelderbos.com/assets/binary_wallpaper.jpg
 
 BASE_PATH:
-PYBITES: http://pybit.es
+PYBITES: https://pybit.es
 
 gems:
   - jekyll-paginate
