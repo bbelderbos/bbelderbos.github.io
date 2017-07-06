@@ -24,7 +24,7 @@ defaults:
     values:                                                                                                                                                              
       permalink: /:year/:month/:title/
 
-description: I build useful apps and share my learning
+description: Software developer, Pythonista, Data Geek, Student of Life.
 fbgroup: https://www.facebook.com/groups/1305028816183522
 author:
   name: Bob Belderbos
@@ -33,7 +33,7 @@ author:
   twitter: bbelderbos
   pinterest: bbelderbos
   linkedin: bbelderbos
-  bio: I build useful apps and share my learning
+  bio: Software developer, Pythonista, Data Geek, Student of Life. 
   email_md5: e1d159796a39ce2eafe4b40e9b8f9871
 
 rss_path: feed.xml
