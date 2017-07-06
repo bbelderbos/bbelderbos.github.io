@@ -3,11 +3,9 @@
   font-family: 'mrrobot';
   src: url('mrrobot.ttf');
 }
-
 body{
 	color: #2c3e50;
 }
-
 .sidebar {
 	position: fixed;
 	top: 0px;
@@ -15,7 +13,6 @@ body{
 	background-color: #2c3e50;
 	color: #fff;
 }
-
 .sidebar-header {
 	text-align: center;
 	margin-bottom: 10px;
@@ -24,12 +21,10 @@ body{
 	letter-spacing: 3px;
 	text-transform: uppercase;
 }
-
 .sidebar-header .title a{
 	text-decoration: none;
 	color: #fff;
 }
-
 a.nav-link {
 	padding-bottom: 5px;
 	padding-top: 7px;
@@ -39,7 +34,6 @@ a.nav-link i{
 	font-size: 16px;
 }
 a.nav-link:hover { color: #777 }
-
 #bio {
   font-family: 'Ubuntu', sans-serif;
   font-size: 14px;
@@ -64,7 +58,6 @@ a.nav-link:hover { color: #777 }
   color: #ccccf9; 
   font-weight: bold;
 }
-
 #contact-list li .fa,
 article .share .btn {
 	-o-transition:color .2s ease-out, background 1s ease-in;
@@ -98,31 +91,25 @@ article .share .gplus:hover {
 	color: #C13929;
 	border-color: #C13929;
 }
-
 #contact-list-secondary {
 	padding-bottom: 10px;
 }
-
 .page-header {
 	color: #e74c3c;
 	text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
 }
-
 article{
 	margin-bottom: 40px;
 }
-
 .article_body{
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
-
 .post-date {
 	text-transform: uppercase;
 	font-size: 14px;
 	letter-spacing: 3px;
 }
-
 article {
 	padding: 0 5% 0;
 }
@@ -132,11 +119,9 @@ article.home {
   border: 1px solid #f2f2f2;
   clear: both !important;
 }
-
 article.home div a, article.home pre a { color: #2c3e50; }
 article.home div a:hover, article.home pre a:hover { color: #2c3e50; text-decoration: none; }
 article img { max-width: 100%; }
-
 h1,h2,h3,h4,h5,h6 { font-family: 'Ubuntu', sans-serif; }
 article.home h1,
 article.home h2,
@@ -147,7 +132,6 @@ article.home h6 {
 	font-family: 'Ubuntu', sans-serif;
 	color: #f2756a;
 }
-
 /* overwrites headers for mr robot :) */
 h1, h2, h2 a {
   font-family: 'mrrobot', 'Ubuntu', sans-serif; 
@@ -174,7 +158,6 @@ h2 {
   letter-spacing: 0.05em;
   
 }
-
 article.home h1 a,
 article.home h2 a,
 article.home h3 a,
@@ -190,7 +173,6 @@ article.home h4 a:hover {
 h4 {
   padding-top: 15px; 
 }
-
 .featImg {
   float: right; 
   margin-left: 10px;
@@ -207,31 +189,25 @@ article.home h2 a {
   /* on home ubuntu headers look cleaner */
 	font-family: 'Ubuntu';
 }
-
 .author .author-image {
   float: left;
   margin-right: 20px;
 }
-
 .author-image {
   width: 80px; 
 }
-
 footer {
   clear: both;
 	padding-top: 15px;
 	font-family: 'Ubuntu';
 }
-
 /* nav-vertical-tabs component */
 .nav-tabs-vertical {
     border-right: 1px solid #ddd;
 }
-
 .nav-tabs-vertical li {
     margin-right: -1px;
 }
-
 .nav-tabs-vertical>li.active>a, .nav-tabs-vertical>li.active>a:hover, .nav-tabs-vertical>li.active>a:focus {
     color: #555;
     cursor: default;
@@ -239,15 +215,12 @@ footer {
     border: 1px solid #ddd;
     border-right-color: transparent;
 }
-
 .nav-tabs-vertical>li>a {
     line-height: 1.428571429;
     border: 1px solid transparent;
     border-radius: 4px 0 0 4px;
 }
-
 .badge { background: #F2756A; }
-
 #nav-menu{
     position: fixed;
     top: 45px;
@@ -258,16 +231,12 @@ footer {
     left: inherit;
     right: 0px;
 }
-
 ul.dropdown-menu>li>a>i.fa {
     width: 1.3em;
 }
-
-
 .gsc-search-button {
   display: none !important;
 }
-
 a.musicBtn .fa-music {
   color: #fff
   text-shadow: 1px 1px 1px #f2f2f2; 
@@ -297,7 +266,6 @@ a.musicBtn .fa-music {
   width: 100%;
   height: 100%;
 }
-
 #instantPreview {
   float: left;
   padding: 30px 30px 30px 0;
@@ -320,8 +288,6 @@ a.musicBtn .fa-music {
   padding: 5px 0;
   border-top: 1px solid #999;
 }
-
-
 #mc_embed_signup{
     clear:left;
     padding: 0px 20px;
@@ -344,7 +310,6 @@ a.musicBtn .fa-music {
 #mc_embed_signup .mc-field-group {
     min-height: 35px;
 }
-
 #mc-dark {
     padding: 0px;
 }
