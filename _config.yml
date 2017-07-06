@@ -49,4 +49,3 @@ PYBITES: https://pybit.es
 gems:
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-crosspost-to-medium

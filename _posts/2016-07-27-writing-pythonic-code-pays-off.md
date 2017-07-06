@@ -6,7 +6,6 @@ summary: In this post I will show you an example of non-Pythonic vs. Pythonic co
 categories: [Python]
 tags: [Python, tricks, idioms, Pythonic, cleancode]
 image: pythonic_code.png
-crosspost_to_medium: true
 ---
 
 <h3>Pythonic == easier to read / maintain</h3>

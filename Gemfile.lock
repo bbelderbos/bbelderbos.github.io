@@ -64,7 +64,6 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-coffeescript (1.0.1)
       coffee-script (~> 2.2)
-    jekyll-crosspost-to-medium (0.1.14)
     jekyll-feed (0.4.0)
     jekyll-gist (1.4.0)
       octokit (~> 4.2)
@@ -132,7 +131,6 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll
-  jekyll-crosspost-to-medium
   jekyll-paginate
   jekyll-sitemap
   pygments.rb

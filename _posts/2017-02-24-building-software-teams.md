@@ -6,7 +6,6 @@ summary: SIG published a new book that lays out ten best practices for facilitat
 categories: [Software Quality]
 tags: [sig, development, books, CI, testing, automation, documentation, version conrol, git, python]
 image: building-software-teams.jpg
-crosspost_to_medium: true
 ---
 
 > You Can’t Control What You Can’t Measure - Tom DeMarco

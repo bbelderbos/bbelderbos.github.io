@@ -6,7 +6,6 @@ summary: In this post I share 14 tips around career development that are helping
 categories: [Productivity]
 tags: [career, development, productivity, softskills, coding, programming, blog, blogging]
 image: career_development.png
-crosspost_to_medium: true
 ---
 
 > Success is a matter of choice, not chance ~ Deepak Mehra
