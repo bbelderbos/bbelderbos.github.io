@@ -37,12 +37,10 @@ a.nav-link:hover { color: #777 }
 #bio {
   font-family: 'Ubuntu', sans-serif;
   font-size: 14px;
-  font-weight: bold;
   margin: 0 auto;
 }
 #bio p {
   font-size: 16px;
-  font-weight: normal;
   padding: 10px 0;
   word-spacing:5px;
 }
