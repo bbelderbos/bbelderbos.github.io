@@ -13,7 +13,7 @@ I certified in Quality Software Developer (#QSDcert) via SIG / PEOPLECERT. [In t
 
 ### Quality Software Development Advanced Certificate
 
-I also obtained SIG's advanced certificate in Oct 2017. It covered building software teams following the goal, question, metric or GQM approach. The material included topics like version control, automated tests/deployment (CI), environments and working with third-party code. You can read more about it [here](https://bobbelderbos.com/2017/02/building-software-teams/).
+This is SIG's second certification which covers building software teams. It follows the goal, question, metric or GQM approach. The material includes topics like version control, automated tests/deployment (CI), environments and working with third-party code. You can read more about it [here](https://bobbelderbos.com/2017/02/building-software-teams/).
 
 ![Quality software advanced certificate]({{ site.url }}/assets/sig_quality_software_advanced_cert.jpeg)
 
