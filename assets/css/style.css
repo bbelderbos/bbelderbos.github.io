@@ -323,3 +323,23 @@ a.musicBtn .fa-music {
 	line-height: 0.75em;
 	padding: 6px 0 0 2px;
 }
+#ninjaWidget {
+  background: #fff;
+  max-width: 200px;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+#ninjaWidget img {
+  max-width: 170px;
+}
+hr.softDivider {
+  color: #eee;
+  background-color: #eee;
+  height: 1px;
+  border: none;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  opacity: 0.5;
+}
