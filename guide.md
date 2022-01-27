@@ -3,9 +3,9 @@ layout: page
 title: __init__
 ---
 
-I have been writing here about software and web development for the last {{ site.time | date: '%Y' | minus:2009 }} years. 
+I have been writing here about software and web development for the last {{ site.time | date: '%Y' | minus:2009 }} years.
 
-On this page some of my articles and projects, and a couple of books I found really useful. 
+On this page some of my articles and projects, and a couple of books I found really useful.
 
 See the [archive](archive) for all my posts. I keep track of my reading [here](http://bobbelderbos.com/books/).
 
@@ -42,7 +42,7 @@ __Update__: all new Python goes on [PyBites](http://pybit.es) now.
 
 * Software development best practices [part I](http://bobbelderbos.com/2012/06/best-practices-software-development-programming-techniques/), [part II](http://bobbelderbos.com/2012/07/best-practices-software-development-good-coding-methodologies/)
 * [Writing maintainable code](http://bobbelderbos.com/2016/03/building-maintainable-software/)
-* [Becoming a certified Quality Software Developer](http://bobbelderbos.com/2016/07/certified-software-quality/) 
+* [Becoming a certified Quality Software Developer](http://bobbelderbos.com/2016/07/certified-software-quality/)
 
 ---
 
@@ -58,7 +58,6 @@ __Update__: all new Python goes on [PyBites](http://pybit.es) now.
 * [Featured Image Creator](http://bobbelderbos.com/2016/12/featured-image-creator/)
 * [My first Android game](http://bobbelderbos.com/2015/04/my-first-android-game-free-monkey/)
 * Twitter bots: [newsafaribooks](https://twitter.com/newsafaribooks), [cine_tv_es](https://twitter.com/cine_tv_es), [quotes_on_design](https://twitter.com/quotes_ondesign)
-* [Fbreadinglist](http://fbreadinglist.com/), [Sharemovi.es](http://sharemovi.es/), [more web designs](http://bobbelderbos.com/portfolio)
 * [How to build your own movie site](http://bobbelderbos.com/2016/02/movie-site-in-minute-omdb-api-python/)
 * [Faster Vim](http://bobbelderbos.com/2012/09/5-tips-for-becoming-faster-in-vim/), [Practical Vim book](http://bobbelderbos.com/2012/10/book-review-practical-vim-edit-text-at-the-speed-of-thought/), [Stackoverflow in Vim](http://bobbelderbos.com/2013/01/search-copy-stackoverflow-data-in-vim-with-conque/)
 * [Git basics](http://bobbelderbos.com/2012/02/git-in-a-nutshell/), [Matering Git](http://bobbelderbos.com/2013/03/master-intermediate-git-operations/), [Git remote repo](http://bobbelderbos.com/2012/03/push-code-remote-web-server-git/)
