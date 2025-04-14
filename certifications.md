@@ -55,7 +55,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Save and manipulate data using Shared Preferences and SQLite databases.
 - Thread processes.
 - Create an application that implements multiple activities and can interact with a SQLite database.
-- [Course pdf](assets/ostdocs/AndroidDevelopment1.pdf)
 - End project: [Free Monkey](https://play.google.com/store/apps/details?id=com.bobbelderbos.freemonkey), a fun implementation of Hangman
 
 ***
@@ -69,7 +68,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Add interaction to programs using components and listeners.
 - Apply the Java API to draw graphics.
 - Demonstrate understanding of modularity, modifiers, permissions, scope, and inheritance.
-- [Course pdf](assets/ostdocs/Java1IntroductionandEclipseDevelopmentEnvironment.pdf)
 
 ***
 
@@ -83,7 +81,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Apply decision logic and operational precedence to Java code.
 - Implement multidimensional arrays, loops, and branching statements.
 - Trace code for better software quality.
-- [Course pdf](assets/ostdocs/Java2ProgrammingLanguage.pdf)
 
 ***
 
@@ -97,7 +94,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Enhance Java flexibility with enumeration, casting, interface extension, generics, and the collection framework.
 - Handle and map images.
 - Deploy applications using Eclipse and Java JAR files.
-- [Course pdf](assets/ostdocs/Java3ProgrammingFoundations.pdf)
 
 ***
 
@@ -111,7 +107,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Create and manipulate threads for concurrent programming.
 - Connect with databases using JDBC API factory design patterns and view controllers.
 - Document and tag code using Javadoc and API pages.
-- [Course pdf](assets/ostdocs/Java4ApplicationBuilding.pdf)
 
 ***
 
@@ -126,7 +121,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Develop effective JUnit test cases to validate the execution of these controllers.
 - Develop a testing framework that maximizes code coverage of JUnit test cases.
 - From the very first lab, you will be developing a client/server application, adding new features and functionality with each successive lab. You will learn by following the design and implementation of the application in the lab. Each quiz will validate that you learned the key information and the projects, performed at your pace, will describe useful extensions to the main development of the overall project.
-- [Course pdf](assets/ostdocs/Java5DistributedJavaApplications.pdf)
 
 ***
 
@@ -138,7 +132,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Analyze the performance of your algorithms.
 - Demonstrate mastery of core data structures, such as trees, graphs, maps, queues and dequeus.
 - Design complex data structures and algorithms based on these core data structures.
-- [Course pdf](assets/ostdocs/Java6DataStructuresandAlgorithms.pdf)
 
 ***
 
@@ -154,7 +147,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Define classes and instantiate objects using Python’s Class mechanism.
 - Handle exceptions and document code.
 - Build and debug an entire program written in Python.
-- [Course pdf](assets/ostdocs/Python1.pdf)
 
 ***
 
@@ -168,7 +160,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Design and implement relational databases using Python and SQL.
 - Create and send emails from Python programs.
 - Build a full-fledged Python database application.
-- [Course pdf](assets/ostdocs/Python2GettingMoreOutOfPython.pdf)
 
 ***
 
@@ -185,7 +176,6 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Exchange binary data with other languages and systems.
 - Configure user setups and log activity.
 - Calculate date and time.
-- [Course pdf](assets/ostdocs/Python3ThePythonEnvironment.pdf)
 
 ***
 
@@ -201,5 +191,4 @@ I obtained various programming certificates at the O'Reilly School of Technology
 - Manage arithmetic contexts and memory mapping.
 - Demonstrate understanding of the Python community, conferences, and job market.
 - Develop a multiprocessing solution to a significant data processing problem.
-- [Course pdf](assets/ostdocs/Python4AdvancedPython.pdf)
 - Not sure if this course, but you had to answer a Stackoverflow question, I did [this one](http://stackoverflow.com/questions/21591103/why-am-i-not-getting-the-correct-response/21591837#21591837)
